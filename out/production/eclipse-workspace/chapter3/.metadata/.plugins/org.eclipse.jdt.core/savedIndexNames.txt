@@ -1,0 +1,8 @@
+INDEX VERSION 1.131+C:\Users\Skorpion\eclipse-workspace\chapter3\.metadata\.plugins\org.eclipse.jdt.core
+2274413250.index
+1861447671.index
+2872044937.index
+513383288.index
+4036491860.index
+3113543997.index
+2851920424.index

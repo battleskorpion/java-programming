@@ -1,0 +1,196 @@
+package rand_color_output_test_1;
+
+import java.awt.*; 					// For adding/modifying certain qualities of JFrame/JPanel
+import javax.swing.*;    			// For JFrame and JPanel, and JOptionPane
+//import java.util.concurrent.*;
+
+public class RandomColorOutputRectCharTest1 {
+
+	public static void main(String[] args) {
+		double random = Math.random() * 255; 
+		double random2 = Math.random() * 255;
+		double random3 = Math.random() * 255;
+		char blockChar = 219; 
+		
+		JFrame random_window = new JFrame(); 
+		random_window.setTitle("COLORS"); 
+		random_window.setSize (777,777);
+		random_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		random_window.setVisible(true);
+		
+		JPanel panel1 = new JPanel(); 
+		JPanel panel2 = new JPanel(); 
+		JPanel panel3 = new JPanel(); 
+		JPanel panel4 = new JPanel(); 
+		JPanel panel5 = new JPanel(); 
+		JPanel panel6 = new JPanel(); 
+		JPanel panel7 = new JPanel(); 
+		JPanel panel8 = new JPanel(); 
+		JPanel panel9 = new JPanel(); 
+		JPanel panel10 = new JPanel(); 
+		JPanel panel11 = new JPanel(); 
+		JPanel panel12 = new JPanel(); 
+		JPanel panel13 = new JPanel(); 
+		JPanel panel14 = new JPanel(); 
+		JPanel panel15 = new JPanel(); 
+		JPanel panel16 = new JPanel(); 
+		JPanel panel17 = new JPanel(); 
+		JPanel panel18 = new JPanel(); 
+		JPanel panel19 = new JPanel();
+		JPanel panel20 = new JPanel(); 
+		JPanel panel21= new JPanel(); 
+		JPanel panel22 = new JPanel(); 
+		JPanel panel23 = new JPanel(); 
+		JPanel panel24 = new JPanel(); 
+		JPanel panel25 = new JPanel(); 
+		
+		Container pane1 = random_window.getContentPane(); 
+		// pane1.setLayout(new GridLayout (10, 10)); 
+		panel1.setBackground(Color.white);
+		pane1.add(panel1);
+		pane1.setLayout(new GridLayout (5, 5));
+		
+		for (int i = 0; i < 1000000; i++ ) { 
+			//panel1.setBackground(new Color( (int)random, (int)random2, (int)random3));
+			//for (int f = 0; f < 1000000; f++) { 
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel1.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel2.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel3.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel4.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel5.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel6.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel7.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel8.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel9.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel10.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel11.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel12.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel13.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel14.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel15.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel16.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel17.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel18.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel19.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel20.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel21.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel22.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel23.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel24.setBackground(new Color ((int)random, (int)random2, (int)random3));
+				random = (Math.random() * 255) ; 
+				random2 = (Math.random() * 255); 
+				random3 = (Math.random() * 255);
+				panel25.setBackground(new Color ((int)random, (int)random2, (int)random3));
+			//}
+			pane1.add(panel1);
+			pane1.add(panel2);
+			pane1.add(panel3);
+			pane1.add(panel4);
+			pane1.add(panel5);
+			pane1.add(panel6);
+			pane1.add(panel7);
+			pane1.add(panel8);
+			pane1.add(panel9);
+			pane1.add(panel10);
+			pane1.add(panel11);
+			pane1.add(panel12);
+			pane1.add(panel13);
+			pane1.add(panel14);
+			pane1.add(panel15);
+			pane1.add(panel16);
+			pane1.add(panel17);
+			pane1.add(panel18);
+			pane1.add(panel19);
+			pane1.add(panel20);
+			pane1.add(panel21);
+			pane1.add(panel22);
+			pane1.add(panel23);
+			pane1.add(panel24);
+			pane1.add(panel25);
+			
+			// testing 
+			//JOptionPane.showMessageDialog(null,random, " ", JOptionPane.PLAIN_MESSAGE);
+			
+			try {
+			    Thread.sleep(100);
+			} 
+			catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+			//pane1.remove(panel1);
+		}	
+	}
+
+}
