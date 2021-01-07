@@ -173,7 +173,8 @@ public class EuclideanGCD
 		/******************/
 		/* OUTPUT SECTION */
 		/******************/
-		JOptionPane.showMessageDialog(null,  "The greatest common divisor of " + n1 + " and " + n2 + " is " + gcd);
+		JOptionPane.showMessageDialog(null,  "The greatest common divisor of " + n1 + " and " + n2 + " is " 
+				+ gcd);
 	}
 	
 	
@@ -192,7 +193,8 @@ public class EuclideanGCD
 		/*****************/
 		/* INPUT SECTION */
 		/*****************/
-		runProgram = JOptionPane.showConfirmDialog(null, "Would you like to run the program again?", "t", JOptionPane.YES_NO_OPTION); 
+		runProgram = JOptionPane.showConfirmDialog(null, "Would you like to run the program again?", "t", 
+				JOptionPane.YES_NO_OPTION); 
 		// USER SELECTS YES: runProgram = 0
 		// USER SELECTS NO:  runProgram = 1
 		

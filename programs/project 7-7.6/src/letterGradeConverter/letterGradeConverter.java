@@ -6,8 +6,11 @@
 /* PROJECT 7-3 										*/
 /* THIS PROGRAM WILL CONVERT NUMERIC GRADES TO   	*/
 /* LETTER GRADES USING A SPECIFIC CONVERSION CHART	*/
-/****************************************************/ 
+/****************************************************/
 
+/******************/
+/* OUTPUT SECTION */
+/******************/
 package letterGradeConverter;
 
 /******************/
@@ -161,7 +164,7 @@ public class letterGradeConverter
 	/* 				  REQUIREMENTS   																	  */			
 	/* POSTCONDITION: PROMPTS USER FOR A VALUE MEETING REQUIREMENTS AND RETURNS THE VALUE ONCE IT MEETS   */
 	/*                REQUIREMENTS 									     								  */
-	/* 																									  */
+	/******************************************************************************************************/
 	/* op PARAMETER: SIGNIFIES WHETHER THE VALUE THE USER INPUTS HAS TO BE CHECKED TO BE LESS THAN 0 (<), */
 	/* LESS THAN OR EQUAL (<=), GREATER THAN (>), GREATER THAN OR EQUAL TO 0 (>=), OR NOT EQUAL TO 0 (!=) */
 	/******************************************************************************************************/
@@ -219,18 +222,10 @@ public class letterGradeConverter
 		// USER SELECTS YES: runProgram = 0
 		// USER SELECTS NO:  runProgram = 1
 		
-		/***********************************************/ 
-		/* IF STATEMENT TO RETURN EITHER TRUE OR FALSE */
-		/* DEPENDING ON VALUE OF runProgram	INPUT 	   */
-		/***********************************************/ 
-		if (runProgram == 0) 
-		{ 
-			return true; 
-			
-		}
-		else 
-		{
-			return false; 
-		}
+		/******************************************/
+		/* RETURN EITHER TRUE OR FALSE		      */
+		/* DEPENDING ON VALUE OF runProgram	INPUT */
+		/******************************************/
+		return runProgram == 0;
 	}
 }

@@ -209,7 +209,17 @@ public class sentenceInfo
 		NumberFormat nf = NumberFormat.getInstance(); 		// FOR FORMATTING NUMBERS IN OUTPUT
 		
 		nf.setMaximumFractionDigits(2); 		// NUMBERS FORMATTED WITH nf TO HAVE MAX OF 2 DECIMAL DIGITS
-	    
+
+		//// FOR LONG STRINGS THAT WOULD NOT FIT PROPERLY ON ONE LINE
+		//if (sntnc.length() >= 128) {
+		//	String temp = "";
+		//	for (int i = 128; i < sntnc.length(); i += 128) {
+		//		temp = sntnc.substring(i + 1, sntnc.length());
+		//		sntnc = sntnc.substring(0, i);
+		//		sntnc.concat("\n" + temp);
+		//	}
+		//}
+
 		JOptionPane.showMessageDialog(null, "Sentence: " + sntnc + "\n" + "Number of words: " + nmWrds 
 				+ "\n" + "Average word length: " + nf.format(avgWrdLngth)
 				+ "\n" + "Sentence Length"
@@ -250,15 +260,15 @@ public class sentenceInfo
 		/***********************************************/ 
 		/* IF STATEMENT TO RETURN EITHER TRUE OR FALSE */
 		/* DEPENDING ON VALUE OF runProgram	INPUT 	   */
-		/***********************************************/ 
-		if (runProgram == 0) 
-		{ 
-			return true; 
-			
-		}
-		else 
+		/***********************************************/
+		if (runProgram == 0)
 		{
-			return false; 
+			return true;
+
+		}
+		else
+		{
+			return false;
 		}
 	}
 }
