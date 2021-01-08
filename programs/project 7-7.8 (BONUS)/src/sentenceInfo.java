@@ -1,6 +1,3 @@
-package src;
-
-
 import java.text.NumberFormat;
 import javax.swing.*;
 
