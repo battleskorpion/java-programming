@@ -7,9 +7,10 @@
     <fullyQualifiedTypeName name="com.sun.tools.javac.code.Type.ForAll"/>
     <fullyQualifiedTypeName name="sun.jvmstat.monitor.Variability"/>
     <fullyQualifiedTypeName name="java.lang.Math"/>
-    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
     <fullyQualifiedTypeName name="java.text.NumberFormat"/>
     <fullyQualifiedTypeName name="blackjakc.Deck"/>
     <fullyQualifiedTypeName name="java.awt.Container"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="program_9.FractionsTest"/>
 </qualifiedTypeNameHistroy>
