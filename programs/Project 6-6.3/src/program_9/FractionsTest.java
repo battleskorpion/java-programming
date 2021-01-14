@@ -1,3 +1,16 @@
+/****************************************************/ 
+/* INFORMATION SECTION 								*/
+/* DARIAN SIEMBAB 									*/
+/* NOVEMBER 16, 2020								*/
+/* PROGRAM 8										*/
+/* PROJECT 7-3 										*/
+/* THIS PROGRAM WILL CONVERT NUMERIC GRADES TO   	*/
+/* LETTER GRADES USING A SPECIFIC CONVERSION CHART	*/
+/****************************************************/
+
+/******************/
+/* IMPORT SECTION */
+/******************/
 package program_9;
 
 import javax.swing.JOptionPane;
@@ -9,8 +22,8 @@ public class FractionsTest {
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		Fraction f1;   // FIRST FRACTION, VALUE SET BY USER
-		Fraction f2;   // SECOND FRACTION, VALUE SET BY USER
+		Fraction f1;   			// FIRST FRACTION, VALUE SET BY USER
+		Fraction f2;   			// SECOND FRACTION, VALUE SET BY USER
 		Fraction fAdd;			// f1 + f2
 		Fraction fSubtract;     // f1 - f2
 		Fraction fMultiply;		// f1 * f2

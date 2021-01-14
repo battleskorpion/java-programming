@@ -1,12 +1,31 @@
+/****************************************************/ 
+/* INFORMATION SECTION 								*/
+/* DARIAN SIEMBAB 									*/
+/* NOVEMBER 16, 2020								*/
+/* PROGRAM 8										*/
+/* PROJECT 7-3 										*/
+/* THIS PROGRAM WILL CONVERT NUMERIC GRADES TO   	*/
+/* LETTER GRADES USING A SPECIFIC CONVERSION CHART	*/
+/****************************************************/
+
+/******************/
+/* IMPORT SECTION */
+/******************/
 package program_9;
 
 import javax.swing.JOptionPane;
 
 public class Fraction 
 {
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
 	private int numerator; 
 	private int denominator; 
 	
+	/****************/
+	/* CONSTRUCTORS */
+	/****************/
 	public Fraction () 
 	{
 		this (1, 1); 
@@ -24,37 +43,62 @@ public class Fraction
 	}
 	
 	public Fraction(Fraction frctn) 
+	// COPY CONSTRUCTOR 
 	{
 		this(frctn.getNumerator(), frctn.getDenominator()); 
 	}
 	
 	public void setNumerator(int nmtr) 
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{
 		numerator = nmtr; 
 	}
 	
 	public void setDenominator(int dnmtr) 
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{
 		denominator = dnmtr; 
 	}
 	
-	public void setFraction (int nmtr, int dnmtr) 
+	public void setFraction (int nmtr, int dnmtr)
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{
 		numerator = nmtr; 
 		denominator = dnmtr;
 	}
 	
 	public int getNumerator() 
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{
 		return numerator; 
 	}
 	
 	public int getDenominator() 
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{
 		return denominator; 
 	}
 	
 	public String toString() 
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{
 		if (denominator == 1) 
 		{
@@ -70,6 +114,10 @@ public class Fraction
 	}
 	
 	public Fraction add(Fraction f) 
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{ 
 		Fraction result = new Fraction(); 
 		
@@ -85,6 +133,10 @@ public class Fraction
 	}
 	
 	public Fraction subtract(Fraction f) 
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{
 		Fraction result = new Fraction(); 
 		
@@ -100,6 +152,10 @@ public class Fraction
 	} 
 	
 	public Fraction multiply(Fraction f) 
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{
 		Fraction result = new Fraction(); 
 		
@@ -114,6 +170,10 @@ public class Fraction
 	}
 	
 	public Fraction divide(Fraction f) 
+	/******************************************************************************************************/
+	/* PRECONDITION:   *					  
+	/* POSTCONDITION:  */
+	/******************************************************************************************************/
 	{
 		Fraction result = new Fraction(); 
 		
@@ -266,9 +326,14 @@ public class Fraction
 		int gcd = calculateGCD(+numerator, +denominator); 
 		System.out.println(gcd);  
 		
-		if (gcd > 1) {
+		if (gcd != 0) {
 			numerator /= gcd; 
 			denominator /= gcd; 
+		}
+		
+		if (denominator < 0) {
+			numerator *= -1;
+			denominator *= -1; 
 		}
 	}
 }

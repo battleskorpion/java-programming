@@ -8,9 +8,9 @@
 /* LETTER GRADES USING A SPECIFIC CONVERSION CHART	*/
 /****************************************************/
 
-/******************/
-/* OUTPUT SECTION */
-/******************/
+/*******************/
+/* PACKAGE SECTION */
+/*******************/
 package letterGradeConverter;
 
 /******************/
