@@ -1,11 +1,11 @@
 /****************************************************/ 
 /* INFORMATION SECTION 								*/
 /* DARIAN SIEMBAB 									*/
-/* NOVEMBER 16, 2020								*/
-/* PROGRAM 8										*/
+/* JANUARY 11, 2021									*/
+/* PROGRAM 9										*/
 /* PROJECT 7-3 										*/
-/* THIS PROGRAM WILL CONVERT NUMERIC GRADES TO   	*/
-/* LETTER GRADES USING A SPECIFIC CONVERSION CHART	*/
+/* THIS PROGRAM WILL   	*/
+/* 	*/
 /****************************************************/
 
 /******************/
