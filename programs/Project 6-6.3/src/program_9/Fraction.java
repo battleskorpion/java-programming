@@ -2,10 +2,9 @@
 /* INFORMATION SECTION 								*/
 /* DARIAN SIEMBAB 									*/
 /* JANUARY 11, 2021									*/
-/* PROGRAM 9 - Fraction.java class					*/
+/* PROGRAM 9										*/
 /* PROJECT 7-3 										*/
-/*    	*/
-/* 	*/
+/* CLASS Fraction.java  							*/
 /****************************************************/
 
 /******************/
@@ -20,103 +19,55 @@ public class Fraction
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/
+	private int denominator;
 	private int numerator; 
-	private int denominator; 
-	
+	 
 	/****************/
 	/* CONSTRUCTORS */
 	/****************/
+	
 	public Fraction () 
+	/***********************/
+	/* DEFAULT CONSTRUCTOR */
+	/***********************/
 	{
 		this (1, 1); 
 	}
 	
 	public Fraction (int nmtr, int dnmtr) 
+	/****************************/
+	/* INITIALIZING CONSTRUCTOR */
+	/****************************/
 	{ 
 		numerator = nmtr; 
 		denominator = dnmtr; 
 	}
 	
-	public Fraction (int dnmtr) 
+	public Fraction (int nmtr) 
+	/****************************/
+	/* INITIALIZING CONSTRUCTOR */
+	/****************************/
 	{
-		this (0, dnmtr); 
+		this (nmtr, 1); 
 	}
 	
-	public Fraction(Fraction frctn) 
-	// COPY CONSTRUCTOR 
+	public Fraction(Fraction frctn)
+	/********************/
+	/* COPY CONSTRUCTOR */
+	/********************/
 	{
 		this(frctn.getNumerator(), frctn.getDenominator()); 
 	}
 	
-	public void setNumerator(int nmtr) 
 	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
+	/*											 METHOD SECTION 										  */
 	/******************************************************************************************************/
-	{
-		numerator = nmtr; 
-	}
-	
-	public void setDenominator(int dnmtr) 
-	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
-	/******************************************************************************************************/
-	{
-		denominator = dnmtr; 
-	}
-	
-	public void setFraction (int nmtr, int dnmtr)
-	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
-	/******************************************************************************************************/
-	{
-		numerator = nmtr; 
-		denominator = dnmtr;
-	}
-	
-	public int getNumerator() 
-	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
-	/******************************************************************************************************/
-	{
-		return numerator; 
-	}
-	
-	public int getDenominator() 
-	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
-	/******************************************************************************************************/
-	{
-		return denominator; 
-	}
-	
-	public String toString() 
-	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
-	/******************************************************************************************************/
-	{
-		if (denominator == 1) 
-		{
-			return numerator + ""; 
-		}
-		else if (numerator == 0) {
-			return "0"; 
-		}
-		else 
-		{
-			return numerator + "/" + denominator;
-		}
-	}
 	
 	public Fraction add(Fraction f) 
 	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
+	/* PRECONDITION:  FRACTION OBJECT f NEEDS TO BE ADDED TO THIS FRACTION OBJECT	 					  */					  
+	/* POSTCONDITION: CALCULATES THE ADDITION OF f TO THIS FRACTION, 							  		  */
+	/* 				  SIMPLIFIES AND RETURNS THE RESULTING FRACTION 									  */
 	/******************************************************************************************************/
 	{ 
 		Fraction result = new Fraction(); 
@@ -128,61 +79,6 @@ public class Fraction
 		
 		result.setNumerator((n1 * d2) + (n2 * d1));
 		result.setDenominator(d1 * d2); 
-		result.simplify(); 
-		return result; 
-	}
-	
-	public Fraction subtract(Fraction f) 
-	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
-	/******************************************************************************************************/
-	{
-		Fraction result = new Fraction(); 
-		
-		int n1 = numerator; 
-		int d1 = denominator; 
-		int n2 = f.getNumerator(); 
-		int d2 = f.getDenominator(); 
-		
-		result.setNumerator((n1 * d2) - (n2 * d1));
-		result.setDenominator(d1 * d2); 
-		result.simplify(); 
-		return result; 
-	} 
-	
-	public Fraction multiply(Fraction f) 
-	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
-	/******************************************************************************************************/
-	{
-		Fraction result = new Fraction(); 
-		
-		int n1 = numerator; 
-		int d1 = denominator; 
-		int n2 = f.getNumerator(); 
-		int d2 = f.getDenominator(); 
-		
-		result.setFraction(n1 * n2, d1 * d2); 
-		result.simplify(); 
-		return result; 
-	}
-	
-	public Fraction divide(Fraction f) 
-	/******************************************************************************************************/
-	/* PRECONDITION:   */					  
-	/* POSTCONDITION:  */
-	/******************************************************************************************************/
-	{
-		Fraction result = new Fraction(); 
-		
-		int n1 = numerator; 
-		int d1 = denominator; 
-		int n2 = f.getNumerator(); 
-		int d2 = f.getDenominator(); 
-		
-		result.setFraction(n1 * d2, d1 * n2);
 		result.simplify(); 
 		return result; 
 	}
@@ -235,6 +131,43 @@ public class Fraction
 		return larger; 
 	}
 	
+	public Fraction divide(Fraction f) 
+	/******************************************************************************************************/
+	/* PRECONDITION:  THIS FRACTION OBJECT NEEDS TO BE DIVIDED BY FRACTION OBJECT f 					  */					  
+	/* POSTCONDITION: CALCULATES THE DIVISION OF THIS FRACTION BY f, 							  		  */
+	/* 				  SIMPLIFIES AND RETURNS THE RESULTING FRACTION 									  */
+	/******************************************************************************************************/
+	{
+		Fraction result = new Fraction(); 
+		
+		int n1 = numerator; 
+		int d1 = denominator; 
+		int n2 = f.getNumerator(); 
+		int d2 = f.getDenominator(); 
+		
+		result.setFraction(n1 * d2, d1 * n2);
+		result.simplify(); 
+		return result; 
+	}
+	
+	public int getDenominator() 
+	/******************************************************************************************************/
+	/* PRECONDITION:  THE VALUE OF THIS FRACTION OBJECT'S DENOMINATOR IS REQUIRED						  */					  
+	/* POSTCONDITION: RETURNS THIS FRACTION OBJECT'S DENOMINATOR 										  */	
+	/******************************************************************************************************/
+	{
+		return denominator; 
+	}
+	
+	public int getNumerator() 
+	/******************************************************************************************************/
+	/* PRECONDITION:  THE VALUE OF THIS FRACTION OBJECT'S NUMERATOR IS REQUIRED 						  */					  
+	/* POSTCONDITION: RETURNS THIS FRACTION OBJECT'S NUMERATOR 											  */
+	/******************************************************************************************************/
+	{
+		return numerator; 
+	}
+	
 	static public Fraction inputFraction() 
 	/******************************************************************************************************/
 	/* PRECONDITION: A NEW FRACTION NEEDS TO BE INITIALIZED BASED ON USER INPUT							  */					  
@@ -247,8 +180,8 @@ public class Fraction
 		int dnmtr; 		// DENOMINATOR
 		Fraction f; 	// FRACTION
 		int nmtr; 		// NUMERATOR
-		String prompt1 = "Input the numerator of the fraction, must be an integer: "; 
-		String prompt2 = "Input the denominator of the fraction, must be an integer: "; 
+		String prompt1 = "Enter the numerator of the fraction, must be an integer: "; 
+		String prompt2 = "Enter the denominator of the fraction, must be an integer: "; 
 		
 		/*****************/
 		/* INPUT SECTION */
@@ -281,13 +214,14 @@ public class Fraction
 		Fraction f; 	// FRACTION
 		int nmtr; 		// NUMERATOR
 		String prompt1 = "Input the numerator of the " + inpt_nm + " fraction, must be an integer: "; 
-		String prompt2 = "Input the denominator of the " + inpt_nm + " fraction, must be an integer: "; 
+		String prompt2 = "Input the denominator of the " + inpt_nm + " fraction, must be an integer and != 0: "; 
+		String error_prompt2 = "Denominator can not be 0!"; 
 		
 		/*****************/
 		/* INPUT SECTION */
 		/*****************/
 		nmtr = inputInt(prompt1); 
-		dnmtr = inputInt(prompt2); 
+		dnmtr = inputInt(prompt2, error_prompt2, "!="); 
 		
 		/***********************/
 		/* CALCULATION SECTION */
@@ -298,7 +232,7 @@ public class Fraction
 		
 	}
 	
-	static private int inputInt(String prmpt)
+	static int inputInt(String prmpt)
 	/******************************************************************************************************/
 	/* PRECONDITION: NUMERICAL INPUT OF AN INTEGER IS REQUIRED    										  */
 	/* POSTCONDITION: THE VALUE INPUTTED BY THE USER IS RETURNED 				  						  */
@@ -307,7 +241,7 @@ public class Fraction
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		int val; // VALUE INPUTTED BY USER
+		int val; 	// VALUE INPUTTED BY USER
 
 		/****************/
 		/* INPUT NUMBER */
@@ -317,14 +251,102 @@ public class Fraction
 		return val;
 	}
 	
+	static int inputInt(String prmpt, String err_prmpt, String op)
+	/******************************************************************************************************/
+	/* PRECONDITION: NUMERICAL INPUT OF AN INTEGER IS REQUIRED    										  */
+	/* POSTCONDITION: THE VALUE INPUTTED BY THE USER IS RETURNED WHEN IT IS CORRECT						  */
+	/* 																									  */
+	/* op PARAMETER: SIGNIFIES WHETHER THE VALUE THE USER INPUTS HAS TO BE CHECKED TO BE LESS THAN 0 (<), */
+	/* LESS THAN OR EQUAL (<=), GREATER THAN (>), GREATER THAN OR EQUAL TO 0 (>=), OR NOT EQUAL TO 0 (!=) */
+	/******************************************************************************************************/
+	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		int val; 		// VALUE INPUTTED BY USER
+
+		/****************/
+		/* INPUT NUMBER */
+		/****************/
+		
+		/********************************************/
+		/* LOOP IN CASE INPUTTED NUMBER IS IMPROPER */
+		/********************************************/
+		do 
+		{
+			val = Integer.parseInt(JOptionPane.showInputDialog(prmpt));
+
+			/************************************************/
+			/* ERROR MESSAGE IF NUMBER INPUTTED IS IMPROPER */
+			/************************************************/
+			if ((val < 0 && op.equals(">=")) || (val <= 0 && op.equals(">")) || (val > 0 && op.equals("<="))
+					|| (val >= 0 && op.equals("<")) || (val == 0 && op.equals("!="))) 
+			{
+				JOptionPane.showMessageDialog(null, err_prmpt, "ERROR!", JOptionPane.ERROR_MESSAGE);
+			}
+		} 
+		while ((val < 0 && op.equals(">=")) || (val <= 0 && op.equals(">")) || (val > 0 && op.equals("<="))
+				|| (val >= 0 && op.equals("<")) || (val == 0 && op.equals("!=")));
+		
+		return val;
+	}
+	
+	public Fraction multiply(Fraction f) 
+	/******************************************************************************************************/
+	/* PRECONDITION:  THIS FRACTION OBJECT NEEDS TO BE MULTIPLIED BY FRACTION OBJECT f 					  */					  
+	/* POSTCONDITION: CALCULATES THE MULTIPLICATION OF THIS FRACTION BY f, 							  	  */
+	/* 				  SIMPLIFIES AND RETURNS THE RESULTING FRACTION 									  */
+	/******************************************************************************************************/
+	{
+		Fraction result = new Fraction(); 
+		
+		int n1 = numerator; 
+		int d1 = denominator; 
+		int n2 = f.getNumerator(); 
+		int d2 = f.getDenominator(); 
+		
+		result.setFraction(n1 * n2, d1 * d2); 
+		result.simplify(); 
+		return result; 
+	}
+	
+	public void setDenominator(int dnmtr) 
+	/******************************************************************************************************/
+	/* PRECONDITION:  denominator OF THIS FRACTION OBJECT NEEDS TO BE SET TO A NEW VALUE 				  */					  
+	/* POSTCONDITION: SETS denominator TO dnmtr (NEW DENOMINATOR VALUE) 								  */
+	/******************************************************************************************************/
+	{
+		denominator = dnmtr; 
+	}
+	
+	public void setFraction (int nmtr, int dnmtr)
+	/******************************************************************************************************/
+	/* PRECONDITION:  BOTH THE numerator AND denominator OF THIS FRACTION OBJECT NEEDS TO BE SET TO NEW   */
+	/* 				  VALUES 																			  */					  
+	/* POSTCONDITION: SETS numerator TO nmtr (NEW NUMERATOR VALUE) 										  */
+	/* 	              and denominator TO dnmtr (NEW DENOMINATOR VALUE) 									  */
+	/******************************************************************************************************/
+	{
+		numerator = nmtr; 
+		denominator = dnmtr;
+	}
+	
+	public void setNumerator(int nmtr) 
+	/******************************************************************************************************/
+	/* PRECONDITION:  numerator OF THIS FRACTION OBJECT NEEDS TO BE SET TO A NEW VALUE  			      */					  
+	/* POSTCONDITION: SETS numerator TO nmtr (NEW NUMERATOR VALUE) 										  */
+	/******************************************************************************************************/
+	{
+		numerator = nmtr; 
+	}
+	
 	public void simplify() 
 	/******************************************************************************************************/
-	/* PRECONDITION:   *					  
-	/* POSTCONDITION:  */
+	/* PRECONDITION:  THIS FRACTION OBJECT MAY NEED TO BE SIMPLIFIED 									  */					  
+	/* POSTCONDITION: SIMPLIFIES THE FRACTION IF POSSIBLE (AND/OR SIMPLIFIES SIGN IF BOTH ARE NEGATIVE)   */
 	/******************************************************************************************************/
 	{
 		int gcd = calculateGCD(+numerator, +denominator); 
-		System.out.println(gcd);  
 		
 		if (gcd != 0) {
 			numerator /= gcd; 
@@ -334,6 +356,50 @@ public class Fraction
 		if (denominator < 0) {
 			numerator *= -1;
 			denominator *= -1; 
+		}
+	}
+	
+	public Fraction subtract(Fraction f) 
+	/******************************************************************************************************/
+	/* PRECONDITION:  FRACTION OBJECT f NEEDS TO BE SUBTRACTED FROM THIS FRACTION OBJECT 				  */					  
+	/* POSTCONDITION: CALCULATES THE SUBTRACTION OF f FROM THIS FRACTION, 							  	  */
+	/* 				  SIMPLIFIES AND RETURNS THE RESULTING FRACTION 									  */
+	/******************************************************************************************************/
+	{
+		Fraction result = new Fraction(); 
+		
+		int n1 = numerator; 
+		int d1 = denominator; 
+		int n2 = f.getNumerator(); 
+		int d2 = f.getDenominator(); 
+		
+		result.setNumerator((n1 * d2) - (n2 * d1));
+		result.setDenominator(d1 * d2); 
+		result.simplify(); 
+		return result; 
+	}
+	
+	public String toString() 
+	/******************************************************************************************************/
+	/* PRECONDITION:  THIS FRACTION CLASS INSTANCE NEEDS TO BE REPRESENTED BY A STRING 					  */					  
+	/* POSTCONDITION: RETURNS A SIMPLIFIED STRING REPRESENTATION OF THE FRACTION						  */ 
+	/* 				  THE CLASS INSTANCE IS STORING        												  */
+	/******************************************************************************************************/
+	{
+		if (denominator == 0) 
+		{
+			return "DIVIDE BY 0 ERROR"; 
+		}
+		else if (denominator == 1) 
+		{
+			return numerator + ""; 
+		}
+		else if (numerator == 0) {
+			return "0"; 
+		}
+		else 
+		{
+			return numerator + "/" + denominator;
 		}
 	}
 }

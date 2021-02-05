@@ -181,10 +181,10 @@ public class sentenceInfo
 		// if no words return 0 
 		if (nmWrds == 0) 	 
 		{
-			return 0; 	// there is no words, so average word length is also 0
+			return 0; 						// there is no words, so average word length is also 0
 		}
 		
-		int totalChars = 0; 					// total number of non-space characters
+		int totalChars = 0; 				// total number of non-space characters
 		
 		for (int i = 0; i < tempString.length(); i++)
 		{
@@ -194,7 +194,7 @@ public class sentenceInfo
 			}
 		}
 		
-		return totalChars; 	// redundant return
+		return totalChars; 					// redundant return
 	}
 	
 	static void displaySentenceInfo(String sntnc, int nmWrds, double avgWrdLngth, int sntncLngth)
@@ -204,15 +204,16 @@ public class sentenceInfo
 	/******************************************************************************************************/
 	{
 		NumberFormat nf = NumberFormat.getInstance(); 		// FOR FORMATTING NUMBERS IN OUTPUT
+		int length = sntnc.length(); 
 		
 		nf.setMaximumFractionDigits(2); 		// NUMBERS FORMATTED WITH nf TO HAVE MAX OF 2 DECIMAL DIGITS
 
-		//// FOR LONG STRINGS THAT WOULD NOT FIT PROPERLY ON ONE LINE
+		// FOR LONG STRINGS THAT WOULD NOT FIT PROPERLY ON ONE LINE
 		//if (sntnc.length() >= 128) {
-		//	String temp = "";
-		//	for (int i = 128; i < sntnc.length(); i += 128) {
-		//		temp = sntnc.substring(i + 1, sntnc.length());
-		//		sntnc = sntnc.substring(0, i);
+		//	String temp;
+		//	for (int i = 128; i < sntnc.length(); i += 130) {
+		//		temp = sntnc.substring(i, sntnc.length());
+		//		sntnc = sntnc.substring(i - 128, i);
 		//		sntnc.concat("\n" + temp);
 		//	}
 		//}
@@ -221,7 +222,7 @@ public class sentenceInfo
 				+ "\n" + "Average word length: " + nf.format(avgWrdLngth)
 				+ "\n" + "Sentence Length"
 				+ "\n" + "    " + "Not incl. whitespace: " + sntncLngth
-				+ "\n" + "    " + "Incl. whitespace: " + sntnc.length()
+				+ "\n" + "    " + "Incl. whitespace: " + length
 				,"Sentence Data", JOptionPane.PLAIN_MESSAGE); 
 	}
 	

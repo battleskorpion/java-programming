@@ -9,11 +9,9 @@
     <fullyQualifiedTypeName name="java.text.NumberFormat"/>
     <fullyQualifiedTypeName name="blackjakc.Deck"/>
     <fullyQualifiedTypeName name="java.awt.Container"/>
-    <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
     <fullyQualifiedTypeName name="program_9.FractionsTest"/>
     <fullyQualifiedTypeName name="java.lang.Character"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="java.awt.List"/>
     <fullyQualifiedTypeName name="java.nio.file.Paths"/>
     <fullyQualifiedTypeName name="java.util.List"/>
@@ -26,7 +24,13 @@
     <fullyQualifiedTypeName name="java.awt.Image"/>
     <fullyQualifiedTypeName name="javax.imageio.plugins.bmp.BMPImageWriteParam"/>
     <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
-    <fullyQualifiedTypeName name="java.io.File"/>
     <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="java.io.FileWriter"/>
+    <fullyQualifiedTypeName name="com.sun.org.apache.xerces.internal.impl.xs.identity.Selector.Matcher"/>
+    <fullyQualifiedTypeName name="java.util.regex.Matcher"/>
 </qualifiedTypeNameHistroy>

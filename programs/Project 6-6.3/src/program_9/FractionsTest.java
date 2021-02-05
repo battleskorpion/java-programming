@@ -4,8 +4,9 @@
 /* JANUARY 11, 2021									*/
 /* PROGRAM 9										*/
 /* PROJECT 7-3 										*/
-/* THIS PROGRAM WILL   	*/
-/* 	*/
+/* THIS PROGRAM WILL ADD, SUBTRACT, MULTIPLY, AND  	*/
+/* DIVIDE TWO USER-INPUTTED FRACTIONS, 				*/
+/* AND DISPLAY THE RESULTS.			 				*/
 /****************************************************/
 
 /******************/
@@ -15,9 +16,11 @@ package program_9;
 
 import javax.swing.JOptionPane;
 
-public class FractionsTest {
+public class FractionsTest 
+{
 	
-	public static void main(String args[]) { 
+	public static void main(String args[]) 
+	{ 
 		
 		/********************/
 		/* VARIABLE SECTION */
@@ -25,19 +28,22 @@ public class FractionsTest {
 		Fraction f1;   			// FIRST FRACTION, VALUE SET BY USER
 		Fraction f2;   			// SECOND FRACTION, VALUE SET BY USER
 		Fraction fAdd;			// f1 + f2
-		Fraction fSubtract;     // f1 - f2
+		Fraction fDivide;       // f1 / f2
 		Fraction fMultiply;		// f1 * f2
-		Fraction fDivide;       // f1 % f2
+		Fraction fSubtract;     // f1 - f2
 		
 		/****************************/
 		/* USER DESCRIPTION SECTION */
 		/****************************/
+		JOptionPane.showMessageDialog(null, "This program will add, subtract, multiply, and divide "
+				+ "\n" + "two fractions entered by the user, and display the results.");
 		
 		/**************************/
 		/* RUN PROGRAM AGAIN LOOP */
 		/**************************/
-		do {
-		
+		do 
+		{
+			
 			/*****************/
 			/* INPUT SECTION */
 			/*****************/
@@ -76,6 +82,7 @@ public class FractionsTest {
 			/* METHOD TO DISPLAY FRACTION CALCULATIONS */
 			/*******************************************/
 			displayFractionResults(f1, f2, fAdd, fSubtract, fMultiply, fDivide); 
+			
 		}
 		while (runProgramPrompt() == true); 
 	}
@@ -83,6 +90,18 @@ public class FractionsTest {
 	/******************************************************************************************************/
 	/*											 METHOD SECTION 										  */
 	/******************************************************************************************************/
+	
+	static void displayFractionResults(Fraction f1, Fraction f2, Fraction fdd, Fraction fsbtct, 
+			Fraction fmltpl, Fraction fdvd) 
+	/******************************************************************************************************/
+	/* PRECONDITION:  PROGRAM HAS CALCULATED RESULTS OF OPERATIONS WITH FRACTIONS 						  */					  
+	/* POSTCONDITION: DISPLAYS RESULTS OF OPERATIONS WITH TWO USER-ENTERED FRACTIONS				      */
+	/******************************************************************************************************/
+	{
+		JOptionPane.showMessageDialog(null, "Fraction 1: " + f1 + "\n" + "Fraction 2: " + f2 + "\n\n"
+				+ "Add: " + fdd + "\n" + "Subtract: " + fsbtct + "\n" + "Multiply: " + fmltpl + "\n" 
+				+ "Divide: " + fdvd); 
+	}
 	
 	static boolean runProgramPrompt()  
 	/******************************************************************************************************/ 
@@ -109,17 +128,6 @@ public class FractionsTest {
 		/* DEPENDING ON VALUE OF runProgram	INPUT */
 		/******************************************/
 		return runProgram == 0;
-	}
-	
-	static void displayFractionResults(Fraction f1, Fraction f2, Fraction fdd, Fraction fsbtct, Fraction fmltpl, Fraction fdvd) 
-	/******************************************************************************************************/
-	/* PRECONDITION:   *					  
-	/* POSTCONDITION:  */
-	/******************************************************************************************************/
-	{
-		JOptionPane.showMessageDialog(null, "Fraction 1: " + f1 + "\n" + "Fraction 2: " + f2 + "\n\n"
-				+ "Add: " + fdd + "\n" + "Subtract: " + fsbtct + "\n" + "Multiply: " + fmltpl + "\n" 
-				+ "Divide: " + fdvd); 
 	}
 	
 }
