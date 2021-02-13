@@ -6,13 +6,18 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=" "/>
+		<item key="selection" value="Scanner"/>
 		<list key="findhistory">
+			<item value="KeyboardReader"/>
+			<item value="new Scanner();"/>
 			<item value="ƒ"/>
 			<item value="“"/>
 			<item value=" "/>
 		</list>
 		<list key="replacehistory">
+			<item value="Scanner"/>
+			<item value="new Scanner(System.in);"/>
+			<item value="new Scanner();"/>
 			<item value=" "/>
 			<item value="&quot;"/>
 			<item value="f"/>

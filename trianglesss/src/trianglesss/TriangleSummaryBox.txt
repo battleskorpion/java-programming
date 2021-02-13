@@ -1,0 +1,22 @@
+/**************************************/
+/* CLASS SUMMARY BOX FOR TriangleLab6 */
+/**************************************/
+
+CLASS:
+	TriangleLab6 implements TriangleInterface
+
+PRIVATE INSTANCE VARIABLES:
+	private double side1;
+	private double side2;
+	private double side3;
+	
+PUBLIC METHODS:
+	CONSTRUCTORS:
+		public TriangleLab6 ();
+		public TriangleLab6 (double s1, double s2, double s3);
+		public TriangleLab6 (TriangleLab6 t)
+		
+	METHODS:
+		public String toString();
+
+
