@@ -57,13 +57,13 @@ public class AverageDetailsOfFloatingPoints {
 			/***********************/
 			/* CALCULATION SECTION */
 			/***********************/
-			average = calculateAverage(numbers); 
-			nums_greater = calculateNumsGreater(numbers, average, nums_greater); 
+			//average = calculateAverage(numbers); 
+			//nums_greater = calculateNumsGreater(numbers, average, nums_greater); 
 			
 			/******************/
 			/* OUTPUT SECTION */
 			/******************/
-			outputNumbersData(numbers, average, nums_greater); 
+			//outputNumbersData(numbers, average, nums_greater); 
 		}
 		while (runProgramPrompt() == true); 
 		

@@ -26,8 +26,7 @@ public class InputFloatingPointsGUI extends JFrame
 	public InputFloatingPointsGUI(double[] nmbrs) 
 	{
 		setupArrays(nmbrs.length); 
-		setupInputWindow(nmbrs.length); 
-		setupOutputWindow(nmbrs.length); 
+		setupInputWindow(nmbrs.length);  
 	}
 	
 	/******************************************************************************************************/
@@ -147,6 +146,8 @@ public class InputFloatingPointsGUI extends JFrame
 		{
 			getInputFromScreen(); 
 			dispose(); 
+			setupOutputWindow(nmbrs.length);
+			setVisible(true); 
 			//Window[] windows = Window.getWindows();
 	        //for (Window window : windows) {
 	        //	if (window instanceof JDialog && window.isActive()) {
