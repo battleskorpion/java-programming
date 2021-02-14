@@ -52,7 +52,7 @@ public class AverageDetailsOfFloatingPoints {
 			/* INPUT SECTION */
 			/*****************/
 			//inputNumbersList(prompt1, numbers); 
-			InputFloatingPointsGUI GUI = new InputFloatingPointsGUI(numbers, Thread.currentThread());  
+			InputFloatingPointsGUIV2 GUI = new InputFloatingPointsGUIV2(numbers, Thread.currentThread());  
 			GUI.run(); 
 			
 			synchronized (process)

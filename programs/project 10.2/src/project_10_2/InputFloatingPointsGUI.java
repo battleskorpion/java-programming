@@ -193,7 +193,7 @@ public class InputFloatingPointsGUI extends JFrame
 				
 		// SOUTH PANEL
 		southPanel.add(nextButton); 
-		southPanel.add(new JTextArea("test")); 
+		//southPanel.add(new JTextArea("test")); 
 		outputPanelCard.add(southPanel, BorderLayout.SOUTH);
 		
 		// SET WINDOW ATTRIBUTES
@@ -236,6 +236,7 @@ public class InputFloatingPointsGUI extends JFrame
 				}
 			
 				setupOutputWindow(numbers.length);
+				//System.out.println(cards.toString());
 				cards.show(rootPanel,"Output Panel");
 				//setVisible(true); 
 				
@@ -247,6 +248,7 @@ public class InputFloatingPointsGUI extends JFrame
 				catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
+				//cards.show(rootPanel,"Output Panel");
 				System.out.println("f1"); 
 				
 			case "output" : 
