@@ -29,6 +29,7 @@ public class AverageDetailsOfFloatingPoints {
 		/* VARIABLE SECTION */
 		/********************/
 		double average; 										// AVERAGE OF numbers
+		Thread process = Thread.currentThread(); 				// THREAD EXECUTING main
 		
 		/****************************/
 		/* USER DESCRIPTION SECTION */
@@ -51,18 +52,37 @@ public class AverageDetailsOfFloatingPoints {
 			/* INPUT SECTION */
 			/*****************/
 			//inputNumbersList(prompt1, numbers); 
-			InputFloatingPointsGUI GUI = new InputFloatingPointsGUI(numbers);  
-			GUI.setVisible(true); 
+			InputFloatingPointsGUI GUI = new InputFloatingPointsGUI(numbers, Thread.currentThread());  
+			GUI.run(); 
+			
+			synchronized (process)
+			{
+				process.wait(); 
+			}
+			
+			numbers = GUI.getNumbers(); 
 			
 			/***********************/
 			/* CALCULATION SECTION */
 			/***********************/
-			//average = calculateAverage(numbers); 
-			//nums_greater = calculateNumsGreater(numbers, average, nums_greater); 
+			average = calculateAverage(numbers); 
+			GUI.setAverageText(average); 
+			nums_greater = calculateNumsGreater(numbers, average, nums_greater); 
+			GUI.setNumbersGreaterText(nums_greater); 
 			
 			/******************/
 			/* OUTPUT SECTION */
 			/******************/
+			// WAKE UP GUI THREAD
+			synchronized (GUI.getThread())
+			{
+				GUI.getThread().notify(); 
+			}
+			// SLEEP THIS THREAD 
+			synchronized (process)
+			{
+				process.wait(); 
+			}
 			//outputNumbersData(numbers, average, nums_greater); 
 		}
 		while (runProgramPrompt() == true); 

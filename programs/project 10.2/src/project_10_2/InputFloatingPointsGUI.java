@@ -19,14 +19,31 @@ public class InputFloatingPointsGUI extends JFrame
 	private JTextField[] numbersFields; 
 	private JTextArea[] numbersText; 
 	private JTextArea[] numbersGreaterText; 				// NUMBERS > AVERAGE NUMBER TEXT AREA 
-	
-	public double[] numbers; 
+	private JPanel rootPanel;  								// STORES ALL PANELS
+	private JPanel inputPanelCard; 							// INPUT WINDOW PANELS
+	private JPanel outputPanelCard; 						// OUTPUT WINDOW PANELS
+
+			
+	private double[] numbers; 
+	private String current_window; 
+	private Thread calling_thread; 		// THREAD WHICH INSTANTIATED THE GUI 
+	private Thread this_thread; 		// THREAD EXECUTING THIS CLASS
 	
 	// CONSTRUCTOR 
-	public InputFloatingPointsGUI(double[] nmbrs) 
+	public InputFloatingPointsGUI(double[] nmbrs, Thread cllng_thrd) 
 	{
+		rootPanel = new JPanel(new CardLayout());
+		inputPanelCard = new JPanel();
+		outputPanelCard = new JPanel(); 
+		rootPanel.add(inputPanelCard, "Input Panel"); 
+		rootPanel.add(outputPanelCard, "Output Panel"); 
+		//CardLayout cards = (CardLayout)  rootPanel.getLayout();
+		//cards.show(rootPanel, "Input Panel");
+		
+		this_thread = Thread.currentThread(); 
+		calling_thread = cllng_thrd; 
 		setupArrays(nmbrs.length); 
-		setupInputWindow(nmbrs.length);  
+		setupActionListeners(); 	 
 	}
 	
 	/******************************************************************************************************/
@@ -40,76 +57,41 @@ public class InputFloatingPointsGUI extends JFrame
 			numbers[i] = Double.parseDouble(numbersFields[i].getText()); 
 		}
 	}
-
-	private void setupInputWindow(int nm_nmbrs) 
+	
+	public double[] getNumbers() 
 	{
-		// SET UP PANELS AND ADD TO WINDOW 
-		JPanel northPanel = new JPanel(); 
-		JPanel centerPanel = new JPanel (new GridLayout (nm_nmbrs, 2, 10, 5)); 
-		JPanel southPanel = new JPanel(); 
-				
-		Container container = getContentPane(); 
-		container.add(centerPanel,BorderLayout.CENTER);
-		container.add(southPanel,BorderLayout.SOUTH);
-				
-		// ADD CONTENTS TO PANELS 
-		// NORTH PANEL 
-		northPanel.add(numbersLabel); 
-		
-		// CENTER PANEL
-		for (int i = 0; i < nm_nmbrs; i++) {
-			centerPanel.add(numbersLabels[i]); 
-			centerPanel.add(numbersFields[i]); 
-		}
-		
-		// SOUTH PANEL
-		southPanel.add(nextButton); 
-		southPanel.add(new JLabel("")); 					// EMPTY CELL
-		
-		// ATTACH LISTENERS TO BUTTONS
-		nextButton.addActionListener(new inputNextButtonPressedListener());
-		
-		// SET WINDOW ATTRIBUTES
-		setTitle("Input Numbers"); 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		pack(); 	// RESIZES WINDOW TO SIZE NECESSARY 
+		return numbers; 
 	}
 	
-	private void setupOutputWindow(int nm_nmbrs) 
+	public Thread getThread()
 	{
-		// SET UP PANELS AND ADD TO WINDOW 
-		JPanel northPanel = new JPanel(new GridLayout (nm_nmbrs + 1, 2, 10, 5)); 
-		JPanel centerPanel = new JPanel (new GridLayout (nm_nmbrs + 2, 2, 10, 5)); 
-		JPanel southPanel = new JPanel(); 
-		
-		Container container = getContentPane(); 
-		container.add(centerPanel,BorderLayout.CENTER);
-		container.add(southPanel,BorderLayout.SOUTH);
-		
-		// ADD CONTENTS TO PANELS 
-		// NORTH PANEL 
-		northPanel.add(numbersLabel); 
-		northPanel.add(new JLabel(""));						// EMPTY CELL
-		for (int i = 0; i < nm_nmbrs; i++) {
-			northPanel.add(numbersLabels[i]); 
-			northPanel.add(numbersText[i]); 
+		return this_thread; 
+	}
+	
+	public void run() 
+	{
+		setupInputWindow(numbers.length); 
+		current_window = "Input"; 
+		setVisible(true); 
+	}
+	
+	public void setAverageText(double avg) 
+	{
+		averageText.setText(Double.toString(avg));
+	}
+	
+	public void setNumbersGreaterText(double[] nms_grtr)
+	{
+		for (int i = 0; i < nms_grtr.length; i++) 
+		{
+			numbersGreaterText[i].setText(Double.toString(nms_grtr[i]));
 		}
-				
-		// CENTER PANEL
-		for (int i = 0; i < nm_nmbrs; i++) {
-			centerPanel.add(averageLabel); 
-			centerPanel.add(averageText); 
-			centerPanel.add(numbersGreaterLabel); 
-			centerPanel.add(new JLabel("")); 				// EMPTY CELL
-			for (int j = 0; j < nm_nmbrs; j++) 
-			{
-				centerPanel.add(new JLabel("")); 			// EMPTY CELL
-				centerPanel.add(numbersGreaterText[j]); 
-			}
-		}
-				
-		// SOUTH PANEL
-		southPanel.add(nextButton); 
+	}
+	
+	private void setupActionListeners() 
+	{
+		// ATTACH LISTENERS TO BUTTONS
+		nextButton.addActionListener(new nextButtonPressedListener());
 	}
 	
 	private void setupArrays(int nm_nmbrs) 
@@ -126,35 +108,160 @@ public class InputFloatingPointsGUI extends JFrame
 		for (int i = 0; i < nm_nmbrs; i++) 
 		{
 			numbersLabels[i] = new JLabel("Number " + (i + 1) + ": "); 
-			numbersFields[i] = new JTextField("0"); 
+			numbersFields[i] = new JTextField(""); 
 			numbersText[i] = new JTextArea(""); 
 			numbersGreaterText[i] = new JTextArea(""); 
 		}
 	}
-	
-	public void setVisible(boolean b) 
+
+	private void setupInputWindow(int nm_nmbrs) 
 	{
-		setVisible(b); 
+		// SET UP PANELS AND ADD TO WINDOW 
+		JPanel northPanel = new JPanel(); 
+		JPanel centerPanel = new JPanel (new GridLayout (nm_nmbrs, 2, 10, 5)); 
+		JPanel southPanel = new JPanel(); 
+		
+		Container container = getContentPane();
+		container.add(rootPanel); 
+		
+		//rootPanel.add(northPanel,BorderLayout.NORTH);
+		//rootPanel.add(centerPanel,BorderLayout.CENTER);
+		//rootPanel.add(southPanel,BorderLayout.SOUTH);
+				
+		// ADD CONTENTS TO PANELS 
+		// NORTH PANEL 
+		northPanel.add(numbersLabel); 
+		inputPanelCard.add(northPanel, BorderLayout.NORTH); 
+		
+		// CENTER PANEL
+		for (int i = 0; i < nm_nmbrs; i++) {
+			centerPanel.add(numbersLabels[i]); 
+			centerPanel.add(numbersFields[i]); 
+		}
+		inputPanelCard.add(centerPanel, BorderLayout.CENTER); 
+		
+		// SOUTH PANEL
+		southPanel.add(nextButton); 
+		southPanel.add(new JLabel("")); 					// EMPTY CELL
+		inputPanelCard.add(southPanel, BorderLayout.SOUTH); 
+		
+		// SET WINDOW ATTRIBUTES
+		setTitle("Input Numbers"); 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+
+		pack(); 	// RESIZES WINDOW TO SIZE NECESSARY 
+	}
+	
+	private void setupOutputWindow(int nm_nmbrs) 
+	{
+		// SET UP PANELS AND ADD TO WINDOW 
+		JPanel northPanel = new JPanel(new GridLayout (nm_nmbrs + 1, 2, 10, 5)); 
+		JPanel centerPanel = new JPanel (new GridLayout (nm_nmbrs + 2, 2, 10, 5)); 
+		JPanel southPanel = new JPanel(); 
+		
+		//getContentPane().removeAll();
+		Container container = getContentPane(); 
+		//getContentPane().list(); 
+		container.add(rootPanel);
+		//container.add(centerPanel,BorderLayout.CENTER);
+		//container.add(southPanel,BorderLayout.SOUTH);
+		//getContentPane().list(); 
+		
+		// ADD CONTENTS TO PANELS 
+		// NORTH PANEL 
+		northPanel.add(numbersLabel); 
+		northPanel.add(new JLabel(""));						// EMPTY CELL
+		for (int i = 0; i < nm_nmbrs; i++) {
+			northPanel.add(numbersLabels[i]); 
+			northPanel.add(numbersText[i]); 
+		}
+		outputPanelCard.add(northPanel, BorderLayout.NORTH); 
+				
+		// CENTER PANEL
+		for (int i = 0; i < nm_nmbrs; i++) {
+			centerPanel.add(averageLabel); 
+			centerPanel.add(averageText); 
+			centerPanel.add(numbersGreaterLabel); 
+			centerPanel.add(new JLabel("")); 				// EMPTY CELL
+			for (int j = 0; j < nm_nmbrs; j++) 
+			{
+				centerPanel.add(new JLabel("")); 			// EMPTY CELL
+				centerPanel.add(numbersGreaterText[j]); 
+			}
+		}
+		outputPanelCard.add(centerPanel, BorderLayout.CENTER);
+				
+		// SOUTH PANEL
+		southPanel.add(nextButton); 
+		southPanel.add(new JTextArea("test")); 
+		outputPanelCard.add(southPanel, BorderLayout.SOUTH);
+		
+		// SET WINDOW ATTRIBUTES
+		setTitle("Information Output"); 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		//getContentPane().list(); 
+		pack(); 	// RESIZES WINDOW TO SIZE NECESSARY 
 	}
 	
 	/******************************************************************************************************/
-	/*										 PRIVATE CLASS SECTION										  */
+	/*										 ACTION LISTENER SECTION									  */
 	/******************************************************************************************************/
 	
-	private class inputNextButtonPressedListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) 
+	private class nextButtonPressedListener implements ActionListener {
+		public void actionPerformed(ActionEvent e)
 		{
-			getInputFromScreen(); 
-			dispose(); 
-			setupOutputWindow(nmbrs.length);
-			setVisible(true); 
-			//Window[] windows = Window.getWindows();
-	        //for (Window window : windows) {
-	        //	if (window instanceof JDialog && window.isActive()) {
-	        //		getInputFromScreen(); 
-	        //        window.dispose();
-	        //    }
-			//}
+			CardLayout cards = (CardLayout)  rootPanel.getLayout();
+			
+			switch (current_window.toLowerCase())
+			{
+			case "input" : 
+				getInputFromScreen(); 
+				//setVisible(false); 
+				//dispose(); 
+				
+				// WAKE UP THREAD WHERE PUBLIC CLASS WAS INSTANTIATED 
+				synchronized (calling_thread)
+				{
+					calling_thread.notify(); 
+				}
+				// SLEEP THIS THREAD 
+				synchronized (this_thread) 
+				{
+					try {
+						this_thread.wait();
+					} 
+					catch (InterruptedException e1) {
+						e1.printStackTrace();
+					} 
+				}
+			
+				setupOutputWindow(numbers.length);
+				cards.show(rootPanel,"Output Panel");
+				//setVisible(true); 
+				
+				// testing cause program 
+				System.out.println("(output) a greater number: " + numbersGreaterText[0].getText()); 
+				try {
+					Thread.sleep(5000); 
+				} 
+				catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				System.out.println("f1"); 
+				
+			case "output" : 
+				setVisible(false); 
+				//dispose(); 
+				System.out.println("f2"); 
+				
+				synchronized (calling_thread)
+				{
+					calling_thread.notify(); 
+				}
+				
+				//System.exit(0); 
+			}
+				
 		}
 	}
 	
