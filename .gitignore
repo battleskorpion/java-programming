@@ -3,3 +3,6 @@ programs/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.debug
 programs/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.ui.prefs
 programs/.metadata/version.ini
 programs/.metadata/.log
+programs/.metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log
+programs/.metadata/.log
+programs/.metadata/version.ini
