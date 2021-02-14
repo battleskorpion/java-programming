@@ -1,3 +1,4 @@
 /.metadata/
 programs/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.debug.ui.prefs
 programs/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.ui.prefs
+programs/.metadata/version.ini
