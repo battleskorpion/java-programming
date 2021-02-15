@@ -8,7 +8,6 @@ import javax.swing.*;
  * @see https://docs.oracle.com/javase/tutorial/displayCode.html?
  * code=https://docs.oracle.com/javase/tutorial/uiswing/examples/
  * layout/CardLayoutDemoProject/src/layout/CardLayoutDemo.java
- * 
 */
 @SuppressWarnings("serial")
 public class InputFloatingPointsGUIV2 extends JFrame {
@@ -20,7 +19,7 @@ public class InputFloatingPointsGUIV2 extends JFrame {
 	private JTextArea averageText = new JTextArea(); 
 	private JLabel[] numbersLabels; 
 	private JTextField[] numbersFields; 
-	private JTextArea[] numbersText; 
+	private JLabel[] numbersText; 
 	private JTextArea[] numbersGreaterText; 				// NUMBERS > AVERAGE NUMBER TEXT AREA 
 	//private JPanel rootPanel;  								// STORES ALL PANELS	// replaced by cards
 	int nm_nmbrs = 10; 
@@ -31,20 +30,18 @@ public class InputFloatingPointsGUIV2 extends JFrame {
 	private Thread this_thread; 		// THREAD EXECUTING THIS CLASS
 	
 	static final private String INPUT_PANEL_NAME = "Input Panel"; 
-	static final private String OUTPUT_PANEL_NAME = "Output Panel";
+	static final private String OUTPUT_PANEL_NAME = "Outpu8t Panel";
 	
 	// CONSTRUCTOR 
 	public InputFloatingPointsGUIV2(double[] nmbrs, Thread cllng_thrd) 
 	{
-		//rootPanel.add(inputPanelCard, "Input Panel"); 
-		//rootPanel.add(outputPanelCard, "Output Panel"); 
-		//CardLayout cards = (CardLayout)  rootPanel.getLayout();
-		//cards.show(rootPanel, "Input Panel");
-		
 		this_thread = Thread.currentThread(); 
 		calling_thread = cllng_thrd; 
 		setupArrays(nmbrs.length); 
 		setupActionListeners(); 	 
+		
+		// SET SPECIAL PROPERTIES
+		averageText.setEditable(false);
 	}
 		
 	/******************************************************************************************************/
@@ -56,7 +53,7 @@ public class InputFloatingPointsGUIV2 extends JFrame {
         // NORTH PANEL
 		JPanel northPanel = new JPanel();
 		northPanel.add(numbersLabel); 
-		// NEXT PANEL (SOUTH) 
+		// "NEXT" PANEL (SOUTH PANEL) 
 		JPanel nextPanel = new JPanel(); 
 		nextPanel.add(nextButton); 
 		//nextPanel.add(new JLabel("")); 					// EMPTY CELL
@@ -87,35 +84,44 @@ public class InputFloatingPointsGUIV2 extends JFrame {
         /***************/ 
         JPanel outputCard = new JPanel();		// card2
 		// SET UP PANELS AND ADD TO WINDOW 
-	//	JPanel northOutputPanel = new JPanel(new GridLayout (2, 2, 10, 5)); 
-	//	JPanel centerOutputPanel = new JPanel (new GridLayout (nm_nmbrs + 2, 2, 10, 5)); 
-	//	JPanel southOutputPanel = new JPanel(); 
-        //outputCard.add(new JTextField("TextField", 20));	// temp test
-		// NORTH PANEL
-	//	northOutputPanel.add(numbersLabel); 
-	//	northOutputPanel.add(new JLabel(""));						// EMPTY CELL
-	//	for (int i = 0; i < nm_nmbrs; i++) {
-	//		northOutputPanel.add(numbersLabels[i]); 
-	//		northOutputPanel.add(numbersText[i]); 
-	//	}
-		// CENTER PANEL
-	//	for (int i = 0; i < nm_nmbrs; i++) {
-	//		centerOutputPanel.add(averageLabel); 
-	//		centerOutputPanel.add(averageText); 
-	//		centerOutputPanel.add(numbersGreaterLabel); 
-	//		centerOutputPanel.add(new JLabel("")); 				// EMPTY CELL
-	//		for (int j = 0; j < nm_nmbrs; j++) 
-	//		{
-	//			centerOutputPanel.add(new JLabel("")); 			// EMPTY CELL
-	//			centerOutputPanel.add(numbersGreaterText[j]); 
-	//		}
-	//	}
-	//	// SOUTH PANEL
-	//	southOutputPanel.add(nextButton); 
-	//	// ADD OUTPUT PANELS TO OUTPUT CARD
-	//	outputCard.add(northOutputPanel, BorderLayout.PAGE_START);
-	//	outputCard.add(centerOutputPanel, BorderLayout.CENTER);
-	//	outputCard.add(southOutputPanel, BorderLayout.PAGE_END);
+		//JPanel northOutputPanel = new JPanel(new GridLayout(nm_nmbrs + 1, 2, 10, 40)); 
+		JPanel centerOutputPanel = new JPanel(new GridLayout ((nm_nmbrs * 2) + 4, 1, 10, 5)); 
+		//JPanel southOutputPanel = new JPanel(new GridLayout(nm_nmbrs + 1, 1, 10, 5)); 
+		
+		for (int i = 0; i < nm_nmbrs; i++) {
+			if (i == 0) 
+			{
+				centerOutputPanel.add(new JLabel("Numbers: ")); 
+			}
+			else 
+			{
+				centerOutputPanel.add(new JLabel(""));  
+			}
+			centerOutputPanel.add(numbersText[i]); 
+		}
+		
+		// AVERAGE
+		centerOutputPanel.add(averageLabel); 
+		centerOutputPanel.add(averageText); 
+		
+		// NUMBERS > AVERAGE
+		for (int i = 0; i < nm_nmbrs; i++) {
+			if (i == 0) 
+			{
+				centerOutputPanel.add(numbersGreaterLabel); 
+			}
+			else 
+			{
+				centerOutputPanel.add(new JLabel(""));  
+			}
+			//southOutputPanel.add(new JLabel(""));       				// EMPTY CELL
+			centerOutputPanel.add(numbersGreaterText[i]); 
+		}
+		
+		// ADD OUTPUT PANELS TO OUTPUT CARD
+		//outputCard.add(northOutputPanel, BorderLayout.NORTH);		// should be fine
+		outputCard.add(centerOutputPanel, BorderLayout.CENTER);
+		//outputCard.add(southOutputPanel, BorderLayout.SOUTH);
 		
         // Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
@@ -138,18 +144,19 @@ public class InputFloatingPointsGUIV2 extends JFrame {
 		// ARRAYS 
 		numbersLabels = new JLabel[nm_nmbrs]; 		
 		numbersFields = new JTextField[nm_nmbrs]; 
-		numbersText = new JTextArea[nm_nmbrs]; 
+		numbersText = new JLabel[nm_nmbrs]; 
 		numbersGreaterText = new JTextArea[nm_nmbrs]; 
 		numbers = new double[nm_nmbrs]; 
-		
-		
-				
+			
 		for (int i = 0; i < nm_nmbrs; i++) 
 		{
 			numbersLabels[i] = new JLabel("Number " + (i + 1) + ": "); 
 			numbersFields[i] = new JTextField(""); 
-			numbersText[i] = new JTextArea(""); 
-			numbersGreaterText[i] = new JTextArea(""); 
+			numbersText[i] = new JLabel(""); 
+			numbersGreaterText[i] = new JTextArea("");
+			
+			// SET SPECIAL PROPERTIES
+			numbersGreaterText[i].setEditable(false); 
 		}
 	}
 	
@@ -162,6 +169,7 @@ public class InputFloatingPointsGUIV2 extends JFrame {
 		for (int i = 0; i < numbers.length; i++) 
 		{
 			numbers[i] = Double.parseDouble(numbersFields[i].getText()); 
+			numbersText[i].setText(numbersFields[i].getText()); 
 		}
 	}
 	
@@ -190,9 +198,14 @@ public class InputFloatingPointsGUIV2 extends JFrame {
 	
 	public void setNumbersGreaterText(double[] nms_grtr)
 	{
-		for (int i = 0; i < nms_grtr.length; i++) 
-		{
-			numbersGreaterText[i].setText(Double.toString(nms_grtr[i]));
+		if (nms_grtr.length == 0) {
+			numbersGreaterText[0].setText("None");
+		}
+		else {
+			for (int i = 0; i < nms_grtr.length; i++) 
+			{
+				numbersGreaterText[i].setText(Double.toString(nms_grtr[i]));
+			}
 		}
 	}
 	
@@ -205,8 +218,7 @@ public class InputFloatingPointsGUIV2 extends JFrame {
 			{
 			case INPUT_PANEL_NAME : 
 				getInputFromScreen(); 
-				//setVisible(false); 
-				//dispose(); 
+				System.out.println("f0"); 
 				
 				// WAKE UP THREAD WHERE PUBLIC CLASS WAS INSTANTIATED 
 				synchronized (calling_thread)
@@ -224,26 +236,19 @@ public class InputFloatingPointsGUIV2 extends JFrame {
 					} 
 				}
 			
-			//	setupOutputWindow(numbers.length); // not need? 
-				//System.out.println(cards.toString());
+				current_panel = OUTPUT_PANEL_NAME; 
+				pack(); 
 				cardsLayout.show(cards, OUTPUT_PANEL_NAME);
 				//setVisible(true); 
 				
 				// testing cause program 
 				System.out.println("(output) a greater number: " + numbersGreaterText[0].getText()); 
-				//try {
-				//	Thread.sleep(5000); 
-				//} 
-				//catch (InterruptedException e1) {
-				//	e1.printStackTrace();
-				//}
-				//cards.show(rootPanel,"Output Panel");
 				System.out.println("f1"); 
 				break; 
 				
 			case OUTPUT_PANEL_NAME : 
 				setVisible(false); 
-				//dispose(); 
+				dispose(); 						// WINDOW NO LONGER NECESSARY
 				System.out.println("f2"); 
 				
 				synchronized (calling_thread)
