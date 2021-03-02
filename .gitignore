@@ -1,8 +1,28 @@
-/.metadata/
-programs/.metadata/.plugins/org.eclipse.core.resources/.root/.indexes/properties.index
-programs/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.ui.prefs
-programs/.metadata/version.ini
-programs/.metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log
-.metadata/version.ini
+# Java related
+target/**
+*.jar
+*.war
+*.ear
+*.class
+
+# eclipse specific
+*.pydevproject
+.project
 .metadata
-.log
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
