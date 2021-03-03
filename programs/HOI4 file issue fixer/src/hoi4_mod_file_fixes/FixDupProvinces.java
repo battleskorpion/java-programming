@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class FixDupProvinces {
 	
 	// removes all duplicate provinces in each file in the directory
-	public static void RemoveDuplicates(File dir) throws IOException {
+	public static boolean RemoveDuplicates(File dir) throws IOException {
 		for( File f : dir.listFiles()){
 			
 			String fContents = FileRead.readFile(f); 
@@ -74,11 +74,12 @@ public class FixDupProvinces {
 		    System.out.println("");
 		    System.out.println("new data: " + fContents);
 		    //fixing crlf to lf (did not work lol) 
-		    //fContents = fContents.replaceAll("\\r\\n", "\n");
-		    //fContents = fContents.replaceAll("\\r", "\n");
+		    //fContents = fContents.replaceAll("\r\n", "\n");
+		    //fContents = fContents.replaceAll("\r", "\n");
 		    writer.append(fContents);
 		    writer.close(); 	// says it also flushes 
 		}
+		return true; 
 	}
-
+	
 }

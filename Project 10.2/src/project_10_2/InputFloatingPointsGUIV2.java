@@ -84,9 +84,7 @@ public class InputFloatingPointsGUIV2 extends JFrame {
         /***************/ 
         JPanel outputCard = new JPanel();		// card2
 		// SET UP PANELS AND ADD TO WINDOW 
-		//JPanel northOutputPanel = new JPanel(new GridLayout(nm_nmbrs + 1, 2, 10, 40)); 
 		JPanel centerOutputPanel = new JPanel(new GridLayout ((nm_nmbrs * 2) + 4, 1, 10, 5)); 
-		//JPanel southOutputPanel = new JPanel(new GridLayout(nm_nmbrs + 1, 1, 10, 5)); 
 		
 		for (int i = 0; i < nm_nmbrs; i++) {
 			if (i == 0) 
@@ -114,14 +112,11 @@ public class InputFloatingPointsGUIV2 extends JFrame {
 			{
 				centerOutputPanel.add(new JLabel(""));  
 			}
-			//southOutputPanel.add(new JLabel(""));       				// EMPTY CELL
 			centerOutputPanel.add(numbersGreaterText[i]); 
 		}
 		
 		// ADD OUTPUT PANELS TO OUTPUT CARD
-		//outputCard.add(northOutputPanel, BorderLayout.NORTH);		// should be fine
 		outputCard.add(centerOutputPanel, BorderLayout.CENTER);
-		//outputCard.add(southOutputPanel, BorderLayout.SOUTH);
 		
         // Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
