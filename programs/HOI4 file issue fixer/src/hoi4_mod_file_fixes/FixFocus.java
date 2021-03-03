@@ -112,7 +112,7 @@ public class FixFocus {
 				
 				focus_loc = focus + loc_key + " ";
 				focus_loc += "\""; 
-				focus_loc += focus.substring(i, focus.length()).replaceAll("_+", " "); // regex
+				focus_loc += titleCapitalize(focus.substring(i, focus.length()).replaceAll("_+", " ").trim()); // regex
 				focus_loc += "\""; 
 				locPWriter.println(focus_loc); 
 				System.out.println("added focus to loc, focus " + focus_loc); 
@@ -136,5 +136,92 @@ public class FixFocus {
 		else {
 			return false; 
 		}
+	}
+	
+	private static String titleCapitalize(String str) {
+		// some vars
+		ArrayList<String> words = new ArrayList<String>(Arrays.asList(str.split(" "))); 
+		ArrayList<String> whitelist = new ArrayList<String>(); 
+		
+		// create the whitelist
+		whitelist.add("a");
+        whitelist.add("above");
+        whitelist.add("after");
+        whitelist.add("among");
+        whitelist.add("an");
+        whitelist.add("and");
+        whitelist.add("around"); 
+        whitelist.add("as");
+        whitelist.add("at");
+        whitelist.add("below");
+        whitelist.add("beneath"); 
+        whitelist.add("beside"); 
+        whitelist.add("between"); 
+        whitelist.add("but");
+        whitelist.add("by");
+        whitelist.add("for");
+        whitelist.add("from");
+        whitelist.add("if");
+        whitelist.add("in");
+        whitelist.add("into");
+        whitelist.add("nor");
+        whitelist.add("of");
+        whitelist.add("off");
+        whitelist.add("on");
+        whitelist.add("onto");
+        whitelist.add("or");
+        whitelist.add("over");
+        whitelist.add("since");
+        whitelist.add("the");
+        whitelist.add("through"); 
+        whitelist.add("throughout"); 
+        whitelist.add("to");
+        whitelist.add("under");
+        whitelist.add("until");
+        whitelist.add("up");
+        whitelist.add("with");
+        
+        // first word always capitalized
+        if (words.get(0).length() == 1) { 
+        	words.set(0, "" + Character.toUpperCase(words.get(0).charAt(0))); 
+        }
+        else if (words.get(0).length() > 1) {
+        	words.set(0, "" + Character.toUpperCase(words.get(0).charAt(0)) 
+        		+ words.get(0).substring(1, words.get(0).length())); 
+        }
+        else {
+        	System.out.println("first word length < 1"); 
+        }
+
+        // rest of words (if applicable)
+        int num_cap_letters; 
+        System.out.println("num words: " + words.size()); 
+		for (int i = 1; i < words.size(); i++) {
+			// check for acronym (all caps already)
+			num_cap_letters = 0; 
+			for (int j = 0; j < words.get(i).length(); j++) {
+				if (Character.isUpperCase(words.get(i).charAt(j))) {
+					System.out.println("uppercase: " + words.get(i).charAt(j)); 
+					num_cap_letters++; 
+				}
+			}
+			
+			// if not acronym (acronym = all caps already)
+			// && not on whitelist
+			if (!(num_cap_letters == words.get(i).length()) && !(whitelist.contains(words.get(i)))) {
+				if (words.get(i).length() == 1) { 
+		        	words.set(i, "" + Character.toUpperCase(words.get(i).charAt(0))); 
+		        }
+		        else if (words.get(i).length() > 1) {
+		        	//System.out.println("working cap"); 
+		        	words.set(i, "" + Character.toUpperCase(words.get(i).charAt(0)) 
+		        		+ words.get(i).substring(1, words.get(i).length())); 
+		        }
+			}
+			
+		}
+		
+		System.out.println("capitalized: " + String.join(" ", words)); 
+		return String.join(" ", words); 
 	}
 }

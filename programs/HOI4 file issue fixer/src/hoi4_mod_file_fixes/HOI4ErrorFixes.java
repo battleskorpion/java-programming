@@ -27,18 +27,6 @@ public class HOI4ErrorFixes {
 		HOI4ModTasksGUI tasksGUI = new HOI4ModTasksGUI(hoi4_dir, states_dir, strat_region_dir); 
 		tasksGUI.run(); 
 		
-		////test
-		//for( File f : hoi4_dir.listFiles()){
-		//	System.out.println( f.getName() );
-		//}
-		
-		//// fix state stuff
-		//FixDupProvinces.RemoveDuplicates(states_dir);
-		//JOptionPane.showMessageDialog(null, "\n" + "states done." + "\n"); 
-		
-		//// fix strat region stuff
-		//FixDupProvinces.RemoveDuplicates(strat_region_dir);
-		//JOptionPane.showMessageDialog(null, "\n" + "strat regions done." + "\n"); 
 	}
 }
 
