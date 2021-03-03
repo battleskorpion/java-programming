@@ -1,16 +1,20 @@
 
 package hoi4_mod_file_fixes;
 
+import java.awt.*; 
 import java.io.File;
 import java.io.IOException;
 
 public class HOI4ErrorFixes {
 	
 	public static void main (String args[]) throws IOException {
-		String hoi4_dir_name = "C:\\\\Users\\\\Skorpion\\\\Documents\\\\Paradox Interactive\\\\Hearts of Iron IV\\\\mod\\\\nadivided-dev"; 
+		String hoi4_dir_name = "C:\\Users\\daria\\Documents\\Paradox Interactive\\Hearts of Iron IV\\mod\\nadivided-dev"; 
 		File hoi4_dir = new File(hoi4_dir_name);
 		File states_dir = new File(hoi4_dir_name + "\\\\history\\\\states"); 
 		File strat_region_dir = new File(hoi4_dir_name + "\\\\map\\\\strategicregions"); 
+		
+		ShowDirectoryDialog selectModDir = new ShowDirectoryDialog("Select HOI4 Directory:"); 
+		selectModDir.run(); 
 		
 		//test
 		for( File f : hoi4_dir.listFiles()){
@@ -26,3 +30,4 @@ public class HOI4ErrorFixes {
 		System.out.println("\n" + "strat regions done." + "\n"); 
 	}
 }
+
