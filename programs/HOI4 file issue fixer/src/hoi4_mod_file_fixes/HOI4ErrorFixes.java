@@ -1,11 +1,8 @@
 
 package hoi4_mod_file_fixes;
 
-import java.awt.*; 
 import java.io.File;
 import java.io.IOException;
-
-import javax.swing.JOptionPane;
 
 public class HOI4ErrorFixes {
 	
@@ -26,7 +23,6 @@ public class HOI4ErrorFixes {
 		//System.out.println("test after dir"); 
 		HOI4ModTasksGUI tasksGUI = new HOI4ModTasksGUI(hoi4_dir, states_dir, strat_region_dir); 
 		tasksGUI.run(); 
-		
 	}
 }
 

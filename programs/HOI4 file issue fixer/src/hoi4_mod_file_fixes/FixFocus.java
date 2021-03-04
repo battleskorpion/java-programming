@@ -114,7 +114,10 @@ public class FixFocus {
 				focus_loc += "\""; 
 				focus_loc += titleCapitalize(focus.substring(i, focus.length()).replaceAll("_+", " ").trim()); // regex
 				focus_loc += "\""; 
-				locPWriter.println(focus_loc); 
+				locPWriter.println("");
+				locPWriter.println("    " + focus_loc); 									// NO TAB, YML PREFERS SPACES 
+				// add blank desc line: 
+				locPWriter.println("    " + focus + "_desc" + loc_key + " " + "\"" + "\""); // NO TAB, YML PREFERS SPACES 
 				System.out.println("added focus to loc, focus " + focus_loc); 
 			}
 		}
@@ -138,6 +141,7 @@ public class FixFocus {
 		}
 	}
 	
+	// for capitalizing
 	private static String titleCapitalize(String str) {
 		// some vars
 		ArrayList<String> words = new ArrayList<String>(Arrays.asList(str.split(" "))); 

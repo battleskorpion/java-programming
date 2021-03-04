@@ -43,7 +43,7 @@ public class HOI4ModTasksGUI {
 	}
 	
 	private void createContents(final Shell shell, Display display) {
-		File focus_file; 
+		//File focus_file; 
 		
 		shell.setLayout(new GridLayout(2, false));
 		
