@@ -1,15 +1,12 @@
 package project_10_2;
 
-import javax.swing.*; 
-import java.awt.*; 
-import java.awt.event.*; 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-@SuppressWarnings("serial") // Same-version serialization only
-public class InputFloatingPointsGUI extends JFrame 
-{
-	/********************/
-	/* VARIABLE SECTION */
-	/********************/
+@SuppressWarnings("serial")
+public class InputFloatingPointsGUI extends JFrame {
+	JPanel cards; 	// a panel that uses CardLayout
 	private JButton nextButton = new JButton("Next"); 
 	private JLabel numbersLabel = new JLabel("Numbers: "); 
 	private JLabel averageLabel = new JLabel("Average: "); 
@@ -17,37 +14,143 @@ public class InputFloatingPointsGUI extends JFrame
 	private JTextArea averageText = new JTextArea(); 
 	private JLabel[] numbersLabels; 
 	private JTextField[] numbersFields; 
-	private JTextArea[] numbersText; 
-	private JTextArea[] numbersGreaterText; 				// NUMBERS > AVERAGE NUMBER TEXT AREA 
-	private JPanel rootPanel;  								// STORES ALL PANELS
-	private JPanel inputPanelCard; 							// INPUT WINDOW PANELS
-	private JPanel outputPanelCard; 						// OUTPUT WINDOW PANELS
-
-			
+	private JLabel[] numbersText; 
+	private JTextArea[] numbersGreaterText; 				// NUMBERS > AVERAGE NUMBER TEXT AREA
+	int nm_nmbrs = 10; 
+	
 	private double[] numbers; 
-	private String current_window; 
+	private String current_panel; 
 	private Thread calling_thread; 		// THREAD WHICH INSTANTIATED THE GUI 
 	private Thread this_thread; 		// THREAD EXECUTING THIS CLASS
 	
-	// CONSTRUCTOR 
+	static final private String INPUT_PANEL_NAME = "Input Panel"; 
+	static final private String OUTPUT_PANEL_NAME = "Outpu8t Panel";
+	
+	/***********************/
+	/* CONSTRUCTOR SECTION */
+	/***********************/
 	public InputFloatingPointsGUI(double[] nmbrs, Thread cllng_thrd) 
 	{
-		rootPanel = new JPanel(new CardLayout());
-		inputPanelCard = new JPanel();
-		outputPanelCard = new JPanel(); 
-		rootPanel.add(inputPanelCard, "Input Panel"); 
-		rootPanel.add(outputPanelCard, "Output Panel"); 
-		//CardLayout cards = (CardLayout)  rootPanel.getLayout();
-		//cards.show(rootPanel, "Input Panel");
-		
 		this_thread = Thread.currentThread(); 
 		calling_thread = cllng_thrd; 
 		setupArrays(nmbrs.length); 
 		setupActionListeners(); 	 
+		
+		// SET SPECIAL PROPERTIES
+		averageText.setEditable(false);
+	}
+		
+	/******************************************************************************************************/
+	/*											 METHOD SECTION 										  */
+	/******************************************************************************************************/
+	
+	public void addComponentToPane() {
+		Container container = getContentPane(); 	// "pane"
+        // NORTH PANEL
+		JPanel northPanel = new JPanel();
+		northPanel.add(numbersLabel); 
+		// "NEXT" PANEL (SOUTH PANEL) 
+		JPanel nextPanel = new JPanel(); 
+		nextPanel.add(nextButton); 
+		
+        // Create the cards
+		/**************/
+        /* INPUT CARD */
+        /**************/ 
+        JPanel inputCard = new JPanel();		// card1
+        // SET UP PANELS AND ADD TO WINDOW 
+         
+		JPanel centerInputPanel = new JPanel (new GridLayout (nm_nmbrs, 2, 10, 5)); 
+		//JPanel southInputPanel = new JPanel(); 
+		// NORTH PANEL 
+		
+		// CENTER PANEL
+		for (int i = 0; i < nm_nmbrs; i++) {
+			centerInputPanel.add(numbersLabels[i]); 
+			centerInputPanel.add(numbersFields[i]); 
+		}
+				
+		// ADD INPUT PANELS TO INPUT CARD
+        inputCard.add(centerInputPanel, BorderLayout.CENTER);
+        
+        /***************/
+        /* OUTPUT CARD */
+        /***************/ 
+        JPanel outputCard = new JPanel();		// card2
+		// SET UP PANELS AND ADD TO WINDOW 
+		JPanel centerOutputPanel = new JPanel(new GridLayout ((nm_nmbrs * 2) + 4, 1, 10, 5)); 
+		
+		for (int i = 0; i < nm_nmbrs; i++) {
+			if (i == 0) 
+			{
+				centerOutputPanel.add(new JLabel("Numbers: ")); 
+			}
+			else 
+			{
+				centerOutputPanel.add(new JLabel(""));  
+			}
+			centerOutputPanel.add(numbersText[i]); 
+		}
+		
+		// AVERAGE
+		centerOutputPanel.add(averageLabel); 
+		centerOutputPanel.add(averageText); 
+		
+		// NUMBERS > AVERAGE
+		for (int i = 0; i < nm_nmbrs; i++) {
+			if (i == 0) 
+			{
+				centerOutputPanel.add(numbersGreaterLabel); 
+			}
+			else 
+			{
+				centerOutputPanel.add(new JLabel(""));  
+			}
+			centerOutputPanel.add(numbersGreaterText[i]); 
+		}
+		
+		// ADD OUTPUT PANELS TO OUTPUT CARD
+		outputCard.add(centerOutputPanel, BorderLayout.CENTER);
+		
+        // Create the panel that contains the "cards".
+        cards = new JPanel(new CardLayout());
+        cards.add(inputCard, INPUT_PANEL_NAME);
+        cards.add(outputCard, OUTPUT_PANEL_NAME);
+        
+        container.add(northPanel, BorderLayout.PAGE_START); 
+        container.add(cards, BorderLayout.CENTER);
+        container.add(nextPanel, BorderLayout.PAGE_END); 
+    }
+	
+	private void setupActionListeners() 
+	{
+		// ATTACH LISTENERS TO BUTTONS
+		nextButton.addActionListener(new nextButtonPressedListener());
+	}
+	
+	private void setupArrays(int nm_nmbrs) 
+	{
+		// ARRAYS 
+		numbersLabels = new JLabel[nm_nmbrs]; 		
+		numbersFields = new JTextField[nm_nmbrs]; 
+		numbersText = new JLabel[nm_nmbrs]; 
+		numbersGreaterText = new JTextArea[nm_nmbrs]; 
+		numbers = new double[nm_nmbrs]; 
+			
+		for (int i = 0; i < nm_nmbrs; i++) 
+		{
+			numbersLabels[i] = new JLabel("Number " + (i + 1) + ": "); 
+			numbersFields[i] = new JTextField(""); 
+			numbersText[i] = new JLabel(""); 
+			numbersGreaterText[i] = new JTextArea("");
+			
+			// SET SPECIAL PROPERTIES
+			numbersGreaterText[i].setEditable(false); 
+		}
 	}
 	
 	/******************************************************************************************************/
-	/*											 METHOD SECTION 										  */
+	/*										 ACTION LISTENER SECTION									  */
 	/******************************************************************************************************/
 	
 	private void getInputFromScreen()
@@ -55,6 +158,7 @@ public class InputFloatingPointsGUI extends JFrame
 		for (int i = 0; i < numbers.length; i++) 
 		{
 			numbers[i] = Double.parseDouble(numbersFields[i].getText()); 
+			numbersText[i].setText(numbersFields[i].getText()); 
 		}
 	}
 	
@@ -70,8 +174,9 @@ public class InputFloatingPointsGUI extends JFrame
 	
 	public void run() 
 	{
-		setupInputWindow(numbers.length); 
-		current_window = "Input"; 
+		addComponentToPane(); 
+		pack(); 
+		current_panel = INPUT_PANEL_NAME; 
 		setVisible(true); 
 	}
 	
@@ -82,142 +187,26 @@ public class InputFloatingPointsGUI extends JFrame
 	
 	public void setNumbersGreaterText(double[] nms_grtr)
 	{
-		for (int i = 0; i < nms_grtr.length; i++) 
-		{
-			numbersGreaterText[i].setText(Double.toString(nms_grtr[i]));
+		if (nms_grtr.length == 0) {
+			numbersGreaterText[0].setText("None");
 		}
-	}
-	
-	private void setupActionListeners() 
-	{
-		// ATTACH LISTENERS TO BUTTONS
-		nextButton.addActionListener(new nextButtonPressedListener());
-	}
-	
-	private void setupArrays(int nm_nmbrs) 
-	{
-		// ARRAYS 
-		numbersLabels = new JLabel[nm_nmbrs]; 		
-		numbersFields = new JTextField[nm_nmbrs]; 
-		numbersText = new JTextArea[nm_nmbrs]; 
-		numbersGreaterText = new JTextArea[nm_nmbrs]; 
-		numbers = new double[nm_nmbrs]; 
-		
-		
-				
-		for (int i = 0; i < nm_nmbrs; i++) 
-		{
-			numbersLabels[i] = new JLabel("Number " + (i + 1) + ": "); 
-			numbersFields[i] = new JTextField(""); 
-			numbersText[i] = new JTextArea(""); 
-			numbersGreaterText[i] = new JTextArea(""); 
-		}
-	}
-
-	private void setupInputWindow(int nm_nmbrs) 
-	{
-		// SET UP PANELS AND ADD TO WINDOW 
-		JPanel northPanel = new JPanel(); 
-		JPanel centerPanel = new JPanel (new GridLayout (nm_nmbrs, 2, 10, 5)); 
-		JPanel southPanel = new JPanel(); 
-		
-		Container container = getContentPane();
-		container.add(rootPanel); 
-		
-		//rootPanel.add(northPanel,BorderLayout.NORTH);
-		//rootPanel.add(centerPanel,BorderLayout.CENTER);
-		//rootPanel.add(southPanel,BorderLayout.SOUTH);
-				
-		// ADD CONTENTS TO PANELS 
-		// NORTH PANEL 
-		northPanel.add(numbersLabel); 
-		inputPanelCard.add(northPanel, BorderLayout.NORTH); 
-		
-		// CENTER PANEL
-		for (int i = 0; i < nm_nmbrs; i++) {
-			centerPanel.add(numbersLabels[i]); 
-			centerPanel.add(numbersFields[i]); 
-		}
-		inputPanelCard.add(centerPanel, BorderLayout.CENTER); 
-		
-		// SOUTH PANEL
-		southPanel.add(nextButton); 
-		southPanel.add(new JLabel("")); 					// EMPTY CELL
-		inputPanelCard.add(southPanel, BorderLayout.SOUTH); 
-		
-		// SET WINDOW ATTRIBUTES
-		setTitle("Input Numbers"); 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-
-		pack(); 	// RESIZES WINDOW TO SIZE NECESSARY 
-	}
-	
-	private void setupOutputWindow(int nm_nmbrs) 
-	{
-		// SET UP PANELS AND ADD TO WINDOW 
-		JPanel northPanel = new JPanel(new GridLayout (nm_nmbrs + 1, 2, 10, 5)); 
-		JPanel centerPanel = new JPanel (new GridLayout (nm_nmbrs + 2, 2, 10, 5)); 
-		JPanel southPanel = new JPanel(); 
-		
-		//getContentPane().removeAll();
-		Container container = getContentPane(); 
-		//getContentPane().list(); 
-		container.add(rootPanel);
-		//container.add(centerPanel,BorderLayout.CENTER);
-		//container.add(southPanel,BorderLayout.SOUTH);
-		//getContentPane().list(); 
-		
-		// ADD CONTENTS TO PANELS 
-		// NORTH PANEL 
-		northPanel.add(numbersLabel); 
-		northPanel.add(new JLabel(""));						// EMPTY CELL
-		for (int i = 0; i < nm_nmbrs; i++) {
-			northPanel.add(numbersLabels[i]); 
-			northPanel.add(numbersText[i]); 
-		}
-		outputPanelCard.add(northPanel, BorderLayout.NORTH); 
-				
-		// CENTER PANEL
-		for (int i = 0; i < nm_nmbrs; i++) {
-			centerPanel.add(averageLabel); 
-			centerPanel.add(averageText); 
-			centerPanel.add(numbersGreaterLabel); 
-			centerPanel.add(new JLabel("")); 				// EMPTY CELL
-			for (int j = 0; j < nm_nmbrs; j++) 
+		else {
+			for (int i = 0; i < nms_grtr.length; i++) 
 			{
-				centerPanel.add(new JLabel("")); 			// EMPTY CELL
-				centerPanel.add(numbersGreaterText[j]); 
+				numbersGreaterText[i].setText(Double.toString(nms_grtr[i]));
 			}
 		}
-		outputPanelCard.add(centerPanel, BorderLayout.CENTER);
-				
-		// SOUTH PANEL
-		southPanel.add(nextButton); 
-		//southPanel.add(new JTextArea("test")); 
-		outputPanelCard.add(southPanel, BorderLayout.SOUTH);
-		
-		// SET WINDOW ATTRIBUTES
-		setTitle("Information Output"); 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		//getContentPane().list(); 
-		pack(); 	// RESIZES WINDOW TO SIZE NECESSARY 
 	}
-	
-	/******************************************************************************************************/
-	/*										 ACTION LISTENER SECTION									  */
-	/******************************************************************************************************/
 	
 	private class nextButtonPressedListener implements ActionListener {
 		public void actionPerformed(ActionEvent e)
 		{
-			CardLayout cards = (CardLayout)  rootPanel.getLayout();
+			CardLayout cardsLayout = (CardLayout)  cards.getLayout();
 			
-			switch (current_window.toLowerCase())
+			switch (current_panel)
 			{
-			case "input" : 
+			case INPUT_PANEL_NAME : 
 				getInputFromScreen(); 
-				//setVisible(false); 
-				//dispose(); 
 				
 				// WAKE UP THREAD WHERE PUBLIC CLASS WAS INSTANTIATED 
 				synchronized (calling_thread)
@@ -234,27 +223,16 @@ public class InputFloatingPointsGUI extends JFrame
 						e1.printStackTrace();
 					} 
 				}
-			
-				setupOutputWindow(numbers.length);
-				//System.out.println(cards.toString());
-				cards.show(rootPanel,"Output Panel");
-				//setVisible(true); 
 				
-				// testing cause program 
-				System.out.println("(output) a greater number: " + numbersGreaterText[0].getText()); 
-				try {
-					Thread.sleep(5000); 
-				} 
-				catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-				//cards.show(rootPanel,"Output Panel");
-				System.out.println("f1"); 
+				current_panel = OUTPUT_PANEL_NAME; 
+				pack(); 
+				cardsLayout.show(cards, OUTPUT_PANEL_NAME);
+
+				break; 
 				
-			case "output" : 
+			case OUTPUT_PANEL_NAME : 
 				setVisible(false); 
-				//dispose(); 
-				System.out.println("f2"); 
+				dispose(); 						// WINDOW NO LONGER NECESSARY
 				
 				synchronized (calling_thread)
 				{
@@ -262,11 +240,12 @@ public class InputFloatingPointsGUI extends JFrame
 				}
 				
 				//System.exit(0); 
+				break; 
+				
+			default : 
+				break; 
 			}
 				
 		}
 	}
-	
 }
-
-

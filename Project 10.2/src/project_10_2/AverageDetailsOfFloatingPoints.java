@@ -23,7 +23,7 @@ public class AverageDetailsOfFloatingPoints {
 		/******************/
 		/* PROMPT SECTION */
 		/******************/
-		String prompt1 = "Input a number: "; 
+		//String prompt1 = "Input a number: "; 
 		
 		/********************/
 		/* VARIABLE SECTION */
@@ -52,13 +52,10 @@ public class AverageDetailsOfFloatingPoints {
 			/* INPUT SECTION */
 			/*****************/
 			//inputNumbersList(prompt1, numbers); 
-			InputFloatingPointsGUIV2 GUI = new InputFloatingPointsGUIV2(numbers, Thread.currentThread());  
+			InputFloatingPointsGUI GUI = new InputFloatingPointsGUI(numbers, Thread.currentThread());  
 			GUI.run(); 
 			
-			synchronized (process)
-			{
-				process.wait(); 
-			}
+			wait(process); 
 			
 			numbers = GUI.getNumbers(); 
 			
@@ -74,16 +71,8 @@ public class AverageDetailsOfFloatingPoints {
 			/* OUTPUT SECTION */
 			/******************/
 			// WAKE UP GUI THREAD
-			synchronized (GUI.getThread())
-			{
-				GUI.getThread().notify(); 
-			}
-			// SLEEP THIS THREAD 
-			synchronized (process)
-			{
-				process.wait(); 
-			}
-			//outputNumbersData(numbers, average, nums_greater); 
+			notify(GUI.getThread()); 
+			wait(process); 
 		}
 		while (runProgramPrompt() == true); 
 		
@@ -123,12 +112,17 @@ public class AverageDetailsOfFloatingPoints {
 		// SHORTEN LIST IF NECESSARY
 		if (grtr_index < nmbrs_grtr.length - 1) {
 			nmbrs_grtr = ListModification.shortenArray(nmbrs_grtr, grtr_index); 
-			for (double n : nmbrs_grtr) {
-				System.out.println(n); 
-			}
 		}
 		
 		return nmbrs_grtr; 		// weird stuff
+	}
+	
+	static void notify(Thread prcss) 
+	{
+		synchronized (prcss)
+		{
+			prcss.notify(); 
+		}
 	}
 	
 	static boolean runProgramPrompt()  
@@ -206,6 +200,13 @@ public class AverageDetailsOfFloatingPoints {
 		}
 		
 		JOptionPane.showMessageDialog(null, output);
+	}
+	
+	static void wait(Thread process) throws InterruptedException {
+		synchronized (process)
+		{
+			process.wait(); 
+		}
 	}
 }
 

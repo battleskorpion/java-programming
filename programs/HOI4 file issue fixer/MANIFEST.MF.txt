@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: 14 (BattleSkorpion)
+Main-Class: hoi4_mod_file_fixes.HOI4ErrorFixes
+Class-Path: swt.jar
