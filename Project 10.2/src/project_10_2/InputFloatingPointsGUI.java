@@ -24,7 +24,7 @@ public class InputFloatingPointsGUI extends JFrame {
 	private Thread this_thread; 		// THREAD EXECUTING THIS CLASS
 	
 	static final private String INPUT_PANEL_NAME = "Input Panel"; 
-	static final private String OUTPUT_PANEL_NAME = "Outpu8t Panel";
+	static final private String OUTPUT_PANEL_NAME = "Output Panel";
 	
 	/***********************/
 	/* CONSTRUCTOR SECTION */
