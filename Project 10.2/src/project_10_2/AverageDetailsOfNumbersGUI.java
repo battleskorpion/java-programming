@@ -14,10 +14,12 @@ import java.text.NumberFormat;						// FOR NUMBER OUTPUT FORMATTING
 import javax.swing.JOptionPane;						// FOR SIMPLE SWING WINDOWS
 import org.eclipse.swt.events.KeyEvent;				// FOR KEY PRESS DETECTION
 import org.eclipse.swt.events.KeyListener;			// FOR KEY PRESS DETECTION
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;							// FOR SWT WINDOWS
 import org.eclipse.swt.widgets.Display;				// FOR SWT WINDOWS
 import org.eclipse.swt.widgets.Shell;				// FOR SWT WINDOWS
-import org.eclipse.swt.widgets.Label;				// FOR USE IN SWT WINDOWs
+import org.eclipse.swt.widgets.Label;				// FOR USE IN SWT WINDOWS
 import org.eclipse.swt.widgets.Table;				// FOR USE IN SWT WINDOWS
 import org.eclipse.swt.widgets.Text;				// FOR USE IN SWT WINDOWS
 import org.eclipse.swt.widgets.TableItem;			// FOR USE IN SWT WINDOWS
@@ -26,17 +28,25 @@ import org.eclipse.swt.widgets.Button;		// FOR SWT WINDOWS
 
 public class AverageDetailsOfNumbersGUI 
 {
-	public static final String AVG_LABEL_DEF_TEXT = "Average: "; 
-	protected Shell shell;
-	private Table numbersTable;
-	private Text numberField;
-	private double[] numbers;						// array of entered numbers
-	private int numbers_count; 						// logic size of numbers[]
-	private double[] numbersGreater; 				// numbers > average, will always be at least
-													// numbers.length - 1 or less
-	private int numbersGreater_count; 				// logic size of numbersGreater[]			
-	private Table numbersGreaterTable;
+	/*********************/
+	/* CONSTANTS SECTION */
+	/*********************/
+	private static final String AVG_LABEL_DEF_TEXT = "Average: "; 
+	
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
 	private NumberFormat nf = NumberFormat.getInstance(); 
+	
+	private Text numberField;						// NUMBER ENTRY FIELD
+	private double[] numbers;						// ARRAY OF ENTERED NUMBERS
+	private int numbers_count; 						// LOGIC SIZE OF numbers[]
+	private double[] numbersGreater; 				// NUMBERS > AVERAGE, WILL ALWAYS BE AT LEAST
+													// numbers.length - 1 OR LESS
+	private int numbersGreater_count; 				// LOGIC SIZE OF numbersGreater[]
+	private Table numbersGreaterTable;				// TABLE DISPLAYING NUMBERS > AVERAGE
+	private Table numbersTable;						// TABLE DISPLAYING NUMBERS ENTERED	
+	protected Shell shell;							// REPRESENTS A DESKTOP WINDOW
 
 	public static void main(String[] args) 
 	{
@@ -58,12 +68,13 @@ public class AverageDetailsOfNumbersGUI
 	{
 		this(10); 	
 	}
+	
 	public AverageDetailsOfNumbersGUI(int nm_nmbrs) 
 	{
 		numbers = new double[nm_nmbrs]; 
-		numbers_count = 0; 
-		numbersGreater = new double[nm_nmbrs - 1]; 	// numbers > average, will always be at least 
-													// numbers.length - 1 or less
+		numbers_count = 0; 							// LOGICAL SIZE OF numbers (0 TO START) 
+		numbersGreater = new double[nm_nmbrs - 1]; 	// NUMBERS > AVERAGE, WILL ALWAYS BE AT LEAST 
+													// numbers.length - 1 OR LESS
 		numbersGreater_count = 0; 
 		nf.setMaximumFractionDigits(4);
 	}
@@ -72,11 +83,11 @@ public class AverageDetailsOfNumbersGUI
 	/*											 METHOD SECTION 										  */
 	/******************************************************************************************************/
 	
+	public void open()
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
 	/* POSTCONDITION: CREATES THE GUI DISPLAY AND OPENS THE DISPLAY	*/
 	/****************************************************************/
-	public void open()
 	{
 		/********************/
 		/* VARIABLE SECTION */
@@ -108,20 +119,21 @@ public class AverageDetailsOfNumbersGUI
 		}
 	}
 
+	
+	protected void createContents() 
 	/*****************************************************************************************/
 	/* PRECONDITION:  CONTENTS NEED TO BE ADDED TO THE WINDOW SO THE WINDOW CAN BE DISPLAYED */
 	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW		  								 */
 	/*****************************************************************************************/
-	protected void createContents() 
 	{
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		Label lblAverage; 							// Average of numbers label
-		Label lblNumbersAverage; 					// Average of numbers output 
-		Label lblNumbers;							// List of entered numbers label
-		Label lblxMax;								// Max amt. of enterable numbers label
-		Label lblInputNumber;						// Number entry label	 
+		Label lblAverage; 							// AVERAGE OF NUMBERS LABEL
+		Label lblNumbersAverage; 					// AVERAGE OF NUMBERS OUTPUT 
+		Label lblNumbers;							// LIST OF ENTERED NUMBERS LABEL
+		Label lblxMax;								// MAX AMT. OF ENTERABLE NUMBERS LABEL
+		Label lblInputNumber;						// NUMBER ENTRY LABEL	 
 		
 		/***********************/
 		/* CREATE WINDOW SHELL */
@@ -188,22 +200,25 @@ public class AverageDetailsOfNumbersGUI
 		numberField.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		numberField.setBounds(10, 31, 103, 21);
 		numberField.addKeyListener(new KeyListener()
+		/**************************************************************************/
+		/* KEY LISTENER TO PROCESS INPUT AND UPDATE SCREEN WHEN ENTER KEY PRESSED */
+		/**************************************************************************/
 		{ 
+			public void keyPressed(KeyEvent e) 
 			/***************************************************************/
 			/* PRECONDITION:  A KEY HAS BEEN PRESSED					   */
 			/* POSTCONDITION: NOTHING (ABSTRACT METHOD HAS TO BE DECLARED) */
 			/***************************************************************/
-			public void keyPressed(KeyEvent e) 
 			{
 				// DO NOTHING  
 			}
 			
-			/********************************************************************************/
+		    public void keyReleased(KeyEvent e) 
+		    /********************************************************************************/
 			/* PRECONDITION:  A KEY HAS BEEN RELEASED					   				    */
 			/* POSTCONDITION: IF KEY PRESSED WAS enter (CARRAIGE RETURN), TRY TO ADD NUMBER */ 
 			/*  			  WHICH WAS ENTERED AND UPDATE STATISTICS					    */
 			/********************************************************************************/
-		    public void keyReleased(KeyEvent e) 
 		    {  
 		    	/************************/
 		    	/* IF ENTER KEY PRESSED */
@@ -241,6 +256,10 @@ public class AverageDetailsOfNumbersGUI
 		    		{
 		    			JOptionPane.showMessageDialog(null, "Already entered maximum amount of numbers.");
 		    		}
+		    		
+		    		/****************************/
+		    		/* RESET NUMBER ENTRY FIELD */
+		    		/****************************/
 		    		numberField.setText(""); 
 		    	}
 		    }  
@@ -252,14 +271,30 @@ public class AverageDetailsOfNumbersGUI
 		Button btnContinue = new Button(shell, SWT.NONE);
 		btnContinue.setBounds(10, 218, 75, 25);
 		btnContinue.setText("Continue");
+		btnContinue.addSelectionListener(new SelectionAdapter()  
+		/*******************************************************************/
+		/* SELECTION LISTENER TO CONTINUE WHEN CONTINUE BUTTON IS SELECTED */
+		/*******************************************************************/
+		{
+			public void widgetSelected(SelectionEvent event) 
+			/*********************************************************/
+			/* PRECONDITION:  USER HAS PRESSED CONTINUE BUTTON       */
+			/* POSTCONDITION: SHELL IS DISPOSED/GUI WINDOW IS CLOSED */
+			/*********************************************************/
+			{
+				shell.dispose(); 	
+			}
+		});
 
 	}
 	
+	
+	private double calcAverage(double[] nmbrs, int nmbrs_ct) 
 	/**************************************************************************/
 	/* PRECONDITION:  NEW AVERAGE NEEDS TO BE CALCULATED FROM LIST OF NUMBERS */
 	/* POSTCONDITION: CALCULATES AVERAGE AND RETURNS RESULT 				  */
 	/**************************************************************************/
-	private double calcAverage(double[] nmbrs, int nmbrs_ct) {
+	{
 		/*****************/
 		/* CALCULATE SUM */
 		/*****************/
@@ -271,12 +306,12 @@ public class AverageDetailsOfNumbersGUI
 		return sum /= nmbrs_ct;		// RETURN SUM / NUMBERS SUMMED TO CALCULATE AVERAGE = AVERAGE
 	}
 	
+	private void updateAverage(double[] nmbrs, int nmbrs_ct, 
+			double[] nmbrsGrtr, int nmbrsGrtr_ct, Label avg_lbl, Table nmbrsGrtrTbl)  
 	/*****************************************************************************/
 	/* PRECONDITION:  AVERAGE AND NUMBERS > AVERAGE NEED TO BE UPDATED 			 */
 	/* POSTCONDITION: CALCULATES AVERAGE, NUMBERS > AVERAGE, AND UPDATES DISPLAY */
 	/*****************************************************************************/
-	private void updateAverage(double[] nmbrs, int nmbrs_ct, 
-			double[] nmbrsGrtr, int nmbrsGrtr_ct, Label avg_lbl, Table nmbrsGrtrTbl)  
 	{
 		/********************/
 		/* VARIABLE SECTION */
@@ -298,6 +333,10 @@ public class AverageDetailsOfNumbersGUI
 		/**************************************************/
 		nmbrsGrtr_ct = 0; 						// RESETTING NUMBERS > AVERAGE LOGIC SIZE
 		for (int i = 0; i < nmbrs_ct; i++) {
+			/********************************************************/
+			/* IF THIS NUMBER IN nmbrs IS GREATER THAN THE AVERAGE, */
+			/* ADD IT TO THE NUMBERS > AVERAGE ARRAY 				*/
+			/********************************************************/
 			if (nmbrs[i] > avg) 
 			{
 				nmbrsGrtr[nmbrsGrtr_ct] = nmbrs[i]; 
@@ -310,6 +349,10 @@ public class AverageDetailsOfNumbersGUI
 	}
 	
 	private void updateTable(Table tbl, double nmbr) 
+	/***********************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE */
+	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   */
+	/***********************************************************************/
 	{
 		/*********************/
 		/* ADD ITEM TO TABLE */
@@ -319,6 +362,10 @@ public class AverageDetailsOfNumbersGUI
 	}
 	
 	private void updateTable(Table tbl, double nmbrs[], double nmbrs_ct) 
+	/*****************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	 */
+	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE		 */
+	/*****************************************************************************/
 	{
 		/***************/
 		/* RESET TABLE */

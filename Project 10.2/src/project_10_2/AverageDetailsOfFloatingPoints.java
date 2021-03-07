@@ -21,7 +21,6 @@ public class AverageDetailsOfFloatingPoints
 	
 	public static void main (String args[]) throws InterruptedException 
 	{
-		
 		/****************************/
 		/* USER DESCRIPTION SECTION */
 		/****************************/
