@@ -4,9 +4,9 @@
 /* FEBURARY 11, 2021								*/
 /* PROGRAM 10										*/
 /* PROJECT 10-2										*/
-/* THIS PROGRAM WILL   		*/
-/*  						*/
-/* 		 					*/
+/* THIS PROGRAM WILL CALCULATE THE AVERAGE AND    	*/
+/* NUMBERS GREATER THAN THE AVERAGE 				*/
+/* FROM A LIST OF INPUTTED NUMBERS		 			*/
 /****************************************************/
 
 /******************/
@@ -14,7 +14,7 @@
 /******************/
 package project_10_2;
 
-import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;			// FOR SIMPLE SWING WINDOWS
 
 public class AverageDetailsOfFloatingPoints 
 {
@@ -25,8 +25,8 @@ public class AverageDetailsOfFloatingPoints
 		/****************************/
 		/* USER DESCRIPTION SECTION */
 		/****************************/
-		JOptionPane.showMessageDialog(null, "This program will stuff "
-				+ "\n" + "and stuff");
+		JOptionPane.showMessageDialog(null, "This program will calculate the average and numbers greater than the average "
+				+ "\n" + "from a list of inputted numbers.");
 		
 		/**************************/
 		/* RUN PROGRAM AGAIN LOOP */
