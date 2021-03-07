@@ -3,11 +3,9 @@ package bus_project;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class BusProgramMenu {
 
@@ -21,7 +19,8 @@ public class BusProgramMenu {
 		try {
 			BusProgramMenu window = new BusProgramMenu();
 			window.open();
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -46,35 +45,56 @@ public class BusProgramMenu {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("SWT Application");
+		shell.setSize(382, 209);
+		shell.setText("Bus Program");
 		
-		Menu menu = new Menu(shell, SWT.BAR);
-		shell.setMenuBar(menu);
+		Button btnAddCustomer = new Button(shell, SWT.NONE);
+		btnAddCustomer.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) 
+			{
+				
+			}
+		});
+		btnAddCustomer.setBounds(10, 10, 170, 25);
+		btnAddCustomer.setText("Add new customer");
 		
-		MenuItem mntmAddCustomer = new MenuItem(menu, SWT.NONE);
-		mntmAddCustomer.setText("New Item");
+		Button btnModifyCustomer = new Button(shell, SWT.NONE);
+		btnModifyCustomer.setBounds(10, 41, 170, 25);
+		btnModifyCustomer.setText("Modify Customer");
 		
-		MenuItem mntmDeleteCustomer = new MenuItem(menu, SWT.NONE);
-		mntmDeleteCustomer.setText("New Item");
+		Button btnListCustomersBySize = new Button(shell, SWT.NONE);
+		btnListCustomersBySize.setBounds(10, 72, 170, 25);
+		btnListCustomersBySize.setText("List Customers by Group Size");
 		
-		MenuItem mntmModifyCustomers = new MenuItem(menu, SWT.NONE);
-		mntmModifyCustomers.setText("New Item");
+		Button btnProfitByDate = new Button(shell, SWT.NONE);
+		btnProfitByDate.setBounds(10, 103, 170, 25);
+		btnProfitByDate.setText("Profit by Date");
 		
-		MenuItem mntmListCustomersByAlphabetical = new MenuItem(menu, SWT.NONE);
-		mntmListCustomersByAlphabetical.setText("New Item");
+		Button btnQuit = new Button(shell, SWT.NONE);
+		btnQuit.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) 
+			{
+				shell.dispose(); 		
+			}
+		});
+		btnQuit.setBounds(124, 134, 120, 25);
+		btnQuit.setText("Quit");
 		
-		MenuItem mntmListCustomersBySize = new MenuItem(menu, SWT.NONE);
-		mntmListCustomersBySize.setText("New Item");
+		Button btnRemoveCustomer = new Button(shell, SWT.NONE);
+		btnRemoveCustomer.setBounds(186, 10, 170, 25);
+		btnRemoveCustomer.setText("Remove customer");
 		
-		MenuItem mntmListBusesByDate = new MenuItem(menu, SWT.NONE);
-		mntmListBusesByDate.setText("New Item");
+		Button btnListCustomersByName = new Button(shell, SWT.NONE);
+		btnListCustomersByName.setBounds(186, 41, 170, 25);
+		btnListCustomersByName.setText("List customers by Name");
 		
-		MenuItem mntmNewItem_6 = new MenuItem(menu, SWT.NONE);
-		mntmNewItem_6.setText("New Item");
+		Button btnBusesNeededByDate = new Button(shell, SWT.NONE);
+		btnBusesNeededByDate.setBounds(186, 72, 170, 25);
+		btnBusesNeededByDate.setText("Buses needed by Date");
 		
-		MenuItem mntmNewItem_7 = new MenuItem(menu, SWT.NONE);
-		mntmNewItem_7.setText("New Item");
+		Button btnProfitTotal = new Button(shell, SWT.NONE);
+		btnProfitTotal.setBounds(186, 103, 170, 25);
+		btnProfitTotal.setText("Total profit details");
 
 	}
 }
