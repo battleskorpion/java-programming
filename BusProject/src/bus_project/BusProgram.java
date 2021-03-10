@@ -24,7 +24,7 @@ public class BusProgram {
 		/****************************/
 		JOptionPane.showMessageDialog(null, "This program will do stuff "
 				+ "\n" + "and stuff");
-
+		
 	}
 
 }

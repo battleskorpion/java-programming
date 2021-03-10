@@ -24,8 +24,8 @@ public class AverageDetailsOfFloatingPoints
 		/****************************/
 		/* USER DESCRIPTION SECTION */
 		/****************************/
-		JOptionPane.showMessageDialog(null, "This program will calculate the average and numbers greater than the average "
-				+ "\n" + "from a list of inputted numbers.");
+		JOptionPane.showMessageDialog(null, "This program will calculate the average and numbers"
+				+ "\n" + "greater than the average from a list of inputted numbers.");
 		
 		/**************************/
 		/* RUN PROGRAM AGAIN LOOP */

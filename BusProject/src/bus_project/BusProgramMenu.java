@@ -74,7 +74,7 @@ public class BusProgramMenu {
 		btnQuit.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) 
 			{
-				shell.dispose(); 		
+				shell.dispose(); 		// QUIT 
 			}
 		});
 		btnQuit.setBounds(124, 134, 120, 25);

@@ -10,21 +10,21 @@ package project_10_2;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.text.NumberFormat;						// FOR NUMBER OUTPUT FORMATTING
-import javax.swing.JOptionPane;						// FOR SIMPLE SWING WINDOWS
-import org.eclipse.swt.events.KeyEvent;				// FOR KEY PRESS DETECTION
-import org.eclipse.swt.events.KeyListener;			// FOR KEY PRESS DETECTION
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.SWT;							// FOR SWT WINDOWS
-import org.eclipse.swt.widgets.Display;				// FOR SWT WINDOWS
-import org.eclipse.swt.widgets.Shell;				// FOR SWT WINDOWS
-import org.eclipse.swt.widgets.Label;				// FOR USE IN SWT WINDOWS
-import org.eclipse.swt.widgets.Table;				// FOR USE IN SWT WINDOWS
-import org.eclipse.swt.widgets.Text;				// FOR USE IN SWT WINDOWS
-import org.eclipse.swt.widgets.TableItem;			// FOR USE IN SWT WINDOWS
-import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.widgets.Button;		// FOR SWT WINDOWS
+import java.text.NumberFormat;							// FOR NUMBER OUTPUT FORMATTING
+import javax.swing.JOptionPane;							// FOR SIMPLE SWING WINDOWS
+import org.eclipse.swt.events.KeyEvent;					// FOR KEY PRESS DETECTION
+import org.eclipse.swt.events.KeyListener;				// FOR KEY PRESS DETECTION
+import org.eclipse.swt.events.SelectionAdapter;			// FOR SELECTION DETECTION
+import org.eclipse.swt.events.SelectionEvent;			// FOR SELECTION DETECTION
+import org.eclipse.swt.SWT;								// FOR SWT WINDOWS
+import org.eclipse.swt.widgets.Display;					// FOR SWT WINDOWS
+import org.eclipse.swt.widgets.Shell;					// FOR SWT WINDOWS
+import org.eclipse.swt.widgets.Label;					// FOR USE IN SWT WINDOWS
+import org.eclipse.swt.widgets.Table;					// FOR USE IN SWT WINDOWS
+import org.eclipse.swt.widgets.Text;					// FOR USE IN SWT WINDOWS
+import org.eclipse.swt.widgets.TableItem;				// FOR USE IN SWT WINDOWS
+import org.eclipse.swt.widgets.Button;					// FOR SWT WINDOWS
+import org.eclipse.wb.swt.SWTResourceManager;			// FOR SWT WINDOWS
 
 public class AverageDetailsOfNumbersGUI 
 {
@@ -36,24 +36,32 @@ public class AverageDetailsOfNumbersGUI
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/
-	private NumberFormat nf = NumberFormat.getInstance(); 
-	
-	private Text numberField;						// NUMBER ENTRY FIELD
-	private double[] numbers;						// ARRAY OF ENTERED NUMBERS
-	private int numbers_count; 						// LOGIC SIZE OF numbers[]
-	private double[] numbersGreater; 				// NUMBERS > AVERAGE, WILL ALWAYS BE AT LEAST
-													// numbers.length - 1 OR LESS
-	private int numbersGreater_count; 				// LOGIC SIZE OF numbersGreater[]
-	private Table numbersGreaterTable;				// TABLE DISPLAYING NUMBERS > AVERAGE
-	private Table numbersTable;						// TABLE DISPLAYING NUMBERS ENTERED	
-	protected Shell shell;							// REPRESENTS A DESKTOP WINDOW
+	private NumberFormat nf 							// FOR FORMATTING NUMBER INPUT/OUTPUT
+		= NumberFormat.getInstance(); 					
+	private Text numberField;							// NUMBER ENTRY FIELD
+	private double[] numbers;							// ARRAY OF ENTERED NUMBERS
+	private int numbers_count; 							// LOGIC SIZE OF numbers[]
+	private double[] numbersGreater; 					// NUMBERS > AVERAGE, WILL ALWAYS BE AT LEAST
+														// numbers.length - 1 OR LESS
+	private int numbersGreater_count; 					// LOGIC SIZE OF numbersGreater[]
+	private Table numbersGreaterTable;					// TABLE DISPLAYING NUMBERS > AVERAGE
+	private Table numbersTable;							// TABLE DISPLAYING NUMBERS ENTERED	
+	protected Shell shell;								// REPRESENTS A DESKTOP WINDOW
 
 	public static void main(String[] args) 
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		AverageDetailsOfNumbersGUI window 
+			= new AverageDetailsOfNumbersGUI();			// CREATE AN INSTANCE OF THIS CLASS 
+													
+		/*****************************/
+		/* METHOD TO OPEN GUI WINDOW */
+		/*****************************/
 		try 
-		{
-			AverageDetailsOfNumbersGUI window = new AverageDetailsOfNumbersGUI();
-			window.open();
+		{	
+			window.open();														
 		} 
 		catch (Exception e) 
 		{
@@ -66,17 +74,17 @@ public class AverageDetailsOfNumbersGUI
 	/***********************/
 	public AverageDetailsOfNumbersGUI()
 	{
-		this(10); 	
+		this(10); 										// 10 NUMBERS DEFAULT
 	}
 	
 	public AverageDetailsOfNumbersGUI(int nm_nmbrs) 
 	{
-		numbers = new double[nm_nmbrs]; 
-		numbers_count = 0; 							// LOGICAL SIZE OF numbers (0 TO START) 
-		numbersGreater = new double[nm_nmbrs - 1]; 	// NUMBERS > AVERAGE, WILL ALWAYS BE AT LEAST 
-													// numbers.length - 1 OR LESS
-		numbersGreater_count = 0; 
-		nf.setMaximumFractionDigits(4);
+		numbers = new double[nm_nmbrs]; 				// NUMBERS ENTERED BY USER
+		numbers_count = 0; 								// LOGICAL SIZE OF numbers (0 TO START) 
+		numbersGreater = new double[nm_nmbrs - 1]; 		// NUMBERS > AVERAGE, WILL ALWAYS BE AT LEAST 
+														// numbers.length - 1 OR LESS
+		numbersGreater_count = 0; 						// LOGICAL SIZE OF numbersGreater (0 TO START) 
+		nf.setMaximumFractionDigits(4);					// SETS MAXIMUM OUTPUT PRECISION OF 4 DECIMALS
 	}
 	
 	/******************************************************************************************************/
@@ -92,8 +100,8 @@ public class AverageDetailsOfNumbersGUI
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		Display display = Display.getDefault();		// MANAGES THEC ONNECTION BETWEEN SWT 
-													// AND THE UNDERLYING OPERATING SYSTEM 
+		Display display = Display.getDefault();			// MANAGES THEC ONNECTION BETWEEN SWT 
+														// AND THE UNDERLYING OPERATING SYSTEM 
 		
 		/**********************************************/
 		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
@@ -108,7 +116,7 @@ public class AverageDetailsOfNumbersGUI
 		/******************************************************************/
 		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
 		/******************************************************************/
-		shell.forceActive();		// SO WINDOW WILL BE FOCUSED WHEN CREATED
+		shell.forceActive();							// SO WINDOW WILL BE FOCUSED WHEN CREATED
 		shell.layout();
 		while (!shell.isDisposed()) 
 		{
@@ -118,7 +126,6 @@ public class AverageDetailsOfNumbersGUI
 			}
 		}
 	}
-
 	
 	protected void createContents() 
 	/*****************************************************************************************/
@@ -129,11 +136,11 @@ public class AverageDetailsOfNumbersGUI
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		Label lblAverage; 							// AVERAGE OF NUMBERS LABEL
-		Label lblNumbersAverage; 					// AVERAGE OF NUMBERS OUTPUT 
-		Label lblNumbers;							// LIST OF ENTERED NUMBERS LABEL
-		Label lblxMax;								// MAX AMT. OF ENTERABLE NUMBERS LABEL
-		Label lblInputNumber;						// NUMBER ENTRY LABEL	 
+		Label lblAverage; 								// AVERAGE OF NUMBERS LABEL
+		Label lblNumbersAverage; 						// AVERAGE OF NUMBERS OUTPUT 
+		Label lblNumbers;								// LIST OF ENTERED NUMBERS LABEL
+		Label lblxMax;									// MAX AMT. OF ENTERABLE NUMBERS LABEL
+		Label lblInputNumber;							// NUMBER ENTRY LABEL	 
 		
 		/***********************/
 		/* CREATE WINDOW SHELL */
@@ -236,10 +243,13 @@ public class AverageDetailsOfNumbersGUI
 		    			try 
 		    			{
 		    				numbers[numbers_count] = Double.parseDouble(numberField.getText());
-		    				numbers_count++; 										// ARRAY LOGIC SIZE IS NOW INCREASED BY ONE 
-		    																		// AFTER ADDING A NUMBER TO THE ARRAY
-		    				updateTable(numbersTable, numbers[numbers_count-1]);	// NUMBERS_COUNT - 1 SINCE ARRAY COUNTING STARTS AT 0 
-		    				updateAverage(numbers, numbers_count, numbersGreater, numbersGreater_count, lblAverage, numbersGreaterTable); 
+		    				numbers_count++; 								// ARRAY LOGIC SIZE IS NOW INCREASED BY ONE 
+		    																// AFTER ADDING A NUMBER TO THE ARRAY
+		    				updateTable(numbersTable, 						// NUMBERS_COUNT - 1 SINCE
+		    						numbers[numbers_count-1]);	 			// ARRAY COUNTING STARTS AT 0 														
+		    				updateAverage(numbers, numbers_count,
+		    						numbersGreater, numbersGreater_count, 
+		    						lblAverage, numbersGreaterTable); 
 		    			}
 		    			/**********************************************/
 		    			/* CATCH ANY EXCEPTION, DISPLAY ERROR MESSAGE */
@@ -272,6 +282,7 @@ public class AverageDetailsOfNumbersGUI
 		btnContinue.setBounds(10, 218, 75, 25);
 		btnContinue.setText("Continue");
 		btnContinue.addSelectionListener(new SelectionAdapter()  
+				
 		/*******************************************************************/
 		/* SELECTION LISTENER TO CONTINUE WHEN CONTINUE BUTTON IS SELECTED */
 		/*******************************************************************/
@@ -285,9 +296,7 @@ public class AverageDetailsOfNumbersGUI
 				shell.dispose(); 	
 			}
 		});
-
 	}
-	
 	
 	private double calcAverage(double[] nmbrs, int nmbrs_ct) 
 	/**************************************************************************/
@@ -303,7 +312,7 @@ public class AverageDetailsOfNumbersGUI
 		{
 			sum += nmbrs[i];  
 		}
-		return sum /= nmbrs_ct;		// RETURN SUM / NUMBERS SUMMED TO CALCULATE AVERAGE = AVERAGE
+		return sum /= nmbrs_ct;							// RETURN SUM / NUMBERS SUMMED (AVERAGE)
 	}
 	
 	private void updateAverage(double[] nmbrs, int nmbrs_ct, 
@@ -316,7 +325,7 @@ public class AverageDetailsOfNumbersGUI
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		double avg; 		 					// average of each number in numbers
+		double avg; 		 							// AVERAGE OF EACH NUMBER IN NUMBERS
 		
 		/*******************************/
 		/* METHOD TO CALCULATE AVERAGE */
@@ -331,8 +340,9 @@ public class AverageDetailsOfNumbersGUI
 		/**************************************************/
 		/* CALCULATE NUMBERS > AVERAGE AND UPDATE DISPLAY */
 		/**************************************************/
-		nmbrsGrtr_ct = 0; 						// RESETTING NUMBERS > AVERAGE LOGIC SIZE
-		for (int i = 0; i < nmbrs_ct; i++) {
+		nmbrsGrtr_ct = 0; 								// RESETTING NUMBERS > AVERAGE LOGIC SIZE
+		for (int i = 0; i < nmbrs_ct; i++) 
+		{
 			/********************************************************/
 			/* IF THIS NUMBER IN nmbrs IS GREATER THAN THE AVERAGE, */
 			/* ADD IT TO THE NUMBERS > AVERAGE ARRAY 				*/
