@@ -9,11 +9,11 @@ public abstract class AbstractProgramWindow {
 	/**
 	 * Open the window.
 	 */
-	public abstract void open(); 
+	//public abstract void open(); 
 
 	/**
 	* Create contents of the window.
 	*/
-	protected abstract void createContents(); 
+	//protected abstract void createContents(); 
 	 
 }

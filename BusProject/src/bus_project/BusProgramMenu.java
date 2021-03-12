@@ -1,5 +1,7 @@
 package bus_project;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -10,6 +12,8 @@ import org.eclipse.swt.events.SelectionEvent;
 public class BusProgramMenu extends AbstractProgramWindow {
 
 	protected Shell shell;
+	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
+	//private Calendar date; 	// current date
 
 	/**
 	 * Launch the application.
@@ -90,8 +94,8 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		AddCustomer addCustomerWindow = new AddCustomer();
-		RemoveCustomer removeCustomerWindow = new RemoveCustomer(); 
+		AddCustomer addCustomerWindow = new AddCustomer(customers);
+		RemoveCustomer removeCustomerWindow = new RemoveCustomer(customers); 
 		
 		shell = new Shell();
 		shell.setSize(382, 209);
@@ -111,7 +115,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				/****************************/
 				/* OPEN ADD CUSTOMER WINDOW */
 				/****************************/
-				addCustomerWindow.open();
+				addCustomerWindow.open(shell);
 					
 				/*************************************************/
 				/* ENABLE AND FOCUS MENU AFTER PERFORMING ACTION */
@@ -121,7 +125,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				/******************************************************************/
 				/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
 				/******************************************************************/
-				shell.forceActive();							
+				shell.forceActive();	
 			}
 		});
 
@@ -151,7 +155,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				/****************************/
 				/* OPEN ADD CUSTOMER WINDOW */
 				/****************************/
-				removeCustomerWindow.open();
+				removeCustomerWindow.open(shell);
 				
 				/*************************************************/
 				/* ENABLE AND FOCUS MENU AFTER PERFORMING ACTION */

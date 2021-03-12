@@ -1,40 +1,37 @@
 package bus_project;
 
+import java.time.*; 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 
-import javax.swing.JFrame;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ShellAdapter;
-import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.DateTime;
 
 public class AddCustomer extends AbstractProgramWindow {
 
 	protected Shell shlAddCustomer;
+	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
+	private Text nameField;
+	private Text sizeField;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			AddCustomer window = new AddCustomer();
-			window.open();
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
+	public AddCustomer (ArrayList<Customer> cstmrs) {
+		customers = cstmrs; 
 	}
-
+			
 	/**
 	 * Open the window.
+	 * @wbp.parser.entryPoint
 	 */
-	public void open()
+	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
 	/* POSTCONDITION: CREATES THE GUI DISPLAY AND OPENS THE DISPLAY	*/
@@ -49,7 +46,7 @@ public class AddCustomer extends AbstractProgramWindow {
 		/**********************************************/
 		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
 		/**********************************************/
-		createContents();
+		createContents(rootShell);
 		
 		/****************************************/
 		/* METHOD TO OPEN SHELL (ADD TO SCREEN) */
@@ -81,20 +78,97 @@ public class AddCustomer extends AbstractProgramWindow {
 	/**
 	 * Create contents of the window.
 	 */
-	protected void createContents() {
+	protected void createContents(Shell rootShell) {
 		
 		shlAddCustomer = new Shell();
 		shlAddCustomer.setSize(600, 400);
 		shlAddCustomer.setText("Add Customer");
 		
+		Label lblName = new Label(shlAddCustomer, SWT.NONE);
+		lblName.setBounds(10, 13, 73, 15);
+		lblName.setText("Name:");
+		
+		nameField = new Text(shlAddCustomer, SWT.BORDER);
+		nameField.setBounds(89, 10, 80, 24);
+		
+		Label lblSize = new Label(shlAddCustomer, SWT.NONE);
+		lblSize.setText("Group size: ");
+		lblSize.setBounds(10, 43, 73, 15);
+		
+		sizeField = new Text(shlAddCustomer, SWT.BORDER);
+		sizeField.setBounds(89, 40, 80, 24);
+		
+		Label lblTripDate = new Label(shlAddCustomer, SWT.NONE);
+		lblTripDate.setBounds(10, 73, 73, 15);
+		lblTripDate.setText("Trip Date: ");
+		
+		DateTime dateTime = new DateTime(shlAddCustomer, SWT.BORDER);
+		dateTime.setBounds(89, 70, 80, 24);
+		
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
 		btnExit.setBounds(499, 326, 75, 25);
 		btnExit.setText("Exit");
-		btnExit.addSelectionListener(new SelectionAdapter() {
+		
+		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
+		btnAdd.setBounds(50, 100, 75, 25);
+		btnAdd.setText("Add");
+		
+		btnAdd.addSelectionListener(new SelectionAdapter() 
+		{
 			public void widgetSelected(SelectionEvent e) 
 			{
+				LocalDate tripDate; 
+				Customer customer; 
+				
+				try
+				{
+					if (nameField.getText().equals(""))
+					{
+						/***************/
+						/* PRINT ERROR */
+						/***************/
+						JOptionPane.showMessageDialog(null, "Error: No group name specified!"); 
+					}
+					else if (Integer.parseInt(sizeField.getText()) < 0) {
+						/***************/
+						/* PRINT ERROR */
+						/***************/
+						JOptionPane.showMessageDialog(null, "Error: Number of persons can not be negative!"); 
+					}
+					else
+					{
+						customer = new Customer();
+								
+						customer.setName(nameField.getText()); 
+						customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
+						customer.setDate(LocalDate.parse(dateTime.getDay() + "-" + dateTime.getMonth() + "-" + dateTime.getYear())); 
+						//customer.setDate(
+					}
+				}
+				catch (Exception exc) 
+				{
+					/***************/
+					/* PRINT ERROR */
+					/***************/
+					JOptionPane.showMessageDialog(null, "Error: Improper numerical input!"); 
+				}
+			}
+		});
+		btnExit.addSelectionListener(new SelectionAdapter() 
+		{
+			public void widgetSelected(SelectionEvent e) 
+			{
+				rootShell.forceActive(); 
 				shlAddCustomer.close(); 
 			}
 		});
+	}
+	
+	//private void inputCustomer() {
+	//	
+	//}
+	
+	private void addCustomer(int index, Customer customer) {
+		customers.add(index, customer);
 	}
 }

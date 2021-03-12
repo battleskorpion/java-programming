@@ -1,11 +1,13 @@
 package bus_project;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class Customer 
 {
-	private int numPersons;		 
-	//private Calendar date; 
+	private String name; 		// NAME OF GROUP
+	private int numPersons;		// NUMBER OF PEOPLE IN GROUP
+	private LocalDate date; 
 	
 	public Customer() 
 	{
@@ -13,8 +15,21 @@ public class Customer
 		
 	}
 	
-	public void setDate (int year, int month, int date)
+	public void setDate (LocalDate dt)
 	{
-		//date.setWeekDate(year, month, date);
+		date = dt; 
+	}
+	
+	public void setName (String nm) 
+	{
+		name = nm; 
+	}
+	
+	public void setNumPersons(int sz) {
+		numPersons = sz; 
+	}
+	
+	public String toString() {
+		
 	}
 }

@@ -3,30 +3,27 @@ package bus_project;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
+
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class RemoveCustomer extends AbstractProgramWindow{
 
 	protected Shell shlRemoveCustomer;
+	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			RemoveCustomer window = new RemoveCustomer();
-			window.open();
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+	public RemoveCustomer (ArrayList<Customer> cstmrs) {
+		customers = cstmrs; 
 	}
-
+	
 	/**
 	 * Open the window.
+	 * @wbp.parser.entryPoint
 	 */
-	public void open()
+	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
 	/* POSTCONDITION: CREATES THE GUI DISPLAY AND OPENS THE DISPLAY	*/
@@ -41,7 +38,7 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		/**********************************************/
 		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
 		/**********************************************/
-		createContents();
+		createContents(rootShell);
 		
 		/****************************************/
 		/* METHOD TO OPEN SHELL (ADD TO SCREEN) */
@@ -73,7 +70,7 @@ public class RemoveCustomer extends AbstractProgramWindow{
 	/**
 	 * Create contents of the window.
 	 */
-	protected void createContents() {
+	protected void createContents(Shell rootShell) {
 		shlRemoveCustomer = new Shell();
 		shlRemoveCustomer.setSize(600, 400);
 		shlRemoveCustomer.setText("Remove Customer");
@@ -81,6 +78,13 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		Button btnExit = new Button(shlRemoveCustomer, SWT.NONE);
 		btnExit.setText("Exit");
 		btnExit.setBounds(499, 326, 75, 25);
+		btnExit.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) 
+			{
+				rootShell.forceActive(); 
+				shlRemoveCustomer.close(); 	
+			}
+		});
 
 	}
 
