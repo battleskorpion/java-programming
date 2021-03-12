@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-public class BusProgramMenu {
+public class BusProgramMenu extends AbstractProgramWindow {
 
 	protected Shell shell;
 
@@ -48,18 +48,19 @@ public class BusProgramMenu {
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		Display display = Display.getDefault();			// MANAGES THEC ONNECTION BETWEEN SWT 
+		Display display = Display.getDefault();			// MANAGES THE CONNECTION BETWEEN SWT 
 														// AND THE UNDERLYING OPERATING SYSTEM 
 		
 		/**********************************************/
 		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
 		/**********************************************/
 		createContents();
-		
+
 		/****************************************/
 		/* METHOD TO OPEN SHELL (ADD TO SCREEN) */
 		/****************************************/
 		shell.open();
+		
 		/******************************************************************/
 		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
 		/******************************************************************/
@@ -86,20 +87,44 @@ public class BusProgramMenu {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		AddCustomer addCustomerWindow = new AddCustomer();
+		RemoveCustomer removeCustomerWindow = new RemoveCustomer(); 
+		
 		shell = new Shell();
 		shell.setSize(382, 209);
 		shell.setText("Bus Program");
 		
 		Button btnAddCustomer = new Button(shell, SWT.NONE);
+		btnAddCustomer.setBounds(10, 10, 170, 25);
+		btnAddCustomer.setText("Add new customer");
 		btnAddCustomer.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) 
 			{
+				/****************************************/
+				/* DISABLE MENU WHILE PERFORMING ACTION */
+				/****************************************/
+				shell.setEnabled(false);
 				
+				/****************************/
+				/* OPEN ADD CUSTOMER WINDOW */
+				/****************************/
+				addCustomerWindow.open();
+					
+				/*************************************************/
+				/* ENABLE AND FOCUS MENU AFTER PERFORMING ACTION */
+				/*************************************************/
+				shell.setEnabled(true);
+				
+				/******************************************************************/
+				/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
+				/******************************************************************/
+				shell.forceActive();							
 			}
 		});
-		btnAddCustomer.setBounds(10, 10, 170, 25);
-		btnAddCustomer.setText("Add new customer");
-		
+
 		Button btnModifyCustomer = new Button(shell, SWT.NONE);
 		btnModifyCustomer.setBounds(10, 41, 170, 25);
 		btnModifyCustomer.setText("Modify Customer");
@@ -112,19 +137,29 @@ public class BusProgramMenu {
 		btnProfitByDate.setBounds(10, 103, 170, 25);
 		btnProfitByDate.setText("Profit by Date");
 		
-		Button btnQuit = new Button(shell, SWT.NONE);
-		btnQuit.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) 
-			{
-				shell.dispose(); 		// QUIT 
-			}
-		});
-		btnQuit.setBounds(124, 134, 120, 25);
-		btnQuit.setText("Quit");
-		
 		Button btnRemoveCustomer = new Button(shell, SWT.NONE);
 		btnRemoveCustomer.setBounds(186, 10, 170, 25);
 		btnRemoveCustomer.setText("Remove customer");
+		btnRemoveCustomer.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) 
+			{
+				/****************************************/
+				/* DISABLE MENU WHILE PERFORMING ACTION */
+				/****************************************/
+				shell.setEnabled(false);
+				
+				/****************************/
+				/* OPEN ADD CUSTOMER WINDOW */
+				/****************************/
+				removeCustomerWindow.open();
+				
+				/*************************************************/
+				/* ENABLE AND FOCUS MENU AFTER PERFORMING ACTION */
+				/*************************************************/
+				shell.setEnabled(true);
+				shell.setFocus(); 
+			}
+		});
 		
 		Button btnListCustomersByName = new Button(shell, SWT.NONE);
 		btnListCustomersByName.setBounds(186, 41, 170, 25);
@@ -137,5 +172,18 @@ public class BusProgramMenu {
 		Button btnProfitTotal = new Button(shell, SWT.NONE);
 		btnProfitTotal.setBounds(186, 103, 170, 25);
 		btnProfitTotal.setText("Total profit details");
+		
+		/***************/
+		/* QUIT BUTTON */
+		/***************/
+		Button btnQuit = new Button(shell, SWT.NONE);
+		btnQuit.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) 
+			{
+				shell.dispose(); 		// QUIT 
+			}
+		});
+		btnQuit.setBounds(124, 134, 120, 25);
+		btnQuit.setText("Quit");
 	}
 }
