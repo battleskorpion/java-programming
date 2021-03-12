@@ -117,7 +117,15 @@ public class AverageDetailsOfNumbersGUI
 		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
 		/******************************************************************/
 		shell.forceActive();							// SO WINDOW WILL BE FOCUSED WHEN CREATED
+		
+		/*************************************************/
+		/* METHOD TO ENACT LAYOUT OF SHELL IF APPLICABLE */
+		/*************************************************/
 		shell.layout();
+		
+		/*********************************************************************************/
+		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING IT NEEDS TO DO */
+		/*********************************************************************************/
 		while (!shell.isDisposed()) 
 		{
 			if (!display.readAndDispatch()) 

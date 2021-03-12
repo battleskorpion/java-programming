@@ -15,26 +15,68 @@ public class BusProgramMenu {
 	 * Launch the application.
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		try {
-			BusProgramMenu window = new BusProgramMenu();
+	public static void main(String[] args) 
+	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		BusProgramMenu window = new BusProgramMenu();
+		
+		/*****************************/
+		/* METHOD TO OPEN GUI WINDOW */
+		/*****************************/
+		try 
+		{
 			window.open();
 		} 
-		catch (Exception e) {
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * Open the window.
-	 */
-	public void open() {
-		Display display = Display.getDefault();
+	/******************************************************************************************************/
+	/*											 METHOD SECTION 										  */
+	/******************************************************************************************************/
+	
+	public void open()
+	/****************************************************************/
+	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
+	/* POSTCONDITION: CREATES THE GUI DISPLAY AND OPENS THE DISPLAY	*/
+	/****************************************************************/
+	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		Display display = Display.getDefault();			// MANAGES THEC ONNECTION BETWEEN SWT 
+														// AND THE UNDERLYING OPERATING SYSTEM 
+		
+		/**********************************************/
+		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
+		/**********************************************/
 		createContents();
+		
+		/****************************************/
+		/* METHOD TO OPEN SHELL (ADD TO SCREEN) */
+		/****************************************/
 		shell.open();
+		/******************************************************************/
+		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
+		/******************************************************************/
+		shell.forceActive();							// SO WINDOW WILL BE FOCUSED WHEN CREATED
+		
+		/*************************************************/
+		/* METHOD TO ENACT LAYOUT OF SHELL IF APPLICABLE */
+		/*************************************************/
 		shell.layout();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch()) {
+		
+		/*********************************************************************************/
+		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING IT NEEDS TO DO */
+		/*********************************************************************************/
+		while (!shell.isDisposed()) 
+		{
+			if (!display.readAndDispatch()) 
+			{
 				display.sleep();
 			}
 		}
@@ -95,6 +137,5 @@ public class BusProgramMenu {
 		Button btnProfitTotal = new Button(shell, SWT.NONE);
 		btnProfitTotal.setBounds(186, 103, 170, 25);
 		btnProfitTotal.setText("Total profit details");
-
 	}
 }

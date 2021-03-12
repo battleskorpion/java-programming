@@ -18,9 +18,10 @@ import javax.swing.JOptionPane;
 
 public class BusProgram 
 {
-
 	public static void main(String[] args) 
 	{
+		BusProgramMenu window; 
+		
 		/****************************/
 		/* USER DESCRIPTION SECTION */
 		/****************************/
@@ -32,8 +33,19 @@ public class BusProgram
 		/**************************/
 		do 
 		{
+			window = new BusProgramMenu();
 			
-		
+			/*****************************/
+			/* METHOD TO OPEN GUI WINDOW */
+			/*****************************/
+			try 
+			{
+				window.open();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
 		}
 		while (runProgramPrompt() == true); 
 	}
