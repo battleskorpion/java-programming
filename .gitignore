@@ -8,6 +8,9 @@ target/**
 # eclipse specific
 *.pydevproject
 .project
+!org.eclipse.swt
+!org.eclipse.swt/.project
+!org.eclipse.swt/.classpath
 .metadata
 bin/**
 tmp/**
