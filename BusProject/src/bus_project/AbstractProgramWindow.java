@@ -20,6 +20,7 @@ public abstract class AbstractProgramWindow {
 	* Create contents of the window.
 	*/
 	//protected abstract void createContents(); 
+	
 	protected void updateTable(Table tbl, Object nmbr) 
 	/***********************************************************************/
 	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE */
