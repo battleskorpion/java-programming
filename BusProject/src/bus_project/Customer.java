@@ -30,6 +30,6 @@ public class Customer
 	}
 	
 	public String toString() {
-		
+		return "Group: " + name + "\nGroup Size: " + numPersons + "\nDate: " + date.toString(); 
 	}
 }

@@ -15,6 +15,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Table;
 
 public class AddCustomer extends AbstractProgramWindow {
 
@@ -22,6 +24,7 @@ public class AddCustomer extends AbstractProgramWindow {
 	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
 	private Text nameField;
 	private Text sizeField;
+	private Table table;
 
 	public AddCustomer (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 
@@ -102,23 +105,32 @@ public class AddCustomer extends AbstractProgramWindow {
 		lblTripDate.setBounds(10, 73, 73, 15);
 		lblTripDate.setText("Trip Date: ");
 		
-		DateTime dateTime = new DateTime(shlAddCustomer, SWT.BORDER);
-		dateTime.setBounds(89, 70, 80, 24);
+		DateTime dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
+		dateTime.setBounds(10, 94, 233, 151);
 		
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
 		btnExit.setBounds(499, 326, 75, 25);
 		btnExit.setText("Exit");
 		
 		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
-		btnAdd.setBounds(50, 100, 75, 25);
+		btnAdd.setBounds(89, 251, 75, 25);
 		btnAdd.setText("Add");
+		
+		table = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
+		table.setToolTipText("");
+		table.setBounds(264, 43, 213, 252);
+		table.setLinesVisible(true);
+		
+		Label lblCustomers = new Label(shlAddCustomer, SWT.NONE);
+		lblCustomers.setBounds(335, 13, 63, 15);
+		lblCustomers.setText("Customers: ");
 		
 		btnAdd.addSelectionListener(new SelectionAdapter() 
 		{
 			public void widgetSelected(SelectionEvent e) 
 			{
-				LocalDate tripDate; 
 				Customer customer; 
+				int index; 				// INDEX TO ADD CUSTOMER AT 
 				
 				try
 				{
@@ -138,11 +150,12 @@ public class AddCustomer extends AbstractProgramWindow {
 					else
 					{
 						customer = new Customer();
-								
+						
 						customer.setName(nameField.getText()); 
 						customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
 						customer.setDate(LocalDate.parse(dateTime.getDay() + "-" + dateTime.getMonth() + "-" + dateTime.getYear())); 
-						//customer.setDate(
+						
+						//addCustomer(customer, index); 
 					}
 				}
 				catch (Exception exc) 
@@ -168,7 +181,7 @@ public class AddCustomer extends AbstractProgramWindow {
 	//	
 	//}
 	
-	private void addCustomer(int index, Customer customer) {
+	private void addCustomer(Customer customer, int index) {
 		customers.add(index, customer);
 	}
 }
