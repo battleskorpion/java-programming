@@ -24,7 +24,7 @@ public class AddCustomer extends AbstractProgramWindow {
 	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
 	private Text nameField;
 	private Text sizeField;
-	private Table table;
+	private Table customersTable;
 	private Text indexField;
 
 	public AddCustomer (ArrayList<Customer> cstmrs) {
@@ -93,6 +93,7 @@ public class AddCustomer extends AbstractProgramWindow {
 		lblName.setText("Name:");
 		
 		nameField = new Text(shlAddCustomer, SWT.BORDER);
+		nameField.setText("");
 		nameField.setBounds(89, 10, 80, 24);
 		
 		Label lblSize = new Label(shlAddCustomer, SWT.NONE);
@@ -117,11 +118,11 @@ public class AddCustomer extends AbstractProgramWindow {
 		btnAdd.setBounds(89, 270, 75, 25);
 		btnAdd.setText("Add");
 		
-		table = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
-		table.setToolTipText("");
-		table.setBounds(264, 43, 213, 252);
-		table.setLinesVisible(true);
-		updateTable(table, customers); 
+		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
+		customersTable.setToolTipText("");
+		customersTable.setBounds(264, 43, 213, 252);
+		customersTable.setLinesVisible(true);
+		updateTable(customersTable, customers); 
 		
 		Label lblCustomers = new Label(shlAddCustomer, SWT.NONE);
 		lblCustomers.setBounds(335, 13, 63, 15);
@@ -143,31 +144,35 @@ public class AddCustomer extends AbstractProgramWindow {
 				
 				try
 				{
-					if (nameField.getText().equals(""))
-					{
+					//if (nameField.getText().equals(""))
+					//{
 						/***************/
 						/* PRINT ERROR */
 						/***************/
-						JOptionPane.showMessageDialog(null, "Error: No group name specified!"); 
-					}
-					else if (Integer.parseInt(sizeField.getText()) < 0) 
-					{
+					//	JOptionPane.showMessageDialog(null, "Error: No group name specified!"); 
+					//}
+					//else if (Integer.parseInt(sizeField.getText()) < 0) 
+					//{
 						/***************/
 						/* PRINT ERROR */
 						/***************/
-						JOptionPane.showMessageDialog(null, "Error: Number of persons can not be negative!"); 
-					}
-					else
-					{
-						customer = new Customer();
+					//	JOptionPane.showMessageDialog(null, "Error: Number of persons can not be negative!"); 
+					//}
+					//else
+					//{
+						customer = new Customer(); 
 						
 						customer.setName(nameField.getText()); 
+						//System.out.println("ok"); 
 						customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
+						//System.out.println("ok"); 
 						customer.setDate(LocalDate.parse(dateTime.getDay() + "-" + dateTime.getMonth() + "-" + dateTime.getYear())); 
+						//System.out.println("ok"); 
 						index = Integer.parseInt(indexField.getText()); 
+						//System.out.println("ok"); 
 								
-						addCustomer(customer, index, table); 
-					}
+						addCustomer(customer, index, customersTable); 
+					//}
 				}
 				catch (Exception exc) 
 				{
