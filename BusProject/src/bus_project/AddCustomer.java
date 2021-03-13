@@ -141,6 +141,7 @@ public class AddCustomer extends AbstractProgramWindow {
 			{
 				Customer customer; 
 				int index; 				// INDEX TO ADD CUSTOMER AT 
+				String tripDate; 
 				
 				try
 				{
@@ -163,15 +164,12 @@ public class AddCustomer extends AbstractProgramWindow {
 						customer = new Customer(); 
 						
 						customer.setName(nameField.getText()); 
-						//System.out.println("ok"); 
 						customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
-						//System.out.println("ok"); 
-						customer.setDate(LocalDate.parse(dateTime.getDay() + "-" + dateTime.getMonth() + "-" + dateTime.getYear())); 
-						//System.out.println("ok"); 
+						tripDate = dateTime.getYear() + "-" + dateTime.getMonth() + "-" + dateTime.getDay(); 
+						customer.setDate(LocalDate.parse(tripDate)); 
 						index = Integer.parseInt(indexField.getText()); 
-						//System.out.println("ok"); 
 								
-						addCustomer(customer, index, customersTable); 
+						addCustomer(customer, index, customersTable); 	// has issue
 					//}
 				}
 				catch (Exception exc) 
