@@ -7,11 +7,8 @@ target/**
 
 # eclipse specific
 *.pydevproject
-#.project
+.project
 .metadata
-**/metadata/*
-/metadata/
-.metadata/
 bin/**
 tmp/**
 tmp/**/*
@@ -29,5 +26,4 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
-.metadata/.log
 *.bluej
