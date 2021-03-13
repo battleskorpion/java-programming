@@ -150,7 +150,8 @@ public class AddCustomer extends AbstractProgramWindow {
 						/***************/
 						JOptionPane.showMessageDialog(null, "Error: No group name specified!"); 
 					}
-					else if (Integer.parseInt(sizeField.getText()) < 0) {
+					else if (Integer.parseInt(sizeField.getText()) < 0) 
+					{
 						/***************/
 						/* PRINT ERROR */
 						/***************/
@@ -170,7 +171,7 @@ public class AddCustomer extends AbstractProgramWindow {
 				}
 				catch (Exception exc) 
 				{
-					switch(exc.)
+					//switch(exc.)
 					/***************/
 					/* PRINT ERROR */
 					/***************/
