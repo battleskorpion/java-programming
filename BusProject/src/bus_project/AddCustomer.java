@@ -25,6 +25,7 @@ public class AddCustomer extends AbstractProgramWindow {
 	private Text nameField;
 	private Text sizeField;
 	private Table table;
+	private Text indexField;
 
 	public AddCustomer (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 
@@ -102,28 +103,36 @@ public class AddCustomer extends AbstractProgramWindow {
 		sizeField.setBounds(89, 40, 80, 24);
 		
 		Label lblTripDate = new Label(shlAddCustomer, SWT.NONE);
-		lblTripDate.setBounds(10, 73, 73, 15);
+		lblTripDate.setBounds(10, 92, 73, 15);
 		lblTripDate.setText("Trip Date: ");
 		
 		DateTime dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
-		dateTime.setBounds(10, 94, 233, 151);
+		dateTime.setBounds(10, 113, 233, 151);
 		
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
 		btnExit.setBounds(499, 326, 75, 25);
 		btnExit.setText("Exit");
 		
 		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
-		btnAdd.setBounds(89, 251, 75, 25);
+		btnAdd.setBounds(89, 270, 75, 25);
 		btnAdd.setText("Add");
 		
 		table = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
 		table.setToolTipText("");
 		table.setBounds(264, 43, 213, 252);
 		table.setLinesVisible(true);
+		updateTable(table, customers); 
 		
 		Label lblCustomers = new Label(shlAddCustomer, SWT.NONE);
 		lblCustomers.setBounds(335, 13, 63, 15);
 		lblCustomers.setText("Customers: ");
+		
+		indexField = new Text(shlAddCustomer, SWT.BORDER);
+		indexField.setBounds(89, 70, 80, 24);
+		
+		Label lblNumber = new Label(shlAddCustomer, SWT.NONE);
+		lblNumber.setBounds(10, 71, 55, 15);
+		lblNumber.setText("Index: ");
 		
 		btnAdd.addSelectionListener(new SelectionAdapter() 
 		{
@@ -154,12 +163,14 @@ public class AddCustomer extends AbstractProgramWindow {
 						customer.setName(nameField.getText()); 
 						customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
 						customer.setDate(LocalDate.parse(dateTime.getDay() + "-" + dateTime.getMonth() + "-" + dateTime.getYear())); 
-						
-						//addCustomer(customer, index); 
+						index = Integer.parseInt(indexField.getText()); 
+								
+						addCustomer(customer, index, table); 
 					}
 				}
 				catch (Exception exc) 
 				{
+					switch(exc.)
 					/***************/
 					/* PRINT ERROR */
 					/***************/
@@ -181,7 +192,8 @@ public class AddCustomer extends AbstractProgramWindow {
 	//	
 	//}
 	
-	private void addCustomer(Customer customer, int index) {
+	private void addCustomer(Customer customer, int index, Table tbl) {
 		customers.add(index, customer);
+		updateTable(tbl, customers); 
 	}
 }

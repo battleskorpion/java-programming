@@ -11,8 +11,7 @@ public class Customer
 	
 	public Customer() 
 	{
-		//date = new Calendar(); 
-		
+
 	}
 	
 	public void setDate (LocalDate dt)
