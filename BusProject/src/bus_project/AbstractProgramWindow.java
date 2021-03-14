@@ -21,7 +21,7 @@ public abstract class AbstractProgramWindow {
 	*/
 	//protected abstract void createContents(); 
 	
-	protected void updateTable(Table tbl, Object nmbr) 
+	protected void updateTable(Table tbl, Customer nmbr) 
 	/***********************************************************************/
 	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE */
 	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   */
@@ -34,7 +34,7 @@ public abstract class AbstractProgramWindow {
 		item.setText(nmbr.toString()); 
 	}
 	
-	protected void updateTable(Table tbl, ArrayList<Object> data) 
+	protected void updateTable(Table tbl, ArrayList<Customer> data) 
 	/*****************************************************************************/
 	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	 */
 	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE		 */

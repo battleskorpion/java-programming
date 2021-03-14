@@ -1,6 +1,8 @@
 package bus_project;
 
-import java.time.*; 
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
@@ -15,7 +17,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Combo;
+
 import org.eclipse.swt.widgets.Table;
 
 public class AddCustomer extends AbstractProgramWindow {
@@ -120,12 +122,14 @@ public class AddCustomer extends AbstractProgramWindow {
 		
 		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
 		customersTable.setToolTipText("");
-		customersTable.setBounds(264, 43, 213, 252);
-		customersTable.setLinesVisible(true);
-		updateTable(customersTable, customers); 
+		customersTable.setBounds(258, 43, 316, 252);
+		customersTable.setLinesVisible(true);					
+		if (customers.size() > 0) {
+			updateTable(customersTable, customers); 
+		}
 		
 		Label lblCustomers = new Label(shlAddCustomer, SWT.NONE);
-		lblCustomers.setBounds(335, 13, 63, 15);
+		lblCustomers.setBounds(388, 13, 63, 15);
 		lblCustomers.setText("Customers: ");
 		
 		indexField = new Text(shlAddCustomer, SWT.BORDER);
@@ -141,36 +145,51 @@ public class AddCustomer extends AbstractProgramWindow {
 			{
 				Customer customer; 
 				int index; 				// INDEX TO ADD CUSTOMER AT 
-				String tripDate; 
+				LocalDate tripDate; 
+				String tripDateString; 
+				int year;
+				int month; 
+				int day; 
 				
 				try
 				{
-					//if (nameField.getText().equals(""))
-					//{
+					if (nameField.getText().equals(""))
+					{
 						/***************/
 						/* PRINT ERROR */
 						/***************/
-					//	JOptionPane.showMessageDialog(null, "Error: No group name specified!"); 
-					//}
-					//else if (Integer.parseInt(sizeField.getText()) < 0) 
-					//{
+						JOptionPane.showMessageDialog(null, "Error: No group name specified!"); 
+					}
+					else if (Integer.parseInt(sizeField.getText()) < 0) 
+					{
 						/***************/
 						/* PRINT ERROR */
 						/***************/
-					//	JOptionPane.showMessageDialog(null, "Error: Number of persons can not be negative!"); 
-					//}
-					//else
-					//{
+						JOptionPane.showMessageDialog(null, "Error: Number of persons can not be negative!"); 
+					}
+					else
+					{
 						customer = new Customer(); 
 						
 						customer.setName(nameField.getText()); 
 						customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
-						tripDate = dateTime.getYear() + "-" + dateTime.getMonth() + "-" + dateTime.getDay(); 
-						customer.setDate(LocalDate.parse(tripDate)); 
+						year = dateTime.getYear(); 
+						month = dateTime.getMonth(); 
+						day = dateTime.getDay(); 
+						tripDateString = year + "-"; 
+						if (month < 10) {
+							tripDateString += "0";  
+						}
+						tripDateString += (month + 1) + "-";
+						tripDateString += day; 
+						
+						tripDate = LocalDate.parse(tripDateString); 
+						customer.setDate(tripDate); 
 						index = Integer.parseInt(indexField.getText()); 
 								
 						addCustomer(customer, index, customersTable); 	// has issue
-					//}
+						clearInput(); 
+					}
 				}
 				catch (Exception exc) 
 				{
@@ -199,5 +218,11 @@ public class AddCustomer extends AbstractProgramWindow {
 	private void addCustomer(Customer customer, int index, Table tbl) {
 		customers.add(index, customer);
 		updateTable(tbl, customers); 
+	}
+	
+	private void clearInput() {
+		nameField.setText("");
+		sizeField.setText("");
+		indexField.setText("");
 	}
 }
