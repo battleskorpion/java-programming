@@ -144,12 +144,8 @@ public class AddCustomer extends AbstractProgramWindow {
 			public void widgetSelected(SelectionEvent e) 
 			{
 				Customer customer; 
-				int index; 				// INDEX TO ADD CUSTOMER AT 
-				LocalDate tripDate; 
-				String tripDateString; 
-				int year;
-				int month; 
-				int day; 
+				int index; 				// INDEX TO ADD CUSTOMER AT
+				Text[] fields = {nameField, sizeField, indexField}; 
 				
 				try
 				{
@@ -171,24 +167,10 @@ public class AddCustomer extends AbstractProgramWindow {
 					{
 						customer = new Customer(); 
 						
-						customer.setName(nameField.getText()); 
-						customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
-						year = dateTime.getYear(); 
-						month = dateTime.getMonth(); 
-						day = dateTime.getDay(); 
-						tripDateString = year + "-"; 
-						if (month < 10) {
-							tripDateString += "0";  
-						}
-						tripDateString += (month + 1) + "-";
-						tripDateString += day; 
-						
-						tripDate = LocalDate.parse(tripDateString); 
-						customer.setDate(tripDate); 
 						index = Integer.parseInt(indexField.getText()); 
-								
+						setCustomerDetails(customer, nameField, sizeField, indexField, dateTime); 
+						clearInput(fields); 
 						addCustomer(customer, index, customersTable); 	// has issue
-						clearInput(); 
 					}
 				}
 				catch (Exception exc) 
@@ -220,9 +202,7 @@ public class AddCustomer extends AbstractProgramWindow {
 		updateTable(tbl, customers); 
 	}
 	
-	private void clearInput() {
-		nameField.setText("");
-		sizeField.setText("");
-		indexField.setText("");
-	}
+	
+	
+	
 }

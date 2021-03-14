@@ -96,6 +96,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/********************/
 		AddCustomer addCustomerWindow = new AddCustomer(customers);
 		RemoveCustomer removeCustomerWindow = new RemoveCustomer(customers); 
+		ModifyCustomer modifyCustomerWindow = new ModifyCustomer(customers); 
 		
 		shell = new Shell();
 		shell.setSize(382, 209);
@@ -117,9 +118,9 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				/****************************/
 				addCustomerWindow.open(shell);
 					
-				/*************************************************/
-				/* ENABLE AND FOCUS MENU AFTER PERFORMING ACTION */
-				/*************************************************/
+				/****************************************/
+				/* ENABLE  MENU AFTER PERFORMING ACTION */
+				/****************************************/
 				shell.setEnabled(true);
 				
 				/******************************************************************/
@@ -130,6 +131,30 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		});
 
 		Button btnModifyCustomer = new Button(shell, SWT.NONE);
+		btnModifyCustomer.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				/****************************************/
+				/* DISABLE MENU WHILE PERFORMING ACTION */
+				/****************************************/
+				shell.setEnabled(false);
+				
+				/****************************/
+				/* OPEN ADD CUSTOMER WINDOW */
+				/****************************/
+				modifyCustomerWindow.open(shell);
+					
+				/****************************************/
+				/* ENABLE  MENU AFTER PERFORMING ACTION */
+				/****************************************/
+				shell.setEnabled(true);
+				
+				/******************************************************************/
+				/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
+				/******************************************************************/
+				shell.forceActive();	
+			}
+		});
 		btnModifyCustomer.setBounds(10, 41, 170, 25);
 		btnModifyCustomer.setText("Modify Customer");
 		
@@ -156,12 +181,16 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				/* OPEN ADD CUSTOMER WINDOW */
 				/****************************/
 				removeCustomerWindow.open(shell);
-				
-				/*************************************************/
-				/* ENABLE AND FOCUS MENU AFTER PERFORMING ACTION */
-				/*************************************************/
+					
+				/****************************************/
+				/* ENABLE  MENU AFTER PERFORMING ACTION */
+				/****************************************/
 				shell.setEnabled(true);
-				shell.setFocus(); 
+				
+				/******************************************************************/
+				/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
+				/******************************************************************/
+				shell.forceActive();	
 			}
 		});
 		

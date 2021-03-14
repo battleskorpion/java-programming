@@ -14,6 +14,21 @@ public class Customer
 
 	}
 	
+	public String getName () 
+	{
+		return name; 
+	}
+	
+	public int getNumPersons () 
+	{
+		return numPersons; 
+	}
+	
+	public LocalDate getDate ()
+	{
+		return date; 
+	}
+	
 	public void setDate (LocalDate dt)
 	{
 		date = dt; 
