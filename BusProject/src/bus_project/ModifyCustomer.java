@@ -19,10 +19,12 @@ public class ModifyCustomer extends AbstractProgramWindow {
 
 	protected Shell shlModifyCustomers;
 	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
+	private ArrayList<Customer> modifiedCustomers = new ArrayList<Customer>(); 		// LIST OF MODIFIED CUSTOMERS (BUT WILL STORE ORIGINAL CUSTOMER BEFORE MODIFICATION) 
 	private Table customersTable;
 	private Text nameField;
 	private Text sizeField;
 	private Text indexField;
+	private DateTime dateTime;
 
 	public ModifyCustomer (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 
@@ -127,7 +129,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		lblTripDate.setText("Trip Date: ");
 		lblTripDate.setBounds(341, 92, 73, 15);
 		
-		DateTime dateTime = new DateTime(shlModifyCustomers, SWT.BORDER | SWT.CALENDAR);
+		dateTime = new DateTime(shlModifyCustomers, SWT.BORDER | SWT.CALENDAR);
 		dateTime.setBounds(341, 113, 233, 151);
 
 		Button btnModify = new Button(shlModifyCustomers, SWT.NONE);
@@ -135,7 +137,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Customer selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
-				modifyCustomer(selectedCustomer, ); 
+				
+				modifyCustomer(selectedCustomer); 
 			}
 		});
 		btnModify.setText("Modify");
@@ -149,20 +152,22 @@ public class ModifyCustomer extends AbstractProgramWindow {
 				nameField.setText(selectedCustomer.getName());
 				sizeField.setText(Integer.toString(selectedCustomer.getNumPersons()));
 				indexField.setText(Integer.toString(customersTable.getSelectionIndex()));
-				dateTime.setDate(selectedCustomer.getDate().getYear(), (selectedCustomer.getDate().getMonthValue() - 1), selectedCustomer.getDate().getDayOfMonth());
+				dateTime.setDate(getDateTimeYear(selectedCustomer), getDateTimeMonth(selectedCustomer), getDateTimeDay(selectedCustomer));
 			}
 		});
+		
 		btnExit.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) 
 			{
 				int confirmModify; 
-				//if (customersModified.size() > 0) {
+				if (modifiedCustomers.size() > 0) {
 					confirmModify = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to modify these customers?", JOptionPane.YES_NO_OPTION); 
 					if (confirmModify == 1) //1 = NO
 					{
+						undoModifyCustomer(); 
 						return; 
 					}
-				//}
+				}
 				rootShell.forceActive(); 
 				shlModifyCustomers.close(); 	
 			}
@@ -171,7 +176,26 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	
 	private void modifyCustomer(Customer selectedCustomer) {
 		int index = Integer.parseInt(indexField.getText()); 
+		
+		modifiedCustomers.add(selectedCustomer); 
 		setCustomerDetails(selectedCustomer, nameField, sizeField, indexField, index, dateTime); 
 	}
+	
+	private void undoModifyCustomer() {
+		for (Customer cstmr : modifiedCustomers) {
+			
+		}
+	}
 
+	private int getDateTimeYear(Customer cstmr) {	// returns year in format acceptable for DateTime
+		return cstmr.getDate().getYear(); 
+	}
+	
+	private int getDateTimeMonth(Customer cstmr) {
+		return cstmr.getDate().getMonthValue() - 1; 
+	}
+	
+	private int getDateTimeDay(Customer cstmr) {
+		return cstmr.getDate().getDayOfMonth(); 
+	}
 }
