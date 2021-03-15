@@ -134,6 +134,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		btnModify.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				Customer selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
+				modifyCustomer(selectedCustomer, ); 
 			}
 		});
 		btnModify.setText("Modify");
@@ -165,6 +167,11 @@ public class ModifyCustomer extends AbstractProgramWindow {
 				shlModifyCustomers.close(); 	
 			}
 		});
+	}
+	
+	private void modifyCustomer(Customer selectedCustomer) {
+		int index = Integer.parseInt(indexField.getText()); 
+		setCustomerDetails(selectedCustomer, nameField, sizeField, indexField, index, dateTime); 
 	}
 
 }

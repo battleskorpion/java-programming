@@ -1,17 +1,20 @@
 package bus_project;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
 public class Customer 
 {
 	private String name; 		// NAME OF GROUP
 	private int numPersons;		// NUMBER OF PEOPLE IN GROUP
 	private LocalDate date; 
+	private int index;				// INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
 	
 	public Customer() 
 	{
-
+		date = LocalDate.now(); 
+		name = ""; 
+		numPersons = 0;
+		index = 0; 
 	}
 	
 	public String getName () 
@@ -29,6 +32,10 @@ public class Customer
 		return date; 
 	}
 	
+	public int getIndex () {
+		return index; 
+	}
+	
 	public void setDate (LocalDate dt)
 	{
 		date = dt; 
@@ -37,6 +44,10 @@ public class Customer
 	public void setName (String nm) 
 	{
 		name = nm; 
+	}
+	
+	public void setIndex (int indx) {
+		index = indx; 
 	}
 	
 	public void setNumPersons(int sz) {

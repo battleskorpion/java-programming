@@ -1,8 +1,5 @@
 package bus_project;
 
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
@@ -28,7 +25,8 @@ public class AddCustomer extends AbstractProgramWindow {
 	private Text sizeField;
 	private Table customersTable;
 	private Text indexField;
-
+	Text[] fields = {nameField, sizeField, indexField};
+	
 	public AddCustomer (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 
 	}
@@ -144,8 +142,7 @@ public class AddCustomer extends AbstractProgramWindow {
 			public void widgetSelected(SelectionEvent e) 
 			{
 				Customer customer; 
-				int index; 				// INDEX TO ADD CUSTOMER AT
-				Text[] fields = {nameField, sizeField, indexField}; 
+				int index; 				// INDEX TO ADD CUSTOMER AT 
 				
 				try
 				{
@@ -168,7 +165,7 @@ public class AddCustomer extends AbstractProgramWindow {
 						customer = new Customer(); 
 						
 						index = Integer.parseInt(indexField.getText()); 
-						setCustomerDetails(customer, nameField, sizeField, indexField, dateTime); 
+						setCustomerDetails(customer, nameField, sizeField, indexField, index, dateTime); 
 						clearInput(fields); 
 						addCustomer(customer, index, customersTable); 	// has issue
 					}

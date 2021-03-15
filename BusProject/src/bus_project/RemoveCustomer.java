@@ -121,8 +121,8 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		btnDelete.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) 
 			{
-				customersRemoved.add(customers.get(customersTable.getSelectionIndex())); 
-				customers.remove(customersTable.getSelectionIndex()); 
+				customersRemoved.add(customers.remove(customersTable.getSelectionIndex())); 
+				updateIndex(customers); 
 				updateTable(customersTable, customers); 
 				updateTable(remCustomersTable, customersRemoved); 
 			}
@@ -133,8 +133,15 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		Button btnUndoDelete = new Button(shlRemoveCustomer, SWT.NONE);
 		btnUndoDelete.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				customers.add(customersRemoved.get(remCustomersTable.getSelectionIndex())); 
+				Customer removed = customersRemoved.get(remCustomersTable.getSelectionIndex()); 
+				if (removed.getIndex() <= customers.size()) {
+					customers.add(removed.getIndex(), removed);
+				}
+				else {
+					customers.add(removed); 
+				}
 				customersRemoved.remove(remCustomersTable.getSelectionIndex()); 
+				updateIndex(customers); 
 				updateTable(customersTable, customers); 
 				updateTable(remCustomersTable, customersRemoved); 
 			}

@@ -24,7 +24,7 @@ public abstract class AbstractProgramWindow {
 	*/
 	//protected abstract void createContents(); 
 	
-	protected void updateTable(Table tbl, Customer nmbr) 
+	protected void updateTable(Table tbl, Object dta) 
 	/***********************************************************************/
 	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE */
 	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   */
@@ -34,10 +34,10 @@ public abstract class AbstractProgramWindow {
 		/* ADD ITEM TO TABLE */
 		/*********************/
 		TableItem item = new TableItem(tbl, SWT.NULL); 
-		item.setText(nmbr.toString()); 
+		item.setText(dta.toString()); 
 	}
 	
-	protected void updateTable(Table tbl, ArrayList<Customer> data) 
+	protected <E> void updateTable(Table tbl, ArrayList<E> data) 
 	/*****************************************************************************/
 	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	 */
 	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE		 */
@@ -58,7 +58,7 @@ public abstract class AbstractProgramWindow {
 		}
 	}
 	
-	protected void setCustomerDetails(Customer customer, Text nameField, Text sizeField, Text indexField, DateTime dateTime) {
+	protected void setCustomerDetails(Customer customer, Text nameField, Text sizeField, Text indexField, int index, DateTime dateTime) {
 		LocalDate tripDate; 
 		String tripDateString; 
 		int year;
@@ -67,6 +67,7 @@ public abstract class AbstractProgramWindow {
 
 		customer.setName(nameField.getText()); 
 		customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
+		customer.setIndex(index);
 		year = dateTime.getYear(); 
 		month = dateTime.getMonth(); 
 		day = dateTime.getDay(); 
@@ -84,6 +85,12 @@ public abstract class AbstractProgramWindow {
 	protected void clearInput(Text[] fields) {
 		for (Text field : fields) {
 			field.setText("");
+		}
+	}
+
+	protected void updateIndex(ArrayList<Customer> cstmrs) {
+		for (int i = 0; i < cstmrs.size(); i++) {
+			cstmrs.get(i).setIndex(i);
 		}
 	}
 }

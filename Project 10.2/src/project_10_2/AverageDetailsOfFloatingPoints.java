@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;			// FOR SIMPLE SWING WINDOWS
 
 public class AverageDetailsOfFloatingPoints 
 {
-	
 	public static void main (String args[]) throws InterruptedException 
 	{
 		/****************************/
