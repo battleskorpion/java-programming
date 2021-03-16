@@ -136,9 +136,22 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		btnModify.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				Customer selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
+				int confirmModify; 
+				Customer selectedCustomer; 
 				
-				modifyCustomer(selectedCustomer); 
+				selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
+				confirmModify = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to modify these customers?", JOptionPane.YES_NO_OPTION); 
+				
+				if (confirmModify == 1) 	// no option
+				{
+					//updateTable(customersTable, customers); 		// reset table
+					updateCustomerInfoDisplay(selectedCustomer);
+					return; 
+				}
+				else 						// yes option
+				{
+					modifyCustomer(selectedCustomer); 
+				}
 			}
 		});
 		btnModify.setText("Modify");
@@ -149,25 +162,13 @@ public class ModifyCustomer extends AbstractProgramWindow {
 			public void widgetSelected(SelectionEvent e) {
 				Customer selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
 				
-				nameField.setText(selectedCustomer.getName());
-				sizeField.setText(Integer.toString(selectedCustomer.getNumPersons()));
-				indexField.setText(Integer.toString(customersTable.getSelectionIndex()));
-				dateTime.setDate(getDateTimeYear(selectedCustomer), getDateTimeMonth(selectedCustomer), getDateTimeDay(selectedCustomer));
+				updateCustomerInfoDisplay(selectedCustomer); 
 			}
 		});
 		
 		btnExit.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) 
 			{
-				int confirmModify; 
-				if (modifiedCustomers.size() > 0) {
-					confirmModify = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to modify these customers?", JOptionPane.YES_NO_OPTION); 
-					if (confirmModify == 1) //1 = NO
-					{
-						undoModifyCustomer(); 
-						return; 
-					}
-				}
 				rootShell.forceActive(); 
 				shlModifyCustomers.close(); 	
 			}
@@ -181,11 +182,6 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		setCustomerDetails(selectedCustomer, nameField, sizeField, indexField, index, dateTime); 
 	}
 	
-	private void undoModifyCustomer() {
-		for (Customer cstmr : modifiedCustomers) {
-			
-		}
-	}
 
 	private int getDateTimeYear(Customer cstmr) {	// returns year in format acceptable for DateTime
 		return cstmr.getDate().getYear(); 
@@ -197,5 +193,12 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	
 	private int getDateTimeDay(Customer cstmr) {
 		return cstmr.getDate().getDayOfMonth(); 
+	}
+	
+	private void updateCustomerInfoDisplay(Customer cstmr) {
+		nameField.setText(cstmr.getName());
+		sizeField.setText(Integer.toString(cstmr.getNumPersons()));
+		indexField.setText(Integer.toString(customersTable.getSelectionIndex()));
+		dateTime.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), getDateTimeDay(cstmr));
 	}
 }
