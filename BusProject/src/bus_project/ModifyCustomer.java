@@ -19,7 +19,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 
 	protected Shell shlModifyCustomers;
 	private ArrayList<Customer> customers; 
-	private ArrayList<Customer> modifiedCustomers = new ArrayList<Customer>(); 		// LIST OF MODIFIED CUSTOMERS (BUT WILL STORE ORIGINAL CUSTOMER BEFORE MODIFICATION) 
+	//private ArrayList<Customer> modifiedCustomers = new ArrayList<Customer>(); 		// LIST OF MODIFIED CUSTOMERS (BUT WILL STORE ORIGINAL CUSTOMER BEFORE MODIFICATION) 
 	private Table customersTable;
 	private Text nameField;
 	private Text sizeField;
@@ -138,20 +138,22 @@ public class ModifyCustomer extends AbstractProgramWindow {
 			public void widgetSelected(SelectionEvent e) {
 				int confirmModify; 
 				Customer selectedCustomer; 
+				Text[] fields = {nameField, sizeField, indexField}; 
 				
 				selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
 				confirmModify = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to modify these customers?", JOptionPane.YES_NO_OPTION); 
 				
-				if (confirmModify == 1) 	// no option
+				if (confirmModify == 1) 								// no option
 				{
-					//updateTable(customersTable, customers); 		// reset table
+					//updateTable(customersTable, customers); 			// reset table
 					updateCustomerInfoDisplay(selectedCustomer);
 					return; 
 				}
-				else 						// yes option
+				else 													// yes option
 				{
 					if (legalCustomerModification(customers)) {
-						modifyCustomer(selectedCustomer); 
+						modifyCustomer(selectedCustomer);
+						clearInput(fields); 							// customer now modified 
 						updateTable(customersTable, customers); 
 					}
 					else {
@@ -183,11 +185,20 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	}
 	
 	// modify customer
-	private void modifyCustomer(Customer selectedCustomer) {
-		int index = Integer.parseInt(indexField.getText()); 
+	// precondition: legal modifications 
+	private void modifyCustomer(Customer slctdCstmr) {
+		int index = Integer.parseInt(indexField.getText()); 	// POSSIBLY NEW INDEX OF SELECTED CUSTOMER
+		int old_index = slctdCstmr.getIndex();  				// PREVIOUS INDEX OF SELECTED CUSTOMER (OR THE SAME) 
+		Customer temp; 
 		
-		modifiedCustomers.add(selectedCustomer); 
-		setCustomerDetails(selectedCustomer, nameField, sizeField, indexField, index, dateTime); 
+		if (index != old_index) {		// if new index swap positions 
+			temp = customers.get(index); 
+			customers.set(index, slctdCstmr); 
+			customers.set(old_index, temp); 
+			
+		}
+		
+		setCustomerDetails(slctdCstmr, nameField, sizeField, indexField, index, dateTime); 
 	}
 	
 	private int getDateTimeYear(Customer cstmr) {	// returns year in format acceptable for DateTime
