@@ -20,11 +20,12 @@ import org.eclipse.swt.widgets.Table;
 public class AddCustomer extends AbstractProgramWindow {
 
 	protected Shell shlAddCustomer;
-	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
+	private ArrayList<Customer> customers; 
 	private Text nameField;
 	private Text sizeField;
 	private Table customersTable;
 	private Text indexField;
+	private DateTime dateTime; 
 	
 	public AddCustomer (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 
@@ -106,7 +107,7 @@ public class AddCustomer extends AbstractProgramWindow {
 		lblTripDate.setBounds(10, 92, 73, 15);
 		lblTripDate.setText("Trip Date: ");
 		
-		DateTime dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
+		dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
 		dateTime.setBounds(10, 113, 233, 151);
 		
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
@@ -136,6 +137,9 @@ public class AddCustomer extends AbstractProgramWindow {
 		lblNumber.setBounds(10, 71, 55, 15);
 		lblNumber.setText("Index: ");
 		
+		/***********************/
+		/* ADD CUSTOMER BUTTON */
+		/***********************/ 
 		btnAdd.addSelectionListener(new SelectionAdapter() 
 		{
 			public void widgetSelected(SelectionEvent e) 
@@ -145,19 +149,12 @@ public class AddCustomer extends AbstractProgramWindow {
 				
 				try
 				{
-					if (nameField.getText().equals(""))
+					if (!legalCustomerAddition())
 					{
 						/***************/
 						/* PRINT ERROR */
 						/***************/
-						JOptionPane.showMessageDialog(null, "Error: No group name specified!"); 
-					}
-					else if (Integer.parseInt(sizeField.getText()) < 0) 
-					{
-						/***************/
-						/* PRINT ERROR */
-						/***************/
-						JOptionPane.showMessageDialog(null, "Error: Number of persons can not be negative!"); 
+						JOptionPane.showMessageDialog(null, "Invalid customer detail(s)!"); 
 					}
 					else
 					{
@@ -167,7 +164,7 @@ public class AddCustomer extends AbstractProgramWindow {
 						index = Integer.parseInt(indexField.getText()); 
 						setCustomerDetails(customer, nameField, sizeField, indexField, index, dateTime); 
 						clearInput(fields); 
-						addCustomer(customer, index, customersTable); 	// has issue
+						addCustomer(customer, index, customersTable); 	
 					}
 				}
 				catch (Exception exc) 
@@ -199,7 +196,17 @@ public class AddCustomer extends AbstractProgramWindow {
 		updateTable(tbl, customers); 
 	}
 	
-	
+	private boolean legalCustomerAddition() {
+		
+		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) > customers.size() || !vaildDate(dateTime))
+		{
+			return false; 
+		}
+		else 
+		{
+			return true; 
+		} 
+	}
 	
 	
 }

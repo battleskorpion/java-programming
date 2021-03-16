@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 public class RemoveCustomer extends AbstractProgramWindow{
 
 	protected Shell shlRemoveCustomer;
-	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
+	private ArrayList<Customer> customers; 
 	private ArrayList<Customer> customersRemoved = new ArrayList<Customer>(); 
 	private Table customersTable;
 	private Table remCustomersTable;

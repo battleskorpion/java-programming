@@ -49,7 +49,7 @@ public class UnusedColorGenProgram {
 		BMPFile unreserved_bmp = new BMPFile(); 
 		
 		BufferedImage unreserved_buffered = new BufferedImage(null, null, false, null); 
-		unreserved_buffered.wid
+		//unreserved_buffered.wid
 	}
 	
 	

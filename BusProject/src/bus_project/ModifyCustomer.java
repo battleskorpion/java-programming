@@ -1,6 +1,5 @@
 package bus_project;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -19,7 +18,7 @@ import org.eclipse.swt.widgets.Text;
 public class ModifyCustomer extends AbstractProgramWindow {
 
 	protected Shell shlModifyCustomers;
-	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
+	private ArrayList<Customer> customers; 
 	private ArrayList<Customer> modifiedCustomers = new ArrayList<Customer>(); 		// LIST OF MODIFIED CUSTOMERS (BUT WILL STORE ORIGINAL CUSTOMER BEFORE MODIFICATION) 
 	private Table customersTable;
 	private Text nameField;
@@ -151,8 +150,13 @@ public class ModifyCustomer extends AbstractProgramWindow {
 				}
 				else 						// yes option
 				{
-					if (legalCustomerModification(selectedCustomer)) {
+					if (legalCustomerModification(customers)) {
 						modifyCustomer(selectedCustomer); 
+						updateTable(customersTable, customers); 
+					}
+					else {
+						updateCustomerInfoDisplay(selectedCustomer);	// reset modification if invalid modification 
+						JOptionPane.showMessageDialog(null, "Invalid modification."); 
 					}
 				}
 			}
@@ -178,6 +182,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		});
 	}
 	
+	// modify customer
 	private void modifyCustomer(Customer selectedCustomer) {
 		int index = Integer.parseInt(indexField.getText()); 
 		
@@ -185,7 +190,6 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		setCustomerDetails(selectedCustomer, nameField, sizeField, indexField, index, dateTime); 
 	}
 	
-
 	private int getDateTimeYear(Customer cstmr) {	// returns year in format acceptable for DateTime
 		return cstmr.getDate().getYear(); 
 	}
@@ -205,9 +209,9 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		dateTime.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), getDateTimeDay(cstmr));
 	}
 	
-	private boolean legalCustomerModification(Customer cstmr) {
+	private boolean legalCustomerModification(ArrayList<Customer> cstmrs) {
 		
-		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) >= customers.size() || !vaildDate())
+		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) >= cstmrs.size() || !vaildDate(dateTime))
 		{
 			return false; 
 		}
@@ -215,18 +219,5 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		{
 			return true; 
 		} 
-	}
-	
-	private boolean vaildDate() {	// better ish now
-		LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
-		
-		if (date.isBefore(LocalDate.now())){
-			System.out.println("Invalid date"); 
-			return false;
-		}
-		else 
-		{
-		return true; 
-		}
 	}
 }

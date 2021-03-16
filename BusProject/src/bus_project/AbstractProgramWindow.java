@@ -17,7 +17,7 @@ public abstract class AbstractProgramWindow {
 	/**
 	 * Open the window.
 	 */
-	//public abstract void open(); 
+	//public abstract void open(Shell shell); 
 
 	/**
 	* Create contents of the window.
@@ -102,4 +102,17 @@ public abstract class AbstractProgramWindow {
 		dateString += day; 
 		return dateString; 
 	}
+	
+	protected boolean vaildDate(DateTime dateTime) {	// better ish now
+		LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
+		
+		if (date.isBefore(LocalDate.now())){		// may have to change to after today 
+			return false;
+		}
+		else 
+		{
+		return true; 
+		}
+	}
+	
 }
