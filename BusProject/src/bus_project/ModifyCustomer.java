@@ -1,5 +1,6 @@
 package bus_project;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -25,7 +26,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	private Text sizeField;
 	private Text indexField;
 	private DateTime dateTime;
-
+	
 	public ModifyCustomer (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 
 	}
@@ -205,7 +206,27 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	}
 	
 	private boolean legalCustomerModification(Customer cstmr) {
-		if (nameField.getText().equals("") || sizeField.getText().equals("") || indexField.)
+		
+		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) >= customers.size() || !vaildDate())
+		{
+			return false; 
+		}
+		else 
+		{
+			return true; 
+		} 
+	}
+	
+	private boolean vaildDate() {	// better ish now
+		LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
+		
+		if (date.isBefore(LocalDate.now())){
+			System.out.println("Invalid date"); 
+			return false;
+		}
+		else 
+		{
 		return true; 
+		}
 	}
 }

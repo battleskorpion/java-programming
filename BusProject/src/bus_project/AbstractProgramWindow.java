@@ -60,7 +60,7 @@ public abstract class AbstractProgramWindow {
 	
 	protected void setCustomerDetails(Customer customer, Text nameField, Text sizeField, Text indexField, int index, DateTime dateTime) {
 		LocalDate tripDate; 
-		String tripDateString; 
+		
 		int year;
 		int month; 
 		int day; 
@@ -71,14 +71,8 @@ public abstract class AbstractProgramWindow {
 		year = dateTime.getYear(); 
 		month = dateTime.getMonth(); 
 		day = dateTime.getDay(); 
-		tripDateString = year + "-"; 
-		if (month < 10) {
-			tripDateString += "0";  
-		}
-		tripDateString += (month + 1) + "-";
-		tripDateString += day; 
 		
-		tripDate = LocalDate.parse(tripDateString); 
+		tripDate = LocalDate.parse(StringToLocalDateFormat(day, month, year)); 
 		customer.setDate(tripDate); 
 	}
 	
@@ -92,5 +86,20 @@ public abstract class AbstractProgramWindow {
 		for (int i = 0; i < cstmrs.size(); i++) {
 			cstmrs.get(i).setIndex(i);
 		}
+	}
+	
+	protected String StringToLocalDateFormat(int day, int month, int year)
+	{
+		String dateString; 
+		dateString = year + "-"; 
+		if (month < 10) {
+			dateString += "0";  
+		}
+		dateString += (month + 1) + "-";
+		if (day < 10) {
+			dateString += "0"; 
+		}
+		dateString += day; 
+		return dateString; 
 	}
 }
