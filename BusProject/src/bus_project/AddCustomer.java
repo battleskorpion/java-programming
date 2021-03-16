@@ -25,7 +25,6 @@ public class AddCustomer extends AbstractProgramWindow {
 	private Text sizeField;
 	private Table customersTable;
 	private Text indexField;
-	Text[] fields = {nameField, sizeField, indexField};
 	
 	public AddCustomer (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 
@@ -163,6 +162,7 @@ public class AddCustomer extends AbstractProgramWindow {
 					else
 					{
 						customer = new Customer(); 
+						Text[] fields = {nameField, sizeField, indexField};
 						
 						index = Integer.parseInt(indexField.getText()); 
 						setCustomerDetails(customer, nameField, sizeField, indexField, index, dateTime); 

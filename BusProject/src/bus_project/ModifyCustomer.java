@@ -150,7 +150,9 @@ public class ModifyCustomer extends AbstractProgramWindow {
 				}
 				else 						// yes option
 				{
-					modifyCustomer(selectedCustomer); 
+					if (legalCustomerModification(selectedCustomer)) {
+						modifyCustomer(selectedCustomer); 
+					}
 				}
 			}
 		});
@@ -200,5 +202,10 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		sizeField.setText(Integer.toString(cstmr.getNumPersons()));
 		indexField.setText(Integer.toString(customersTable.getSelectionIndex()));
 		dateTime.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), getDateTimeDay(cstmr));
+	}
+	
+	private boolean legalCustomerModification(Customer cstmr) {
+		if (nameField.getText().equals("") || sizeField.getText().equals("") || indexField.)
+		return true; 
 	}
 }

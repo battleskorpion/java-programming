@@ -83,8 +83,8 @@ public abstract class AbstractProgramWindow {
 	}
 	
 	protected void clearInput(Text[] fields) {
-		for (Text field : fields) {
-			field.setText("");
+		for (int i = 0; i < fields.length; i++) {
+			fields[i].setText("");
 		}
 	}
 
