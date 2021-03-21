@@ -182,9 +182,9 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				/****************************/
 				removeCustomerWindow.open(shell);
 					
-				/****************************************/
-				/* ENABLE  MENU AFTER PERFORMING ACTION */
-				/****************************************/
+				/***************************************/
+				/* ENABLE MENU AFTER PERFORMING ACTION */
+				/***************************************/
 				shell.setEnabled(true);
 				
 				/******************************************************************/
