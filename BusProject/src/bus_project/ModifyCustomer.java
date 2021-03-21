@@ -137,29 +137,29 @@ public class ModifyCustomer extends AbstractProgramWindow {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int confirmModify; 
-				Customer selectedCustomer; 
 				Text[] fields = {nameField, sizeField, indexField}; 
+				Customer selectedCustomer; 
 				
 				selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
-				confirmModify = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to modify these customers?", JOptionPane.YES_NO_OPTION); 
 				
-				if (confirmModify == 1) 								// no option
-				{
-					//updateTable(customersTable, customers); 			// reset table
-					updateCustomerInfoDisplay(selectedCustomer);
-					return; 
-				}
-				else 													// yes option
-				{
-					if (legalCustomerModification(customers)) {
+				if (legalCustomerModification(customers)) {
+					confirmModify = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to modify these customers?", JOptionPane.YES_NO_OPTION); 
+					if (confirmModify == 1) 								// no option
+					{
+						//updateTable(customersTable, customers); 			// reset table
+						updateCustomerInfoDisplay(selectedCustomer);
+						return; 
+					}
+					else 													// yes option
+					{
 						modifyCustomer(selectedCustomer);
-						clearInput(fields); 							// customer now modified 
+						clearInput(fields); 								// customer now modified 
 						updateTable(customersTable, customers); 
 					}
-					else {
-						updateCustomerInfoDisplay(selectedCustomer);	// reset modification if invalid modification 
-						JOptionPane.showMessageDialog(null, "Invalid modification."); 
-					}
+				}
+				else {
+					updateCustomerInfoDisplay(selectedCustomer);			// reset modification if invalid modification 
+					JOptionPane.showMessageDialog(null, "Invalid modification."); 
 				}
 			}
 		});
@@ -194,21 +194,27 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		if (index != old_index) {		// if new index swap positions 
 			temp = customers.get(index); 
 			customers.set(index, slctdCstmr); 
+			
+			// set temp to location where selected customer used to be and update its internal index
 			customers.set(old_index, temp); 
+			temp.setIndex(old_index);
 			
 		}
 		
 		setCustomerDetails(slctdCstmr, nameField, sizeField, indexField, index, dateTime); 
 	}
 	
-	private int getDateTimeYear(Customer cstmr) {	// returns year in format acceptable for DateTime
+	// returns year in format acceptable for DateTime
+	private int getDateTimeYear(Customer cstmr) {	
 		return cstmr.getDate().getYear(); 
 	}
 	
+	// returns customer date in DateTime format
 	private int getDateTimeMonth(Customer cstmr) {
 		return cstmr.getDate().getMonthValue() - 1; 
 	}
 	
+	// returns customer date in DateTime format
 	private int getDateTimeDay(Customer cstmr) {
 		return cstmr.getDate().getDayOfMonth(); 
 	}
