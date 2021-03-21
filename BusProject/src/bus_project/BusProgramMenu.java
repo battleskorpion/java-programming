@@ -97,6 +97,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		AddCustomer addCustomerWindow = new AddCustomer(customers);
 		RemoveCustomer removeCustomerWindow = new RemoveCustomer(customers); 
 		ModifyCustomer modifyCustomerWindow = new ModifyCustomer(customers); 
+		ListCustomers listCustomersWindow = new ListCustomers(customers); 
 		
 		shell = new Shell();
 		shell.setSize(382, 209);
@@ -131,7 +132,8 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		});
 
 		Button btnModifyCustomer = new Button(shell, SWT.NONE);
-		btnModifyCustomer.addSelectionListener(new SelectionAdapter() {
+		btnModifyCustomer.addSelectionListener(new SelectionAdapter()
+		{
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				/****************************************/
@@ -161,6 +163,31 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		Button btnListCustomersBySize = new Button(shell, SWT.NONE);
 		btnListCustomersBySize.setBounds(10, 72, 170, 25);
 		btnListCustomersBySize.setText("List Customers by Group Size");
+		btnListCustomersBySize.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				/****************************************/
+				/* DISABLE MENU WHILE PERFORMING ACTION */
+				/****************************************/
+				shell.setEnabled(false);
+				
+				/******************************/
+				/* OPEN LIST CUSTOMERS WINDOW */
+				/******************************/
+				listCustomersWindow.open(shell, 1);
+					
+				/****************************************/
+				/* ENABLE  MENU AFTER PERFORMING ACTION */
+				/****************************************/
+				shell.setEnabled(true);
+				
+				/******************************************************************/
+				/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
+				/******************************************************************/
+				shell.forceActive();
+			}
+		}); 
 		
 		Button btnProfitByDate = new Button(shell, SWT.NONE);
 		btnProfitByDate.setBounds(10, 103, 170, 25);
@@ -197,6 +224,31 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		Button btnListCustomersByName = new Button(shell, SWT.NONE);
 		btnListCustomersByName.setBounds(186, 41, 170, 25);
 		btnListCustomersByName.setText("List customers by Name");
+		btnListCustomersByName.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				/****************************************/
+				/* DISABLE MENU WHILE PERFORMING ACTION */
+				/****************************************/
+				shell.setEnabled(false);
+				
+				/******************************/
+				/* OPEN LIST CUSTOMERS WINDOW */
+				/******************************/
+				listCustomersWindow.open(shell, 0);
+					
+				/****************************************/
+				/* ENABLE  MENU AFTER PERFORMING ACTION */
+				/****************************************/
+				shell.setEnabled(true);
+				
+				/******************************************************************/
+				/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
+				/******************************************************************/
+				shell.forceActive();
+			}
+		}); 
 		
 		Button btnBusesNeededByDate = new Button(shell, SWT.NONE);
 		btnBusesNeededByDate.setBounds(186, 72, 170, 25);
