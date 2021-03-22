@@ -128,5 +128,4 @@ public class ListCustomers extends AbstractProgramWindow {
 		}
 	}
 	
-	
 }
