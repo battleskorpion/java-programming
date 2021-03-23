@@ -8,8 +8,6 @@ public class Bus {
 	public static final int max_capacity = 20; 
 	public static final int min_capacity = 10;
 	public static final int max_buses = 20; 
-	private static ArrayList<LocalDate> dates; 
-	private static ArrayList<Integer> busesPerDate;		// number of buses used per each date  
 	
 	// instance variables
 	private int pax;			// number of passengers currently scheduled to take this bus
