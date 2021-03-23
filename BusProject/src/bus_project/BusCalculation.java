@@ -20,9 +20,24 @@ public class BusCalculation {
 	public static void scheduleTrip (Customer cstmr) {
 		LocalDate date = cstmr.getDate(); 
 		
-		// if another booking exists on same date
+		// if another booking from any customer exists on same date
 		if (dates.contains(date)) {
-			customers.get(dates.indexOf(date)).add(cstmr); 
+			//// if another booking from identical customer exists on same date
+			for (int i = 0; i < customers.get(dates.indexOf(date)).size(); i++) {
+				if ()
+				
+				
+				
+				//// ask to merge customers? 
+				//JOptionPane.showMessageDialog(null, "There already exists a customer ")
+				//// if not merge
+				
+			}
+			// another booking from another customer(s) exists on same date
+			//else {
+			//	customers.get(dates.indexOf(date)).add(cstmr); 
+			//}
+			
 		}
 		// else (no booking on date)
 		else {	
