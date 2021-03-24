@@ -17,7 +17,7 @@ public class BusCalculation
 	
 	// static variables
 	private static ArrayList<LocalDate> dates; 
-	//private static ArrayList<Integer> busesPerDate;					// number of buses used per each date  
+	//private static ArrayList<Integer> busesPerDate;				// number of buses used per each date  
 	private static ArrayList<ArrayList<Customer>> customers; 	 	// customers each date 
 	
 	/* constructors */
@@ -33,9 +33,9 @@ public class BusCalculation
 	public static int scheduleTrip (Customer cstmr) 
 	{
 		LocalDate date = cstmr.getDate(); 
-		//int merge; 		// whether or not to merge	// 0 = yes, 1 = no
-		int dateIndex; 		// index of current date in dates array
-		int numPax; 		// number of other individual passengers (based on combined group size from all other groups that day) 
+		//int merge; 			// whether or not to merge	// 0 = yes, 1 = no
+		int dateIndex; 			// index of current date in dates array
+		int numPax; 			// number of other individual passengers (based on combined group size from all other groups that day) 
 		
 		
 		// if another booking from any customer exists on same date
@@ -68,12 +68,14 @@ public class BusCalculation
 				// calculate numPax
 				numPax = getNumPaxOnDay(date); 
 				
-				if (numPax + cstmr.getNumPersons() <= MAX_PAX) {
+				if (numPax + cstmr.getNumPersons() <= MAX_PAX) 
+				{
 					customers.get(dateIndex).add(cstmr); 
 					
 					return 0; 	// no error
 				}
-				else {
+				else 
+				{
 					return -2; 	// not enough buses 
 				}
 			//}
@@ -84,9 +86,11 @@ public class BusCalculation
 		{	
 			if (cstmr.getNumPersons() <= MAX_PAX) 
 			{
-				dates.add(cstmr.getDate()); 					// add new date 
-				customers.add(new ArrayList<Customer>());		// create new ArrayList aligning with new date
-				customers.get(customers.size() - 1).add(cstmr);	// add customer to new ArrayList
+				dates.add(cstmr.getDate()); 						// add new date 
+				customers.add(new ArrayList<Customer>());			// create new ArrayList aligning with new date
+				customers.get(customers.size() - 1).add(cstmr);		// add customer to new ArrayList
+				
+				return 0; 		// no error
 			}
 			else 
 			{
@@ -104,16 +108,19 @@ public class BusCalculation
 	
 	public static int getNumPaxOnDay(LocalDate dt) 
 	{
-		int numPax = 0; 	// number of passengers on the day
+		int numPax = 0; 		// number of passengers on the day
 		
-		if (dates.contains(dt)) {
-			for (Customer cstmr : customers.get(dates.indexOf(dt))) {
+		if (dates.contains(dt))
+		{
+			for (Customer cstmr : customers.get(dates.indexOf(dt)))
+			{
 				numPax += cstmr.getNumPersons(); 
 			}
 			return numPax; 
 		}
-		else {
-			return 0; 	// date not found in booked dates so no bookings are on the date, means no pax on the date
+		else 
+		{
+			return 0; 			// date not found in booked dates so no bookings are on the date, means no pax on the date
 		}
 	}
 }
