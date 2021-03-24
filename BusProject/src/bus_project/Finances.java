@@ -6,12 +6,15 @@ public class Finances {
 	// add to profit
 	public static float addProfit (float prft) {
 		profit += prft; 
+		return profit; 
 	}
 	
 	// subtract from profit
 	public static float subtractProfit (float prft) {
 		profit -= prft; 
+		return profit; 
 	}
+	
 	
 	
 }
