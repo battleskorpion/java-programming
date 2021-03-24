@@ -5,10 +5,11 @@ import java.util.Comparator;
 
 public class Customer 
 {
-	private String name; 		// NAME OF GROUP
-	private int numPersons;		// NUMBER OF PEOPLE IN GROUP
-	private LocalDate date; 
+	private String name; 			// NAME OF GROUP
+	private int numPersons;			// NUMBER OF PEOPLE IN GROUP
+	private LocalDate date; 		// date of trip
 	private int index;				// INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
+	private int totalPrice; 		// total price of all tickets for group 
 	
 	public Customer() 
 	{
@@ -37,6 +38,10 @@ public class Customer
 		return index; 
 	}
 	
+	public int getTotalPrice() {
+		return totalPrice; 
+	}
+	
 	public void setDate (LocalDate dt)
 	{
 		date = dt; 
@@ -45,6 +50,10 @@ public class Customer
 	public void setName (String nm) 
 	{
 		name = nm; 
+	}
+	
+	public void setTotalPrice(int ttlPrc) {
+		totalPrice = ttlPrc; 
 	}
 	
 	public void setIndex (int indx) {

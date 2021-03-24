@@ -3,8 +3,6 @@ package bus_project;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 public class BusCalculation 
 {
 	// constants
@@ -100,10 +98,8 @@ public class BusCalculation
 	}
 	
 	// calculates number of buses which will be necessary for the day
-	public static int getNumBuses(Customer cstmr) {
-		return 0;
-	
-		
+	public static int getNumBuses(LocalDate dt) {	
+		return (int)Math.ceil(getNumPaxOnDay(dt) / ((double)MAX_CAPACITY)); 
 	}
 	
 	public static int getNumPaxOnDay(LocalDate dt) 
