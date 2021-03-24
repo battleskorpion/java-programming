@@ -15,7 +15,10 @@ public class Finances {
 		return profit; 
 	}
 	
-	
+	// get the profit
+	public static float getProfit (float prft) {
+		return profit; 
+	}
 	
 }
 
