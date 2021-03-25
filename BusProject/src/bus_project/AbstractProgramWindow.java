@@ -15,6 +15,10 @@ public abstract class AbstractProgramWindow {
 	
 	protected Shell shell;
 
+	/******************************************************************************************************/
+	/*											 METHOD SECTION 										  */
+	/******************************************************************************************************/
+	
 	/**
 	 * Open the window.
 	 */
@@ -28,10 +32,10 @@ public abstract class AbstractProgramWindow {
 	//protected abstract void createContents(); 
 	
 	protected void updateTable(Table tbl, Object dta) 
-	/***********************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE */
-	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   */
-	/***********************************************************************/
+	/********************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE 			*/
+	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   			*/
+	/********************************************************************************/
 	{
 		/*********************/
 		/* ADD ITEM TO TABLE */
@@ -41,10 +45,10 @@ public abstract class AbstractProgramWindow {
 	}
 	
 	protected <E> void updateTable(Table tbl, ArrayList<E> dta) 
-	/*****************************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	 */
-	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE		 */
-	/*****************************************************************************/
+	/********************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	  	*/
+	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  		*/
+	/********************************************************************************/
 	{
 		/***************/
 		/* RESET TABLE */
@@ -61,13 +65,18 @@ public abstract class AbstractProgramWindow {
 		}
 	}
 	
+	/********************************************************************************/
+	/* PRECONDITION:  A COMBO BOX NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	*/
+	/* POSTCONDITION: CLEARS PREVIOUS VALUES AND ADDS NEW VALUES TO COMBO BOX	  	*/
+	/********************************************************************************/
 	protected <E> void updateComboBox(Combo bx, ArrayList<E> dta) 
 	{
-		bx.setItems(dta.toString().split(",")); 
+		bx.setItems(dta.toString().substring(0, dta.toString().length() - 1).substring(1, dta.toString().length() - 1).split(", ")); 	// TODO: FIX THIS BEAUTFUL MESS
 		
 	}
 	
-	protected void setCustomerDetails(Customer customer, Text nameField, Text sizeField, Text indexField, int index, DateTime dateTime) {
+	protected void setCustomerDetails(Customer customer, Text nameField, Text sizeField, Text indexField, int index, DateTime dateTime) 
+	{
 		LocalDate tripDate; 
 		
 		int year;
@@ -85,13 +94,15 @@ public abstract class AbstractProgramWindow {
 		customer.setDate(tripDate); 
 	}
 	
-	protected void clearInput(Text[] fields) {
+	protected void clearInput(Text[] fields) 
+	{
 		for (int i = 0; i < fields.length; i++) {
 			fields[i].setText("");
 		}
 	}
 
-	protected void updateIndex(ArrayList<Customer> cstmrs) {
+	protected void updateIndex(ArrayList<Customer> cstmrs)
+	{
 		for (int i = 0; i < cstmrs.size(); i++) {
 			cstmrs.get(i).setIndex(i);
 		}
