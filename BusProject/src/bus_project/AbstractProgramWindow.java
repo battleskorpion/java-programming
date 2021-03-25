@@ -11,7 +11,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-public abstract class AbstractProgramWindow {
+public abstract class AbstractProgramWindow 
+{
 	
 	protected Shell shell;
 
@@ -22,7 +23,8 @@ public abstract class AbstractProgramWindow {
 	/**
 	 * Open the window.
 	 */
-	public void open(Shell shell) {
+	public void open(Shell shell) 
+	{
 		shell.open(); 
 	}
 
@@ -96,14 +98,16 @@ public abstract class AbstractProgramWindow {
 	
 	protected void clearInput(Text[] fields) 
 	{
-		for (int i = 0; i < fields.length; i++) {
+		for (int i = 0; i < fields.length; i++) 
+		{
 			fields[i].setText("");
 		}
 	}
 
 	protected void updateIndex(ArrayList<Customer> cstmrs)
 	{
-		for (int i = 0; i < cstmrs.size(); i++) {
+		for (int i = 0; i < cstmrs.size(); i++) 
+		{
 			cstmrs.get(i).setIndex(i);
 		}
 	}
@@ -112,18 +116,21 @@ public abstract class AbstractProgramWindow {
 	{
 		String dateString; 
 		dateString = year + "-"; 
-		if (month < 10) {
+		if (month < 10) 
+		{
 			dateString += "0";  
 		}
 		dateString += (month + 1) + "-";
-		if (day < 10) {
+		if (day < 10) 
+		{
 			dateString += "0"; 
 		}
 		dateString += day; 
 		return dateString; 
 	}
 	
-	protected boolean vaildDate(DateTime dateTime) {	// better ish now
+	protected boolean vaildDate(DateTime dateTime) 		// better ish now
+	{
 		LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
 		
 		if (date.isBefore(LocalDate.now())){			// TODO: may have to change to after today or etc. 
@@ -131,14 +138,15 @@ public abstract class AbstractProgramWindow {
 		}
 		else 
 		{
-		return true; 
+			return true; 
 		}
 	}
 	
-	protected void openSubWindow(AbstractProgramWindow wndw, Shell shl) {
-		/****************************************/
-		/* DISABLE MENU WHILE PERFORMING ACTION */
-		/****************************************/
+	protected void openSubWindow(AbstractProgramWindow wndw, Shell shl) 
+	{
+		/**********************************************/
+		/* DISABLE ROOT SHELL WHILE PERFORMING ACTION */
+		/**********************************************/
 		shl.setEnabled(false);
 		
 		/****************************/
@@ -146,9 +154,9 @@ public abstract class AbstractProgramWindow {
 		/****************************/
 		wndw.open(shl);
 			
-		/***************************************/
-		/* ENABLE MENU AFTER PERFORMING ACTION */
-		/***************************************/
+		/*********************************************/
+		/* ENABLE ROOT SHELL AFTER PERFORMING ACTION */
+		/*********************************************/
 		shl.setEnabled(true);
 		
 		/******************************************************************/

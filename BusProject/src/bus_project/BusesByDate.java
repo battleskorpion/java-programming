@@ -10,14 +10,18 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
-public class BusesByDate extends AbstractProgramWindow {
+public class BusesByDate extends AbstractProgramWindow 
+{
 
 	protected Shell shlBusesByDate;
 	private ArrayList<Customer> customers; 
 	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 
 	
-	public BusesByDate (ArrayList<Customer> cstmrs) {
+	public BusesByDate (ArrayList<Customer> cstmrs) 
+	{
 		customers = cstmrs; 
 	}
 	
@@ -34,8 +38,8 @@ public class BusesByDate extends AbstractProgramWindow {
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		Display display = Display.getDefault();			// MANAGES THE CONNECTION BETWEEN SWT 
-														// AND THE UNDERLYING OPERATING SYSTEM 
+		Display display = Display.getDefault();					// MANAGES THE CONNECTION BETWEEN SWT 
+																// AND THE UNDERLYING OPERATING SYSTEM 
 
 		/**********************************************/
 		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
@@ -72,15 +76,18 @@ public class BusesByDate extends AbstractProgramWindow {
 	/**
 	 * Create contents of the window.
 	 */
-	protected void createContents(Shell rootShell) {
+	protected void createContents(Shell rootShell) 
+	{
 		shlBusesByDate = new Shell();
 		shlBusesByDate.setSize(270, 270);
 		shlBusesByDate.setText("Buses by Date");
 		
 		DateTime dateTime = new DateTime(shlBusesByDate, SWT.BORDER | SWT.CALENDAR);
-		dateTime.setBounds(10, 10, 233, 151);
 		
+		dateTime.setBounds(10, 10, 233, 151);
+
 		Combo combo = new Combo(shlBusesByDate, SWT.NONE);
+		
 		combo.setBounds(10, 167, 91, 23);
 		updateComboBox(combo, dates); 
 		
@@ -95,5 +102,41 @@ public class BusesByDate extends AbstractProgramWindow {
 		btnQuit.setBounds(168, 196, 75, 25);
 		btnQuit.setText("Exit");
 
+		/* event handlers */ 
+		
+		dateTime.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
+				 
+				if (dates.contains(date)) 
+				{
+				// update combo box maybe ?
+				//	combo.set
+					
+					lblBuses.setText(BusCalculation.getNumBuses(date) + "");
+				}
+			}
+		});
+		combo.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int index = combo.getSelectionIndex(); 
+				LocalDate date = dates.get(index); 
+				
+				// move calendar to date 
+				dateTime.setDate(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
+				
+				// update number of buses text
+				lblBuses.setText(BusCalculation.getNumBuses(date) + "");
+		
+			}
+		});
 	}
+	
+	
 }

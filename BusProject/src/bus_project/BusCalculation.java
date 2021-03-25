@@ -27,6 +27,8 @@ public class BusCalculation
 	
 	/* method section */ 
 	
+	// TODO: consider minimum bus capacity somehow in logic idk specifically how? (besides definitely min of 10 per day)
+	
 	// schedule customer on date selected
 	public static int scheduleTrip (Customer cstmr) 
 	{
