@@ -86,6 +86,50 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			}
 		}
 	}
+	
+	public void open(Shell shell)
+	/****************************************************************/
+	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
+	/* POSTCONDITION: CREATES THE GUI DISPLAY AND OPENS THE DISPLAY	*/
+	/****************************************************************/
+	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		Display display = Display.getDefault();			// MANAGES THE CONNECTION BETWEEN SWT 
+														// AND THE UNDERLYING OPERATING SYSTEM 
+		
+		/**********************************************/
+		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
+		/**********************************************/
+		createContents();
+
+		/****************************************/
+		/* METHOD TO OPEN SHELL (ADD TO SCREEN) */
+		/****************************************/
+		shell.open();
+		
+		/******************************************************************/
+		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
+		/******************************************************************/
+		shell.forceActive();							// SO WINDOW WILL BE FOCUSED WHEN CREATED
+		
+		/*************************************************/
+		/* METHOD TO ENACT LAYOUT OF SHELL IF APPLICABLE */
+		/*************************************************/
+		shell.layout();
+		
+		/*********************************************************************************/
+		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING IT NEEDS TO DO */
+		/*********************************************************************************/
+		while (!shell.isDisposed()) 
+		{
+			if (!display.readAndDispatch()) 
+			{
+				display.sleep();
+			}
+		}
+	}
 
 	/**
 	 * Create contents of the window.
@@ -98,6 +142,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		RemoveCustomer removeCustomerWindow = new RemoveCustomer(customers); 
 		ModifyCustomer modifyCustomerWindow = new ModifyCustomer(customers); 
 		ListCustomers listCustomersWindow = new ListCustomers(customers); 
+		BusesByDate busesByDateWindow = new BusesByDate(customers); 
 		
 		shell = new Shell();
 		shell.setSize(382, 209);
@@ -251,6 +296,12 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		}); 
 		
 		Button btnBusesNeededByDate = new Button(shell, SWT.NONE);
+		btnBusesNeededByDate.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				openSubWindow(busesByDateWindow, shell); 
+			}
+		});
 		btnBusesNeededByDate.setBounds(186, 72, 170, 25);
 		btnBusesNeededByDate.setText("Buses needed by Date");
 		

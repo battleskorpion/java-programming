@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -18,7 +19,9 @@ public abstract class AbstractProgramWindow {
 	/**
 	 * Open the window.
 	 */
-	//public abstract void open(Shell shell); 
+	public void open(Shell shell) {
+		shell.open(); 
+	}
 
 	/**
 	* Create contents of the window.
@@ -122,6 +125,26 @@ public abstract class AbstractProgramWindow {
 		}
 	}
 	
-	
+	protected void openSubWindow(AbstractProgramWindow wndw, Shell shl) {
+		/****************************************/
+		/* DISABLE MENU WHILE PERFORMING ACTION */
+		/****************************************/
+		shl.setEnabled(false);
+		
+		/****************************/
+		/* OPEN ADD CUSTOMER WINDOW */
+		/****************************/
+		wndw.open(shl);
+			
+		/***************************************/
+		/* ENABLE MENU AFTER PERFORMING ACTION */
+		/***************************************/
+		shl.setEnabled(true);
+		
+		/******************************************************************/
+		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
+		/******************************************************************/
+		shl.forceActive();	
+	}	
 	
 }

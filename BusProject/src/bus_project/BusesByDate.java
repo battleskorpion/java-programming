@@ -1,5 +1,6 @@
 package bus_project;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Display;
@@ -11,10 +12,11 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 
-public class BusesByDate {
+public class BusesByDate extends AbstractProgramWindow {
 
 	protected Shell shlBusesByDate;
 	private ArrayList<Customer> customers; 
+	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 
 	
 	public BusesByDate (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 

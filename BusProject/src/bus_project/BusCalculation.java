@@ -14,16 +14,16 @@ public class BusCalculation
 	public static final int MAX_PAX = MAX_BUSES * MAX_CAPACITY; 	// maximum passengers per day
 	
 	// static variables
-	private static ArrayList<LocalDate> dates; 
+	private static ArrayList<LocalDate> dates = new ArrayList<LocalDate>(); 
 	//private static ArrayList<Integer> busesPerDate;				// number of buses used per each date  
-	private static ArrayList<ArrayList<Customer>> customers; 	 	// customers each date 
+	private static ArrayList<ArrayList<Customer>> customers = new ArrayList<ArrayList<Customer>>(); 	 	// customers each date 
 	
-	/* constructors */
-	
-	public BusCalculation () 
-	{
-		
-	}
+	///* constructors */
+	//
+	//public BusCalculation () 
+	//{
+	//	
+	//}
 	
 	/* method section */ 
 	
@@ -123,5 +123,9 @@ public class BusCalculation
 		{
 			return 0; 			// date not found in booked dates so no bookings are on the date, means no pax on the date
 		}
+	}
+
+	public static ArrayList<LocalDate> getDates() {
+		return dates;
 	}
 }
