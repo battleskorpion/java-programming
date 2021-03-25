@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -116,7 +115,7 @@ public abstract class AbstractProgramWindow {
 	protected boolean vaildDate(DateTime dateTime) {	// better ish now
 		LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
 		
-		if (date.isBefore(LocalDate.now())){		// may have to change to after today 
+		if (date.isBefore(LocalDate.now())){			// TODO: may have to change to after today or etc. 
 			return false;
 		}
 		else 

@@ -17,7 +17,9 @@ public class ListCustomers extends AbstractProgramWindow {
 	protected Shell shlListCustomers;
 	private ArrayList<Customer> customers; 
 	private ArrayList<Customer> customersSorted; 
-	private int sortBy; 		// sort by filter
+	private int sortBy; 									// sort by filter		 
+															// srtBy = 0, sort by name  
+															// srtBy = 1, sort by size
 	private Table customersTable;
 	
 	public ListCustomers (ArrayList<Customer> cstmrs) {
@@ -27,17 +29,13 @@ public class ListCustomers extends AbstractProgramWindow {
 	/**
 	 * Open the window.
 	 * @wbp.parser.entryPoint
-	 * srtBy = 0, sort by name 
-	 * srtBy = 1, sort by size
 	 */
-	public void open(Shell rootShell, int srtBy)
+	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
 	/* POSTCONDITION: CREATES THE GUI DISPLAY AND OPENS THE DISPLAY	*/
 	/****************************************************************/
-	{
-		sortBy = srtBy; 									// set sort by filter
-		
+	{	
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
@@ -112,7 +110,15 @@ public class ListCustomers extends AbstractProgramWindow {
 		});
 	}
 	
-	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...." FOR THE FIRST LINE, THERE IS NO RUNTIME ISSUES 
+	public void setSortByName() {
+		sortBy = 0;  	// set sort by filter to name
+	}
+	
+	public void setSortBySize() {
+		sortBy = 1; 	// set sort by filter to size
+	}
+	
+	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...."
 	private void sortCustomers() {
 		customersSorted =  (ArrayList<Customer>) customers.clone(); 
 		
