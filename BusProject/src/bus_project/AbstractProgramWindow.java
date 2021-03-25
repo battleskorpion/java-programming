@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -37,7 +38,7 @@ public abstract class AbstractProgramWindow {
 		item.setText(dta.toString()); 
 	}
 	
-	protected <E> void updateTable(Table tbl, ArrayList<E> data) 
+	protected <E> void updateTable(Table tbl, ArrayList<E> dta) 
 	/*****************************************************************************/
 	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	 */
 	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE		 */
@@ -52,10 +53,16 @@ public abstract class AbstractProgramWindow {
 		/****************/
 		/* UPDATE TABLE */
 		/****************/ 
-		for (int i = 0; i < data.size(); i++) 
+		for (int i = 0; i < dta.size(); i++) 
 		{
-			updateTable(tbl, data.get(i)); 
+			updateTable(tbl, dta.get(i)); 
 		}
+	}
+	
+	protected <E> void updateComboBox(Combo bx, ArrayList<E> dta) 
+	{
+		bx.setItems(dta.toString().split(",")); 
+		
 	}
 	
 	protected void setCustomerDetails(Customer customer, Text nameField, Text sizeField, Text indexField, int index, DateTime dateTime) {

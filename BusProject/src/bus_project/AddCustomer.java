@@ -191,8 +191,9 @@ public class AddCustomer extends AbstractProgramWindow {
 	//	
 	//}
 	
-	private void addCustomer(Customer customer, int index, Table tbl) {
-		customers.add(index, customer);
+	private void addCustomer(Customer cstmr, int indx, Table tbl) {
+		customers.add(indx, cstmr);
+		BusCalculation.scheduleTrip(cstmr);
 		updateTable(tbl, customers); 
 	}
 	

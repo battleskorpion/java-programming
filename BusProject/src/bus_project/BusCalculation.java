@@ -97,6 +97,11 @@ public class BusCalculation
 		}
 	}
 	
+	public static boolean unscheduleTrip (Customer cstmr) {
+		customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));
+		return true; 
+	}
+	
 	// calculates number of buses which will be necessary for the day
 	public static int getNumBuses(LocalDate dt) {	
 		return (int)Math.ceil(getNumPaxOnDay(dt) / ((double)MAX_CAPACITY)); 

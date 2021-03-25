@@ -81,6 +81,7 @@ public class BusesByDate {
 		
 		Combo combo = new Combo(shlBusesByDate, SWT.NONE);
 		combo.setBounds(10, 167, 91, 23);
+		updateComboBox(combo, dates); 
 		
 		Label lblBuses = new Label(shlBusesByDate, SWT.NONE);
 		lblBuses.setBounds(10, 196, 42, 15);
