@@ -49,7 +49,7 @@ public class FixFocus {
 					}
 				} 
 				else {
-					if (data.trim().substring(0, 3).equals(("id="))) {
+					if (data.trim().length() >= 3 && data.trim().substring(0, 3).equals(("id="))) {
 						focus_name_index = data.indexOf("id=") + 3; 
 						//nl_index = data.indexOf("\n"); 
 						focus_names.add(data.substring(focus_name_index, data.length()).trim()); 
@@ -184,7 +184,7 @@ public class FixFocus {
         whitelist.add("until");
         whitelist.add("up");
         whitelist.add("with");
-        
+		
         // first word always capitalized
         if (words.get(0).length() == 1) { 
         	words.set(0, "" + Character.toUpperCase(words.get(0).charAt(0))); 
