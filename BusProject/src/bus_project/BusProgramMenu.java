@@ -11,6 +11,7 @@ import org.eclipse.swt.events.SelectionEvent;
 
 public class BusProgramMenu extends AbstractProgramWindow {
 
+	// TODO: comment vars, instance var section
 	protected Shell shell;
 	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
 	//private Calendar date; 	// current date
@@ -19,6 +20,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 	 * Launch the application.
 	 * @param args
 	 */
+	// TODO: better comment as to why this is here
 	public static void main(String[] args) 
 	{
 		/********************/
@@ -29,6 +31,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/*****************************/
 		/* METHOD TO OPEN GUI WINDOW */
 		/*****************************/
+		// TODO: also label try/catch? 
 		try 
 		{
 			window.open();
@@ -42,6 +45,8 @@ public class BusProgramMenu extends AbstractProgramWindow {
 	/******************************************************************************************************/
 	/*											 METHOD SECTION 										  */
 	/******************************************************************************************************/
+	
+	// TODO: why is there two open functions are they both necessary? 
 	
 	public void open()
 	/****************************************************************/
@@ -138,78 +143,106 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
+		// TODO: label variable window section 
 		AddCustomer addCustomerWindow = new AddCustomer(customers);
 		RemoveCustomer removeCustomerWindow = new RemoveCustomer(customers); 
 		ModifyCustomer modifyCustomerWindow = new ModifyCustomer(customers); 
 		ListCustomers listCustomersWindow = new ListCustomers(customers); 
 		BusesByDate busesByDateWindow = new BusesByDate(customers); 
 		
+		// TODO: label shell 
 		shell = new Shell();
+		// TODO: label method calls
 		shell.setSize(382, 209);
 		shell.setText("Bus Program");
 		
+		// TODO: label add customer button
 		Button btnAddCustomer = new Button(shell, SWT.NONE);
+		// TODO: label method calls
 		btnAddCustomer.setBounds(10, 10, 170, 25);
 		btnAddCustomer.setText("Add new customer");
+		// TODO: label selection listener method call whatever
 		btnAddCustomer.addSelectionListener(new SelectionAdapter() {
+			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
 			{
 				openSubWindow(addCustomerWindow, shell);
 			}
 		});
 
+		// TODO: label modify customer button
 		Button btnModifyCustomer = new Button(shell, SWT.NONE);
+		// TODO: label method calls
 		btnModifyCustomer.setBounds(10, 41, 170, 25);
 		btnModifyCustomer.setText("Modify Customer");
+		// TODO: label selection listener method call whatever
 		btnModifyCustomer.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
+			// TODO: label method 
 			public void widgetSelected(SelectionEvent e) {
 				openSubWindow(modifyCustomerWindow, shell);
 			}
 		});
 		
+		// TODO: label list customers by name button
 		Button btnListCustomersByName = new Button(shell, SWT.NONE);
+		// TODO: label method calls
 		btnListCustomersByName.setBounds(186, 41, 170, 25);
 		btnListCustomersByName.setText("List customers by Name");
+		// TODO: label selection listener method call whatever
 		btnListCustomersByName.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				// TODO: label method
 				listCustomersWindow.setSortByName();
 				openSubWindow(listCustomersWindow, shell);
 			}
 		}); 
 		
+		// TODO: label button
 		Button btnListCustomersBySize = new Button(shell, SWT.NONE);
+		// TODO: label method calls
 		btnListCustomersBySize.setBounds(10, 72, 170, 25);
 		btnListCustomersBySize.setText("List Customers by Group Size");
+		// TODO: label selection listener method call whatever
 		btnListCustomersBySize.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
+			// TODO: label method
 			public void widgetSelected(SelectionEvent e) {
 				listCustomersWindow.setSortBySize();
 				openSubWindow(listCustomersWindow, shell);
 			}
 		}); 
 		
+		// TODO: label button
 		Button btnProfitByDate = new Button(shell, SWT.NONE);
+		// TODO: label method calls
 		btnProfitByDate.setBounds(10, 103, 170, 25);
 		btnProfitByDate.setText("Profit by Date");
 		
+		// TODO: label button
 		Button btnRemoveCustomer = new Button(shell, SWT.NONE);
+		// TODO: label method calls
 		btnRemoveCustomer.setBounds(186, 10, 170, 25);
 		btnRemoveCustomer.setText("Remove customer");
+		// TODO: label selection listener method call whatever
 		btnRemoveCustomer.addSelectionListener(new SelectionAdapter() {
+			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
 			{
 				openSubWindow(removeCustomerWindow, shell);	
 			}
 		});
 		
+		// TODO: label button
 		Button btnBusesNeededByDate = new Button(shell, SWT.NONE);
+		// TODO: label method calls
 		btnBusesNeededByDate.setBounds(186, 72, 170, 25);
 		btnBusesNeededByDate.setText("Buses needed by Date");
+		// TODO: label selection listener method call whatever
 		btnBusesNeededByDate.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -217,7 +250,9 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			}
 		});	
 		
+		// TODO: label button
 		Button btnProfitTotal = new Button(shell, SWT.NONE);
+		// TODO: label method calls
 		btnProfitTotal.setBounds(186, 103, 170, 25);
 		btnProfitTotal.setText("Total profit details");
 		
@@ -225,6 +260,8 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/* QUIT BUTTON */
 		/***************/
 		Button btnQuit = new Button(shell, SWT.NONE);
+		// TODO: label method calls
+		// TODO: label selection listener method call whatever
 		btnQuit.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) 
 			{

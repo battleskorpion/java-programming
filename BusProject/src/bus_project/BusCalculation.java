@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class BusCalculation 
 {
+	// TODO: make these proper labels 
 	// constants
 	public static final int MAX_BUSES = 20; 						// maximum buses available per day
 	public static final int MAX_CAPACITY = 20; 						// maximum capacity of a bus
@@ -32,12 +33,14 @@ public class BusCalculation
 	// schedule customer on date selected
 	public static int scheduleTrip (Customer cstmr) 
 	{
+		// TODO: label var section etc
 		LocalDate date = cstmr.getDate(); 
 		//int merge; 			// whether or not to merge	// 0 = yes, 1 = no
 		int dateIndex; 			// index of current date in dates array
 		int numPax; 			// number of other individual passengers (based on combined group size from all other groups that day) 
 		
 		
+		// TODO: clean up code (really this entire file is a mess) 
 		// if another booking from any customer exists on same date
 		if (dates.contains(date)) 
 		{
@@ -63,13 +66,17 @@ public class BusCalculation
 			//}
 			// another booking from another customer(s) exists on same date
 			//else {
+			
+			// TODO: label method calls 
 				dateIndex = dates.indexOf(date); 
 				
 				// calculate numPax
 				numPax = getNumPaxOnDay(date); 
 				
+				// TODO: label if 
 				if (numPax + cstmr.getNumPersons() <= MAX_PAX) 
 				{
+					// TODO: label method call
 					customers.get(dateIndex).add(cstmr); 
 					
 					return 0; 	// no error
@@ -86,6 +93,7 @@ public class BusCalculation
 		{	
 			if (cstmr.getNumPersons() <= MAX_PAX) 
 			{
+				// TODO: label method calls
 				dates.add(cstmr.getDate()); 						// add new date 
 				customers.add(new ArrayList<Customer>());			// create new ArrayList aligning with new date
 				customers.get(customers.size() - 1).add(cstmr);		// add customer to new ArrayList
@@ -99,22 +107,27 @@ public class BusCalculation
 		}
 	}
 	
+	// TODO: label method
 	public static boolean unscheduleTrip (Customer cstmr) {
 		customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));
 		return true; 
 	}
 	
+	// TODO: label method properly 
 	// calculates number of buses which will be necessary for the day
 	public static int getNumBuses(LocalDate dt) {	
 		return (int)Math.ceil(getNumPaxOnDay(dt) / ((double)MAX_CAPACITY)); 
 	}
 	
+	// TODO: label method
 	public static int getNumPaxOnDay(LocalDate dt) 
 	{
 		int numPax = 0; 		// number of passengers on the day
 		
+		// TODO: label if
 		if (dates.contains(dt))
 		{
+			// TODO: label for loop
 			for (Customer cstmr : customers.get(dates.indexOf(dt)))
 			{
 				numPax += cstmr.getNumPersons(); 
@@ -127,6 +140,7 @@ public class BusCalculation
 		}
 	}
 
+	// TODO: label method
 	public static ArrayList<LocalDate> getDates() {
 		return dates;
 	}

@@ -27,9 +27,14 @@ public class AddCustomer extends AbstractProgramWindow {
 	private Text indexField;
 	private DateTime dateTime; 
 	
+	/***********************/
+	/* CONSTRUCTOR SECTION */
+	/***********************/
 	public AddCustomer (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 
 	}
+	
+	// TODO: method section
 			
 	/**
 	 * Open the window.
@@ -67,11 +72,12 @@ public class AddCustomer extends AbstractProgramWindow {
 		/*************************************************/
 		shlAddCustomer.layout();
 		
-		/*********************************************************************************/
-		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING IT NEEDS TO DO */
-		/*********************************************************************************/
+		/************************************************************************/
+		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING TO DO */
+		/************************************************************************/
 		while (!shlAddCustomer.isDisposed()) 
 		{
+			// TODO: label if
 			if (!display.readAndDispatch()) 
 			{
 				display.sleep();
@@ -79,63 +85,89 @@ public class AddCustomer extends AbstractProgramWindow {
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
+	/********************************************************************************/
+	/* PRECONDITION:  WINDOW IS TO BE OPENED, ELEMENTS NEED TO BE ADDED TO WINDOW	*/
+	/* POSTCONDITION: ADDS ELEMENTS TO WINDOW										*/
+	/********************************************************************************/
 	protected void createContents(Shell rootShell) {
 		
 		shlAddCustomer = new Shell();
+		// TODO: label method calls
 		shlAddCustomer.setSize(600, 400);
 		shlAddCustomer.setText("Add Customer");
 		
 		Label lblName = new Label(shlAddCustomer, SWT.NONE);
+		// TODO: label method calls
 		lblName.setBounds(10, 13, 73, 15);
 		lblName.setText("Name:");
 		
 		nameField = new Text(shlAddCustomer, SWT.BORDER);
+		// TODO: label method calls
 		nameField.setText("");
 		nameField.setBounds(89, 10, 80, 24);
 		
 		Label lblSize = new Label(shlAddCustomer, SWT.NONE);
+		// TODO: label method calls
 		lblSize.setText("Group size: ");
 		lblSize.setBounds(10, 43, 73, 15);
 		
 		sizeField = new Text(shlAddCustomer, SWT.BORDER);
+		// TODO: label method calls
 		sizeField.setBounds(89, 40, 80, 24);
 		
 		Label lblTripDate = new Label(shlAddCustomer, SWT.NONE);
+		// TODO: label method calls
 		lblTripDate.setBounds(10, 92, 73, 15);
 		lblTripDate.setText("Trip Date: ");
 		
 		dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
+		// TODO: label method calls
 		dateTime.setBounds(10, 113, 233, 151);
 		
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
+		// TODO: label method calls
 		btnExit.setBounds(499, 326, 75, 25);
 		btnExit.setText("Exit");
 		
 		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
+		// TODO: label method calls
 		btnAdd.setBounds(89, 270, 75, 25);
 		btnAdd.setText("Add");
 		
-		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
-		customersTable.setToolTipText("");
-		customersTable.setBounds(258, 43, 316, 252);
-		customersTable.setLinesVisible(true);					
-		if (customers.size() > 0) {
-			updateTable(customersTable, customers); 
-		}
+		/***************/
+		/* INDEX LABEL */
+		/***************/ 
+		Label lblIndex = new Label(shlAddCustomer, SWT.NONE);
+		// TODO: label method calls
+		lblIndex.setBounds(10, 71, 55, 15);
+		lblIndex.setText("Index: ");
 		
+		/***************/
+		/* INDEX FIELD */
+		/***************/ 
+		indexField = new Text(shlAddCustomer, SWT.BORDER);
+		// TODO: label method calls
+		indexField.setBounds(89, 70, 80, 24);
+		
+		/*******************/
+		/* CUSTOMERS LABEL */
+		/*******************/ 
 		Label lblCustomers = new Label(shlAddCustomer, SWT.NONE);
+		// TODO: label method calls
 		lblCustomers.setBounds(388, 13, 63, 15);
 		lblCustomers.setText("Customers: ");
 		
-		indexField = new Text(shlAddCustomer, SWT.BORDER);
-		indexField.setBounds(89, 70, 80, 24);
-		
-		Label lblNumber = new Label(shlAddCustomer, SWT.NONE);
-		lblNumber.setBounds(10, 71, 55, 15);
-		lblNumber.setText("Index: ");
+		/***************/
+		/* CUSTOMERS TABLE */
+		/***************/ 
+		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
+		customersTable.setToolTipText("");
+		customersTable.setBounds(258, 43, 316, 252);
+		customersTable.setLinesVisible(true);		
+		// TODO: label if
+		if (customers.size() > 0) {
+			updateTable(customersTable, customers); 
+		}
 		
 		/***********************/
 		/* ADD CUSTOMER BUTTON */
@@ -147,8 +179,10 @@ public class AddCustomer extends AbstractProgramWindow {
 				Customer customer; 
 				int index; 				// INDEX TO ADD CUSTOMER AT 
 				
+				// TODO: label try/catch
 				try
 				{
+					// TODO: label if
 					if (!legalCustomerAddition())
 					{
 						/***************/
@@ -158,6 +192,7 @@ public class AddCustomer extends AbstractProgramWindow {
 					}
 					else
 					{
+						// TODO: label method calls
 						customer = new Customer(); 
 						Text[] fields = {nameField, sizeField, indexField};
 						
@@ -177,8 +212,13 @@ public class AddCustomer extends AbstractProgramWindow {
 				}
 			}
 		});
+		
+		/***********************/
+		/* EXIT BUTTON */
+		/***********************/ 
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
+			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
 			{
 				rootShell.forceActive(); 
@@ -187,16 +227,14 @@ public class AddCustomer extends AbstractProgramWindow {
 		});
 	}
 	
-	//private void inputCustomer() {
-	//	
-	//}
-	
+	// TODO: label method
 	private void addCustomer(Customer cstmr, int indx, Table tbl) {
 		customers.add(indx, cstmr);
 		BusCalculation.scheduleTrip(cstmr);
 		updateTable(tbl, customers); 
 	}
 	
+	// TODO: label method
 	private boolean legalCustomerAddition() {
 		
 		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) > customers.size() || !vaildDate(dateTime))

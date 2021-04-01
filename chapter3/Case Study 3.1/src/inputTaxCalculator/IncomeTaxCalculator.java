@@ -50,6 +50,7 @@ public class IncomeTaxCalculator{
     
     // Display the income tax
     System.out.println("The income tax is $" + incomeTax);
+    reader.close(); 	// stuipid
    }	
 }
 

@@ -47,6 +47,7 @@ public class CountAngels {
       
       //Print results
       System.out.print ("The number of angels = " + numberAngels);
+      reader.close(); 
    }
 }
 

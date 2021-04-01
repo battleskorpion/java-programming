@@ -16,10 +16,12 @@ import org.eclipse.swt.events.SelectionEvent;
 public class BusesByDate extends AbstractProgramWindow 
 {
 
+	// TODO: instance var section, label vars
 	protected Shell shlBusesByDate;
 	private ArrayList<Customer> customers; 
 	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 
 	
+	// TODO: constructor section
 	public BusesByDate (ArrayList<Customer> cstmrs) 
 	{
 		customers = cstmrs; 
@@ -66,6 +68,7 @@ public class BusesByDate extends AbstractProgramWindow
 		/*********************************************************************************/
 		while (!shlBusesByDate.isDisposed()) 
 		{
+			// TODO: 
 			if (!display.readAndDispatch()) 
 			{
 				display.sleep();
@@ -78,27 +81,38 @@ public class BusesByDate extends AbstractProgramWindow
 	 */
 	protected void createContents(Shell rootShell) 
 	{
+		// TODO: label method calls
 		shlBusesByDate = new Shell();
 		shlBusesByDate.setSize(270, 270);
 		shlBusesByDate.setText("Buses by Date");
 		
+		// TODO: label dateTime
 		DateTime dateTime = new DateTime(shlBusesByDate, SWT.BORDER | SWT.CALENDAR);
 		
+		// TODO: label method calls
 		dateTime.setBounds(10, 10, 233, 151);
 
+		// TODO: label combo
 		Combo combo = new Combo(shlBusesByDate, SWT.NONE);
 		
+		// TODO: label method calls
 		combo.setBounds(10, 167, 91, 23);
 		updateComboBox(combo, dates); 
 		
+		// TODO: label label
 		Label lblBuses = new Label(shlBusesByDate, SWT.NONE);
+		// TODO: label method calls
 		lblBuses.setBounds(10, 196, 42, 15);
 		lblBuses.setText("Buses: ");
 		
+		// TODO: label label
 		Label lblNumBuses = new Label(shlBusesByDate, SWT.RIGHT);
+		// TODO: label method calls
 		lblNumBuses.setBounds(46, 196, 55, 15);
 		
+		// TODO: label button
 		Button btnQuit = new Button(shlBusesByDate, SWT.NONE);
+		// TODO: label method calls
 		btnQuit.setBounds(168, 196, 75, 25);
 		btnQuit.setText("Exit");
 

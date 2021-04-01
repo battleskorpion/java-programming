@@ -18,6 +18,7 @@ public class TestTerminalIO {
       weight = reader.nextDouble();
       System.out.println ("Greetings " + name + ". You are " + age + 
           " years old and you weigh " + weight + " pounds.");
+      reader.close();
    }
 }
 
