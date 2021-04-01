@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Text;
 
 public class ModifyCustomer extends AbstractProgramWindow {
 
+	//TODO: var section, label vars
 	protected Shell shlModifyCustomers;
 	private ArrayList<Customer> customers; 
 	//private ArrayList<Customer> modifiedCustomers = new ArrayList<Customer>(); 		// LIST OF MODIFIED CUSTOMERS (BUT WILL STORE ORIGINAL CUSTOMER BEFORE MODIFICATION) 
@@ -26,6 +27,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	private Text indexField;
 	private DateTime dateTime;
 	
+	//TODO: label constructor section
 	public ModifyCustomer (ArrayList<Customer> cstmrs) {
 		customers = cstmrs; 
 	}
@@ -82,6 +84,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	 * Create contents of the window.
 	 */
 	protected void createContents(Shell rootShell) {
+		//TODO: labels
+		
 		shlModifyCustomers = new Shell();
 		shlModifyCustomers.setSize(600, 400);
 		shlModifyCustomers.setText("Modify Customers");

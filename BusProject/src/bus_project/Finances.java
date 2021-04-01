@@ -1,5 +1,6 @@
 package bus_project;
 
+//TODO: lots
 public class Finances {
 	public static float profit = 0; 		// profit from trips	// only trips after today should be counted
 	
