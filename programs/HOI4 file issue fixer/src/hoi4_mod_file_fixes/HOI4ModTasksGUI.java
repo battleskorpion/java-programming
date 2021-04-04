@@ -28,7 +28,7 @@ public class HOI4ModTasksGUI {
 		Display.getDefault().syncExec(new Runnable() {
 		    public void run() {
 		    	Shell shell = new Shell(Display.getDefault());
-		    	shell.setText("Directory Browser");
+		    	shell.setText("HOI4 Utilities");
 		    	createContents(shell, Display.getDefault());
 		    	shell.pack();
 		    	shell.open();
