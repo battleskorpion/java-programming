@@ -133,7 +133,8 @@ public abstract class AbstractProgramWindow
 	{
 		LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
 		
-		if (date.isBefore(LocalDate.now())){			// TODO: may have to change to after today or etc. 
+		if (date.isBefore(LocalDate.now()))	// TODO: change to *after* today (do not allow today)
+		{			
 			return false;
 		}
 		else 
