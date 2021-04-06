@@ -134,17 +134,17 @@ public abstract class AbstractProgramWindow
 	}
 	
 	// TODO: COMMENT
-	protected boolean vaildDate(DateTime dateTime) 		// better ish now
+	protected boolean vaildDate(DateTime dateTime) 		
 	{
 		LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
 		
-		if (date.isBefore(LocalDate.now()))	// TODO: change to *after* today (do not allow today)
+		if (date.isAfter(LocalDate.now()))	
 		{			
-			return false;
+			return true;
 		}
 		else 
 		{
-			return true; 
+			return false; 
 		}
 	}
 	
