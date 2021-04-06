@@ -77,10 +77,10 @@ public class ListCustomers extends AbstractProgramWindow {
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
-	//TODO: label method more
+	/*************************************************/
+	/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
+	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
+	/*************************************************/
 	protected void createContents(Shell rootShell) {
 		
 		//TODO: label method calls/shell

@@ -80,9 +80,10 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
+	/*************************************************/
+	/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
+	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
+	/*************************************************/
 	protected void createContents(Shell rootShell) {
 		//TODO: labels
 		

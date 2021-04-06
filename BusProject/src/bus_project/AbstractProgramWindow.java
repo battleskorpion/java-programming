@@ -77,6 +77,7 @@ public abstract class AbstractProgramWindow
 		
 	}
 	
+	// TODO: COMMENT
 	protected void setCustomerDetails(Customer customer, Text nameField, Text sizeField, Text indexField, int index, DateTime dateTime) 
 	{
 		LocalDate tripDate; 
@@ -96,6 +97,7 @@ public abstract class AbstractProgramWindow
 		customer.setDate(tripDate); 
 	}
 	
+	// TODO: comment
 	protected void clearInput(Text[] fields) 
 	{
 		for (int i = 0; i < fields.length; i++) 
@@ -104,6 +106,7 @@ public abstract class AbstractProgramWindow
 		}
 	}
 
+	// TODO: comment
 	protected void updateIndex(ArrayList<Customer> cstmrs)
 	{
 		for (int i = 0; i < cstmrs.size(); i++) 
@@ -112,6 +115,7 @@ public abstract class AbstractProgramWindow
 		}
 	}
 	
+	// TODO: COMMENT
 	protected String StringToLocalDateFormat(int day, int month, int year)
 	{
 		String dateString; 
@@ -129,6 +133,7 @@ public abstract class AbstractProgramWindow
 		return dateString; 
 	}
 	
+	// TODO: COMMENT
 	protected boolean vaildDate(DateTime dateTime) 		// better ish now
 	{
 		LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
@@ -143,6 +148,7 @@ public abstract class AbstractProgramWindow
 		}
 	}
 	
+	// TODO: comment
 	protected void openSubWindow(AbstractProgramWindow wndw, Shell shl) 
 	{
 		/**********************************************/
