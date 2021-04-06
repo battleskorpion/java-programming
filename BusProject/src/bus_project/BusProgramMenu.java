@@ -11,7 +11,10 @@ import org.eclipse.swt.events.SelectionEvent;
 
 public class BusProgramMenu extends AbstractProgramWindow {
 
-	// TODO: comment vars, instance var section
+	// TODO: comment vars
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
 	protected Shell shell;
 	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
 	//private Calendar date; 	// current date
@@ -20,7 +23,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 	 * Launch the application.
 	 * @param args
 	 */
-	// TODO: better comment as to why this is here
+	// TODO: better comment, as to why this is here
 	public static void main(String[] args) 
 	{
 		/********************/
@@ -144,7 +147,6 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		// TODO: label variable window section 
 		AddCustomer addCustomerWindow = new AddCustomer(customers);
 		RemoveCustomer removeCustomerWindow = new RemoveCustomer(customers); 
 		ModifyCustomer modifyCustomerWindow = new ModifyCustomer(customers); 
