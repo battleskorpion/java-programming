@@ -122,7 +122,10 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		btnDelete.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) 
 			{
-				customersRemoved.add(customers.remove(customersTable.getSelectionIndex())); 
+				int customerToRemoveIndex = customersTable.getSelectionIndex(); 
+				
+				BusCalculation.unscheduleTrip(customers.get(customerToRemoveIndex)); 
+				customersRemoved.add(customers.remove(customerToRemoveIndex)); 	// remove customer from customers and add to customersRemoved 
 				updateIndex(customers); 
 				updateTable(customersTable, customers); 
 				updateTable(remCustomersTable, customersRemoved); 
@@ -132,7 +135,8 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		btnDelete.setText("Delete");
 		
 		Button btnUndoDelete = new Button(shlRemoveCustomer, SWT.NONE);
-		btnUndoDelete.addSelectionListener(new SelectionAdapter() {
+		btnUndoDelete.addSelectionListener(new SelectionAdapter() 
+		{
 			public void widgetSelected(SelectionEvent e) {
 				Customer removed = customersRemoved.get(remCustomersTable.getSelectionIndex()); 
 				if (removed.getIndex() <= customers.size()) {
@@ -150,11 +154,13 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		btnUndoDelete.setBounds(332, 298, 88, 25);
 		btnUndoDelete.setText("Undo Deletion");
 		
-		btnExit.addSelectionListener(new SelectionAdapter() {
+		btnExit.addSelectionListener(new SelectionAdapter() 
+		{
 			public void widgetSelected(SelectionEvent e) 
 			{
 				int confirmDelete; 
-				if (customersRemoved.size() > 0) {
+				if (customersRemoved.size() > 0) 
+				{
 					confirmDelete = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to delete these customers?", JOptionPane.YES_NO_OPTION); 
 					if (confirmDelete == 1) //1 = NO
 					{

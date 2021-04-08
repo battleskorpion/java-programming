@@ -94,7 +94,6 @@ public class BusesByDate extends AbstractProgramWindow
 
 		// TODO: label combo
 		Combo combo = new Combo(shlBusesByDate, SWT.NONE);
-		
 		// TODO: label method calls
 		combo.setBounds(10, 167, 91, 23);
 		updateComboBox(combo, dates); 

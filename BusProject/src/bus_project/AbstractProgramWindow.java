@@ -73,8 +73,14 @@ public abstract class AbstractProgramWindow
 	/********************************************************************************/
 	protected <E> void updateComboBox(Combo bx, ArrayList<E> dta) 
 	{
-		bx.setItems(dta.toString().substring(0, dta.toString().length() - 1).substring(1, dta.toString().length() - 1).split(", ")); 	// TODO: FIX THIS BEAUTFUL MESS
-		
+		if (dta.size() > 0) 
+		{	
+			bx.setItems(dta.toString().substring(0, dta.toString().length() - 1).substring(1, dta.toString().length() - 1).split(", ")); 	// TODO: FIX THIS BEAUTFUL MESS
+		}
+		else 
+		{
+			
+		}
 	}
 	
 	// TODO: COMMENT
