@@ -108,9 +108,14 @@ public class BusCalculation
 	}
 	
 	// TODO: label method
-	// TODO: remove date if no customers left on date
+	// TODO: TODO: TODO: remove date if no customers left on date
 	public static boolean unscheduleTrip (Customer cstmr) {
-		customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));
+		//customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));
+		LocalDate date = cstmr.getDate(); 
+		int dayIndex = dates.indexOf(date); 
+		int cstmrLocation = customers.get(dayIndex).indexOf(cstmr); 
+		customers.get(dayIndex).remove(cstmrLocation); 
+		
 		return true; 
 	}
 	
