@@ -20,7 +20,7 @@ public class DefinitionColorsReader {
 	
 	public static List<String[]> readCSV() throws IOException {
 		List<String[]> csv_data =
-				Files.lines(Paths.get("C:\\Users\\Skorpion\\Documents\\Paradox Interactive\\Hearts of Iron IV\\mod\\ROTE-Modern-Day\\map\\definition.csv"))
+				Files.lines(Paths.get("C:\\Users\\daria\\Documents\\Paradox Interactive\\Hearts of Iron IV\\mod\\nadivided-dev\\map\\definition.csv"))
 					.map(line -> line.split(";"))
 					.collect(Collectors.toList());
 		
