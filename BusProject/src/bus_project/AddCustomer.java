@@ -193,13 +193,18 @@ public class AddCustomer extends AbstractProgramWindow {
 					else
 					{
 						// TODO: label method calls
+						// TODO: label vars etc. 
 						customer = new Customer(); 
-						Text[] fields = {nameField, sizeField, indexField};
+						Text[] fields = {nameField, sizeField, indexField};	
 						
 						index = Integer.parseInt(indexField.getText()); 
 						setCustomerDetails(customer, nameField, sizeField, indexField, index, dateTime); 
 						clearInput(fields); 
 						addCustomer(customer, index, customersTable); 	
+						
+						BusFinances.addCustomerProfit(customer); 
+						//TODO: comment out
+						System.out.println(BusFinances.nf.format(BusFinances.getProfit())); 
 					}
 				}
 				catch (Exception exc) 
@@ -208,14 +213,14 @@ public class AddCustomer extends AbstractProgramWindow {
 					/***************/
 					/* PRINT ERROR */
 					/***************/
-					JOptionPane.showMessageDialog(null, "Error: Improper numerical input!"); 
+					JOptionPane.showMessageDialog(null, "Error: Improper numerical input (or error)!"); 
 				}
 			}
 		});
 		
-		/***********************/
+		/***************/
 		/* EXIT BUTTON */
-		/***********************/ 
+		/***************/ 
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
 			// TODO: label method

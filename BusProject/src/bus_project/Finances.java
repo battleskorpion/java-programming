@@ -1,25 +1,35 @@
 package bus_project;
 
+import java.text.NumberFormat;
+import java.util.Currency;
+
 //TODO: lots
 public class Finances {
-	public static float profit = 0; 		// profit from trips	// only trips after today should be counted
+	/***************/
+	/* CONSTANTS SECTION */
+	/*********************/
+	public static NumberFormat nf = NumberFormat.getNumberInstance();
+	public static Currency USD = Currency.getInstance("USD");
+	
+	// TODO:variable section
+	protected static double profit = 0; 		
 	
 	// add to profit
-	public static float addProfit (float prft) 
+	protected static double addProfit (double prft) 
 	{
 		profit += prft; 
 		return profit; 
 	}
 	
 	// subtract from profit
-	public static float subtractProfit (float prft) 
+	protected static double subtractProfit (double prft) 
 	{
 		profit -= prft; 
 		return profit; 
 	}
 	
 	// get the profit
-	public static float getProfit (float prft) 
+	protected static double getProfit () 
 	{
 		return profit; 
 	}
