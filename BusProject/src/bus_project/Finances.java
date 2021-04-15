@@ -16,23 +16,23 @@ public abstract class Finances
 	protected static double profit = 0; 		
 	
 	// add to profit
-	protected static double addProfit (double prft) 
+	protected static double addProfit(double prft) 
 	{
 		profit += prft; 
 		return profit; 
 	}
 	
 	// subtract from profit
-	protected static double subtractProfit (double prft) 
+	protected static double subtractProfit(double prft) 
 	{
 		profit -= prft; 
 		return profit; 
 	}
 	
 	// get the profit
-	protected static double getProfit () 
+	protected static String getProfitString() 
 	{
-		return profit; 
+		return nf.format(profit); 
 	}
 	
 }

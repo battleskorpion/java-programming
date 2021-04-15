@@ -153,6 +153,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		ListCustomers listCustomersWindow = new ListCustomers(customers); 
 		BusesByDate busesByDateWindow = new BusesByDate(customers); 
 		ProfitByDate profitByDateWindow = new ProfitByDate(customers); 
+		TotalProfitDetails totalProfitWindow = new TotalProfitDetails(customers); 
 		
 		// TODO: label shell 
 		shell = new Shell();
@@ -262,6 +263,12 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		// TODO: label button
 		Button btnProfitTotal = new Button(shell, SWT.NONE);
+		btnProfitTotal.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				openSubWindow(totalProfitWindow, shell);
+			}
+		});
 		// TODO: label method calls
 		btnProfitTotal.setBounds(186, 103, 170, 25);
 		btnProfitTotal.setText("Total profit details");

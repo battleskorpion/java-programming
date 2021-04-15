@@ -156,7 +156,7 @@ public class ProfitByDate extends AbstractProgramWindow
 				// update combo box maybe ?
 				//	combo.set
 					
-					lblAmtProfit.setText("$" + BusFinances.getProfit()); 
+					lblAmtProfit.setText("$" + BusFinances.getProfitString()); 
 				}
 			}
 		});
@@ -172,7 +172,7 @@ public class ProfitByDate extends AbstractProgramWindow
 				dateTime.setDate(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
 				
 				// update number of buses text
-				lblAmtProfit.setText("$" + BusFinances.getProfit()); 
+				lblAmtProfit.setText("$" + BusFinances.getProfitString()); 
 		
 			}
 		});

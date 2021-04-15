@@ -10,15 +10,14 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class TotalProfitDetails extends AbstractProgramWindow 
 {
 
 	//TODO: label section, vars
 		protected Shell shlTotalProfitDetails;
-		private ArrayList<Customer> customers; 
-		private ArrayList<Customer> customersSorted; 
-		private int sortBy; 									// sort by filter		 
+		private ArrayList<Customer> customers; 		 
 		
 		//TODO: label method
 		public TotalProfitDetails (ArrayList<Customer> cstmrs) 
@@ -74,28 +73,41 @@ public class TotalProfitDetails extends AbstractProgramWindow
 				}
 			}
 		}
-
+		
+		protected void createContents(Shell rootShell) 
 		/*************************************************/
 		/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
 		/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
 		/*************************************************/
-		protected void createContents(Shell rootShell) {
+		{
 			
 			//TODO: label method calls/shell
 			shlTotalProfitDetails = new Shell();
-			shlTotalProfitDetails.setSize(352, 500);
+			shlTotalProfitDetails.setSize(352, 300);
 			shlTotalProfitDetails.setText("List Customers");
 			
 			//TODO: label button
 			Button btnExit = new Button(shlTotalProfitDetails, SWT.NONE);
 			//TODO: label method calls
 			btnExit.setText("Exit");
-			btnExit.setBounds(128, 426, 75, 25);
+			btnExit.setBounds(128, 226, 75, 25);
 			
 			Label lblProfitInfo = new Label(shlTotalProfitDetails, SWT.NONE);
+			lblProfitInfo.setFont(SWTResourceManager.getFont("Segoe MDL2 Assets", 12, SWT.NORMAL));
 			lblProfitInfo.setAlignment(SWT.CENTER);
 			lblProfitInfo.setText("Profit Information:");
-			lblProfitInfo.setBounds(10, 10, 316, 15);
+			lblProfitInfo.setBounds(10, 10, 316, 25);
+			
+			Label lblTotalProfit = new Label(shlTotalProfitDetails, SWT.NONE);
+			lblTotalProfit.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
+			lblTotalProfit.setBounds(10, 31, 110, 25);
+			lblTotalProfit.setText("Total Profit: ");
+			
+			Label lblNewLabel = new Label(shlTotalProfitDetails, SWT.NONE);
+			lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
+			lblNewLabel.setAlignment(SWT.RIGHT);
+			lblNewLabel.setBounds(128, 31, 198, 25);
+			lblNewLabel.setText("$" + BusFinances.getProfitString());
 			//TODO: label listener
 			btnExit.addSelectionListener(new SelectionAdapter() 
 			{
@@ -108,15 +120,4 @@ public class TotalProfitDetails extends AbstractProgramWindow
 				}
 			});
 		}
-		
-		//TODO: label method
-		public void setSortByName() {
-			sortBy = 0;  	// set sort by filter to name
-		}
-		
-		//TODO: label method
-		public void setSortBySize() {
-			sortBy = 1; 	// set sort by filter to size
-		}
-		
 }
