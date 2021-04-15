@@ -10,7 +10,7 @@ public class Customer
 	private int numPersons;			// NUMBER OF PEOPLE IN GROUP
 	private LocalDate date; 		// date of trip
 	private int index;				// INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
-	private int totalPrice; 		// total price of all tickets for group 
+	private double totalPrice; 		// total price of all tickets for group 
 	
 	//TODO: label section
 	
@@ -21,6 +21,16 @@ public class Customer
 		name = ""; 
 		numPersons = 0;
 		index = 0; 
+	}
+	
+	//TODO: label method
+	public double addTotalPrice(double amt) {
+		return totalPrice += amt; 
+	}
+	
+	//TODO: label method 
+	public double subtractTotalPrice(double amt) {
+		return totalPrice -= amt; 
 	}
 	
 	//TODO: label method
@@ -47,7 +57,7 @@ public class Customer
 	}
 	
 	//TODO: label method
-	public int getTotalPrice() {
+	public double getTotalPrice() {
 		return totalPrice; 
 	}
 	
@@ -64,7 +74,7 @@ public class Customer
 	}
 	
 	//TODO: label method
-	public void setTotalPrice(int ttlPrc) {
+	public void setTotalPrice(double ttlPrc) {
 		totalPrice = ttlPrc; 
 	}
 	
@@ -107,7 +117,15 @@ public class Customer
 	public static class CompareSize implements Comparator<Customer> {
 		//TODO: label method
 		public int compare(Customer a, Customer b) {
-			return a.getNumPersons() - b.getNumPersons(); 		// IF A > B WILL BE POSITIVE, SAME NUMBER WILL BE 0, A < B WILL RETURN NEGATIVE 
+			return a.getNumPersons() - b.getNumPersons(); 		// IF A > B WILL BE POSITIVE, SAME NUMBER WILL BE 0, A < B WILL RETURN NEGATIVE (number of persons always >= 0 so this logic is fine) 
+		}
+	}
+	
+	//TODO: label subclass
+	public static class CompareTotalPrice implements Comparator<Customer> {
+		//TODO: label method
+		public int compare(Customer a, Customer b) {
+			return Double.compare(a.getTotalPrice(), b.getTotalPrice()); 
 		}
 	}
 	

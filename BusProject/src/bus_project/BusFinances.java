@@ -13,11 +13,12 @@ public class BusFinances extends Finances
 	//TODO: method section comment
 	public static double addCustomerProfit(Customer cstmr) 
 	{
-		return addProfit(cstmr.getNumPersons() * TICKET_PRICE);
+		
+		return addProfit(cstmr.addTotalPrice(cstmr.getNumPersons() * TICKET_PRICE));
 	}
 	
 	public static double removeCustomerProfit(Customer cstmr)
 	{
-		return subtractProfit(cstmr.getNumPersons() * TICKET_PRICE); 
+		return subtractProfit(cstmr.addTotalPrice(cstmr.getNumPersons() * TICKET_PRICE)); 
 	}
 }

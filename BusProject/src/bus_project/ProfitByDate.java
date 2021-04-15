@@ -24,7 +24,7 @@ public class ProfitByDate extends AbstractProgramWindow
 	private ArrayList<Customer> customersSorted;
 	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 
 	private Table customersTable;
-	private int sortBy; 									// sort by filter		 
+	private int sortBy = 0; 								// sort by filter		 
 															// srtBy = 0, sort by date increasing
 															// srtBy = 1, sort by date decreasing
 															// srtBy = 2 sort by profit increasing
@@ -194,7 +194,7 @@ public class ProfitByDate extends AbstractProgramWindow
 				//customersSorted.sort(new Customer.CompareSize());
 				break; 
 			case 2: 
-				//customersSorted.sort(new Customer.co);
+				customersSorted.sort(new Customer.CompareTotalPrice());
 				break; 
 			case 3: 
 				break; 
