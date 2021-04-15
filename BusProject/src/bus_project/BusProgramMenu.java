@@ -152,6 +152,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		ModifyCustomer modifyCustomerWindow = new ModifyCustomer(customers); 
 		ListCustomers listCustomersWindow = new ListCustomers(customers); 
 		BusesByDate busesByDateWindow = new BusesByDate(customers); 
+		ProfitByDate profitByDateWindow = new ProfitByDate(customers); 
 		
 		// TODO: label shell 
 		shell = new Shell();
@@ -222,6 +223,12 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		// TODO: label button
 		Button btnProfitByDate = new Button(shell, SWT.NONE);
+		btnProfitByDate.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				openSubWindow(profitByDateWindow, shell); 
+			}
+		});
 		// TODO: label method calls
 		btnProfitByDate.setBounds(10, 103, 170, 25);
 		btnProfitByDate.setText("Profit by Date");

@@ -4,8 +4,9 @@ import java.text.NumberFormat;
 import java.util.Currency;
 
 //TODO: lots
-public class Finances {
-	/***************/
+public abstract class Finances 
+{
+	/*********************/
 	/* CONSTANTS SECTION */
 	/*********************/
 	public static NumberFormat nf = NumberFormat.getNumberInstance();

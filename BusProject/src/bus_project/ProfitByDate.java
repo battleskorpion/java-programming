@@ -3,27 +3,35 @@ package bus_project;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.widgets.Table;
 
-public class BusesByDate extends AbstractProgramWindow 
+public class ProfitByDate extends AbstractProgramWindow
 {
 
 	// TODO: instance var section, label vars
-	protected Shell shlBusesByDate;
+	protected Shell shlProfitByDate;
 	private ArrayList<Customer> customers; 
+	private ArrayList<Customer> customersSorted;
 	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 
+	private Table customersTable;
+	private int sortBy; 									// sort by filter		 
+															// srtBy = 0, sort by date increasing
+															// srtBy = 1, sort by date decreasing
+															// srtBy = 2 sort by profit increasing
+															// srtBy = 3 sort by profit decreasing
 	
 	// TODO: constructor section
-	public BusesByDate (ArrayList<Customer> cstmrs) 
+	public ProfitByDate (ArrayList<Customer> cstmrs) 
 	{
 		customers = cstmrs; 
 	}
@@ -52,22 +60,22 @@ public class BusesByDate extends AbstractProgramWindow
 		/****************************************/
 		/* METHOD TO OPEN SHELL (ADD TO SCREEN) */
 		/****************************************/
-		shlBusesByDate.open();
+		shlProfitByDate.open();
 		
 		/******************************************************************/
 		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
 		/******************************************************************/
-		shlBusesByDate.forceActive();							// SO WINDOW WILL BE FOCUSED WHEN CREATED
+		shlProfitByDate.forceActive();							// SO WINDOW WILL BE FOCUSED WHEN CREATED
 		
 		/*************************************************/
 		/* METHOD TO ENACT LAYOUT OF SHELL IF APPLICABLE */
 		/*************************************************/
-		shlBusesByDate.layout();
+		shlProfitByDate.layout();
 		
 		/*********************************************************************************/
 		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING IT NEEDS TO DO */
 		/*********************************************************************************/
-		while (!shlBusesByDate.isDisposed()) 
+		while (!shlProfitByDate.isDisposed()) 
 		{
 			// TODO: 
 			if (!display.readAndDispatch()) 
@@ -83,39 +91,56 @@ public class BusesByDate extends AbstractProgramWindow
 	protected void createContents(Shell rootShell) 
 	{
 		// TODO: label method calls
-		shlBusesByDate = new Shell();
-		shlBusesByDate.setSize(270, 270);
-		shlBusesByDate.setText("Buses by Date");
+		shlProfitByDate = new Shell();
+		shlProfitByDate.setSize(600, 460);
+		shlProfitByDate.setText("Profit by Date");
 		
 		// TODO: label dateTime
-		DateTime dateTime = new DateTime(shlBusesByDate, SWT.BORDER | SWT.CALENDAR);
+		DateTime dateTime = new DateTime(shlProfitByDate, SWT.BORDER | SWT.CALENDAR);
 		
 		// TODO: label method calls
 		dateTime.setBounds(10, 10, 233, 151);
 
 		// TODO: label combo
-		Combo combo = new Combo(shlBusesByDate, SWT.NONE);
+		Combo comboDatesList = new Combo(shlProfitByDate, SWT.NONE);
 		// TODO: label method calls
-		combo.setBounds(10, 167, 91, 23);
-		updateComboBox(combo, dates); 
+		comboDatesList.setBounds(10, 167, 91, 23);
+		updateComboBox(comboDatesList, dates); 
 		
 		// TODO: label label
-		Label lblBuses = new Label(shlBusesByDate, SWT.NONE);
+		Label lblProfit = new Label(shlProfitByDate, SWT.NONE);
+		lblProfit.setFont(SWTResourceManager.getFont("Segoe UI Semibold", 10, SWT.NORMAL));
 		// TODO: label method calls
-		lblBuses.setBounds(10, 196, 42, 15);
-		lblBuses.setText("Buses: ");
+		lblProfit.setBounds(107, 167, 42, 25);
+		lblProfit.setText("Profit: ");
 		
 		// TODO: label label
-		Label lblNumBuses = new Label(shlBusesByDate, SWT.RIGHT);
-		lblNumBuses.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
+		Label lblAmtProfit = new Label(shlProfitByDate, SWT.RIGHT);
+		lblAmtProfit.setAlignment(SWT.LEFT);
+		lblAmtProfit.setText("$");
+		lblAmtProfit.setFont(SWTResourceManager.getFont("Segoe UI Light", 12, SWT.NORMAL));
 		// TODO: label method calls
-		lblNumBuses.setBounds(46, 196, 55, 25);
+		lblAmtProfit.setBounds(152, 167, 91, 25);
 		
 		// TODO: label button
-		Button btnQuit = new Button(shlBusesByDate, SWT.NONE);
+		Button btnQuit = new Button(shlProfitByDate, SWT.NONE);
 		// TODO: label method calls
-		btnQuit.setBounds(168, 196, 75, 25);
+		btnQuit.setBounds(10, 386, 75, 25);
 		btnQuit.setText("Exit");
+		
+		customersTable = new Table(shlProfitByDate, SWT.BORDER | SWT.FULL_SELECTION);
+		customersTable.setToolTipText("");
+		customersTable.setLinesVisible(true);
+		customersTable.setBounds(258, 31, 316, 380);
+		
+		//TODO: label method calls
+		sortCustomers(); 
+		updateTable(customersTable, customersSorted); 
+		
+		Label lblNewLabel = new Label(shlProfitByDate, SWT.NONE);
+		lblNewLabel.setAlignment(SWT.CENTER);
+		lblNewLabel.setBounds(258, 10, 316, 15);
+		lblNewLabel.setText("Dates / Profit");
 
 		/* event handlers */ 
 		
@@ -131,27 +156,50 @@ public class BusesByDate extends AbstractProgramWindow
 				// update combo box maybe ?
 				//	combo.set
 					
-					lblNumBuses.setText(BusCalculation.getNumBuses(date) + "");
+					lblAmtProfit.setText("$" + BusFinances.getProfit()); 
 				}
 			}
 		});
-		combo.addSelectionListener(new SelectionAdapter() 
+		comboDatesList.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				int index = combo.getSelectionIndex(); 
+				int index = comboDatesList.getSelectionIndex(); 
 				LocalDate date = dates.get(index); 
 				
 				// move calendar to date 
 				dateTime.setDate(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
 				
 				// update number of buses text
-				lblNumBuses.setText(BusCalculation.getNumBuses(date) + "");
+				lblAmtProfit.setText("$" + BusFinances.getProfit()); 
 		
 			}
 		});
 	}
 	
-	
+	//TODO: label method
+	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...."
+	private void sortCustomers() {
+		//TODO: label call
+		customersSorted =  (ArrayList<Customer>) customers.clone(); 
+			
+		//TODO: label switch
+		switch (sortBy) {
+			case 0: 
+				//customersSorted.sort(new Customer.CompareName());
+				customersSorted.sort(new Customer.CompareDate());
+				break; 
+			case 1: 
+				//customersSorted.sort(new Customer.CompareSize());
+				break; 
+			case 2: 
+				//customersSorted.sort(new Customer.co);
+				break; 
+			case 3: 
+				break; 
+			default: 
+				break; 
+		}
+	}
 }
