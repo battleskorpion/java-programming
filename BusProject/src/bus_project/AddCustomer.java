@@ -206,7 +206,7 @@ public class AddCustomer extends AbstractProgramWindow {
 						
 						BusFinances.addCustomerProfit(customer); 
 						//TODO: comment out
-						System.out.println(BusFinances.nf.format(BusFinances.getProfitString())); 
+						System.out.println(BusFinances.nf.format(BusFinances.getProfit())); 
 					}
 				}
 				catch (Exception exc) 

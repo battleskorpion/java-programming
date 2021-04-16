@@ -189,7 +189,7 @@ public class ProfitByDate extends AbstractProgramWindow
 				dateTime.setDate(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
 				
 				// update number of buses text
-				lblAmtProfit.setText("$" + BusFinances.getProfitString()); 
+				lblAmtProfit.setText("$" + BusFinances.getProfitOnDate(date)); 
 		
 			}
 		});

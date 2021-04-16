@@ -107,7 +107,7 @@ public class TotalProfitDetails extends AbstractProgramWindow
 			lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 			lblNewLabel.setAlignment(SWT.RIGHT);
 			lblNewLabel.setBounds(128, 31, 198, 25);
-			lblNewLabel.setText("$" + BusFinances.getProfitString());
+			lblNewLabel.setText("$" + BusFinances.getProfit());
 			//TODO: label listener
 			btnExit.addSelectionListener(new SelectionAdapter() 
 			{

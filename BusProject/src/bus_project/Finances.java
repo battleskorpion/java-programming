@@ -30,7 +30,7 @@ public abstract class Finances
 	}
 	
 	// get the profit
-	protected static String getProfitString() 
+	protected static String getProfit() 
 	{
 		return nf.format(profit); 
 	}
