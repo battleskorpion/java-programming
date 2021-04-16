@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Control;
 
 public class BusProgramMenu extends AbstractProgramWindow {
 
@@ -287,5 +288,6 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		});
 		btnQuit.setBounds(124, 134, 120, 25);
 		btnQuit.setText("Quit");
+		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnBusesNeededByDate, btnModifyCustomer, btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit});
 	}
 }
