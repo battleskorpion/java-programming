@@ -61,6 +61,10 @@ public class Customer
 		return totalPrice; 
 	}
 	
+	public String getTotalPriceFormatted() {
+		return Finances.nf.format(totalPrice); 
+	}
+	
 	//TODO: label method
 	public void setDate (LocalDate dt)
 	{

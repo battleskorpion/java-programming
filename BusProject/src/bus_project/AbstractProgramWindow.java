@@ -2,6 +2,7 @@ package bus_project;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
@@ -64,6 +65,27 @@ public abstract class AbstractProgramWindow
 		for (int i = 0; i < dta.size(); i++) 
 		{
 			updateTable(tbl, dta.get(i)); 
+		}
+	}
+	
+	protected <E> void updateTable(Table tbl, ArrayList<E> dta, Function<E, String> addtlDataFunction) 
+	/********************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	  	*/
+	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  		*/
+	/********************************************************************************/
+	{
+		/***************/
+		/* RESET TABLE */
+		/***************/ 
+		tbl.clearAll();							
+		tbl.setItemCount(0);
+		
+		/****************/
+		/* UPDATE TABLE */
+		/****************/ 
+		for (int i = 0; i < dta.size(); i++) 
+		{
+			updateTable(tbl, dta.get(i) + ", " + addtlDataFunction.apply(dta.get(i))); 
 		}
 	}
 	

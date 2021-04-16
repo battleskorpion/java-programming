@@ -2,6 +2,7 @@ package bus_project;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -149,17 +150,18 @@ public class ProfitByDate extends AbstractProgramWindow
 		
 		//TODO: label method calls
 		sortCustomers(); 
-		updateTable(customersTable, customersSorted); 
+		Function<Customer, String> customerProfit = this::getCustomerProfitString; 	//TODO: clean whatever mess is made with this
+		updateTable(customersTable, customersSorted, customerProfit); 
 		
 		Label lblNewLabel = new Label(shlProfitByDate, SWT.NONE);
 		lblNewLabel.setAlignment(SWT.CENTER);
 		lblNewLabel.setBounds(258, 10, 316, 15);
-		lblNewLabel.setText("Dates / Profit");
+		lblNewLabel.setText("Group / Profit");
 		
 		Label label = new Label(shlProfitByDate, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label.setBounds(10, 198, 233, 2);
 
-		/* event handlers */ 
+		/* event handlers */ //TODO: fix
 		
 		dateTime.addSelectionListener(new SelectionAdapter()
 		{
@@ -218,5 +220,10 @@ public class ProfitByDate extends AbstractProgramWindow
 			default: 
 				break; 
 		}
+	}
+	
+	private String getCustomerProfitString(Customer cstmr) 
+	{
+		return "Profit: " + cstmr.getTotalPriceFormatted(); 
 	}
 }
