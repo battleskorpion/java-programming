@@ -288,6 +288,6 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		});
 		btnQuit.setBounds(124, 134, 120, 25);
 		btnQuit.setText("Quit");
-		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnBusesNeededByDate, btnModifyCustomer, btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit});
+		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnBusesNeededByDate, btnModifyCustomer, btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit}); 
 	}
 }
