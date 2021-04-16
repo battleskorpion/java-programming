@@ -14,6 +14,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.ExpandBar;
+import org.eclipse.swt.widgets.ExpandItem;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.widgets.Slider;
+import org.eclipse.swt.widgets.ProgressBar;
+import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.TrayItem;
 
 public class ProfitByDate extends AbstractProgramWindow
 {
@@ -141,6 +150,9 @@ public class ProfitByDate extends AbstractProgramWindow
 		lblNewLabel.setAlignment(SWT.CENTER);
 		lblNewLabel.setBounds(258, 10, 316, 15);
 		lblNewLabel.setText("Dates / Profit");
+		
+		Label label = new Label(shlProfitByDate, SWT.SEPARATOR | SWT.HORIZONTAL);
+		label.setBounds(10, 198, 233, 2);
 
 		/* event handlers */ 
 		
