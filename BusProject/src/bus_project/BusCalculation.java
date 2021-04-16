@@ -71,7 +71,7 @@ public class BusCalculation
 				dateIndex = dates.indexOf(date); 
 				
 				// calculate numPax
-				numPax = getNumPaxOnDay(date); 
+				numPax = getNumPaxOnDate(date); 
 				
 				// TODO: label if 
 				if (numPax + cstmr.getNumPersons() <= MAX_PAX) 
@@ -123,11 +123,11 @@ public class BusCalculation
 	// TODO: label method properly 
 	// calculates number of buses which will be necessary for the day
 	public static int getNumBuses(LocalDate dt) {	
-		return (int)Math.ceil(getNumPaxOnDay(dt) / ((double)MAX_CAPACITY)); 
+		return (int)Math.ceil(getNumPaxOnDate(dt) / ((double)MAX_CAPACITY)); 
 	}
 	
 	// TODO: label method
-	public static int getNumPaxOnDay(LocalDate dt) 
+	public static int getNumPaxOnDate(LocalDate dt) 
 	{
 		int numPax = 0; 		// number of passengers on the day
 		
@@ -145,6 +145,14 @@ public class BusCalculation
 		{
 			return 0; 			// date not found in booked dates so no bookings are on the date, means no pax on the date
 		}
+	}
+	
+	public static ArrayList<Customer> getCustomersOnDate(LocalDate dt) {
+		if (dates.contains(dt)) 
+		{
+			return customers.get(dates.indexOf(dt)); 
+		}
+		else return null; 
 	}
 
 	// TODO: label method

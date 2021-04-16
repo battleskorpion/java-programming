@@ -173,7 +173,7 @@ public class ProfitByDate extends AbstractProgramWindow
 				// update combo box maybe ?
 				//	combo.set
 					
-					lblAmtProfit.setText("$" + BusFinances.getProfitString()); 
+					lblAmtProfit.setText("$" + BusFinances.getProfitOnDate(date)); 
 				}
 			}
 		});

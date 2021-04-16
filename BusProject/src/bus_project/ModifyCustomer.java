@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Control;
 
 public class ModifyCustomer extends AbstractProgramWindow {
 
@@ -170,6 +171,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		});
 		btnModify.setText("Modify");
 		btnModify.setBounds(425, 267, 75, 25);
+		shlModifyCustomers.setTabList(new Control[]{nameField, sizeField, indexField, dateTime, btnModify, customersTable, btnExit});
 		
 		customersTable.addSelectionListener(new SelectionAdapter() {
 			@Override
