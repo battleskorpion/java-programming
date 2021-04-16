@@ -164,8 +164,8 @@ public class AddCustomer extends AbstractProgramWindow {
 		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
 		customersTable.setToolTipText("");
 		customersTable.setBounds(258, 43, 316, 252);
-		customersTable.setLinesVisible(true);		
-		shlAddCustomer.setTabList(new Control[]{dateTime, btnAdd, btnExit, customersTable, indexField, sizeField, nameField});
+		customersTable.setLinesVisible(true);
+		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, indexField, dateTime, btnAdd, customersTable, btnExit});
 		// TODO: label if
 		if (customers.size() > 0) {
 			updateTable(customersTable, customers); 
