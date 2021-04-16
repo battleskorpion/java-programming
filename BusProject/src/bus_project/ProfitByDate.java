@@ -101,7 +101,7 @@ public class ProfitByDate extends AbstractProgramWindow
 	{
 		// TODO: label method calls
 		shlProfitByDate = new Shell();
-		shlProfitByDate.setSize(600, 460);
+		shlProfitByDate.setSize(600, 400);
 		shlProfitByDate.setText("Profit by Date");
 		
 		// TODO: label dateTime
@@ -133,14 +133,19 @@ public class ProfitByDate extends AbstractProgramWindow
 		
 		// TODO: label button
 		Button btnQuit = new Button(shlProfitByDate, SWT.NONE);
+		btnQuit.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		// TODO: label method calls
-		btnQuit.setBounds(10, 386, 75, 25);
+		btnQuit.setBounds(10, 326, 75, 25);
 		btnQuit.setText("Exit");
 		
 		customersTable = new Table(shlProfitByDate, SWT.BORDER | SWT.FULL_SELECTION);
 		customersTable.setToolTipText("");
 		customersTable.setLinesVisible(true);
-		customersTable.setBounds(258, 31, 316, 380);
+		customersTable.setBounds(258, 31, 316, 320);
 		
 		//TODO: label method calls
 		sortCustomers(); 

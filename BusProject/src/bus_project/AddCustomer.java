@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
 
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Control;
 
 public class AddCustomer extends AbstractProgramWindow {
 
@@ -164,6 +165,7 @@ public class AddCustomer extends AbstractProgramWindow {
 		customersTable.setToolTipText("");
 		customersTable.setBounds(258, 43, 316, 252);
 		customersTable.setLinesVisible(true);		
+		shlAddCustomer.setTabList(new Control[]{dateTime, btnAdd, btnExit, customersTable, indexField, sizeField, nameField});
 		// TODO: label if
 		if (customers.size() > 0) {
 			updateTable(customersTable, customers); 
