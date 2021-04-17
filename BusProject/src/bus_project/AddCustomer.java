@@ -202,7 +202,7 @@ public class AddCustomer extends AbstractProgramWindow {
 						index = Integer.parseInt(indexField.getText()); 
 						setCustomerDetails(customer, nameField, sizeField, indexField, index, dateTime); 
 						clearInput(fields); 
-						addCustomer(customer, index, customersTable); 	
+						addCustomer(customers, customer, index, customersTable); 	
 						
 						BusFinances.addCustomerProfit(customer); 
 						//TODO: comment out
@@ -234,12 +234,12 @@ public class AddCustomer extends AbstractProgramWindow {
 		});
 	}
 	
-	// TODO: label method
-	private void addCustomer(Customer cstmr, int indx, Table tbl) {
-		customers.add(indx, cstmr);
-		BusCalculation.scheduleTrip(cstmr);
-		updateTable(tbl, customers); 
-	}
+	// TODO: remove method
+	//private void addCustomer(Customer cstmr, int indx, Table tbl) {
+	//	customers.add(indx, cstmr);
+	//	BusCalculation.scheduleTrip(cstmr);
+	//	updateTable(tbl, customers); 
+	//}
 	
 	// TODO: label method
 	private boolean legalCustomerAddition() {

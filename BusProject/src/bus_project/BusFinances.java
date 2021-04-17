@@ -2,7 +2,7 @@ package bus_project;
 
 import java.time.LocalDate;
 
-public class BusFinances extends Finances
+public class BusFinances extends Finances 
 {
 	public static double TICKET_PRICE = 49.99; 
 	
@@ -15,15 +15,21 @@ public class BusFinances extends Finances
 	//TODO: method section comment
 	
 	//TODO: method comment
+	// returns new value of profit 
 	public static double addCustomerProfit(Customer cstmr) 
 	{
-		return addProfit(cstmr.addTotalPrice(cstmr.getNumPersons() * TICKET_PRICE));
+		double amt = cstmr.getNumPersons() * TICKET_PRICE; 
+		cstmr.addTotalPrice(amt); 
+		return addProfit(amt);
 	}
 	
 	//TODO: method comment
+	// returns new value of profit 
 	public static double removeCustomerProfit(Customer cstmr)
 	{
-		return subtractProfit(cstmr.addTotalPrice(cstmr.getNumPersons() * TICKET_PRICE)); 
+		double amt = cstmr.getNumPersons() * TICKET_PRICE;
+		cstmr.subtractTotalPrice(amt); 
+		return subtractProfit(amt); 
 	}
 
 	//TODO: method comment

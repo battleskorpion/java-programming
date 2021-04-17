@@ -115,6 +115,7 @@ public class BusCalculation
 		LocalDate date = cstmr.getDate(); 
 		int dayIndex = dates.indexOf(date); 
 		int cstmrLocation = customers.get(dayIndex).indexOf(cstmr); 
+		BusFinances.removeCustomerProfit(customers.get(dayIndex).get(cstmrLocation)); 
 		customers.get(dayIndex).remove(cstmrLocation); 
 		
 		return true; 

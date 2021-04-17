@@ -125,6 +125,18 @@ public abstract class AbstractProgramWindow
 		customer.setDate(tripDate); 
 	}
 	
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) {
+		cstmrs.add(indx, cstmr);
+		BusCalculation.scheduleTrip(cstmr);
+		updateTable(tbl, cstmrs); 
+	}
+	
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) {
+		cstmrs.add(cstmr);
+		BusCalculation.scheduleTrip(cstmr);
+		updateTable(tbl, cstmrs); 
+	}
+	
 	// TODO: comment
 	protected void clearInput(Text[] fields) 
 	{

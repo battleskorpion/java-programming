@@ -11,17 +11,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.dnd.DragSource;
-import org.eclipse.swt.dnd.DND;
-import org.eclipse.swt.dnd.DropTarget;
-import org.eclipse.swt.dnd.DropTargetAdapter;
-import org.eclipse.swt.dnd.DropTargetEvent;
-import org.eclipse.swt.dnd.TextTransfer;
-import org.eclipse.swt.dnd.Transfer;
-import org.eclipse.swt.dnd.DragSourceAdapter;
-import org.eclipse.swt.dnd.DragSourceEvent;
-import org.eclipse.swt.events.SelectionListener;
-import java.util.function.Consumer;
 
 import javax.swing.JOptionPane;
 
@@ -119,7 +108,8 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		remCustomersTable.setBounds(332, 40, 316, 252);
 		
 		Button btnDelete = new Button(shlRemoveCustomer, SWT.NONE);
-		btnDelete.addSelectionListener(new SelectionAdapter() {
+		btnDelete.addSelectionListener(new SelectionAdapter() 
+		{
 			public void widgetSelected(SelectionEvent e) 
 			{
 				int customerToRemoveIndex = customersTable.getSelectionIndex(); 
@@ -135,19 +125,25 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		btnDelete.setText("Delete");
 		
 		Button btnUndoDelete = new Button(shlRemoveCustomer, SWT.NONE);
+		//TODO: make sure everything good good now etc. 
 		btnUndoDelete.addSelectionListener(new SelectionAdapter() 
 		{
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) 
+			{
 				Customer removed = customersRemoved.get(remCustomersTable.getSelectionIndex()); 
-				if (removed.getIndex() <= customers.size()) {
-					customers.add(removed.getIndex(), removed);
+				if (removed.getIndex() <= customers.size()) 
+				{
+					addCustomer(customers, removed, removed.getIndex(), customersTable); 
+					//customers.add(removed.getIndex(), removed);
 				}
-				else {
-					customers.add(removed); 
+				else 
+				{
+					addCustomer(customers, removed, customersTable); 
+					//customers.add(removed); 
 				}
 				customersRemoved.remove(remCustomersTable.getSelectionIndex()); 
 				updateIndex(customers); 
-				updateTable(customersTable, customers); 
+				//updateTable(customersTable, customers); 
 				updateTable(remCustomersTable, customersRemoved); 
 			}
 		});

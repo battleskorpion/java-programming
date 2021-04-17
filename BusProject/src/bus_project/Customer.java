@@ -24,12 +24,12 @@ public class Customer
 	}
 	
 	//TODO: label method
-	public double addTotalPrice(double amt) {
+	protected double addTotalPrice(double amt) {
 		return totalPrice += amt; 
 	}
 	
 	//TODO: label method 
-	public double subtractTotalPrice(double amt) {
+	protected double subtractTotalPrice(double amt) {
 		return totalPrice -= amt; 
 	}
 	
@@ -52,16 +52,19 @@ public class Customer
 	}
 	
 	//TODO: label method
-	public int getIndex () {
+	public int getIndex () 
+	{
 		return index; 
 	}
 	
 	//TODO: label method
-	public double getTotalPrice() {
+	public double getTotalPrice() 
+	{
 		return totalPrice; 
 	}
 	
-	public String getTotalPriceFormatted() {
+	public String getTotalPriceFormatted() 
+	{
 		return Finances.nf.format(totalPrice); 
 	}
 	
@@ -78,7 +81,7 @@ public class Customer
 	}
 	
 	//TODO: label method
-	public void setTotalPrice(double ttlPrc) {
+	protected void setTotalPrice(double ttlPrc) {
 		totalPrice = ttlPrc; 
 	}
 	
@@ -87,7 +90,6 @@ public class Customer
 		index = indx; 
 	}
 	
-	//TODO: label method
 	public void setNumPersons(int sz) {
 		numPersons = sz; 
 	}

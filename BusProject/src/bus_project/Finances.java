@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 import java.util.Currency;
 
 //TODO: lots
-public abstract class Finances 
+public abstract class Finances
 {
 	/*********************/
 	/* CONSTANTS SECTION */
