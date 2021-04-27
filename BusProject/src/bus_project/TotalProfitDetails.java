@@ -108,7 +108,7 @@ public class TotalProfitDetails extends AbstractProgramWindow
 			lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 			lblNewLabel.setAlignment(SWT.RIGHT);
 			lblNewLabel.setBounds(128, 62, 198, 25);
-			lblNewLabel.setText("$" + BusFinances.getProfit());
+			
 			
 			DateTime dateTime = new DateTime(shlTotalProfitDetails, SWT.BORDER);
 			dateTime.setBounds(239, 32, 87, 24);
@@ -120,6 +120,7 @@ public class TotalProfitDetails extends AbstractProgramWindow
 				}
 			}); 
 			// by default dateTime is today's date
+			lblNewLabel.setText("$" + BusFinances.getProfit());
 			
 			Label lblDate = new Label(shlTotalProfitDetails, SWT.NONE);
 			lblDate.setText("Date:");
