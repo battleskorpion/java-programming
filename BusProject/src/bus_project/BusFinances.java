@@ -1,6 +1,7 @@
 package bus_project;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class BusFinances extends Finances 
 {
@@ -33,13 +34,29 @@ public class BusFinances extends Finances
 	}
 
 	//TODO: method comment
-	public static String getProfitOnDate(LocalDate date) {
+	public static String getProfitOnDate(LocalDate dt) 
+	{
 		double profit = 0; 
 		
-		for (Customer cstmr: BusCalculation.getCustomersOnDate(date))
+		for (Customer cstmr: BusCalculation.getCustomersOnDate(dt))
 		{
 			profit += cstmr.getTotalPrice();
 		}
 		return nf.format(profit);
+	}
+	
+	//TODO: comment
+	public static String getProfitToDate(LocalDate dt) 
+	{
+		double profit = 0;
+		
+		for (ArrayList<Customer> customers : BusCalculation.getCustomersToDate(dt)) 
+		{
+			for (int i = 0; i < customers.size(); i++) 
+			{
+				profit += customers.get(i).getTotalPrice();  
+			}
+		}
+		return nf.format(profit); 
 	}
 }

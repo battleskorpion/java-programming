@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.widgets.DateTime;
 
 public class TotalProfitDetails extends AbstractProgramWindow 
 {
@@ -100,21 +101,34 @@ public class TotalProfitDetails extends AbstractProgramWindow
 			
 			Label lblTotalProfit = new Label(shlTotalProfitDetails, SWT.NONE);
 			lblTotalProfit.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
-			lblTotalProfit.setBounds(10, 31, 110, 25);
-			lblTotalProfit.setText("Total Profit: ");
+			lblTotalProfit.setBounds(10, 62, 116, 25);
+			lblTotalProfit.setText("Total Profit to Date: ");
 			
 			Label lblNewLabel = new Label(shlTotalProfitDetails, SWT.NONE);
 			lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 			lblNewLabel.setAlignment(SWT.RIGHT);
-			lblNewLabel.setBounds(128, 31, 198, 25);
+			lblNewLabel.setBounds(128, 62, 198, 25);
 			lblNewLabel.setText("$" + BusFinances.getProfit());
-			//TODO: label listener
-			btnExit.addSelectionListener(new SelectionAdapter() 
+			
+			DateTime dateTime = new DateTime(shlTotalProfitDetails, SWT.BORDER);
+			dateTime.setBounds(239, 32, 87, 24);
+			dateTime.addSelectionListener(new SelectionAdapter()
 			{
-				//TODO: label method
 				public void widgetSelected(SelectionEvent e) 
 				{
-					//TODO: label method calls
+					
+				}
+			}); 
+			// by default dateTime is today's date
+			
+			Label lblDate = new Label(shlTotalProfitDetails, SWT.NONE);
+			lblDate.setText("Date:");
+			lblDate.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
+			lblDate.setBounds(10, 32, 116, 25);
+			btnExit.addSelectionListener(new SelectionAdapter() 
+			{
+				public void widgetSelected(SelectionEvent e) 
+				{
 					rootShell.forceActive(); 
 					shlTotalProfitDetails.close(); 
 				}

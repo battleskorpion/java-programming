@@ -148,16 +148,45 @@ public class BusCalculation
 		}
 	}
 	
-	public static ArrayList<Customer> getCustomersOnDate(LocalDate dt) {
+	public static ArrayList<Customer> getCustomersOnDate(LocalDate dt) 
+	{
 		if (dates.contains(dt)) 
 		{
 			return customers.get(dates.indexOf(dt)); 
 		}
-		else return null; 
+		else 
+		{
+			return null;
+		} 
+	}
+	
+	public static ArrayList<ArrayList<Customer>> getCustomersToDate(LocalDate dt) 
+	{
+		if (dates.contains(dt)) 
+		{
+			return (ArrayList<ArrayList<Customer>>)customers.subList(0, dates.indexOf(dt)); 	// convert from List<ArrayList<Customer>> to ArrayList<ArrayList<Customer>> for consistency
+		}
+		else 
+		{
+			return null; 
+		}
 	}
 
 	// TODO: label method
-	public static ArrayList<LocalDate> getDates() {
+	public static ArrayList<LocalDate> getDates() 
+	{
 		return dates;
+	}
+	
+	public static ArrayList<LocalDate> getDatesToDate(LocalDate dt) 
+	{
+		if (dates.contains(dt)) 
+		{
+			return (ArrayList<LocalDate>)dates.subList(0, dates.indexOf(dt)); 	// convert from List to ArrayList for consistency
+		}
+		else 
+		{
+			return null; 
+		}
 	}
 }
