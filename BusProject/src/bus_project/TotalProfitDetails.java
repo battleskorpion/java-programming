@@ -1,5 +1,6 @@
 package bus_project;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
@@ -116,11 +117,11 @@ public class TotalProfitDetails extends AbstractProgramWindow
 			{
 				public void widgetSelected(SelectionEvent e) 
 				{
-					
+					lblNewLabel.setText("$" + BusFinances.getProfitToDate(LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()))));
 				}
 			}); 
 			// by default dateTime is today's date
-			lblNewLabel.setText("$" + BusFinances.getProfit());
+			lblNewLabel.setText("$" + BusFinances.getProfitToDate(LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()))));
 			
 			Label lblDate = new Label(shlTotalProfitDetails, SWT.NONE);
 			lblDate.setText("Date:");

@@ -2,6 +2,7 @@ package bus_project;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BusCalculation 
 {
@@ -160,15 +161,32 @@ public class BusCalculation
 		} 
 	}
 	
-	public static ArrayList<ArrayList<Customer>> getCustomersToDate(LocalDate dt) 
+	public static List<ArrayList<Customer>> getCustomersToDate(LocalDate dt) 
 	{
+		
 		if (dates.contains(dt)) 
 		{
-			return (ArrayList<ArrayList<Customer>>)customers.subList(0, dates.indexOf(dt)); 	// convert from List<ArrayList<Customer>> to ArrayList<ArrayList<Customer>> for consistency
+			return customers.subList(0, dates.indexOf(dt)); 	// convert from List<ArrayList<Customer>> to ArrayList<ArrayList<Customer>> for consistency
 		}
 		else 
 		{
-			return null; 
+			LocalDate priorDate = null; 
+			for (int i = dates.size() - 1; i >= 0; i--) 
+			{
+				if (dates.get(i).isBefore(dt)) 
+				{
+					priorDate = dates.get(i); 
+				}
+			}
+			if (priorDate == null)
+			{
+				System.out.println(priorDate); 
+				return null; 
+			}
+			else 
+			{
+				return customers.subList(0, dates.indexOf(priorDate)); 
+			}
 		}
 	}
 
@@ -178,15 +196,15 @@ public class BusCalculation
 		return dates;
 	}
 	
-	public static ArrayList<LocalDate> getDatesToDate(LocalDate dt) 
-	{
-		if (dates.contains(dt)) 
-		{
-			return (ArrayList<LocalDate>)dates.subList(0, dates.indexOf(dt)); 	// convert from List to ArrayList for consistency
-		}
-		else 
-		{
-			return null; 
-		}
-	}
+	//public static ArrayList<LocalDate> getDatesToDate(LocalDate dt) 
+	//{
+	//	if (dates.contains(dt)) 
+	//	{
+	//		return (ArrayList<LocalDate>)dates.subList(0, dates.indexOf(dt)); 	// convert from List to ArrayList for consistency
+	//	}
+	//	else 
+	//	{
+	//		return null; 
+	//	}
+	//}
 }
