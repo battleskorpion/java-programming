@@ -64,7 +64,7 @@ public class BusFinances extends Finances
 				//}
 				//for (int i = 0; i < customers.size(); i++) 
 				//{
-					//profit += customers.get(i).getTotalPrice();  
+				//    profit += customers.get(i).getTotalPrice();  
 				//}
 			//}
 			
