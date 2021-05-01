@@ -114,8 +114,9 @@ public class RemoveCustomer extends AbstractProgramWindow{
 			{
 				int customerToRemoveIndex = customersTable.getSelectionIndex(); 
 				
-				BusCalculation.unscheduleTrip(customers.get(customerToRemoveIndex)); 
-				customersRemoved.add(customers.remove(customerToRemoveIndex)); 	// remove customer from customers and add to customersRemoved 
+				customersRemoved.add(removeCustomer(customers, customerToRemoveIndex));
+				//BusCalculation.unscheduleTrip(customers.get(customerToRemoveIndex)); 
+				//customersRemoved.add(customers.remove(customerToRemoveIndex)); 	// remove customer from customers and add to customersRemoved 
 				updateIndex(customers); 
 				updateTable(customersTable, customers); 
 				updateTable(remCustomersTable, customersRemoved); 

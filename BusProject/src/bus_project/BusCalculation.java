@@ -166,7 +166,7 @@ public class BusCalculation
 		
 		if (dates.contains(dt)) 
 		{
-			return customers.subList(0, dates.indexOf(dt)); 	// convert from List<ArrayList<Customer>> to ArrayList<ArrayList<Customer>> for consistency
+			return customers.subList(0, dates.indexOf(dt)); 	
 		}
 		else 
 		{
@@ -180,12 +180,11 @@ public class BusCalculation
 			}
 			if (priorDate == null)
 			{
-				System.out.println(priorDate); 
-				return null; 
+				return null;
 			}
 			else 
 			{
-				return customers.subList(0, dates.indexOf(priorDate)); 
+				return customers.subList(0, dates.indexOf(priorDate) + 1); 		//.sublist is exclusive requiring the +1
 			}
 		}
 	}

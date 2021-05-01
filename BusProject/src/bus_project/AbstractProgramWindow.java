@@ -125,16 +125,26 @@ public abstract class AbstractProgramWindow
 		customer.setDate(tripDate); 
 	}
 	
-	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) {
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
+	{
 		cstmrs.add(indx, cstmr);
 		BusCalculation.scheduleTrip(cstmr);
+		BusFinances.addCustomerProfit(cstmr); 
 		updateTable(tbl, cstmrs); 
 	}
 	
-	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) {
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
+	{
 		cstmrs.add(cstmr);
 		BusCalculation.scheduleTrip(cstmr);
+		BusFinances.addCustomerProfit(cstmr); 
 		updateTable(tbl, cstmrs); 
+	}
+	
+	protected Customer removeCustomer(ArrayList<Customer> cstmrs, int cstmrIndx)
+	{
+		BusCalculation.unscheduleTrip(cstmrs.get(cstmrIndx)); 
+		return cstmrs.remove(cstmrIndx); 
 	}
 	
 	// TODO: comment

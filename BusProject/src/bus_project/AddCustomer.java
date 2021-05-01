@@ -204,7 +204,6 @@ public class AddCustomer extends AbstractProgramWindow {
 						clearInput(fields); 
 						addCustomer(customers, customer, index, customersTable); 	
 						
-						BusFinances.addCustomerProfit(customer); 
 						//TODO: comment out
 						System.out.println(BusFinances.nf.format(BusFinances.getProfit())); 
 					}

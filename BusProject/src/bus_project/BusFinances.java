@@ -54,6 +54,9 @@ public class BusFinances extends Finances
 		try 
 		{
 			List<ArrayList<Customer>> customersToDate = BusCalculation.getCustomersToDate(dt); 
+			
+			//System.out.println(BusCalculation.getCustomersToDate(dt)); 
+			
 			//for (ArrayList<Customer> customers : BusCalculation.getCustomersToDate(dt)) 
 			//for (ArrayList<Customer> customers : customersToDate)
 			//{
@@ -73,12 +76,12 @@ public class BusFinances extends Finances
 				for (int j = 0; j < customersToDate.get(i).size(); j++) 
 				{
 					profit += customersToDate.get(i).get(j).getTotalPrice(); 
-					System.out.println(customersToDate.get(i).get(j).getTotalPrice()); // still not working, no print ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+					//System.out.println(customersToDate.get(i).get(j).getTotalPrice()); // still not working, no print ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 				}
 			}
 			
 			//System.out.println("good return"); 
-			System.out.println(nf.format(profit)); 
+			//System.out.println(nf.format(profit)); 
 			return nf.format(profit); 
 		}
 		catch (Exception exc)
