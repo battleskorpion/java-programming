@@ -16,7 +16,7 @@ public class BusCalculation
 	public static final int MAX_PAX = MAX_BUSES * MAX_CAPACITY; 	// maximum passengers per day
 	
 	// static variables
-	private static ArrayList<LocalDate> dates = new ArrayList<LocalDate>(); 
+	private static ArrayList<LocalDate> dates = new ArrayList<LocalDate>(); 								//TODO: issues because this isnt in order i think 
 	//private static ArrayList<Integer> busesPerDate;				// number of buses used per each date  
 	private static ArrayList<ArrayList<Customer>> customers = new ArrayList<ArrayList<Customer>>(); 	 	// customers each date 
 	
