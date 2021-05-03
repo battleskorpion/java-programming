@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Control;
 
 public class BusProgramMenu extends AbstractProgramWindow {
 
+	//TODO: test 
 	// TODO: comment vars
 	/********************/
 	/* VARIABLE SECTION */
