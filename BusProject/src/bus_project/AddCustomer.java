@@ -243,7 +243,7 @@ public class AddCustomer extends AbstractProgramWindow {
 	// TODO: label method
 	private boolean legalCustomerAddition() {
 		
-		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) > customers.size() || !vaildDate(dateTime))
+		if (nameField.getText().trim().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) > customers.size() || !vaildDate(dateTime))
 		{
 			return false; 
 		}

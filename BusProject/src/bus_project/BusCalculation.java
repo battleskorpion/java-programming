@@ -95,7 +95,14 @@ public class BusCalculation
 			if (cstmr.getNumPersons() <= MAX_PAX) 
 			{
 				// TODO: label method calls
-				dates.add(cstmr.getDate()); 						// add new date 
+				if (getFirstDateAfterDate(cstmr.getDate()) == null)
+				{
+					dates.add(cstmr.getDate()); 						// add new date 
+				}
+				else 
+				{
+					dates.add(dates.indexOf(getFirstDateAfterDate(cstmr.getDate())), cstmr.getDate());
+				}
 				customers.add(new ArrayList<Customer>());			// create new ArrayList aligning with new date
 				customers.get(customers.size() - 1).add(cstmr);		// add customer to new ArrayList
 				
@@ -206,4 +213,24 @@ public class BusCalculation
 	//		return null; 
 	//	}
 	//}
+	
+	public static LocalDate getFirstDateAfterDate(LocalDate dt) 
+	{
+		LocalDate firstDateAfterDate = null; 
+		for (LocalDate date : dates)  
+		{
+			if (date.compareTo(dt) > 0) 
+			{
+				if (firstDateAfterDate == null) 
+				{
+					firstDateAfterDate = date; 
+				}
+				else if (date.compareTo(firstDateAfterDate) < 0)
+				{
+					firstDateAfterDate = date; 
+				}
+			}
+		}
+		return firstDateAfterDate; 
+	}
 }

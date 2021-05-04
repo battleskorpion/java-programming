@@ -145,7 +145,8 @@ public class BusProgramMenu extends AbstractProgramWindow {
 	/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
 	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
 	/*************************************************/
-	protected void createContents() {
+	protected void createContents() 
+	{
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
@@ -274,7 +275,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		// TODO: label method calls
 		btnProfitTotal.setBounds(186, 103, 170, 25);
 		btnProfitTotal.setText("Total profit details");
-		
+
 		/***************/
 		/* QUIT BUTTON */
 		/***************/
