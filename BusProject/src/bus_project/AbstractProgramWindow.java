@@ -170,7 +170,7 @@ public abstract class AbstractProgramWindow
 	{
 		String dateString; 
 		dateString = year + "-"; 
-		if (month < 10) 
+		if ((month + 1) < 10) 
 		{
 			dateString += "0";  
 		}

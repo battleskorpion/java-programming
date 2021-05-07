@@ -100,6 +100,9 @@ public class ProfitByDate extends AbstractProgramWindow
 	 */
 	protected void createContents(Shell rootShell) 
 	{
+		// TODO: var 
+		Function<Customer, String> customerProfit; 
+		
 		// TODO: label method calls
 		shlProfitByDate = new Shell();
 		shlProfitByDate.setSize(600, 400);
@@ -150,7 +153,7 @@ public class ProfitByDate extends AbstractProgramWindow
 		
 		//TODO: label method calls
 		sortCustomers(); 
-		Function<Customer, String> customerProfit = this::getCustomerProfitString; 	//TODO: clean whatever mess is made with this
+		customerProfit = this::getCustomerProfitString; 	//TODO: clean whatever mess is made with this
 		updateTable(customersTable, customersSorted, customerProfit); 
 		
 		Label lblNewLabel = new Label(shlProfitByDate, SWT.NONE);
@@ -162,7 +165,6 @@ public class ProfitByDate extends AbstractProgramWindow
 		label.setBounds(10, 198, 233, 2);
 
 		/* event handlers */ //TODO: fix
-		
 		dateTime.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -170,13 +172,17 @@ public class ProfitByDate extends AbstractProgramWindow
 			{
 				LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
 				 
-				if (dates.contains(date)) 
-				{
+				//if (dates.contains(date)) 
+				//{
 				// update combo box maybe ?
 				//	combo.set
 					
 					lblAmtProfit.setText("$" + BusFinances.getProfitOnDate(date)); 
-				}
+				//}
+				//else 
+				//{
+				//	lblAmtProfit.setText("$" + "0"); 
+				//}
 			}
 		});
 		comboDatesList.addSelectionListener(new SelectionAdapter() 

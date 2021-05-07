@@ -39,11 +39,17 @@ public class BusFinances extends Finances
 	{
 		double profit = 0; 
 		
-		for (Customer cstmr: BusCalculation.getCustomersOnDate(dt))
-		{
-			profit += cstmr.getTotalPrice();
+		if (BusCalculation.getDates().contains(dt)) {
+			for (Customer cstmr: BusCalculation.getCustomersOnDate(dt))
+			{
+				profit += cstmr.getTotalPrice();
+			}
+			return nf.format(profit);
 		}
-		return nf.format(profit);
+		else
+		{
+			return nf.format(profit);
+		}
 	}
 	
 	//TODO: comment

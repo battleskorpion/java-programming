@@ -18,7 +18,8 @@ import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Control;
 
-public class AddCustomer extends AbstractProgramWindow {
+public class AddCustomer extends AbstractProgramWindow
+{
 
 	protected Shell shlAddCustomer;
 	private ArrayList<Customer> customers; 
@@ -31,7 +32,8 @@ public class AddCustomer extends AbstractProgramWindow {
 	/***********************/
 	/* CONSTRUCTOR SECTION */
 	/***********************/
-	public AddCustomer (ArrayList<Customer> cstmrs) {
+	public AddCustomer (ArrayList<Customer> cstmrs) 
+	{
 		customers = cstmrs; 
 	}
 	
@@ -158,16 +160,17 @@ public class AddCustomer extends AbstractProgramWindow {
 		lblCustomers.setBounds(388, 13, 63, 15);
 		lblCustomers.setText("Customers: ");
 		
-		/***************/
+		/*******************/
 		/* CUSTOMERS TABLE */
-		/***************/ 
+		/*******************/ 
 		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
 		customersTable.setToolTipText("");
 		customersTable.setBounds(258, 43, 316, 252);
 		customersTable.setLinesVisible(true);
 		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, indexField, dateTime, btnAdd, customersTable, btnExit});
 		// TODO: label if
-		if (customers.size() > 0) {
+		if (customers.size() > 0)
+		{
 			updateTable(customersTable, customers); 
 		}
 		
@@ -214,7 +217,7 @@ public class AddCustomer extends AbstractProgramWindow {
 					/***************/
 					/* PRINT ERROR */
 					/***************/
-					JOptionPane.showMessageDialog(null, "Error: Improper numerical input (or error)!"); 
+					JOptionPane.showMessageDialog(null, "Error: Improper numerical input (or error)!");  
 				}
 			}
 		});

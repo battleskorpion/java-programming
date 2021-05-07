@@ -134,7 +134,7 @@ public class ListCustomers extends AbstractProgramWindow {
 	}
 	
 	//TODO: label method
-	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...."
+	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...." with arrayList cast 
 	private void sortCustomers() {
 		//TODO: label call
 		customersSorted =  (ArrayList<Customer>) customers.clone(); 

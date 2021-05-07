@@ -29,7 +29,7 @@ public class BusCalculation
 	
 	/* method section */ 
 	
-	// TODO: consider minimum bus capacity somehow in logic idk specifically how? (besides definitely min of 10 per day)
+	// TODO: fix bus reservation logic, notify of refund/potential refund, etc etc etc etc etc etc etc etc etce tc e tc er cetc etc etc etc etc et etc etc etc etc etc etc etce tetc etc. 
 	
 	// schedule customer on date selected
 	public static int scheduleTrip (Customer cstmr) 
@@ -125,6 +125,11 @@ public class BusCalculation
 		int cstmrLocation = customers.get(dayIndex).indexOf(cstmr); 
 		BusFinances.removeCustomerProfit(customers.get(dayIndex).get(cstmrLocation)); 
 		customers.get(dayIndex).remove(cstmrLocation); 
+		if (customers.get(dayIndex).size() == 0) 
+		{
+			customers.remove(dayIndex);
+			dates.remove(dayIndex);
+		}
 		
 		return true; 
 	}

@@ -30,3 +30,5 @@ local.properties
 # Locally stored "Eclipse launch configurations"
 *.launch
 *.bluej
+.recommenders/snipmatch/repositories.config
+.recommenders/caches/manual-mappings.json
