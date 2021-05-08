@@ -53,11 +53,11 @@ public class CDUtils {
 		javax.swing.JOptionPane.showConfirmDialog((java.awt.Component)
 				null, "Press OK to open CD", "CDUtils",
 				javax.swing.JOptionPane.DEFAULT_OPTION);
-		CDUtils.open("D:\\");
+		CDUtils.open("G:\\");
 		javax.swing.JOptionPane.showConfirmDialog((java.awt.Component)
 				null, "Press OK to close CD", "CDUtils",
 				javax.swing.JOptionPane.DEFAULT_OPTION);
-		CDUtils.close("D:\\");
+		CDUtils.close("G:\\");
  
   }
 }

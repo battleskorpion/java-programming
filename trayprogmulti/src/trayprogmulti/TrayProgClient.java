@@ -21,15 +21,18 @@ public class TrayProgClient {
 			//String time = serverInput.readLine(); 
 			//System.out.println("Time: " + time); 
 			String command = serverInput.readLine();
-			System.out.println("command received!"); 
-			try {
-				//Runtime.getRuntime().exec(command); 
-				(Consumer) command; 
-			}
-			catch (Exception exc) {
-				System.out.println("Exception: " + exc.toString()); 
-			}
 			System.out.println("command received: " + command); 
+			switch (command.toLowerCase()) 
+			{
+			case "open":
+				CDUtils.open("D:\\"); 
+				break; 
+			case "close":
+				CDUtils.close("D:\\"); 
+				break;
+			default: 
+				break; 
+			}
 			
 			socket.close(); 
 		}

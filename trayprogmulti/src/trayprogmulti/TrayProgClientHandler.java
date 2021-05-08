@@ -18,8 +18,7 @@ public class TrayProgClientHandler extends Thread {
 		System.out.println("client handler starting..."); 
 		try {
 			PrintStream clientOutput = new PrintStream(clientSocket.getOutputStream(), true); 
-			Consumer<String> openFunction = x -> CDUtils.open("D:\\"); 	// lambda to reference tray open function 
-			clientOutput.println(openFunction); 			//"nircmd.exe cdrom open d:"
+			clientOutput.println("open"); 			//"nircmd.exe cdrom open d:"
 			
 			clientSocket.close(); 
 		}
