@@ -14,7 +14,7 @@ import org.eclipse.swt.layout.GridData;
 
 public class BusProgramMenu extends AbstractProgramWindow {
 
-	//TODO: test 
+	// TODO: test 
 	// TODO: comment vars
 	/********************/
 	/* VARIABLE SECTION */
@@ -325,7 +325,6 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/***************/
 		/* QUIT BUTTON */
 		/***************/
-		
 		gd_btnQuit.heightHint = 47;
 		gd_btnQuit.widthHint = 332;
 		btnQuit.setLayoutData(gd_btnQuit);
