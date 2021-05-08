@@ -19,12 +19,9 @@ public class TrayProgMulti {
 	/* VARIABLE SECTION */
 	/********************/
 	protected Shell shell;
+	TrayProgServerDaemon serverDaemon;
 	
 	public static void main(String[] args) {
-		
-		System.out.println("Main program starting server daemon"); 
-		
-		new TrayProgServerDaemon(); 
 		
 		/********************/
 		/* VARIABLE SECTION */
@@ -93,13 +90,15 @@ public class TrayProgMulti {
 	{
 		shell = new Shell();
 		shell.setSize(400, 240);
-		shell.setText("program");
+		shell.setText("program"); 
 		
 		Button btnStartServer = new Button(shell, SWT.NONE);
 		btnStartServer.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				System.out.println("Main program starting server daemon"); 
 				
+				serverDaemon = new TrayProgServerDaemon(); 
 			}
 		});
 		btnStartServer.setBounds(10, 10, 142, 98);
@@ -109,7 +108,17 @@ public class TrayProgMulti {
 		btnEndServer.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
+				System.out.println("process ending..."); 
+				//serverDaemon.terminate(); 
+				//try {
+					serverDaemon.interrupt();
+					//serverDaemon.join();
+				//} 
+				//catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+				//	e1.printStackTrace();
+				//}
+				System.out.println("process ended."); 
 			}
 		});
 		btnEndServer.setBounds(158, 10, 142, 98);
