@@ -5,22 +5,21 @@ import java.io.*;
 
 public class TrayProgServerDaemon extends Thread {
 	
-	public boolean continueProcess; 
+	//public boolean continueProcess; 
 	
 	public TrayProgServerDaemon() {
 		start(); 
 	}
 	
 	public void run() {
-		while (!Thread.interrupted()) {
+		if (!Thread.interrupted()) {
 			try {
 				System.out.println("server daemon starting...");
 				
 				ServerSocket serverSocket = new ServerSocket(5555); 
 				System.out.println("initialized server socket");
 				
-				continueProcess = true; 
-				while(continueProcess) {
+				while (!Thread.interrupted()) {
 					Socket socketToClient = serverSocket.accept(); 
 					
 					new TrayProgClientHandler(socketToClient); 
@@ -28,7 +27,7 @@ public class TrayProgServerDaemon extends Thread {
 				}
 				
 				serverSocket.close();
-			}
+			} 
 			catch (Exception exc) {
 				System.out.println("Error: " + exc.toString()); 
 			}
@@ -37,9 +36,9 @@ public class TrayProgServerDaemon extends Thread {
 		System.out.println("server daemon ending"); 
 	}
 	
-	public void terminate() {
-		continueProcess = false; 
-	}
+	//public void terminate() {
+	//	continueProcess = false; 
+	//}
 	
 	
 }

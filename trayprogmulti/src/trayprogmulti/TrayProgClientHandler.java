@@ -2,7 +2,8 @@ package trayprogmulti;
 
 import java.net.*;
 import java.io.*;
-import java.util.*; 
+import java.util.*;
+import java.util.function.*; 
 
 public class TrayProgClientHandler extends Thread {
 	
@@ -17,7 +18,8 @@ public class TrayProgClientHandler extends Thread {
 		System.out.println("client handler starting..."); 
 		try {
 			PrintStream clientOutput = new PrintStream(clientSocket.getOutputStream(), true); 
-			clientOutput.println("nircmd.exe cdrom open d"); 
+			Consumer<String> openFunction = x -> CDUtils.open("D:\\"); 	// lambda to reference tray open function 
+			clientOutput.println(openFunction); 			//"nircmd.exe cdrom open d:"
 			
 			clientSocket.close(); 
 		}

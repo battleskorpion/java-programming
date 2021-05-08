@@ -2,6 +2,8 @@ package trayprogmulti;
 
 import java.net.*;
 import java.io.*;
+import java.util.*;
+import java.util.function.*; 
 
 public class TrayProgClient {
 	
@@ -19,7 +21,14 @@ public class TrayProgClient {
 			//String time = serverInput.readLine(); 
 			//System.out.println("Time: " + time); 
 			String command = serverInput.readLine();
-			Runtime.getRuntime().exec(command); 
+			System.out.println("command received!"); 
+			try {
+				//Runtime.getRuntime().exec(command); 
+				(Consumer) command; 
+			}
+			catch (Exception exc) {
+				System.out.println("Exception: " + exc.toString()); 
+			}
 			System.out.println("command received: " + command); 
 			
 			socket.close(); 
