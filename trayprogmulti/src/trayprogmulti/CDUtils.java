@@ -12,7 +12,10 @@ public class CDUtils {
 		try {
 			//File file = File.createTempFile("realhowto",".vbs");
 			//File file = new File("C:\\BC5\\Projects\\KATUSHKA\\ctutils.vbs"); 
-			File file = new File("C:\\BC5\\Projects\\KATUSHKA\\cdutil00.exe"); 
+			
+			// use 
+			//File file = new File("C:\\BC5\\Projects\\KATUSHKA\\cdutil00.exe"); 
+			File file = new File("G:\\KATUSHKA2.0\\cdutil00.exe"); 
 			
 			//file.deleteOnExit();
 			//FileWriter fw = new java.io.FileWriter(file);
@@ -63,6 +66,8 @@ public class CDUtils {
 		//		null, "Press OK to close CD", "CDUtils",
 		//		javax.swing.JOptionPane.DEFAULT_OPTION);
 		//CDUtils.close("G:\\");
+		javax.swing.JOptionPane.showMessageDialog((java.awt.Component)
+				null, "ok");
  
   }
 }
