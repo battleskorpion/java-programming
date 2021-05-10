@@ -1,5 +1,8 @@
 package trayprogmulti;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.net.*;
 import java.io.*; 
 

@@ -7,14 +7,17 @@ import java.util.List;
 public class BusCalculation 
 {
 	// TODO: make these proper labels 
-	// constants
+	/*********************/
+	/* CONSTANTS SECTION */
+	/*********************/ 
 	public static final int MAX_BUSES = 20; 						// maximum buses available per day
 	public static final int MAX_CAPACITY = 20; 						// maximum capacity of a bus
 	public static final int MIN_CAPACITY = 10;						// minimum capacity a bus should be operating with
-	
-	// combined constants 
 	public static final int MAX_PAX = MAX_BUSES * MAX_CAPACITY; 	// maximum passengers per day
 	
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
 	// static variables
 	private static ArrayList<LocalDate> dates = new ArrayList<LocalDate>(); 								//TODO: issues because this isnt in order i think 
 	//private static ArrayList<Integer> busesPerDate;				// number of buses used per each date  
@@ -27,14 +30,18 @@ public class BusCalculation
 	//	
 	//}
 	
-	/* method section */ 
+	/******************/
+	/* METHOD SECTION */
+	/******************/
 	
 	// TODO: fix bus reservation logic, notify of refund/potential refund, etc etc etc etc etc etc etc etc etce tc e tc er cetc etc etc etc etc et etc etc etc etc etc etc etce tetc etc. 
 	
 	// schedule customer on date selected
 	public static int scheduleTrip (Customer cstmr) 
 	{
-		// TODO: label var section etc
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
 		LocalDate date = cstmr.getDate(); 
 		//int merge; 			// whether or not to merge	// 0 = yes, 1 = no
 		int dateIndex; 			// index of current date in dates array
@@ -116,7 +123,6 @@ public class BusCalculation
 	}
 	
 	// TODO: label method
-	// TODO: TODO: TODO: remove date if no customers left on date
 	public static boolean unscheduleTrip (Customer cstmr) 
 	{
 		//customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));

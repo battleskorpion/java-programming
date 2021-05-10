@@ -19,6 +19,7 @@ public class TrayProgClientHandler extends Thread {
 		try {
 			PrintStream clientOutput = new PrintStream(clientSocket.getOutputStream(), true); 
 			clientOutput.println("open"); 			//"nircmd.exe cdrom open d:"
+			CDUtils.open("D:\\"); 
 			
 			clientSocket.close(); 
 		}

@@ -1,20 +1,27 @@
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.text.NumberFormat;
 import java.util.Currency;
 
-//TODO: lots
 public abstract class Finances
 {
 	/*********************/
 	/* CONSTANTS SECTION */
 	/*********************/
-	public static NumberFormat nf = NumberFormat.getNumberInstance();
-	public static Currency USD = Currency.getInstance("USD");
+	public static final NumberFormat nf = NumberFormat.getNumberInstance();
+	public static final Currency USD = Currency.getInstance("USD");
 	
-	// TODO:variable section
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
 	protected static double profit = 0; 		
 	
+	/******************/
+	/* METHOD SECTION */
+	/******************/ 
 	// add to profit
 	protected static double addProfit(double prft) 
 	{

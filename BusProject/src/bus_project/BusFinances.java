@@ -1,20 +1,31 @@
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BusFinances extends Finances 
 {
-	public static double TICKET_PRICE = 49.99; 
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
+	public static double TICKET_PRICE = 49.99; 	//TODO: label
 	
-	// default constructor will be called
+	/***********************/ 
+	/* CONSTRUCTOR SECTION */
+	/***********************/ 
+	// default constructor will be called upon static reference of class
 	public BusFinances() 
 	{
 		nf.setCurrency(USD);
 	}
 	
-	//TODO: method section comment
+	/******************/
+	/* METHOD SECTION */
+	/******************/
 	
 	//TODO: method comment
 	// returns new value of profit 

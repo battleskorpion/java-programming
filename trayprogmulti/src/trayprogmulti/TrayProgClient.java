@@ -10,7 +10,7 @@ public class TrayProgClient {
 	public static void main(String args[]) {
 		
 		try {
-			String ip = "192.168.0.245"; 
+			String ip = "10.10.25.151"; 
 			
 			Socket socket = new Socket(ip, 5555); 
 			

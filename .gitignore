@@ -34,3 +34,5 @@ local.properties
 .recommenders/caches/manual-mappings.json
 .recommenders/snipmatch/repositories/http___git_eclipse_org_gitroot_recommenders_org_eclipse_recommenders_snipmatch_snippets_git/
 /.recommenders/
+.recommenders/caches/identified-project-coordinates.json
+.recommenders/caches/identified-project-coordinates.json

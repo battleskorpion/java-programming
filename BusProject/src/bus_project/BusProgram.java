@@ -20,7 +20,10 @@ public class BusProgram
 {
 	public static void main(String[] args) 
 	{
-		// TODO: label 
+		// TODO: label
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/ 
 		BusProgramMenu window; 
 		
 		/****************************/

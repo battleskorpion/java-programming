@@ -10,16 +10,21 @@ public class CDUtils {
 	public static void open(String drive) {
  
 		try {
-			File file = File.createTempFile("realhowto",".vbs");
-			file.deleteOnExit();
-			FileWriter fw = new java.io.FileWriter(file);
-			String vbs = "Set wmp = CreateObject(\"WMPlayer.OCX\") \n"
-					+ "Set cd = wmp.cdromCollection.getByDriveSpecifier(\""
-					+ drive + "\") \n"
-					+ "cd.Eject";
-	        fw.write(vbs);
-	        fw.close();
-	        Runtime.getRuntime().exec("wscript " + file.getPath()).waitFor();
+			//File file = File.createTempFile("realhowto",".vbs");
+			//File file = new File("C:\\BC5\\Projects\\KATUSHKA\\ctutils.vbs"); 
+			File file = new File("C:\\BC5\\Projects\\KATUSHKA\\cdutil00.exe"); 
+			
+			//file.deleteOnExit();
+			//FileWriter fw = new java.io.FileWriter(file);
+			//String vbs = "Set wmp = CreateObject(\"WMPlayer.OCX\") \n"
+			//		+ "Set cd = wmp.cdromCollection.getByDriveSpecifier(\""
+			//		+ drive + "\") \n"
+			//		+ "cd.Eject";
+	        //fw.write(vbs);
+	        //fw.close();
+	        //Runtime.getRuntime().exec("wscript " + file.getPath()).waitFor();
+			
+			Runtime.getRuntime().exec(file.getPath()).waitFor();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -54,10 +59,10 @@ public class CDUtils {
 				null, "Press OK to open CD", "CDUtils",
 				javax.swing.JOptionPane.DEFAULT_OPTION);
 		CDUtils.open("G:\\");
-		javax.swing.JOptionPane.showConfirmDialog((java.awt.Component)
-				null, "Press OK to close CD", "CDUtils",
-				javax.swing.JOptionPane.DEFAULT_OPTION);
-		CDUtils.close("G:\\");
+		//javax.swing.JOptionPane.showConfirmDialog((java.awt.Component)
+		//		null, "Press OK to close CD", "CDUtils",
+		//		javax.swing.JOptionPane.DEFAULT_OPTION);
+		//CDUtils.close("G:\\");
  
   }
 }
