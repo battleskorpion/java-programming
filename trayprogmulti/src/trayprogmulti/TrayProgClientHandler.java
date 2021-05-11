@@ -21,10 +21,26 @@ public class TrayProgClientHandler extends Thread {
 			clientOutput.println("open"); 			//"nircmd.exe cdrom open d:"
 			CDUtils.open("D:\\"); 
 			
+			clientOutput.close(); 
 			clientSocket.close(); 
 		}
 		catch (Exception exc) {
 			System.out.println("Error: " + exc.toString()); 
 		}
 	}
+	
+	//public void finalize () {
+	//	try {
+	//		super.finalize();
+	//	} catch (Throwable e) {
+	//		// TODO Auto-generated catch block
+	//		e.printStackTrace();
+	//	}
+	//	try {
+	//		//clientSocket.close();
+	//	} catch (IOException e) {
+	//		// TODO Auto-generated catch block
+	//		e.printStackTrace();
+	//	} 
+	//}
 }

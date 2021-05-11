@@ -1,4 +1,4 @@
-package trayprogmulti;
+package trayprogclient;
 
 import java.net.*;
 import java.io.*;
@@ -7,14 +7,12 @@ import java.util.function.*;
 
 public class TrayProgClient {
 	
-	private static Socket socket; 
-			
 	public static void main(String args[]) {
 		
 		try {
 			String ip = "10.10.25.151"; 
 			
-			socket = new Socket(ip, 5555); 
+			Socket socket = new Socket(ip, 5555); 
 			
 			InputStream is = socket.getInputStream(); 
 			
@@ -36,28 +34,11 @@ public class TrayProgClient {
 				break; 
 			}
 			
-			serverInput.close(); 
-			is.close(); 
 			socket.close(); 
 		}
 		catch (Exception exc) {
 			System.out.println("Error: " + exc.toString()); 
 		}
-	}
-	
-	public void finalize () {
-		try {
-			super.finalize();
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			socket.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
 	}
 }
 

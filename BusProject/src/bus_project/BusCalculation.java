@@ -37,71 +37,139 @@ public class BusCalculation
 	// TODO: fix bus reservation logic, notify of refund/potential refund, etc etc etc etc etc etc etc etc etce tc e tc er cetc etc etc etc etc et etc etc etc etc etc etc etce tetc etc. 
 	
 	// schedule customer on date selected
-	public static int scheduleTrip (Customer cstmr) 
+	//public static int scheduleTrip (Customer cstmr) 
+	//{
+	//	/********************/
+	//	/* VARIABLE SECTION */
+	//	/********************/
+	//	LocalDate date = cstmr.getDate(); 
+	//	int dateIndex; 			// index of current date in dates array
+	//	int numPax; 			// number of other individual passengers (based on combined group size from all other groups that day) 
+	//	
+	//	
+	//	// TODO: clean up code (really this entire file is a mess) 
+	//	// if another booking from any customer exists on same date
+	//	if (dates.contains(date)) 
+	//	{
+	//		//
+	//		//for (int i = 0; i < customers.get(dates.indexOf(date)).size(); i++) {
+	//		//	// if another booking from identical customer exists on same date
+	//		//	if (customers.get(dates.indexOf(date)).get(i).getName() == cstmr.getName()) {
+	//		//		// ask to merge customers? 
+	//		//		merge = JOptionPane.showConfirmDialog(null, "A customer with the same name was found on the same date. Merge the customers?", "Merge customers?" , JOptionPane.YES_NO_OPTION); 
+	//		//		
+	//		//		// if merge
+	//		//		if (merge == 0) {
+	//		//			
+	//		//		}
+	//		//		// if not merge
+	//		//		else {
+	//		//			cstmr.setName(cstmr.getName() + "");
+	//		//		}
+	//		//		break; 
+	//		//	}
+    //        //
+	//		//	
+	//		//}
+	//		// another booking from another customer(s) exists on same date
+	//		//else {
+	//		
+	//		// TODO: label method calls 
+	//			dateIndex = dates.indexOf(date); 
+	//			
+	//			// calculate numPax
+	//			numPax = getNumPaxOnDate(date); 
+	//			
+	//			// TODO: label if 
+	//			if (numPax + cstmr.getNumPersons() <= MAX_PAX) 
+	//			{
+	//				// TODO: label method call
+	//				customers.get(dateIndex).add(cstmr); 
+	//				
+	//				return 0; 	// no error
+	//			}
+	//			else 
+	//			{
+	//				return -2; 	// not enough buses 
+	//			}
+	//		//}
+	//		
+	//	}
+	//	// else (no booking on date)
+	//	else 
+	//	{	
+	//		if (cstmr.getNumPersons() <= MAX_PAX) 
+	//		{
+	//			// TODO: label method calls
+	//			if (getFirstDateAfterDate(cstmr.getDate()) == null)
+	//			{
+	//				dates.add(cstmr.getDate()); 						// add new date 
+	//			}
+	//			else 
+	//			{
+	//				dates.add(dates.indexOf(getFirstDateAfterDate(cstmr.getDate())), cstmr.getDate());
+	//			}
+	//			customers.add(new ArrayList<Customer>());			// create new ArrayList aligning with new date
+	//			customers.get(customers.size() - 1).add(cstmr);		// add customer to new ArrayList
+	//			
+	//			return 0; 		// no error
+	//		}
+	//		else 
+	//		{
+	//			return -2; 		// not enough buses 
+	//		}
+	//	}
+	//}
+	
+	// TODO: 
+	// new version
+	// prioritize filling buses to max 
+	// codes: 
+	// 0 	- no error
+	// -1 	- some patrons will have to be refunded (a bus is not filled to min capacity) 
+	// -2	- passengers > MAX_PAX, not enough buses 
+	public static int scheduleTrip(Customer cstmr) 
 	{
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
 		LocalDate date = cstmr.getDate(); 
-		//int merge; 			// whether or not to merge	// 0 = yes, 1 = no
 		int dateIndex; 			// index of current date in dates array
 		int numPax; 			// number of other individual passengers (based on combined group size from all other groups that day) 
 		
-		
-		// TODO: clean up code (really this entire file is a mess) 
-		// if another booking from any customer exists on same date
+		// another trip already on date 
 		if (dates.contains(date)) 
 		{
-			//
-			//for (int i = 0; i < customers.get(dates.indexOf(date)).size(); i++) {
-			//	// if another booking from identical customer exists on same date
-			//	if (customers.get(dates.indexOf(date)).get(i).getName() == cstmr.getName()) {
-			//		// ask to merge customers? 
-			//		merge = JOptionPane.showConfirmDialog(null, "A customer with the same name was found on the same date. Merge the customers?", "Merge customers?" , JOptionPane.YES_NO_OPTION); 
-			//		
-			//		// if merge
-			//		if (merge == 0) {
-			//			
-			//		}
-			//		// if not merge
-			//		else {
-			//			cstmr.setName(cstmr.getName() + "");
-			//		}
-			//		break; 
-			//	}
-            //
-			//	
-			//}
-			// another booking from another customer(s) exists on same date
-			//else {
-			
-			// TODO: label method calls 
-				dateIndex = dates.indexOf(date); 
-				
-				// calculate numPax
-				numPax = getNumPaxOnDate(date); 
-				
-				// TODO: label if 
-				if (numPax + cstmr.getNumPersons() <= MAX_PAX) 
-				{
-					// TODO: label method call
-					customers.get(dateIndex).add(cstmr); 
-					
-					return 0; 	// no error
-				}
-				else 
-				{
-					return -2; 	// not enough buses 
-				}
-			//}
-			
+			//TODO: label method calls 
+			// get index of date in dates 
+			dateIndex = dates.indexOf(date); 
+						
+			// calculate numPax
+			numPax = getNumPaxOnDate(date); 
+						
+			// TODO: label if 
+			if (numPax + cstmr.getNumPersons() > MAX_PAX) 
+			{
+				return -2; 	
+			}
+			// if prexisting customers + new customer fill a bus at least to minimum capacity, or fill a bus entirely 
+			else if (((numPax + cstmr.getNumPersons()) % MAX_CAPACITY >= MIN_CAPACITY) || ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY == 0)) 
+			{
+				// TODO: label method call
+				customers.get(dateIndex).add(cstmr); 
+							
+				return 0; 	
+			}
+			else 
+			{
+				return -1; 
+			}
 		}
-		// else (no booking on date)
 		else 
 		{	
 			if (cstmr.getNumPersons() <= MAX_PAX) 
 			{
-				// TODO: label method calls
+						// TODO: label method calls
 				if (getFirstDateAfterDate(cstmr.getDate()) == null)
 				{
 					dates.add(cstmr.getDate()); 						// add new date 
@@ -112,12 +180,12 @@ public class BusCalculation
 				}
 				customers.add(new ArrayList<Customer>());			// create new ArrayList aligning with new date
 				customers.get(customers.size() - 1).add(cstmr);		// add customer to new ArrayList
-				
+						
 				return 0; 		// no error
 			}
 			else 
 			{
-				return -2; 		// not enough buses 
+				return -1; 		// not enough buses 
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-package trayprogmulti;
+package trayprogclient;
 
 import java.io.File;
 import java.io.FileWriter;
