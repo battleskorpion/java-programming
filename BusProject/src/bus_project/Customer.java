@@ -8,6 +8,7 @@ public class Customer
 	//TODO: label section
 	private String name; 			// NAME OF GROUP
 	private int numPersons;			// NUMBER OF PEOPLE IN GROUP
+	private int numPersonsRefunded;	// number refunded
 	private LocalDate date; 		// date of trip
 	private int index;				// INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
 	private double totalPrice; 		// total price of all tickets for group 
@@ -20,6 +21,7 @@ public class Customer
 		date = LocalDate.now(); 
 		name = ""; 
 		numPersons = 0;
+		numPersonsRefunded = 0; 
 		index = 0; 
 	}
 	
@@ -81,22 +83,50 @@ public class Customer
 	}
 	
 	//TODO: label method
-	protected void setTotalPrice(double ttlPrc) {
+	protected void setTotalPrice(double ttlPrc) 
+	{
 		totalPrice = ttlPrc; 
 	}
 	
 	//TODO: label method
-	public void setIndex (int indx) {
+	public void setIndex (int indx) 
+	{
 		index = indx; 
 	}
 	
-	public void setNumPersons(int sz) {
+	public void setNumPersons(int sz) 
+	{
 		numPersons = sz; 
+	}
+	
+	public void refundPersons(int prsns) 
+	{
+		numPersons -= prsns; 
+		numPersonsRefunded += prsns; 
+		BusFinances.setCustomerProfit(this); 
+	}
+	
+	public void unrefundPersons() 
+	{
+		numPersons += numPersonsRefunded; 
+		numPersonsRefunded = 0; 
+		BusFinances.setCustomerProfit(this); 
+	}
+	
+	public void unrefundPersons(int prsns) 
+	{
+		numPersons += prsns; 
+		numPersonsRefunded -= prsns; 
+		BusFinances.setCustomerProfit(this); 
+	}
+	
+	public int getNumPersonsRefunded() {
+		return numPersonsRefunded; 
 	}
 	
 	//TODO: label method
 	public String toString() {
-		return "Group: " + name + " \nGroup Size: " + numPersons + " \nDate: " + date.toString(); 
+		return "Group: " + name + "\nGroup Size: " + numPersons + "\nRefunded Customers" + numPersonsRefunded + "\nDate: " + date.toString(); 
 	}
 	
 	/********************/

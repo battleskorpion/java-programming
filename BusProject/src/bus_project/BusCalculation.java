@@ -126,9 +126,12 @@ public class BusCalculation
 	// prioritize filling buses to max 
 	// codes: 
 	// 0 	- no error
-	// -1 	- some patrons will have to be refunded (a bus is not filled to min capacity) 
-	// -2	- passengers > MAX_PAX, not enough buses 
-	public static int scheduleTrip(Customer cstmr) 
+	// -x 	- number to refund 
+	////// -1 	- some patrons will have to be refunded (a bus is not filled to min capacity) 
+	////// -2	- passengers > MAX_PAX, not enough buses, some patrons will have to be refunded
+	////// -3   - passengers > MAX_PAX, not enough buses for any patrons
+	//TODO: LABEL CODE BETTER 
+	public static int scheduleTrip(Customer cstmr)   
 	{
 		/********************/
 		/* VARIABLE SECTION */
@@ -136,6 +139,7 @@ public class BusCalculation
 		LocalDate date = cstmr.getDate(); 
 		int dateIndex; 			// index of current date in dates array
 		int numPax; 			// number of other individual passengers (based on combined group size from all other groups that day) 
+		int numToRefund; // number of persons to refund
 		
 		// another trip already on date 
 		if (dates.contains(date)) 
@@ -145,59 +149,88 @@ public class BusCalculation
 			dateIndex = dates.indexOf(date); 
 						
 			// calculate numPax
-			numPax = getNumPaxOnDate(date); 
+			numPax = getNumPaxOnDate(date);
 						
 			// TODO: label if 
+			//if (cstmr.getNumPersons() >= MAX_PAX) {
+			//	return -3; 
+			//}
 			if (numPax + cstmr.getNumPersons() > MAX_PAX) 
 			{
-				return -2; 	
+				numToRefund = MAX_PAX - numPax + cstmr.getNumPersons();
+				cstmr.refundPersons(numToRefund);
+				customers.get(dateIndex).add(cstmr); 
+				return -1 * numToRefund;  	// number to refund 
 			}
 			// if prexisting customers + new customer fill a bus at least to minimum capacity, or fill a bus entirely 
-			else if (((numPax + cstmr.getNumPersons()) % MAX_CAPACITY >= MIN_CAPACITY) || ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY == 0)) 
+			else if ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY >= MIN_CAPACITY || (numPax + cstmr.getNumPersons()) % MAX_CAPACITY == 0) 
 			{
 				// TODO: label method call
 				customers.get(dateIndex).add(cstmr); 
 							
 				return 0; 	
 			}
+			// else (some customers will have to be refunded because a bus won't be filled to MIN_CAPACITY
 			else 
 			{
-				return -1; 
+				numToRefund = numPax + cstmr.getNumPersons() % MAX_CAPACITY; 
+				cstmr.refundPersons(numToRefund); 
+				customers.get(dateIndex).add(cstmr); 
+				return -1 * numToRefund; 
 			}
 		}
 		else 
 		{	
-			if (cstmr.getNumPersons() <= MAX_PAX) 
+			if (cstmr.getNumPersons() >= MIN_CAPACITY) 
 			{
-						// TODO: label method calls
+				// TODO: label method calls
+				// if/else to add date to dates array
 				if (getFirstDateAfterDate(cstmr.getDate()) == null)
 				{
 					dates.add(cstmr.getDate()); 						// add new date 
+					dateIndex = dates.size() - 1; 
 				}
 				else 
 				{
-					dates.add(dates.indexOf(getFirstDateAfterDate(cstmr.getDate())), cstmr.getDate());
+					dateIndex = dates.indexOf(getFirstDateAfterDate(cstmr.getDate())); 
+					dates.add(dateIndex, cstmr.getDate());
 				}
-				customers.add(new ArrayList<Customer>());			// create new ArrayList aligning with new date
-				customers.get(customers.size() - 1).add(cstmr);		// add customer to new ArrayList
+				customers.add(dateIndex, new ArrayList<Customer>());			// create new ArrayList aligning with new date
+				
+				// if prexisting customers + new customer fill a bus at least to minimum capacity, or fill a bus entirely 
+				if (cstmr.getNumPersons() % MAX_CAPACITY >= MIN_CAPACITY || cstmr.getNumPersons() % MAX_CAPACITY == 0) 
+				{
+					customers.get(dateIndex).add(cstmr);		// add customer to new ArrayList
+				}
+				// else (some customers will have to be refunded because a bus won't be filled to MIN_CAPACITY
+				else 
+				{
+					numToRefund = cstmr.getNumPersons() % MAX_CAPACITY; 
+					cstmr.refundPersons(numToRefund); 
+					customers.get(dateIndex).add(cstmr); 
+					return -1 * numToRefund; 
+				}
 						
 				return 0; 		// no error
 			}
 			else 
 			{
-				return -1; 		// not enough buses 
+				numToRefund = cstmr.getNumPersons(); 
+				cstmr.refundPersons(numToRefund);
+				return -1 * numToRefund; 
 			}
 		}
 	}
 	
 	// TODO: label method
+	//TODO: modifications potential maybe 
 	public static boolean unscheduleTrip (Customer cstmr) 
 	{
 		//customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));
 		LocalDate date = cstmr.getDate(); 
 		int dayIndex = dates.indexOf(date); 
 		int cstmrLocation = customers.get(dayIndex).indexOf(cstmr); 
-		BusFinances.removeCustomerProfit(customers.get(dayIndex).get(cstmrLocation)); 
+		BusFinances.setCustomerProfit(customers.get(dayIndex).get(cstmrLocation)); 
 		customers.get(dayIndex).remove(cstmrLocation); 
 		if (customers.get(dayIndex).size() == 0) 
 		{

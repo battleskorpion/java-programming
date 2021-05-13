@@ -129,7 +129,7 @@ public abstract class AbstractProgramWindow
 	{
 		cstmrs.add(indx, cstmr);
 		BusCalculation.scheduleTrip(cstmr);
-		BusFinances.addCustomerProfit(cstmr); 
+		BusFinances.setCustomerProfit(cstmr); 
 		updateTable(tbl, cstmrs); 
 	}
 	
@@ -137,7 +137,7 @@ public abstract class AbstractProgramWindow
 	{
 		cstmrs.add(cstmr);
 		BusCalculation.scheduleTrip(cstmr);
-		BusFinances.addCustomerProfit(cstmr); 
+		BusFinances.setCustomerProfit(cstmr); 
 		updateTable(tbl, cstmrs); 
 	}
 	

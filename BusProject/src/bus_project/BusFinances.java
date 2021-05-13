@@ -29,7 +29,7 @@ public class BusFinances extends Finances
 	
 	//TODO: method comment
 	// returns new value of profit 
-	public static double addCustomerProfit(Customer cstmr) 
+	public static double setCustomerProfit(Customer cstmr) 
 	{
 		double amt = cstmr.getNumPersons() * TICKET_PRICE; 
 		cstmr.addTotalPrice(amt); 
@@ -38,12 +38,12 @@ public class BusFinances extends Finances
 	
 	//TODO: method comment
 	// returns new value of profit 
-	public static double removeCustomerProfit(Customer cstmr)
-	{
-		double amt = cstmr.getNumPersons() * TICKET_PRICE;
-		cstmr.subtractTotalPrice(amt); 
-		return subtractProfit(amt); 
-	}
+	//public static double removeCustomerProfit(Customer cstmr)
+	//{
+	//	double amt = cstmr.getNumPersons() * TICKET_PRICE;
+	//	cstmr.subtractTotalPrice(amt); 
+	//	return subtractProfit(amt); 
+	//}
 
 	//TODO: method comment
 	public static String getProfitOnDate(LocalDate dt) 
