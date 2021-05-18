@@ -111,18 +111,20 @@ public class Customer
 		BusFinances.setCustomerProfit(this); 
 	}
 	
-	public void unrefundPersons() 
+	public int unrefundPersons() 
 	{
-		numPersons += numPersonsRefunded; 
-		numPersonsRefunded = 0; 
+		int numUnrefunded = unrefundPersons(numPersonsRefunded);  
 		BusFinances.setCustomerProfit(this); 
+		return numUnrefunded; 
 	}
 	
-	public void unrefundPersons(int prsns) 
+	// precondition: prsns <= numPersonsRefunded
+	public int unrefundPersons(int prsns) 
 	{
 		numPersons += prsns; 
 		numPersonsRefunded -= prsns; 
-		BusFinances.setCustomerProfit(this); 
+		BusFinances.setCustomerProfit(this);
+		return (prsns); 
 	}
 	
 	public int getNumPersonsRefunded() 
@@ -131,9 +133,10 @@ public class Customer
 	}
 	
 	//TODO: label method
+	//TODO: modifications perhaps (does not print well in table (etc etc)) 
 	public String toString() 
 	{
-		return "Group: " + name + "\nGroup Size: " + numPersons + "\nRefunded Customers" + numPersonsRefunded + "\nDate: " + date.toString(); 
+		return "Group: " + name + "\n\tGroup Size: " + numPersons + "\n\tRefunded Customers" + numPersonsRefunded + "\n\tDate: " + date.toString(); 
 	}
 	
 	/********************/

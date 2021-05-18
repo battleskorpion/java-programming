@@ -206,9 +206,9 @@ public abstract class AbstractProgramWindow
 		/**********************************************/
 		shl.setEnabled(false);
 		
-		/****************************/
-		/* OPEN ADD CUSTOMER WINDOW */
-		/****************************/
+		/***************/
+		/* OPEN WINDOW */
+		/***************/
 		wndw.open(shl);
 			
 		/*********************************************/

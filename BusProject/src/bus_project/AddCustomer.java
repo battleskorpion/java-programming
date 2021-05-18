@@ -18,6 +18,8 @@ import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Control;
 
+//TODO: if < MIN_CAPACITY passengers do not allow add customer? 
+
 public class AddCustomer extends AbstractProgramWindow
 {
 

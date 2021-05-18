@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import org.eclipse.swt.widgets.Display;
+
 public class BusCalculation 
 {
 	// TODO: make these proper labels 
@@ -34,102 +38,15 @@ public class BusCalculation
 	/* METHOD SECTION */
 	/******************/
 	
-	// TODO: fix bus reservation logic, notify of refund/potential refund, etc etc etc etc etc etc etc etc etce tc e tc er cetc etc etc etc etc et etc etc etc etc etc etc etce tetc etc. 
-	
-	// schedule customer on date selected
-	//public static int scheduleTrip (Customer cstmr) 
-	//{
-	//	/********************/
-	//	/* VARIABLE SECTION */
-	//	/********************/
-	//	LocalDate date = cstmr.getDate(); 
-	//	int dateIndex; 			// index of current date in dates array
-	//	int numPax; 			// number of other individual passengers (based on combined group size from all other groups that day) 
-	//	
-	//	
-	//	// TODO: clean up code (really this entire file is a mess) 
-	//	// if another booking from any customer exists on same date
-	//	if (dates.contains(date)) 
-	//	{
-	//		//
-	//		//for (int i = 0; i < customers.get(dates.indexOf(date)).size(); i++) {
-	//		//	// if another booking from identical customer exists on same date
-	//		//	if (customers.get(dates.indexOf(date)).get(i).getName() == cstmr.getName()) {
-	//		//		// ask to merge customers? 
-	//		//		merge = JOptionPane.showConfirmDialog(null, "A customer with the same name was found on the same date. Merge the customers?", "Merge customers?" , JOptionPane.YES_NO_OPTION); 
-	//		//		
-	//		//		// if merge
-	//		//		if (merge == 0) {
-	//		//			
-	//		//		}
-	//		//		// if not merge
-	//		//		else {
-	//		//			cstmr.setName(cstmr.getName() + "");
-	//		//		}
-	//		//		break; 
-	//		//	}
-    //        //
-	//		//	
-	//		//}
-	//		// another booking from another customer(s) exists on same date
-	//		//else {
-	//		
-	//		// TODO: label method calls 
-	//			dateIndex = dates.indexOf(date); 
-	//			
-	//			// calculate numPax
-	//			numPax = getNumPaxOnDate(date); 
-	//			
-	//			// TODO: label if 
-	//			if (numPax + cstmr.getNumPersons() <= MAX_PAX) 
-	//			{
-	//				// TODO: label method call
-	//				customers.get(dateIndex).add(cstmr); 
-	//				
-	//				return 0; 	// no error
-	//			}
-	//			else 
-	//			{
-	//				return -2; 	// not enough buses 
-	//			}
-	//		//}
-	//		
-	//	}
-	//	// else (no booking on date)
-	//	else 
-	//	{	
-	//		if (cstmr.getNumPersons() <= MAX_PAX) 
-	//		{
-	//			// TODO: label method calls
-	//			if (getFirstDateAfterDate(cstmr.getDate()) == null)
-	//			{
-	//				dates.add(cstmr.getDate()); 						// add new date 
-	//			}
-	//			else 
-	//			{
-	//				dates.add(dates.indexOf(getFirstDateAfterDate(cstmr.getDate())), cstmr.getDate());
-	//			}
-	//			customers.add(new ArrayList<Customer>());			// create new ArrayList aligning with new date
-	//			customers.get(customers.size() - 1).add(cstmr);		// add customer to new ArrayList
-	//			
-	//			return 0; 		// no error
-	//		}
-	//		else 
-	//		{
-	//			return -2; 		// not enough buses 
-	//		}
-	//	}
-	//}
+	// TODO: finish of fix bus reservation logic, notify of refund/potential refund, etc etc etc etc etc etc etc etc etce tc e tc er cetc etc etc etc etc et etc etc etc etc etc etc etce tetc etc. 
 	
 	// TODO: 
 	// new version
 	// prioritize filling buses to max 
 	// codes: 
-	// 0 	- no error
+	// 0 	- no error/issue
 	// -x 	- number to refund 
-	////// -1 	- some patrons will have to be refunded (a bus is not filled to min capacity) 
-	////// -2	- passengers > MAX_PAX, not enough buses, some patrons will have to be refunded
-	////// -3   - passengers > MAX_PAX, not enough buses for any patrons
+	
 	//TODO: LABEL CODE BETTER 
 	public static int scheduleTrip(Customer cstmr)   
 	{
@@ -139,7 +56,12 @@ public class BusCalculation
 		LocalDate date = cstmr.getDate(); 
 		int dateIndex; 			// index of current date in dates array
 		int numPax; 			// number of other individual passengers (based on combined group size from all other groups that day) 
+		int numPaxRefunded; 
 		int numToRefund; // number of persons to refund
+		int numToUnrefund; 
+		
+		// take previously refunded persons into account 
+		cstmr.unrefundPersons(); 
 		
 		// another trip already on date 
 		if (dates.contains(date)) 
@@ -150,35 +72,72 @@ public class BusCalculation
 						
 			// calculate numPax
 			numPax = getNumPaxOnDate(date);
+			numPaxRefunded = getNumPaxRefundedOnDate(date); 
 						
 			// TODO: label if 
-			//if (cstmr.getNumPersons() >= MAX_PAX) {
-			//	return -3; 
-			//}
 			if (numPax + cstmr.getNumPersons() > MAX_PAX) 
 			{
 				numToRefund = MAX_PAX - numPax + cstmr.getNumPersons();
 				cstmr.refundPersons(numToRefund);
+				
 				customers.get(dateIndex).add(cstmr); 
-				return -1 * numToRefund;  	// number to refund 
+				displayRefundDialog(numToRefund); 
+				return -1 * numToRefund;  	// number refunded
 			}
-			// if prexisting customers + new customer fill a bus at least to minimum capacity, or fill a bus entirely 
-			else if ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY >= MIN_CAPACITY || (numPax + cstmr.getNumPersons()) % MAX_CAPACITY == 0) 
+			// if prexisting customers + new customer fill a bus at least to minimum capacity, 
+			// or fill a bus entirely 
+			else if ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY >= MIN_CAPACITY 
+					|| (numPax + cstmr.getNumPersons()) % MAX_CAPACITY == 0) 
 			{
 				// TODO: label method call
 				customers.get(dateIndex).add(cstmr); 
-							
 				return 0; 	
+			}
+			// if prexisting customers + refund some customers + new customer fill a bus at least to minimum capacity, 
+			// or fill a bus entirely 
+			else if (MIN_CAPACITY - ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY) - numPaxRefunded <= MIN_CAPACITY) 
+			{
+				
+				if (numPax + cstmr.getNumPersons() + numPaxRefunded > MAX_PAX) {
+					numToUnrefund = MAX_PAX - numPax - cstmr.getNumPersons(); 
+				}
+				else {
+					numToUnrefund = numPaxRefunded; 
+					if ((numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY < MIN_CAPACITY)
+					{
+						numToUnrefund -= (numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY; 
+					}
+				}
+				
+				unrefundLoop: 
+				for (int i = 0; i < customers.get(dateIndex).size(); i++)
+				{
+					if (customers.get(dateIndex).get(i).getNumPersonsRefunded() - numToUnrefund >= 0) {
+						numToUnrefund -= customers.get(dateIndex).get(i).unrefundPersons(); 
+					}
+					// else refund some (or 0) customers and break
+					else {
+						customers.get(dateIndex).get(i).unrefundPersons(numToUnrefund); 
+						break unrefundLoop; 
+					}
+				}
+				
+				customers.get(dateIndex).add(cstmr); 
+				// TODO: customers were unrefunded window 
+				return 0; // none refunded from this customer, only other customers unrefunded
 			}
 			// else (some customers will have to be refunded because a bus won't be filled to MIN_CAPACITY
 			else 
 			{
 				numToRefund = numPax + cstmr.getNumPersons() % MAX_CAPACITY; 
 				cstmr.refundPersons(numToRefund); 
+				
 				customers.get(dateIndex).add(cstmr); 
-				return -1 * numToRefund; 
+				displayRefundDialog(numToRefund);
+				return -1 * numToRefund; 		// number refunded
 			}
 		}
+		// no trip on date 
 		else 
 		{	
 			if (cstmr.getNumPersons() >= MIN_CAPACITY) 
@@ -207,7 +166,9 @@ public class BusCalculation
 				{
 					numToRefund = cstmr.getNumPersons() % MAX_CAPACITY; 
 					cstmr.refundPersons(numToRefund); 
+					
 					customers.get(dateIndex).add(cstmr); 
+					displayRefundDialog(numToRefund);
 					return -1 * numToRefund; 
 				}
 						
@@ -216,14 +177,17 @@ public class BusCalculation
 			else 
 			{
 				numToRefund = cstmr.getNumPersons(); 
+				
 				cstmr.refundPersons(numToRefund);
+				displayRefundDialog(numToRefund);
 				return -1 * numToRefund; 
 			}
 		}
 	}
 	
 	// TODO: label method
-	//TODO: modifications potential maybe 
+	// TODO: modifications potential maybe
+	// TODO: refund, unrefund in the necessary case 
 	public static boolean unscheduleTrip (Customer cstmr) 
 	{
 		//customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));
@@ -243,7 +207,8 @@ public class BusCalculation
 	
 	// TODO: label method properly 
 	// calculates number of buses which will be necessary for the day
-	public static int getNumBuses(LocalDate dt) {	
+	public static int getNumBuses(LocalDate dt) 
+	{	
 		return (int)Math.ceil(getNumPaxOnDate(dt) / ((double)MAX_CAPACITY)); 
 	}
 	
@@ -265,6 +230,25 @@ public class BusCalculation
 		else 
 		{
 			return 0; 			// date not found in booked dates so no bookings are on the date, means no pax on the date
+		}
+	}
+	
+	public static int getNumPaxRefundedOnDate(LocalDate dt) 
+	{
+		int numPaxRefunded = 0;
+		
+		//TODO: label le if
+		if (dates.contains(dt)) 
+		{
+			for (Customer cstmr: customers.get(dates.indexOf(dt))) 
+			{
+				numPaxRefunded += cstmr.getNumPersonsRefunded(); 
+			}
+			return numPaxRefunded; 
+		}
+		else 
+		{
+			return 0; 
 		}
 	}
 	
@@ -344,5 +328,10 @@ public class BusCalculation
 			}
 		}
 		return firstDateAfterDate; 
+	}
+	
+	protected static void displayRefundDialog(int numRefunded) 
+	{
+		JOptionPane.showMessageDialog(null, numRefunded + "customers were refunded, due to not meeting minimum capacity");
 	}
 }
