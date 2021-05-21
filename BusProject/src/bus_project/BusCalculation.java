@@ -38,7 +38,7 @@ public class BusCalculation
 	/* METHOD SECTION */
 	/******************/
 	
-	// TODO: finish of fix bus reservation logic, notify of refund/potential refund, etc etc etc etc etc etc etc etc etce tc e tc er cetc etc etc etc etc et etc etc etc etc etc etc etce tetc etc. 
+	// TODO: finish of fix bus reservation logic, notify of refund/potential refund, etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc et etc etc etc etc etc etc etce tetc etc. 
 	
 	// TODO: 
 	// new version
@@ -66,6 +66,7 @@ public class BusCalculation
 		// another trip already on date 
 		if (dates.contains(date)) 
 		{
+			System.out.println("date exists"); 
 			//TODO: label method calls 
 			// get index of date in dates 
 			dateIndex = dates.indexOf(date); 
@@ -97,28 +98,34 @@ public class BusCalculation
 			}
 			// if prexisting customers + refund some customers + new customer fill a bus at least to minimum capacity, 
 			// or fill a bus entirely 
+			// TODO: LOGIC FIX
 			else if (MIN_CAPACITY - ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY) - numPaxRefunded <= MIN_CAPACITY) 
 			{
-				
-				if (numPax + cstmr.getNumPersons() + numPaxRefunded > MAX_PAX) {
+				numToUnrefund = numPaxRefunded; 
+				if (numPax + cstmr.getNumPersons() + numToUnrefund > MAX_PAX) 
+				{
 					numToUnrefund = MAX_PAX - numPax - cstmr.getNumPersons(); 
 				}
-				else {
-					numToUnrefund = numPaxRefunded; 
-					if ((numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY < MIN_CAPACITY)
+				else
+				{
+					if ((numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY != 0 && (numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY < MIN_CAPACITY)
 					{
 						numToUnrefund -= (numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY; 
 					}
 				}
 				
+				System.out.println(numToUnrefund + "(unrefund)"); 
+				
 				unrefundLoop: 
 				for (int i = 0; i < customers.get(dateIndex).size(); i++)
 				{
-					if (customers.get(dateIndex).get(i).getNumPersonsRefunded() - numToUnrefund >= 0) {
+					if (customers.get(dateIndex).get(i).getNumPersonsRefunded() - numToUnrefund >= 0) 
+					{
 						numToUnrefund -= customers.get(dateIndex).get(i).unrefundPersons(); 
 					}
 					// else refund some (or 0) customers and break
-					else {
+					else 
+					{
 						customers.get(dateIndex).get(i).unrefundPersons(numToUnrefund); 
 						break unrefundLoop; 
 					}
@@ -141,7 +148,7 @@ public class BusCalculation
 				return -1 * numToRefund; 		// number refunded
 			}
 		}
-		// no trip on date (TODO: ISSUES! TRIGGERIGN WHEN THERE *IS* ANOTHER TRIP ON DATE (POSSIBLY)
+		// no trip on date 
 		else 
 		{	
 			if (cstmr.getNumPersons() >= MIN_CAPACITY) 
@@ -162,7 +169,7 @@ public class BusCalculation
 				
 				// if prexisting customers + new customer fill a bus at least to minimum capacity, or fill a bus entirely 
 				if (cstmr.getNumPersons() % MAX_CAPACITY >= MIN_CAPACITY 
-					|| cstmr.getNumPersons() % MAX_CAPACITY == 0) 
+						|| cstmr.getNumPersons() % MAX_CAPACITY == 0) 
 				{
 					customers.get(dateIndex).add(cstmr);		// add customer to new ArrayList
 				}
