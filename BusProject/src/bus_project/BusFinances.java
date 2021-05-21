@@ -27,7 +27,10 @@ public class BusFinances extends Finances
 	/* METHOD SECTION */
 	/******************/
 	
-	//TODO: method comment
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	// returns new value of profit 
 	public static double setCustomerProfit(Customer cstmr) 
 	{
@@ -45,7 +48,10 @@ public class BusFinances extends Finances
 	//	return subtractProfit(amt); 
 	//}
 
-	//TODO: method comment
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public static String getProfitOnDate(LocalDate dt) 
 	{
 		double profit = 0; 
@@ -63,7 +69,10 @@ public class BusFinances extends Finances
 		}
 	}
 	
-	//TODO: comment
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public static String getProfitToDate(LocalDate dt) 
 	{
 		double profit = 0;

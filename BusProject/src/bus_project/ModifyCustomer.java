@@ -18,11 +18,14 @@ import org.eclipse.swt.widgets.Control;
 
 public class ModifyCustomer extends AbstractProgramWindow {
 
-	//TODO: var section, label vars
-	protected Shell shlModifyCustomers;
-	private ArrayList<Customer> customers; 
+	//TODO: label vars
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/ 
+	protected Shell shlModifyCustomers;			// REPRESENTS THIS WINDOW
+	private ArrayList<Customer> customers; 		// ArrayList of all customers
 	//private ArrayList<Customer> modifiedCustomers = new ArrayList<Customer>(); 		// LIST OF MODIFIED CUSTOMERS (BUT WILL STORE ORIGINAL CUSTOMER BEFORE MODIFICATION) 
-	private Table customersTable;
+	private Table customersTable;				
 	private Text nameField;
 	private Text sizeField;
 	private Text indexField;
@@ -191,8 +194,10 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		});
 	}
 	
-	// modify customer
-	// precondition: legal modifications 
+	/***************************************************************/
+	/* PRECONDITION:  MODIFICATIONS ARE LEGAL 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	private void modifyCustomer(Customer slctdCstmr) {
 		int index = Integer.parseInt(indexField.getText()); 	// POSSIBLY NEW INDEX OF SELECTED CUSTOMER
 		int old_index = slctdCstmr.getIndex();  				// PREVIOUS INDEX OF SELECTED CUSTOMER (OR THE SAME) 
@@ -211,21 +216,35 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		setCustomerDetails(slctdCstmr, nameField, sizeField, indexField, index, dateTime); 
 	}
 	
-	// returns year in format acceptable for DateTime
+	
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: returns year in format acceptable for DateTime
+	/***************************************************************/
 	private int getDateTimeYear(Customer cstmr) {	
 		return cstmr.getDate().getYear(); 
 	}
 	
-	// returns customer date in DateTime format
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: returns customer date in DateTime format
+	/***************************************************************/
 	private int getDateTimeMonth(Customer cstmr) {
 		return cstmr.getDate().getMonthValue() - 1; 
 	}
 	
-	// returns customer date in DateTime format
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: returns customer date in DateTime format
+	/***************************************************************/
 	private int getDateTimeDay(Customer cstmr) {
 		return cstmr.getDate().getDayOfMonth(); 
 	}
 	
+	/***************************************************************/
+	/* PRECONDITION:  
+	/* POSTCONDITION: 
+	/***************************************************************/
 	private void updateCustomerInfoDisplay(Customer cstmr) {
 		nameField.setText(cstmr.getName());
 		sizeField.setText(Integer.toString(cstmr.getNumPersons()));
@@ -233,6 +252,11 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		dateTime.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), getDateTimeDay(cstmr));
 	}
 	
+	/***************************************************************/
+	/* PRECONDITION:  
+	/* POSTCONDITION: DECIDES IF POTENTIAL MODIFICATIONS ARE ALLOWED,
+	/* 				  RETURNS FALSE OR TRUE
+	/***************************************************************/
 	private boolean legalCustomerModification(ArrayList<Customer> cstmrs) {
 		
 		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) >= cstmrs.size() || !vaildDate(dateTime))

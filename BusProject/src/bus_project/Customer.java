@@ -1,3 +1,13 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* Customer.java							*/
+/* Darian Siembab 							*/
+/* 											*/
+/* Customer object for storing 				*/
+/* and obtaining details about customers,	*/
+/* and sorting customers 					*/
+/********************************************/ 
+
 package bus_project;
 
 import java.time.LocalDate;
@@ -5,7 +15,9 @@ import java.util.Comparator;
 
 public class Customer 
 {
-	//TODO: label section
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/ 
 	private String name; 			// NAME OF GROUP
 	private int numPersons;			// NUMBER OF PEOPLE IN GROUP
 	private int numPersonsRefunded;	// number refunded
@@ -13,9 +25,7 @@ public class Customer
 	private int index;				// INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
 	private double totalPrice; 		// total price of all tickets for group 
 	
-	//TODO: label section
-	
-	//TODO: label method
+	//TODO: constructor 
 	public Customer() 
 	{
 		date = LocalDate.now(); 
@@ -25,100 +35,161 @@ public class Customer
 		index = 0; 
 	}
 	
-	/****************************************/
+	//TODO: label section
+	
+	/***************************************************************/
 	/* PRECONDITION: 
 	/* POSTCONDITION: 
-	/****************************************/ 
+	/***************************************************************/
 	protected double addTotalPrice(double amt) 
 	{
 		return totalPrice += amt; 
 	}
 	
-	//TODO: label method 
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	protected double subtractTotalPrice(double amt) 
 	{
 		return totalPrice -= amt; 
 	}
 	
-	//TODO: label method
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public String getName () 
 	{
 		return name; 
 	}
 	
-	//TODO: label method
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public int getNumPersons () 
 	{
 		return numPersons; 
 	}
 	
-	//TODO: label method
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public LocalDate getDate ()
 	{
 		return date; 
 	}
 	
-	//TODO: label method
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public int getIndex () 
 	{
 		return index; 
 	}
 	
-	//TODO: label method
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public double getTotalPrice() 
 	{
 		return totalPrice; 
 	}
 	
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public String getTotalPriceFormatted() 
 	{
 		return Finances.nf.format(totalPrice); 
 	}
 	
-	//TODO: label method
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public void setDate (LocalDate dt)
 	{
 		date = dt; 
 	}
 	
-	//TODO: label method
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public void setName (String nm) 
 	{
 		name = nm; 
 	}
 	
-	//TODO: label method
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	protected void setTotalPrice(double ttlPrc) 
 	{
 		totalPrice = ttlPrc; 
 	}
 	
-	//TODO: label method
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public void setIndex (int indx) 
 	{
 		index = indx; 
 	}
 	
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public void setNumPersons(int sz) 
 	{
 		numPersons = sz; 
 	}
 	
-	public void refundPersons(int prsns) 
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
+	public int refundPersons(int prsns) 
 	{
 		numPersons -= prsns; 
 		numPersonsRefunded += prsns; 
 		BusFinances.setCustomerProfit(this); 
+		return prsns; 
 	}
 	
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
+	public int refundPersons() 
+	{
+		return refundPersons(numPersons); 
+	}
+	
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public int unrefundPersons() 
 	{
 		int numUnrefunded = unrefundPersons(numPersonsRefunded);  
 		BusFinances.setCustomerProfit(this); 
 		return numUnrefunded; 
 	}
-	
-	// precondition: prsns <= numPersonsRefunded
+
+	/***************************************************************/
+	/* PRECONDITION: // precondition: prsns <= numPersonsRefunded
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public int unrefundPersons(int prsns) 
 	{
 		numPersons += prsns; 
@@ -127,13 +198,20 @@ public class Customer
 		return (prsns); 
 	}
 	
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public int getNumPersonsRefunded() 
 	{
 		return numPersonsRefunded; 
 	}
 	
-	//TODO: label method
 	//TODO: modifications perhaps (does not print well in table (etc etc)) 
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
 	public String toString() 
 	{
 		return "Group: " + name + "\n\tGroup Size: " + numPersons + "\n\tRefunded Customers" + numPersonsRefunded + "\n\tDate: " + date.toString(); 
@@ -142,11 +220,13 @@ public class Customer
 	/********************/
 	/* SUBCLASS SECTION */
 	/********************/
-	
 	//TODO: label subclass
 	public static class CompareDate implements Comparator<Customer> 
 	{
-		//TODO: label method
+		/***************************************************************/
+		/* PRECONDITION: 
+		/* POSTCONDITION: 
+		/***************************************************************/
 		public int compare(Customer a, Customer b)
 		{
 			return a.getDate().compareTo(b.getDate()); 			// IF A > B WILL BE POSITIVE, SAME NUMBER WILL BE 0, A < B WILL RETURN NEGATIVE 
@@ -156,7 +236,10 @@ public class Customer
 	//TODO: label subclass
 	public static class CompareName implements Comparator<Customer> 
 	{
-		//TODO: label method
+		/***************************************************************/
+		/* PRECONDITION: 
+		/* POSTCONDITION: 
+		/***************************************************************/
 		public int compare(Customer a, Customer b) 
 		{
 			return a.getName().compareTo(b.getName()); 			// IF A > B WILL BE POSITIVE, SAME NUMBER WILL BE 0, A < B WILL RETURN NEGATIVE 
@@ -166,7 +249,10 @@ public class Customer
 	//TODO: label subclass
 	public static class CompareSize implements Comparator<Customer> 
 	{
-		//TODO: label method
+		/***************************************************************/
+		/* PRECONDITION: 
+		/* POSTCONDITION: 
+		/***************************************************************/
 		public int compare(Customer a, Customer b) 
 		{
 			return a.getNumPersons() - b.getNumPersons(); 		// IF A > B WILL BE POSITIVE, SAME NUMBER WILL BE 0, A < B WILL RETURN NEGATIVE (number of persons always >= 0 so this logic is fine) 
@@ -176,14 +262,15 @@ public class Customer
 	//TODO: label subclass
 	public static class CompareTotalPrice implements Comparator<Customer> 
 	{
-		//TODO: label method
+		/***************************************************************/
+		/* PRECONDITION: 
+		/* POSTCONDITION: 
+		/***************************************************************/
 		public int compare(Customer a, Customer b) 
 		{
 			return Double.compare(a.getTotalPrice(), b.getTotalPrice()); 
 		}
 	}
-	
-	
 }
 
 

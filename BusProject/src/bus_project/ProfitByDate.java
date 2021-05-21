@@ -153,7 +153,7 @@ public class ProfitByDate extends AbstractProgramWindow
 		
 		//TODO: label method calls
 		sortCustomers(); 
-		customerProfit = this::getCustomerProfitString; 	//TODO: clean whatever mess is made with this
+		customerProfit = this::getCustomerProfitString; 	//TODO: label this 
 		updateTable(customersTable, customersSorted, customerProfit); 
 		
 		Label lblNewLabel = new Label(shlProfitByDate, SWT.NONE);
@@ -207,10 +207,11 @@ public class ProfitByDate extends AbstractProgramWindow
 	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...."
 	private void sortCustomers() {
 		//TODO: label call
-		customersSorted =  (ArrayList<Customer>) customers.clone(); 
+		customersSorted =  (ArrayList<Customer>)customers.clone(); 
 			
 		//TODO: label switch
-		switch (sortBy) {
+		switch (sortBy) 
+		{
 			case 0: 
 				//customersSorted.sort(new Customer.CompareName());
 				customersSorted.sort(new Customer.CompareDate());

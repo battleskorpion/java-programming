@@ -57,7 +57,7 @@ public class BusCalculation
 		int dateIndex; 			// index of current date in dates array
 		int numPax; 			// number of other individual passengers (based on combined group size from all other groups that day) 
 		int numPaxRefunded; 
-		int numToRefund; // number of persons to refund
+		int numToRefund; 		// number of persons to refund
 		int numToUnrefund; 
 		
 		// take previously refunded persons into account 
@@ -82,6 +82,7 @@ public class BusCalculation
 				
 				customers.get(dateIndex).add(cstmr); 
 				displayRefundDialog(numToRefund); 
+				System.out.println("number refunded (too many pax): " + numToRefund); 	// test
 				return -1 * numToRefund;  	// number refunded
 			}
 			// if prexisting customers + new customer fill a bus at least to minimum capacity, 
@@ -91,6 +92,7 @@ public class BusCalculation
 			{
 				// TODO: label method call
 				customers.get(dateIndex).add(cstmr); 
+				System.out.println("no refund"); 	// test
 				return 0; 	
 			}
 			// if prexisting customers + refund some customers + new customer fill a bus at least to minimum capacity, 
@@ -124,6 +126,7 @@ public class BusCalculation
 				
 				customers.get(dateIndex).add(cstmr); 
 				// TODO: customers were unrefunded window 
+				System.out.println("no refund"); 	// test
 				return 0; // none refunded from this customer, only other customers unrefunded
 			}
 			// else (some customers will have to be refunded because a bus won't be filled to MIN_CAPACITY
@@ -134,10 +137,11 @@ public class BusCalculation
 				
 				customers.get(dateIndex).add(cstmr); 
 				displayRefundDialog(numToRefund);
+				System.out.println("number refunded (< min capacity): " + numToRefund); 	// test
 				return -1 * numToRefund; 		// number refunded
 			}
 		}
-		// no trip on date 
+		// no trip on date (TODO: ISSUES! TRIGGERIGN WHEN THERE *IS* ANOTHER TRIP ON DATE (POSSIBLY)
 		else 
 		{	
 			if (cstmr.getNumPersons() >= MIN_CAPACITY) 
@@ -157,7 +161,8 @@ public class BusCalculation
 				customers.add(dateIndex, new ArrayList<Customer>());			// create new ArrayList aligning with new date
 				
 				// if prexisting customers + new customer fill a bus at least to minimum capacity, or fill a bus entirely 
-				if (cstmr.getNumPersons() % MAX_CAPACITY >= MIN_CAPACITY || cstmr.getNumPersons() % MAX_CAPACITY == 0) 
+				if (cstmr.getNumPersons() % MAX_CAPACITY >= MIN_CAPACITY 
+					|| cstmr.getNumPersons() % MAX_CAPACITY == 0) 
 				{
 					customers.get(dateIndex).add(cstmr);		// add customer to new ArrayList
 				}
@@ -169,40 +174,108 @@ public class BusCalculation
 					
 					customers.get(dateIndex).add(cstmr); 
 					displayRefundDialog(numToRefund);
-					return -1 * numToRefund; 
+					System.out.println("number refunded (< min capacity): " + numToRefund); 	// test
+					return -1 * numToRefund; 			// number refunded
 				}
-						
+				
+				System.out.println("no refund"); 	// test
 				return 0; 		// no error
 			}
+			// TODO: ISSUES MAY BE HERE: 
 			else 
 			{
 				numToRefund = cstmr.getNumPersons(); 
 				
 				cstmr.refundPersons(numToRefund);
 				displayRefundDialog(numToRefund);
-				return -1 * numToRefund; 
+				System.out.println("number refunded: " + numToRefund); 	// test
+				return -1 * numToRefund; 				// number refunded
 			}
 		}
 	}
 	
 	// TODO: label method
 	// TODO: modifications potential maybe
-	// TODO: refund, unrefund in the necessary case 
+	// TODO: make comment boxes out of some comments etc. 
 	public static boolean unscheduleTrip (Customer cstmr) 
 	{
 		//customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));
 		LocalDate date = cstmr.getDate(); 
-		int dayIndex = dates.indexOf(date); 
-		int cstmrLocation = customers.get(dayIndex).indexOf(cstmr); 
-		BusFinances.setCustomerProfit(customers.get(dayIndex).get(cstmrLocation)); 
-		customers.get(dayIndex).remove(cstmrLocation); 
-		if (customers.get(dayIndex).size() == 0) 
+		int dateIndex = dates.indexOf(date); 
+		int cstmrLocation = customers.get(dateIndex).indexOf(cstmr); 
+		int numPax; 
+		int numToUnrefund; 
+		int numToRefund; 
+		BusFinances.setCustomerProfit(customers.get(dateIndex).get(cstmrLocation)); 
+		customers.get(dateIndex).remove(cstmrLocation).refundPersons();	// removes customer from list and refunds the entire group 
+		
+		// get number of pax left after customer has been removed 
+		numPax = getNumPaxOnDate(date); 
+		if (numPax > 0) 
 		{
-			customers.remove(dayIndex);
-			dates.remove(dayIndex);
+			// if no refunds are required now that a customer has been deleted, see if customers can be unrefunded at all
+			if (numPax % MAX_CAPACITY >= MIN_CAPACITY || numPax % MAX_CAPACITY == 0) 
+			{
+				// unrefund if possible (can possibly fill a bus even more) 
+				if (numPax % MAX_CAPACITY != 0) 
+				{
+					numToUnrefund = MIN_CAPACITY - (numPax % MAX_CAPACITY); 
+					
+					// TODO: put into its own function? (appears before) 
+					unrefundLoop: 
+					for (int i = 0; i < customers.get(dateIndex).size(); i++)
+					{
+						if (customers.get(dateIndex).get(i).getNumPersonsRefunded() - numToUnrefund >= 0) 
+						{
+							numToUnrefund -= customers.get(dateIndex).get(i).unrefundPersons(); 
+						}
+						// else refund some (or 0) customers and break (no more customers can be refunded) 
+						else
+						{
+							customers.get(dateIndex).get(i).unrefundPersons(numToUnrefund); 
+							break unrefundLoop; 
+						}
+					}
+				}
+			}
+			// else some refunds are required
+			else  
+			{
+				numToRefund = numPax % MAX_CAPACITY; // will be between 1 and MIN_CAPACITY - 1 AT THIS POINT IN EXECUTION
+				
+				refundLoop: 
+				for (int i = 0; i < customers.get(dateIndex).size(); i++) 
+				{
+					// if there is more persons in customer at index i than there needs to be refunded, 
+					// refund some and break (no more refunds required)
+					if (customers.get(dateIndex).get(i).getNumPersons() - numToRefund >= 0) 
+					{
+						numToRefund -= customers.get(dateIndex).get(i).refundPersons(numToRefund); 
+						break refundLoop;  
+					}
+					// else more customers will have to be refunded, refund as many as possible and continue
+					else 
+					{
+						numToRefund -= customers.get(dateIndex).get(i).refundPersons(); 
+					}
+				}
+			}
+		}
+		
+		// remove customers ArrayList for date if it is now empty 
+		if (customers.get(dateIndex).size() == 0) 
+		{
+			customers.remove(dateIndex);
+			dates.remove(dateIndex);
 		}
 		
 		return true; 
+	}
+	
+	// TODO: 
+	public static int unscheduleAll() 
+	{
+		return 0; 
 	}
 	
 	// TODO: label method properly 
