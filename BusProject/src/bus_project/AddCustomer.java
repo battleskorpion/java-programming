@@ -28,7 +28,7 @@ public class AddCustomer extends AbstractProgramWindow
 	private Text nameField;
 	private Text sizeField;
 	private Table customersTable;
-	private Text indexField;
+	private Text idField;
 	private DateTime dateTime; 
 	
 	/***********************/
@@ -139,20 +139,20 @@ public class AddCustomer extends AbstractProgramWindow
 		btnAdd.setBounds(89, 270, 75, 25);
 		btnAdd.setText("Add");
 		
-		/***************/
-		/* INDEX LABEL */
-		/***************/ 
-		Label lblIndex = new Label(shlAddCustomer, SWT.NONE);
+		/************/
+		/* ID LABEL */
+		/************/ 
+		Label lblID = new Label(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
-		lblIndex.setBounds(10, 71, 55, 15);
-		lblIndex.setText("Index: ");
+		lblID.setBounds(10, 71, 55, 15);
+		lblID.setText("ID:");
 		
 		/***************/
-		/* INDEX FIELD */
+		/* ID FIELD */
 		/***************/ 
-		indexField = new Text(shlAddCustomer, SWT.BORDER);
+		idField = new Text(shlAddCustomer, SWT.BORDER);
 		// TODO: label method calls
-		indexField.setBounds(89, 70, 80, 24);
+		idField.setBounds(89, 70, 80, 24);
 		
 		/*******************/
 		/* CUSTOMERS LABEL */
@@ -169,7 +169,7 @@ public class AddCustomer extends AbstractProgramWindow
 		customersTable.setToolTipText("");
 		customersTable.setBounds(258, 43, 316, 252);
 		customersTable.setLinesVisible(true);
-		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, indexField, dateTime, btnAdd, customersTable, btnExit});
+		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnAdd, customersTable, btnExit});
 		// TODO: label if
 		if (customers.size() > 0)
 		{
@@ -184,7 +184,8 @@ public class AddCustomer extends AbstractProgramWindow
 			public void widgetSelected(SelectionEvent e) 
 			{
 				Customer customer; 
-				int index; 				// INDEX TO ADD CUSTOMER AT 
+				int index = customers.size(); 	// INDEX TO ADD CUSTOMER AT 
+				int id; 						// CUSTOMER ID
 				
 				// TODO: label try/catch
 				try
@@ -202,10 +203,10 @@ public class AddCustomer extends AbstractProgramWindow
 						// TODO: label method calls
 						// TODO: label vars etc. 
 						customer = new Customer(); 
-						Text[] fields = {nameField, sizeField, indexField};	
+						Text[] fields = {nameField, sizeField, idField};	
 						
-						index = Integer.parseInt(indexField.getText()); 
-						setCustomerDetails(customer, nameField, sizeField, indexField, index, dateTime); 
+						id = Integer.parseInt(idField.getText()); 
+						setCustomerDetails(customer, nameField, sizeField, index, id, dateTime); 
 						clearInput(fields); 
 						addCustomer(customers, customer, index, customersTable); 	
 						
@@ -248,7 +249,7 @@ public class AddCustomer extends AbstractProgramWindow
 	// TODO: label method
 	private boolean legalCustomerAddition() {
 		
-		if (nameField.getText().trim().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) > customers.size() || !vaildDate(dateTime))
+		if (nameField.getText().trim().equals("") || sizeField.getText().equals("") || Integer.parseInt(idField.getText()) < 0 || !vaildDate(dateTime))
 		{
 			return false; 
 		}

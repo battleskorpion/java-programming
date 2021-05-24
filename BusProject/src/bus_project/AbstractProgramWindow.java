@@ -106,7 +106,7 @@ public abstract class AbstractProgramWindow
 	}
 	
 	// TODO: COMMENT
-	protected void setCustomerDetails(Customer customer, Text nameField, Text sizeField, Text indexField, int index, DateTime dateTime) 
+	protected void setCustomerDetails(Customer cstmr, Text nmField, Text szField, int indx, int id, DateTime dtTime) 
 	{
 		LocalDate tripDate; 
 		
@@ -114,15 +114,16 @@ public abstract class AbstractProgramWindow
 		int month; 
 		int day; 
 
-		customer.setName(nameField.getText()); 
-		customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
-		customer.setIndex(index);
-		year = dateTime.getYear(); 
-		month = dateTime.getMonth(); 
-		day = dateTime.getDay(); 
+		cstmr.setName(nmField.getText()); 
+		cstmr.setNumPersons(Integer.parseInt(szField.getText())); 
+		cstmr.setIndex(indx);
+		cstmr.setId(id);
+		year = dtTime.getYear(); 
+		month = dtTime.getMonth(); 
+		day = dtTime.getDay(); 
 		
 		tripDate = LocalDate.parse(StringToLocalDateFormat(day, month, year)); 
-		customer.setDate(tripDate); 
+		cstmr.setDate(tripDate); 
 	}
 	
 	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
@@ -148,11 +149,11 @@ public abstract class AbstractProgramWindow
 	}
 	
 	// TODO: comment
-	protected void clearInput(Text[] fields) 
+	protected void clearInput(Text[] flds) 
 	{
-		for (int i = 0; i < fields.length; i++) 
+		for (int i = 0; i < flds.length; i++) 
 		{
-			fields[i].setText("");
+			flds[i].setText("");
 		}
 	}
 

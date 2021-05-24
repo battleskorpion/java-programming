@@ -28,7 +28,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	private Table customersTable;				
 	private Text nameField;
 	private Text sizeField;
-	private Text indexField;
+	private Text idField;
 	private DateTime dateTime;
 	
 	//TODO: label constructor section
@@ -128,11 +128,11 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		lblSize.setBounds(341, 43, 73, 15);
 		
 		Label lblNumber = new Label(shlModifyCustomers, SWT.NONE);
-		lblNumber.setText("Index: ");
+		lblNumber.setText("ID: ");
 		lblNumber.setBounds(341, 71, 55, 15);
 		
-		indexField = new Text(shlModifyCustomers, SWT.BORDER);
-		indexField.setBounds(420, 70, 80, 24);
+		idField = new Text(shlModifyCustomers, SWT.BORDER);
+		idField.setBounds(420, 70, 80, 24);
 		
 		Label lblTripDate = new Label(shlModifyCustomers, SWT.NONE);
 		lblTripDate.setText("Trip Date: ");
@@ -142,16 +142,19 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		dateTime.setBounds(341, 113, 233, 151);
 
 		Button btnModify = new Button(shlModifyCustomers, SWT.NONE);
-		btnModify.addSelectionListener(new SelectionAdapter() {
+		btnModify.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) 
+			{
 				int confirmModify; 
-				Text[] fields = {nameField, sizeField, indexField}; 
+				Text[] fields = {nameField, sizeField, idField}; 
 				Customer selectedCustomer; 
 				
 				selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
 				
-				if (legalCustomerModification(customers)) {
+				if (legalCustomerModification(customers)) 
+				{
 					confirmModify = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to modify these customers?", JOptionPane.YES_NO_OPTION); 
 					if (confirmModify == 1) 								// no option
 					{
@@ -174,7 +177,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		});
 		btnModify.setText("Modify");
 		btnModify.setBounds(425, 267, 75, 25);
-		shlModifyCustomers.setTabList(new Control[]{nameField, sizeField, indexField, dateTime, btnModify, customersTable, btnExit});
+		shlModifyCustomers.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnModify, customersTable, btnExit});
 		
 		customersTable.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -199,21 +202,26 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/* POSTCONDITION: 
 	/***************************************************************/
 	private void modifyCustomer(Customer slctdCstmr) {
-		int index = Integer.parseInt(indexField.getText()); 	// POSSIBLY NEW INDEX OF SELECTED CUSTOMER
-		int old_index = slctdCstmr.getIndex();  				// PREVIOUS INDEX OF SELECTED CUSTOMER (OR THE SAME) 
-		Customer temp; 
-		
-		if (index != old_index) {		// if new index swap positions 
-			temp = customers.get(index); 
-			customers.set(index, slctdCstmr); 
+		int id = Integer.parseInt(idField.getText()); 		// NEW ID OF SELECTED CUSTOMER
+		//int old_id = slctdCstmr.getIndex();  				// PREVIOUS ID OF SELECTED CUSTOMER (OR THE SAME) 
+		//Customer temp; 
+
+		//TODO: remove
+		//if (id != old_id)	
+		//{	
+			//temp = customers.get(id); 
+			//customers.set(id, slctdCstmr); 
+			//
+			//// set temp to location where selected customer used to be and update its internal index
+			//customers.set(old_id, temp); 
+			//temp.setIndex(old_id);
 			
-			// set temp to location where selected customer used to be and update its internal index
-			customers.set(old_index, temp); 
-			temp.setIndex(old_index);
-			
-		}
+		//}
 		
-		setCustomerDetails(slctdCstmr, nameField, sizeField, indexField, index, dateTime); 
+		setCustomerDetails(slctdCstmr, nameField, sizeField, id, slctdCstmr.getId(), dateTime); 
+		
+		// SORT ARRAY CONSIDERING MODIFICATIONS TO ID
+		customers.sort(new Customer.CompareId());
 	}
 	
 	
@@ -248,7 +256,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	private void updateCustomerInfoDisplay(Customer cstmr) {
 		nameField.setText(cstmr.getName());
 		sizeField.setText(Integer.toString(cstmr.getNumPersons()));
-		indexField.setText(Integer.toString(customersTable.getSelectionIndex()));
+		idField.setText(Integer.toString(customersTable.getSelectionIndex()));
 		dateTime.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), getDateTimeDay(cstmr));
 	}
 	
@@ -259,7 +267,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/***************************************************************/
 	private boolean legalCustomerModification(ArrayList<Customer> cstmrs) {
 		
-		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(indexField.getText()) < 0 || Integer.parseInt(indexField.getText()) >= cstmrs.size() || !vaildDate(dateTime))
+		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(idField.getText()) < 0 || Integer.parseInt(idField.getText()) >= cstmrs.size() || !vaildDate(dateTime))
 		{
 			return false; 
 		}

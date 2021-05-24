@@ -23,6 +23,7 @@ public class Customer
 	private int numPersonsRefunded;	// number refunded
 	private LocalDate date; 		// date of trip
 	private int index;				// INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
+	private int id; 				// CUSTOMER ID NUMBER 
 	private double totalPrice; 		// total price of all tickets for group 
 	
 	//TODO: constructor 
@@ -149,11 +150,29 @@ public class Customer
 	/* PRECONDITION: 
 	/* POSTCONDITION: 
 	/***************************************************************/
-	public void setNumPersons(int sz) 
+	public void setNumPersons(int nmPrsns) 
 	{
-		numPersons = sz; 
+		numPersons = nmPrsns; 
 	}
 	
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
+	public int getId() 
+	{
+		return id;
+	}
+
+	/***************************************************************/
+	/* PRECONDITION: 
+	/* POSTCONDITION: 
+	/***************************************************************/
+	public void setId(int id) 
+	{
+		this.id = id;
+	}
+
 	/***************************************************************/
 	/* PRECONDITION: 
 	/* POSTCONDITION: 
@@ -214,12 +233,20 @@ public class Customer
 	/***************************************************************/
 	public String toString() 
 	{
-		return "Group: " + name + "\n\tGroup Size: " + numPersons + "\n\tRefunded Customers" + numPersonsRefunded + "\n\tDate: " + date.toString(); 
+		return "Group: " + name + " \n\tID: " + id + " \n\tGroup Size: " + numPersons + " \n\tRefunded Customers: " + numPersonsRefunded + " \n\tDate: " + date.toString(); 
 	}
 	
 	/********************/
 	/* SUBCLASS SECTION */
 	/********************/
+	public static class CompareId implements Comparator<Customer>
+	{
+		public int compare(Customer a, Customer b)
+		{
+			return Double.compare(a.getId(), b.getId()); 
+		}
+	}
+	
 	//TODO: label subclass
 	public static class CompareDate implements Comparator<Customer> 
 	{
