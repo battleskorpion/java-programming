@@ -38,14 +38,14 @@ public class BusCalculation
 	/* METHOD SECTION */
 	/******************/
 	
-	// TODO: finish of fix bus reservation logic, notify of refund/potential refund, etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc et etc etc etc etc etc etc etce tetc etc. 
-	
 	// TODO: 
 	// new version
 	// prioritize filling buses to max 
 	// codes: 
 	// 0 	- no error/issue
-	// -x 	- number to refund 
+	// -x 	- number refunded
+	
+	//TODO: CHECK OVER 400 ETC (make sure the error check es working
 	
 	//TODO: LABEL CODE BETTER 
 	public static int scheduleTrip(Customer cstmr)   
@@ -88,18 +88,18 @@ public class BusCalculation
 			}
 			// if prexisting customers + new customer fill a bus at least to minimum capacity, 
 			// or fill a bus entirely 
-			else if ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY >= MIN_CAPACITY 
-					|| (numPax + cstmr.getNumPersons()) % MAX_CAPACITY == 0) 
-			{
-				// TODO: label method call
-				customers.get(dateIndex).add(cstmr); 
-				System.out.println("no refund"); 	// test
-				return 0; 	
-			}
+		//	else if ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY >= MIN_CAPACITY 
+		//			|| (numPax + cstmr.getNumPersons()) % MAX_CAPACITY == 0) 
+		//	{
+		//		// TODO: label method call
+		//		customers.get(dateIndex).add(cstmr); 
+		//		System.out.println("refund if possible"); 	// debug 
+		///		return 0; 	
+		//	}
 			// if prexisting customers + refund some customers + new customer fill a bus at least to minimum capacity, 
 			// or fill a bus entirely 
 			// TODO: LOGIC FIX
-			else if (MIN_CAPACITY - ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY) - numPaxRefunded <= MIN_CAPACITY) 
+			else if ((numPax + cstmr.getNumPersons() + numPaxRefunded) % MAX_CAPACITY >= MIN_CAPACITY) 
 			{
 				numToUnrefund = numPaxRefunded; 
 				if (numPax + cstmr.getNumPersons() + numToUnrefund > MAX_PAX) 
@@ -108,18 +108,24 @@ public class BusCalculation
 				}
 				else
 				{
-					if ((numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY != 0 && (numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY < MIN_CAPACITY)
+					if ((numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY == 0) 
+					{
+						//numToUnrefund = 
+					}
+					else if ((numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY < MIN_CAPACITY)
 					{
 						numToUnrefund -= (numPax + cstmr.getNumPersons() + numToUnrefund) % MAX_CAPACITY; 
-					}
+					}	
 				}
 				
+				// debug 
 				System.out.println(numToUnrefund + "(unrefund)"); 
 				
 				unrefundLoop: 
 				for (int i = 0; i < customers.get(dateIndex).size(); i++)
 				{
-					if (customers.get(dateIndex).get(i).getNumPersonsRefunded() - numToUnrefund >= 0) 
+					// if unrefunds > passengers refunded of customer, unrefund as many as possible and continue. 
+					if (customers.get(dateIndex).get(i).getNumPersonsRefunded() - numToUnrefund <= 0) 
 					{
 						numToUnrefund -= customers.get(dateIndex).get(i).unrefundPersons(); 
 					}
@@ -139,7 +145,7 @@ public class BusCalculation
 			// else (some customers will have to be refunded because a bus won't be filled to MIN_CAPACITY
 			else 
 			{
-				numToRefund = numPax + cstmr.getNumPersons() % MAX_CAPACITY; 
+				numToRefund = (numPax + cstmr.getNumPersons()) % MAX_CAPACITY; 
 				cstmr.refundPersons(numToRefund); 
 				
 				customers.get(dateIndex).add(cstmr); 
