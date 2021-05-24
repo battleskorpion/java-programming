@@ -3,10 +3,7 @@ package bus_project;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
-import org.eclipse.swt.widgets.Display;
 
 public class BusCalculation 
 {
@@ -78,7 +75,7 @@ public class BusCalculation
 			// TODO: label if 
 			if (numPax + cstmr.getNumPersons() > MAX_PAX) 
 			{
-				numToRefund = MAX_PAX - numPax + cstmr.getNumPersons();
+				numToRefund = numPax + cstmr.getNumPersons() - MAX_PAX;
 				cstmr.refundPersons(numToRefund);
 				
 				customers.get(dateIndex).add(cstmr); 
