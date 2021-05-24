@@ -114,12 +114,19 @@ public class RemoveCustomer extends AbstractProgramWindow{
 			{
 				int customerToRemoveIndex = customersTable.getSelectionIndex(); 
 				
-				customersRemoved.add(removeCustomer(customers, customerToRemoveIndex));
-				//BusCalculation.unscheduleTrip(customers.get(customerToRemoveIndex)); 
-				//customersRemoved.add(customers.remove(customerToRemoveIndex)); 	// remove customer from customers and add to customersRemoved 
-				updateIndex(customers); 
-				updateTable(customersTable, customers); 
-				updateTable(remCustomersTable, customersRemoved); 
+				if (customerToRemoveIndex >= 0) 
+				{
+					customersRemoved.add(removeCustomer(customers, customerToRemoveIndex));
+					//BusCalculation.unscheduleTrip(customers.get(customerToRemoveIndex)); 
+					//customersRemoved.add(customers.remove(customerToRemoveIndex)); 	// remove customer from customers and add to customersRemoved 
+					updateIndex(customers); 
+					updateTable(customersTable, customers); 
+					updateTable(remCustomersTable, customersRemoved); 
+				}
+				else 
+				{
+					JOptionPane.showMessageDialog(null, "Error: no selection"); 
+				}
 			}
 		});
 		btnDelete.setBounds(238, 298, 88, 25);
@@ -131,21 +138,27 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		{
 			public void widgetSelected(SelectionEvent e) 
 			{
-				Customer removed = customersRemoved.get(remCustomersTable.getSelectionIndex()); 
-				if (removed.getIndex() <= customers.size()) 
-				{
-					addCustomer(customers, removed, removed.getIndex(), customersTable); 
-					//customers.add(removed.getIndex(), removed);
+				if (remCustomersTable.getSelectionIndex() >= 0) {
+					Customer removed = customersRemoved.get(remCustomersTable.getSelectionIndex()); 
+					if (removed.getIndex() <= customers.size()) 
+					{
+						addCustomer(customers, removed, removed.getIndex(), customersTable); 
+						//customers.add(removed.getIndex(), removed);
+					}
+					else 
+					{
+						addCustomer(customers, removed, customersTable); 
+						//customers.add(removed); 
+					}
+					customersRemoved.remove(remCustomersTable.getSelectionIndex()); 
+					updateIndex(customers); 
+					//updateTable(customersTable, customers); 
+					updateTable(remCustomersTable, customersRemoved); 
 				}
 				else 
 				{
-					addCustomer(customers, removed, customersTable); 
-					//customers.add(removed); 
+					JOptionPane.showMessageDialog(null, "Error: no selection"); 
 				}
-				customersRemoved.remove(remCustomersTable.getSelectionIndex()); 
-				updateIndex(customers); 
-				//updateTable(customersTable, customers); 
-				updateTable(remCustomersTable, customersRemoved); 
 			}
 		});
 		btnUndoDelete.setBounds(332, 298, 88, 25);
