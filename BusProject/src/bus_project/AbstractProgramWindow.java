@@ -116,7 +116,7 @@ public abstract class AbstractProgramWindow
 
 		customer.setName(nameField.getText()); 
 		customer.setNumPersons(Integer.parseInt(sizeField.getText())); 
-		customer.setIndex(index);
+		customer.setId(index);
 		year = dateTime.getYear(); 
 		month = dateTime.getMonth(); 
 		day = dateTime.getDay(); 
@@ -161,7 +161,7 @@ public abstract class AbstractProgramWindow
 	{
 		for (int i = 0; i < cstmrs.size(); i++) 
 		{
-			cstmrs.get(i).setIndex(i);
+			cstmrs.get(i).setId(i);
 		}
 	}
 	

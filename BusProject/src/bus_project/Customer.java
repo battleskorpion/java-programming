@@ -22,7 +22,7 @@ public class Customer
 	private int numPersons;			// NUMBER OF PEOPLE IN GROUP
 	private int numPersonsRefunded;	// number refunded
 	private LocalDate date; 		// date of trip
-	private int index;				// INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
+	private int id;				// INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
 	private double totalPrice; 		// total price of all tickets for group 
 	
 	//TODO: constructor 
@@ -32,7 +32,7 @@ public class Customer
 		name = ""; 
 		numPersons = 0;
 		numPersonsRefunded = 0; 
-		index = 0; 
+		id = 0; 
 	}
 	
 	//TODO: label section
@@ -86,9 +86,9 @@ public class Customer
 	/* PRECONDITION: 
 	/* POSTCONDITION: 
 	/***************************************************************/
-	public int getIndex () 
+	public int getId () 
 	{
-		return index; 
+		return id; 
 	}
 	
 	/***************************************************************/
@@ -140,9 +140,9 @@ public class Customer
 	/* PRECONDITION: 
 	/* POSTCONDITION: 
 	/***************************************************************/
-	public void setIndex (int indx) 
+	public void setId (int indx) 
 	{
-		index = indx; 
+		id = indx; 
 	}
 	
 	/***************************************************************/
