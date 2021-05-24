@@ -140,9 +140,9 @@ public class RemoveCustomer extends AbstractProgramWindow{
 			{
 				if (remCustomersTable.getSelectionIndex() >= 0) {
 					Customer removed = customersRemoved.get(remCustomersTable.getSelectionIndex()); 
-					if (removed.getId() <= customers.size()) 
+					if (removed.getIndex() <= customers.size()) 
 					{
-						addCustomer(customers, removed, removed.getId(), customersTable); 
+						addCustomer(customers, removed, removed.getIndex(), customersTable); 
 						//customers.add(removed.getIndex(), removed);
 					}
 					else 

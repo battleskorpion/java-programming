@@ -200,7 +200,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/***************************************************************/
 	private void modifyCustomer(Customer slctdCstmr) {
 		int index = Integer.parseInt(indexField.getText()); 	// POSSIBLY NEW INDEX OF SELECTED CUSTOMER
-		int old_index = slctdCstmr.getId();  				// PREVIOUS INDEX OF SELECTED CUSTOMER (OR THE SAME) 
+		int old_index = slctdCstmr.getIndex();  				// PREVIOUS INDEX OF SELECTED CUSTOMER (OR THE SAME) 
 		Customer temp; 
 		
 		if (index != old_index) {		// if new index swap positions 
@@ -209,7 +209,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 			
 			// set temp to location where selected customer used to be and update its internal index
 			customers.set(old_index, temp); 
-			temp.setId(old_index);
+			temp.setIndex(old_index);
 			
 		}
 		
