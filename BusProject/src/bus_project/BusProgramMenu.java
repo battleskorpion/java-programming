@@ -19,6 +19,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 
 public class BusProgramMenu extends AbstractProgramWindow {
 
@@ -176,6 +178,14 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/* SHELL */
 		/*********/
 		shell = new Shell();
+		shell.addControlListener(new ControlAdapter() 
+		{
+			// TODO: 
+			@Override
+			public void controlResized(ControlEvent e) {
+				
+			}
+		});
 		shell.setSize(700, 500);
 		shell.setText("Bus Program");
 		GridLayout gl_shell = new GridLayout(4, true);
@@ -315,9 +325,9 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		//ImageData imgData = mainImage.getImageData();
         //imgData = imgData.scaledTo(25, 25);
 		Label lblMainImage = new Label(shell, SWT.CENTER);
-		//lblMainImage.
+		lblMainImage.setRedraw(true);
 		GridData gd_lblMainImage = new GridData(SWT.CENTER, SWT.CENTER, true, true, 4, 1);
-		gd_lblMainImage.widthHint = 300;
+		gd_lblMainImage.widthHint = 680;
 		gd_lblMainImage.heightHint = 400;
 		//gd_lblMainImage.
 		lblMainImage.setLayoutData(gd_lblMainImage);
