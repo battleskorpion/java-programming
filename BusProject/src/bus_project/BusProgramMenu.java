@@ -321,15 +321,11 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		btnQuit.setText("Quit");
 		new Label(shell, SWT.NONE);
 		
-		Image mainImage = new Image(Display.getDefault(), "ski-lift.jpg");
-		//ImageData imgData = mainImage.getImageData();
-        //imgData = imgData.scaledTo(25, 25);
+		Image mainImage = new Image(Display.getDefault(), "ski-lift.jpg");	
 		Label lblMainImage = new Label(shell, SWT.CENTER);
-		lblMainImage.setRedraw(true);
 		GridData gd_lblMainImage = new GridData(SWT.CENTER, SWT.CENTER, true, true, 4, 1);
 		gd_lblMainImage.widthHint = 680;
-		gd_lblMainImage.heightHint = 400;
-		//gd_lblMainImage.
+		gd_lblMainImage.heightHint = 360;
 		lblMainImage.setLayoutData(gd_lblMainImage);
 		lblMainImage.setImage(mainImage);
 		
