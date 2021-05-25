@@ -11,6 +11,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.ImageFileNameProvider;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
@@ -172,72 +176,26 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/* SHELL */
 		/*********/
 		shell = new Shell();
-		shell.setSize(400, 420);
+		shell.setSize(700, 500);
 		shell.setText("Bus Program");
-		shell.setLayout(new GridLayout(2, true));
+		GridLayout gl_shell = new GridLayout(4, true);
+		shell.setLayout(gl_shell);
 				
 		/***********/
 		/* BUTTONS */
 		/***********/
 		Button btnAddCustomer = new Button(shell, SWT.NONE);
-		GridData gd_btnAddCustomer = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
+		GridData gd_btnAddCustomer = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
 		Button btnRemoveCustomer = new Button(shell, SWT.NONE);
-		GridData gd_btnRemoveCustomer = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
+		GridData gd_btnRemoveCustomer = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
 		Button btnModifyCustomer = new Button(shell, SWT.NONE);
-		GridData gd_btnModifyCustomer = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
-		
-		Button btnListCustomersByName = new Button(shell, SWT.NONE);
-		GridData gd_btnListCustomersByName = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
-		
-		Button btnListCustomersBySize = new Button(shell, SWT.NONE);
-		GridData gd_btnListCustomersBySize = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
-		
-		Button btnBusesNeededByDate = new Button(shell, SWT.NONE);
-		GridData gd_btnBusesNeededByDate = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
-		
-		Button btnProfitByDate = new Button(shell, SWT.NONE);
-		GridData gd_btnProfitByDate = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
-		
-		Button btnProfitTotal = new Button(shell, SWT.NONE);
-		GridData gd_btnProfitTotal = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
-		
-		Button btnQuit = new Button(shell, SWT.NONE);
-		GridData gd_btnQuit = new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1);
-		
-		// TODO: label add customer button
-		
-		gd_btnAddCustomer.widthHint = 167;
-		btnAddCustomer.setLayoutData(gd_btnAddCustomer);
-		btnAddCustomer.setText("Add new customer");
-		// TODO: label selection listener method call whatever
-		btnAddCustomer.addSelectionListener(new SelectionAdapter() {
-			// TODO: label method
-			public void widgetSelected(SelectionEvent e) 
-			{
-				openSubWindow(addCustomerWindow, shell);
-			}
-		});
-		
-		// TODO: label button
-		
-		gd_btnRemoveCustomer.widthHint = 148;
-		btnRemoveCustomer.setLayoutData(gd_btnRemoveCustomer);
-		btnRemoveCustomer.setText("Remove customer");
-		// TODO: label selection listener method call whatever
-		btnRemoveCustomer.addSelectionListener(new SelectionAdapter() 
-		{
-			// TODO: label method
-			public void widgetSelected(SelectionEvent e) 
-			{
-				openSubWindow(removeCustomerWindow, shell);	
-			}
-		});
+		GridData gd_btnModifyCustomer = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
 		// TODO: label modify customer button
 				
-		gd_btnModifyCustomer.widthHint = 167;
+		gd_btnModifyCustomer.widthHint = 122;
 		btnModifyCustomer.setLayoutData(gd_btnModifyCustomer);
 		btnModifyCustomer.setText("Modify Customer");
 		// TODO: label selection listener method call whatever
@@ -250,11 +208,27 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				openSubWindow(modifyCustomerWindow, shell);
 			}
 		});
-
 		
-		// TODO: label list customers by name button
+		Button btnBusesNeededByDate = new Button(shell, SWT.NONE);
+		GridData gd_btnBusesNeededByDate = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
-		gd_btnListCustomersByName.widthHint = 141;
+		gd_btnBusesNeededByDate.widthHint = 122;
+		btnBusesNeededByDate.setLayoutData(gd_btnBusesNeededByDate);
+		btnBusesNeededByDate.setText("Buses needed by Date");
+		// TODO: label selection listener method call whatever
+		btnBusesNeededByDate.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				openSubWindow(busesByDateWindow, shell); 
+			}
+		});
+		
+		Button btnListCustomersByName = new Button(shell, SWT.NONE);
+		GridData gd_btnListCustomersByName = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		
+				
+		gd_btnListCustomersByName.widthHint = 140;
 		btnListCustomersByName.setLayoutData(gd_btnListCustomersByName);
 		btnListCustomersByName.setText("List customers by Name");
 		// TODO: label selection listener method call whatever
@@ -267,7 +241,10 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				listCustomersWindow.setSortByName();
 				openSubWindow(listCustomersWindow, shell);
 			}
-		}); 
+		});
+		
+		Button btnListCustomersBySize = new Button(shell, SWT.NONE);
+		GridData gd_btnListCustomersBySize = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
 		// TODO: label button
 		
@@ -284,25 +261,14 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				listCustomersWindow.setSortBySize();
 				openSubWindow(listCustomersWindow, shell);
 			}
-		}); 
+		});
+		
+		Button btnProfitByDate = new Button(shell, SWT.NONE);
+		GridData gd_btnProfitByDate = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
 		// TODO: label button
 		
-		gd_btnBusesNeededByDate.widthHint = 148;
-		btnBusesNeededByDate.setLayoutData(gd_btnBusesNeededByDate);
-		btnBusesNeededByDate.setText("Buses needed by Date");
-		// TODO: label selection listener method call whatever
-		btnBusesNeededByDate.addSelectionListener(new SelectionAdapter() 
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				openSubWindow(busesByDateWindow, shell); 
-			}
-		});	
-		
-		// TODO: label button
-		
-		gd_btnProfitByDate.widthHint = 167;
+		gd_btnProfitByDate.widthHint = 168;
 		btnProfitByDate.setLayoutData(gd_btnProfitByDate);
 		btnProfitByDate.addSelectionListener(new SelectionAdapter() 
 		{
@@ -312,6 +278,9 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			}
 		});
 		btnProfitByDate.setText("Profit by Date");
+		
+		Button btnProfitTotal = new Button(shell, SWT.NONE);
+		GridData gd_btnProfitTotal = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
 		// TODO: label button
 		
@@ -325,15 +294,13 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			}
 		});
 		btnProfitTotal.setText("Total profit details");
-
-		/***************/
-		/* QUIT BUTTON */
-		/***************/
-		gd_btnQuit.heightHint = 47;
-		gd_btnQuit.widthHint = 332;
+		new Label(shell, SWT.NONE);
+		
+		Button btnQuit = new Button(shell, SWT.NONE);
+		GridData gd_btnQuit = new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1);
+		gd_btnQuit.heightHint = 38;
+		gd_btnQuit.widthHint = 335;
 		btnQuit.setLayoutData(gd_btnQuit);
-		// TODO: label method calls
-		// TODO: label selection listener method call whatever
 		btnQuit.addSelectionListener(new SelectionAdapter() 
 		{
 			public void widgetSelected(SelectionEvent e) 
@@ -342,17 +309,52 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			}
 		});
 		btnQuit.setText("Quit");
+		new Label(shell, SWT.NONE);
 		
-		Label lblMainImage = new Label(shell, SWT.NONE);
-		Image mainImage = ImageIO.read(new File("skilift.jfif")); 
-		GridData gd_lblMainImage = new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1);
-		gd_lblMainImage.heightHint = 199;
+		Image mainImage = new Image(Display.getDefault(), "ski-lift.jpg");
+		//ImageData imgData = mainImage.getImageData();
+        //imgData = imgData.scaledTo(25, 25);
+		Label lblMainImage = new Label(shell, SWT.CENTER);
+		//lblMainImage.
+		GridData gd_lblMainImage = new GridData(SWT.CENTER, SWT.CENTER, true, true, 4, 1);
+		gd_lblMainImage.widthHint = 300;
+		gd_lblMainImage.heightHint = 400;
+		//gd_lblMainImage.
 		lblMainImage.setLayoutData(gd_lblMainImage);
 		lblMainImage.setImage(mainImage);
+		
+		// TODO: label add customer button
+		
+		gd_btnAddCustomer.widthHint = 122;
+		btnAddCustomer.setLayoutData(gd_btnAddCustomer);
+		btnAddCustomer.setText("Add new customer");
+		// TODO: label selection listener method call whatever
+		btnAddCustomer.addSelectionListener(new SelectionAdapter() {
+			// TODO: label method
+			public void widgetSelected(SelectionEvent e) 
+			{
+				openSubWindow(addCustomerWindow, shell);
+			}
+		});
+		
+		// TODO: label button
+		
+		gd_btnRemoveCustomer.widthHint = 122;
+		btnRemoveCustomer.setLayoutData(gd_btnRemoveCustomer);
+		btnRemoveCustomer.setText("Remove customer");
+		// TODO: label selection listener method call whatever
+		btnRemoveCustomer.addSelectionListener(new SelectionAdapter() 
+		{
+			// TODO: label method
+			public void widgetSelected(SelectionEvent e) 
+			{
+				openSubWindow(removeCustomerWindow, shell);	
+			}
+		});
 		
 		/************/
 		/* TAB LIST */
 		/************/ 
-		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnBusesNeededByDate, btnModifyCustomer, btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit}); 
+		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnBusesNeededByDate, btnModifyCustomer, btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit});
 	}
 }
