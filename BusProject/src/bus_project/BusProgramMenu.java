@@ -1,6 +1,9 @@
 package bus_project;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -11,6 +14,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Label;
 
 public class BusProgramMenu extends AbstractProgramWindow {
 
@@ -168,7 +172,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/* SHELL */
 		/*********/
 		shell = new Shell();
-		shell.setSize(358, 216);
+		shell.setSize(400, 420);
 		shell.setText("Bus Program");
 		shell.setLayout(new GridLayout(2, true));
 				
@@ -200,7 +204,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		GridData gd_btnProfitTotal = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
 		
 		Button btnQuit = new Button(shell, SWT.NONE);
-		GridData gd_btnQuit = new GridData(SWT.FILL, SWT.CENTER, true, true, 2, 1);
+		GridData gd_btnQuit = new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1);
 		
 		// TODO: label add customer button
 		
@@ -338,6 +342,13 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			}
 		});
 		btnQuit.setText("Quit");
+		
+		Label lblMainImage = new Label(shell, SWT.NONE);
+		Image mainImage = ImageIO.read(new File("skilift.jfif")); 
+		GridData gd_lblMainImage = new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1);
+		gd_lblMainImage.heightHint = 199;
+		lblMainImage.setLayoutData(gd_lblMainImage);
+		lblMainImage.setImage(mainImage);
 		
 		/************/
 		/* TAB LIST */

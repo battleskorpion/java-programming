@@ -21,15 +21,7 @@ public class BusCalculation
 	/********************/
 	// static variables
 	private static ArrayList<LocalDate> dates = new ArrayList<LocalDate>(); 								//TODO: issues because this isnt in order i think 
-	//private static ArrayList<Integer> busesPerDate;				// number of buses used per each date  
 	private static ArrayList<ArrayList<Customer>> customers = new ArrayList<ArrayList<Customer>>(); 	 	// customers each date 
-	
-	///* constructors */
-	//
-	//public BusCalculation () 
-	//{
-	//	
-	//}
 	
 	/******************/
 	/* METHOD SECTION */
@@ -42,19 +34,23 @@ public class BusCalculation
 	// 0 	- no error/issue
 	// -x 	- number refunded
 	
-	//TODO: CHECK OVER 400 ETC (make sure the error check es working
-	
 	//TODO: LABEL CODE BETTER 
+	/*****************************************************************************************************************/
+	/* PRECONDITION:  CUSTOMER TRIP NEEDS TO BE SCHEDULED ON DATE AFTER TODAY										 */
+	/* POSTCONDITION: CUSTOMER IS SCHEDULED ON THE CORRECT DATE, REFUNDS OR UNREFUNDS ARE MADE TO MATCH MINIMUM AND  */
+	/* MAXIMUM CAPACITIES OF BUSES 																					 */
+	/*****************************************************************************************************************/ 
 	public static int scheduleTrip(Customer cstmr)   
 	{
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		LocalDate date = cstmr.getDate(); 
-		int dateIndex; 			// index of current date in dates array
-		int numPax; 			// number of other individual passengers (based on combined group size from all other groups that day) 
+		LocalDate date = cstmr.getDate(); 		// 
+		int dateIndex; 							// index of current date in dates array
+		int numPax; 							// number of other individual passengers 
+												// (based on combined group size from all other groups that day) 
 		int numPaxRefunded; 
-		int numToRefund; 		// number of persons to refund
+		int numToRefund; 						// number of persons to refund
 		int numToUnrefund; 
 		
 		// take previously refunded persons into account 
@@ -380,18 +376,6 @@ public class BusCalculation
 	{
 		return dates;
 	}
-	
-	//public static ArrayList<LocalDate> getDatesToDate(LocalDate dt) 
-	//{
-	//	if (dates.contains(dt)) 
-	//	{
-	//		return (ArrayList<LocalDate>)dates.subList(0, dates.indexOf(dt)); 	// convert from List to ArrayList for consistency
-	//	}
-	//	else 
-	//	{
-	//		return null; 
-	//	}
-	//}
 	
 	public static LocalDate getFirstDateAfterDate(LocalDate dt) 
 	{
