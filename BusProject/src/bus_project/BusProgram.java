@@ -18,39 +18,22 @@ import javax.swing.JOptionPane;
 
 public class BusProgram 
 {
+	public static BusProgramMenu window; 
+	
 	public static void main(String[] args) 
 	{
-		// TODO: label
-		/********************/
-		/* VARIABLE SECTION */
-		/********************/ 
-		BusProgramMenu window; 
-		
 		/****************************/
 		/* USER DESCRIPTION SECTION */
 		/****************************/
 		JOptionPane.showMessageDialog(null, "This program will do stuff "
 				+ "\n" + "and stuff");
 		
-		/**************************/
-		/* RUN PROGRAM AGAIN LOOP */
-		/**************************/
+		/********************/
+		/* RUN PROGRAM LOOP */
+		/********************/
 		do 
 		{
-			// TODO: label 
-			window = new BusProgramMenu();
-			
-			/*****************************/
-			/* METHOD TO OPEN GUI WINDOW */
-			/*****************************/
-			try 
-			{
-				window.open();
-			} 
-			catch (Exception e) 
-			{
-				e.printStackTrace();
-			}
+			runProgram(); 
 		}
 		while (runProgramPrompt() == true); 
 	}
@@ -84,6 +67,35 @@ public class BusProgram
 		/* DEPENDING ON VALUE OF runProgram	INPUT */
 		/******************************************/
 		return runProgram == 0;
+	}
+	
+	public static void runProgram()
+	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		window = new BusProgramMenu();
+					
+		/*****************************/
+		/* METHOD TO OPEN GUI WINDOW */
+		/*****************************/
+		try 
+		{
+			window.open();
+		} 
+		catch (Exception e) 
+		{
+			//TODO: error joptionpane
+			e.printStackTrace();
+		}
+	}
+	public static void languageChanged(int index)
+	{
+		// 0 - en_US
+		// 1 - es_ES
+		Messages.setLocale(Messages.programLocales().get(index));	
+		window.close(); 
+		runProgram(); 
 	}
 
 }

@@ -29,6 +29,10 @@ public abstract class AbstractProgramWindow
 		shell.open(); 
 	}
 
+	public void close(Shell shell)
+	{
+		shell.close(); 
+	}
 	/**
 	* Create contents of the window.
 	*/

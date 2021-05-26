@@ -5,20 +5,26 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-public class Messages {
+public class Messages
+{
 	private static final String BUNDLE_NAME = "bus_project.messages"; //$NON-NLS-1$
 	private static Locale locale = Locale.getDefault(); 	//= new Locale("es", "ES");
 	private static ArrayList<Locale> locales; 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale);
+	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale);
 
-	private Messages() {
+	private Messages()
+	{
 		locales = programLocales(); 
 	}
 
-	public static String getString(String key) {
-		try {
+	public static String getString(String key) 
+	{
+		try 
+		{
 			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
+		}
+		catch (MissingResourceException e) 
+		{
 			return '!' + key + '!';
 		}
 	}
@@ -35,6 +41,7 @@ public class Messages {
 	public static void setLocale(Locale locale)
 	{
 		Messages.locale = locale; 
+		RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale); 
 		
 	}
 	

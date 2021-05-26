@@ -203,6 +203,19 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		MenuItem mntmEnus = new MenuItem(languageMenu, SWT.NONE);
 		mntmEnus.setText(Messages.getString("BusProgramMenu.Language.en_US.text")); //$NON-NLS-1$
+		mntmEnus.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				BusProgram.languageChanged(0); 
+				shell.close(); 
+				//System.out.println(Messages.getLocale()); 
+				//shell.close(); //TODO: doesnt help
+				
+				
+			}
+		});
 		
 		MenuItem mntmEses = new MenuItem(languageMenu, SWT.NONE);
 		mntmEses.addSelectionListener(new SelectionAdapter() 
@@ -210,9 +223,11 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				Messages.setLocale(Messages.programLocales().get(1));	// es_ES
+				BusProgram.languageChanged(1); 
+				shell.close(); 
 				//System.out.println(Messages.getLocale()); 
 				//shell.close(); //TODO: doesnt help
+				
 				
 			}
 		});
@@ -399,5 +414,10 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		/* TAB LIST */
 		/************/ 
 		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnBusesNeededByDate, btnModifyCustomer, btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit});
+	}
+	
+	public void close()  
+	{
+		super.close(shell);
 	}
 }
