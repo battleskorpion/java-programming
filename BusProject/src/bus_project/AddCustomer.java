@@ -99,31 +99,31 @@ public class AddCustomer extends AbstractProgramWindow
 		shlAddCustomer = new Shell();
 		// TODO: label method calls
 		shlAddCustomer.setSize(600, 400);
-		shlAddCustomer.setText("Add Customer");
+		shlAddCustomer.setText(Messages.getString("AddCustomer.shlAddCustomer.text")); //$NON-NLS-1$
 		
 		Label lblName = new Label(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
-		lblName.setBounds(10, 13, 73, 15);
-		lblName.setText("Name:");
+		lblName.setBounds(10, 13, 109, 15);
+		lblName.setText(Messages.getString("AddCustomer.lblName.text")); //$NON-NLS-1$
 		
 		nameField = new Text(shlAddCustomer, SWT.BORDER);
 		// TODO: label method calls
 		nameField.setText("");
-		nameField.setBounds(89, 10, 80, 24);
+		nameField.setBounds(140, 13, 103, 24);
 		
 		Label lblSize = new Label(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
-		lblSize.setText("Group size: ");
-		lblSize.setBounds(10, 43, 73, 15);
+		lblSize.setText(Messages.getString("AddCustomer.lblSize.text")); //$NON-NLS-1$
+		lblSize.setBounds(10, 43, 109, 15);
 		
 		sizeField = new Text(shlAddCustomer, SWT.BORDER);
 		// TODO: label method calls
-		sizeField.setBounds(89, 40, 80, 24);
+		sizeField.setBounds(140, 43, 103, 24);
 		
 		Label lblTripDate = new Label(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
-		lblTripDate.setBounds(10, 92, 73, 15);
-		lblTripDate.setText("Trip Date: ");
+		lblTripDate.setBounds(10, 92, 109, 15);
+		lblTripDate.setText(Messages.getString("AddCustomer.lblTripDate.text")); //$NON-NLS-1$
 		
 		dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
 		// TODO: label method calls
@@ -132,41 +132,41 @@ public class AddCustomer extends AbstractProgramWindow
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
 		btnExit.setBounds(499, 326, 75, 25);
-		btnExit.setText("Exit");
+		btnExit.setText(Messages.getString("AddCustomer.btnExit.text")); //$NON-NLS-1$
 		
 		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
-		btnAdd.setBounds(89, 270, 75, 25);
-		btnAdd.setText("Add");
+		btnAdd.setBounds(10, 270, 233, 25);
+		btnAdd.setText(Messages.getString("AddCustomer.btnAdd.text")); //$NON-NLS-1$
 		
 		/************/
 		/* ID LABEL */
 		/************/ 
 		Label lblID = new Label(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
-		lblID.setBounds(10, 71, 55, 15);
-		lblID.setText("ID:");
+		lblID.setBounds(10, 71, 91, 15);
+		lblID.setText(Messages.getString("AddCustomer.lblID.text")); //$NON-NLS-1$
 		
 		/***************/
 		/* ID FIELD */
 		/***************/ 
 		idField = new Text(shlAddCustomer, SWT.BORDER);
 		// TODO: label method calls
-		idField.setBounds(89, 70, 80, 24);
+		idField.setBounds(140, 73, 103, 24);
 		
 		/*******************/
 		/* CUSTOMERS LABEL */
 		/*******************/ 
-		Label lblCustomers = new Label(shlAddCustomer, SWT.NONE);
+		Label lblCustomers = new Label(shlAddCustomer, SWT.CENTER);
 		// TODO: label method calls
-		lblCustomers.setBounds(388, 13, 63, 15);
-		lblCustomers.setText("Customers: ");
+		lblCustomers.setBounds(258, 13, 316, 15);
+		lblCustomers.setText(Messages.getString("AddCustomer.lblCustomers.text")); //$NON-NLS-1$
 		
 		/*******************/
 		/* CUSTOMERS TABLE */
 		/*******************/ 
 		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
-		customersTable.setToolTipText("");
+		customersTable.setToolTipText(Messages.getString("AddCustomer.customersTable.toolTipText")); //$NON-NLS-1$
 		customersTable.setBounds(258, 43, 316, 252);
 		customersTable.setLinesVisible(true);
 		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnAdd, customersTable, btnExit});

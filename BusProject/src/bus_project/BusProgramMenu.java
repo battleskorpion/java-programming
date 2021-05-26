@@ -20,16 +20,14 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
-public class BusProgramMenu extends AbstractProgramWindow {
-
-	// TODO: test 
-	// TODO: comment vars
+public class BusProgramMenu extends AbstractProgramWindow 
+{
+	//TODO: comment vars
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/
 	protected Shell shell;
 	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
-	//private Calendar date; 	// current date
 
 	/**
 	 * Launch the application.
@@ -184,14 +182,13 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			}
 		});
 		shell.setSize(700, 540);
-		shell.setText(Messages.getString("BusProgramMenu.0")); //$NON-NLS-1$
+		shell.setText(Messages.getString("BusProgramMenu.title.text")); //$NON-NLS-1$
 		GridLayout gl_shell = new GridLayout(4, true);
 		shell.setLayout(gl_shell);
 				
 		/***********/
 		/* BUTTONS */
 		/***********/
-		
 		ToolBar toolBar = new ToolBar(shell, SWT.FLAT | SWT.RIGHT);
 		
 		ToolItem tltmLanguage = new ToolItem(toolBar, SWT.DROP_DOWN);
@@ -210,10 +207,6 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			{
 				BusProgram.languageChanged(0); 
 				shell.close(); 
-				//System.out.println(Messages.getLocale()); 
-				//shell.close(); //TODO: doesnt help
-				
-				
 			}
 		});
 		
@@ -225,10 +218,6 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			{
 				BusProgram.languageChanged(1); 
 				shell.close(); 
-				//System.out.println(Messages.getLocale()); 
-				//shell.close(); //TODO: doesnt help
-				
-				
 			}
 		});
 		mntmEses.setText(Messages.getString("BusProgramMenu.Language.es_ES.text")); //$NON-NLS-1$
@@ -254,17 +243,12 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		Button btnModifyCustomer = new Button(shell, SWT.NONE);
 		GridData gd_btnModifyCustomer = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-		
-		// TODO: label modify customer button
-				
 		gd_btnModifyCustomer.widthHint = 122;
 		btnModifyCustomer.setLayoutData(gd_btnModifyCustomer);
-		btnModifyCustomer.setText(Messages.getString("BusProgramMenu.1")); //$NON-NLS-1$
-		// TODO: label selection listener method call whatever
+		btnModifyCustomer.setText(Messages.getString("BusProgramMenu.ModifyCustomer.text")); //$NON-NLS-1$
 		btnModifyCustomer.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			// TODO: label method 
 			public void widgetSelected(SelectionEvent e) 
 			{
 				openSubWindow(modifyCustomerWindow, shell);
@@ -276,8 +260,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		gd_btnBusesNeededByDate.widthHint = 122;
 		btnBusesNeededByDate.setLayoutData(gd_btnBusesNeededByDate);
-		btnBusesNeededByDate.setText(Messages.getString("BusProgramMenu.2")); //$NON-NLS-1$
-		// TODO: label selection listener method call whatever
+		btnBusesNeededByDate.setText(Messages.getString("BusProgramMenu.BusesByDate.text")); //$NON-NLS-1$
 		btnBusesNeededByDate.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -292,14 +275,12 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				
 		gd_btnListCustomersByName.widthHint = 140;
 		btnListCustomersByName.setLayoutData(gd_btnListCustomersByName);
-		btnListCustomersByName.setText(Messages.getString("BusProgramMenu.3")); //$NON-NLS-1$
-		// TODO: label selection listener method call whatever
+		btnListCustomersByName.setText(Messages.getString("BusProgramMenu.CustomersByName.text")); //$NON-NLS-1$
 		btnListCustomersByName.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				// TODO: label method
 				listCustomersWindow.setSortByName();
 				openSubWindow(listCustomersWindow, shell);
 			}
@@ -307,17 +288,12 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		Button btnListCustomersBySize = new Button(shell, SWT.NONE);
 		GridData gd_btnListCustomersBySize = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-		
-		// TODO: label button
-		
 		gd_btnListCustomersBySize.widthHint = 167;
 		btnListCustomersBySize.setLayoutData(gd_btnListCustomersBySize);
-		btnListCustomersBySize.setText(Messages.getString("BusProgramMenu.4")); //$NON-NLS-1$
-		// TODO: label selection listener method call whatever
+		btnListCustomersBySize.setText(Messages.getString("BusProgramMenu.CustomersByGroupSize.text")); //$NON-NLS-1$
 		btnListCustomersBySize.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
-			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
 			{
 				listCustomersWindow.setSortBySize();
@@ -327,9 +303,6 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		Button btnProfitByDate = new Button(shell, SWT.NONE);
 		GridData gd_btnProfitByDate = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-		
-		// TODO: label button
-		
 		gd_btnProfitByDate.widthHint = 168;
 		btnProfitByDate.setLayoutData(gd_btnProfitByDate);
 		btnProfitByDate.addSelectionListener(new SelectionAdapter() 
@@ -339,13 +312,10 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				openSubWindow(profitByDateWindow, shell); 
 			}
 		});
-		btnProfitByDate.setText(Messages.getString("BusProgramMenu.5")); //$NON-NLS-1$
+		btnProfitByDate.setText(Messages.getString("BusProgramMenu.ProfitByDate.text")); //$NON-NLS-1$
 		
 		Button btnProfitTotal = new Button(shell, SWT.NONE);
 		GridData gd_btnProfitTotal = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-		
-		// TODO: label button
-		
 		gd_btnProfitTotal.widthHint = 148;
 		btnProfitTotal.setLayoutData(gd_btnProfitTotal);
 		btnProfitTotal.addSelectionListener(new SelectionAdapter() 
@@ -355,7 +325,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				openSubWindow(totalProfitWindow, shell);
 			}
 		});
-		btnProfitTotal.setText(Messages.getString("BusProgramMenu.6")); //$NON-NLS-1$
+		btnProfitTotal.setText(Messages.getString("BusProgramMenu.TotalProfit.text")); //$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		
 		Button btnQuit = new Button(shell, SWT.NONE);
@@ -370,7 +340,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				shell.dispose(); 		// QUIT 
 			}
 		});
-		btnQuit.setText(Messages.getString("BusProgramMenu.7")); //$NON-NLS-1$
+		btnQuit.setText(Messages.getString("BusProgramMenu.Quit.text")); //$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		
 		Image mainImage = new Image(Display.getDefault(), "ski-lift.jpg");	
@@ -380,40 +350,26 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		gd_lblMainImage.heightHint = 360;
 		lblMainImage.setLayoutData(gd_lblMainImage);
 		lblMainImage.setImage(mainImage);
-		
-		// TODO: label add customer button
-		
 		gd_btnAddCustomer.widthHint = 122;
 		btnAddCustomer.setLayoutData(gd_btnAddCustomer);
-		btnAddCustomer.setText(Messages.getString("BusProgramMenu.9")); //$NON-NLS-1$
-		// TODO: label selection listener method call whatever
+		btnAddCustomer.setText(Messages.getString("BusProgramMenu.AddNewCustomer.text")); //$NON-NLS-1$
 		btnAddCustomer.addSelectionListener(new SelectionAdapter() {
-			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
 			{
 				openSubWindow(addCustomerWindow, shell);
 			}
 		});
-		
-		// TODO: label button
-		
 		gd_btnRemoveCustomer.widthHint = 122;
 		btnRemoveCustomer.setLayoutData(gd_btnRemoveCustomer);
-		btnRemoveCustomer.setText(Messages.getString("BusProgramMenu.10")); //$NON-NLS-1$
-		// TODO: label selection listener method call whatever
+		btnRemoveCustomer.setText(Messages.getString("BusProgramMenu.RemoveCustomer.text"));
+		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnModifyCustomer, btnBusesNeededByDate, btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit, toolBar});
 		btnRemoveCustomer.addSelectionListener(new SelectionAdapter() 
 		{
-			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
 			{
 				openSubWindow(removeCustomerWindow, shell);	
 			}
 		});
-		
-		/************/
-		/* TAB LIST */
-		/************/ 
-		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnBusesNeededByDate, btnModifyCustomer, btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit});
 	}
 	
 	public void close()  

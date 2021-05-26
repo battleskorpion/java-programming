@@ -86,18 +86,18 @@ public class ListCustomers extends AbstractProgramWindow {
 		//TODO: label method calls/shell
 		shlListCustomers = new Shell();
 		shlListCustomers.setSize(352, 500);
-		shlListCustomers.setText("List Customers");
+		shlListCustomers.setText(Messages.getString("ListCustomers.shlListCustomers.text")); //$NON-NLS-1$
 		
 		//TODO: label button
 		Button btnExit = new Button(shlListCustomers, SWT.NONE);
 		//TODO: label method calls
-		btnExit.setText("Exit");
+		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
 		btnExit.setBounds(128, 426, 75, 25);
 		
 		//TODO: label table
 		customersTable = new Table(shlListCustomers, SWT.BORDER | SWT.FULL_SELECTION);
 		//TODO: label method calls
-		customersTable.setToolTipText("");
+		customersTable.setToolTipText(Messages.getString("ListCustomers.customersTable.toolTipText")); //$NON-NLS-1$
 		customersTable.setLinesVisible(true);
 		customersTable.setBounds(10, 40, 316, 380);
 		
@@ -108,7 +108,7 @@ public class ListCustomers extends AbstractProgramWindow {
 		updateTable(customersTable, customersSorted); 
 		
 		Label lblCustomers = new Label(shlListCustomers, SWT.NONE);
-		lblCustomers.setText("Customers: ");
+		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
 		lblCustomers.setBounds(140, 10, 63, 15);
 		//TODO: label listener
 		btnExit.addSelectionListener(new SelectionAdapter() 

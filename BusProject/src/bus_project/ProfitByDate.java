@@ -106,7 +106,7 @@ public class ProfitByDate extends AbstractProgramWindow
 		// TODO: label method calls
 		shlProfitByDate = new Shell();
 		shlProfitByDate.setSize(600, 400);
-		shlProfitByDate.setText("Profit by Date");
+		shlProfitByDate.setText(Messages.getString("ProfitByDate.shlProfitByDate.text")); //$NON-NLS-1$
 		
 		// TODO: label dateTime
 		DateTime dateTime = new DateTime(shlProfitByDate, SWT.BORDER | SWT.CALENDAR);
@@ -124,16 +124,16 @@ public class ProfitByDate extends AbstractProgramWindow
 		Label lblProfit = new Label(shlProfitByDate, SWT.NONE);
 		lblProfit.setFont(SWTResourceManager.getFont("Segoe UI Semibold", 10, SWT.NORMAL));
 		// TODO: label method calls
-		lblProfit.setBounds(107, 167, 42, 25);
-		lblProfit.setText("Profit: ");
+		lblProfit.setBounds(10, 206, 91, 25);
+		lblProfit.setText(Messages.getString("lblProfit.text")); //$NON-NLS-1$
 		
 		// TODO: label label
 		Label lblAmtProfit = new Label(shlProfitByDate, SWT.RIGHT);
 		lblAmtProfit.setAlignment(SWT.LEFT);
-		lblAmtProfit.setText("$");
+		lblAmtProfit.setText(Messages.getString("ProfitByDate.lblAmtProfit.text")); //$NON-NLS-1$
 		lblAmtProfit.setFont(SWTResourceManager.getFont("Segoe UI Light", 12, SWT.NORMAL));
 		// TODO: label method calls
-		lblAmtProfit.setBounds(152, 167, 91, 25);
+		lblAmtProfit.setBounds(107, 203, 136, 25);
 		
 		// TODO: label button
 		Button btnQuit = new Button(shlProfitByDate, SWT.NONE);
@@ -144,10 +144,10 @@ public class ProfitByDate extends AbstractProgramWindow
 		});
 		// TODO: label method calls
 		btnQuit.setBounds(10, 326, 75, 25);
-		btnQuit.setText("Exit");
+		btnQuit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
 		
 		customersTable = new Table(shlProfitByDate, SWT.BORDER | SWT.FULL_SELECTION);
-		customersTable.setToolTipText("");
+		customersTable.setToolTipText(Messages.getString("ProfitByDate.customersTable.toolTipText")); //$NON-NLS-1$
 		customersTable.setLinesVisible(true);
 		customersTable.setBounds(258, 31, 316, 320);
 		
@@ -159,7 +159,7 @@ public class ProfitByDate extends AbstractProgramWindow
 		Label lblNewLabel = new Label(shlProfitByDate, SWT.NONE);
 		lblNewLabel.setAlignment(SWT.CENTER);
 		lblNewLabel.setBounds(258, 10, 316, 15);
-		lblNewLabel.setText("Group / Profit");
+		lblNewLabel.setText(Messages.getString("ProfitByDate.lblTable.text")); //$NON-NLS-1$
 		
 		Label label = new Label(shlProfitByDate, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label.setBounds(10, 198, 233, 2);

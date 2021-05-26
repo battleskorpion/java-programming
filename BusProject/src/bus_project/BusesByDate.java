@@ -85,7 +85,7 @@ public class BusesByDate extends AbstractProgramWindow
 		// TODO: label method calls
 		shlBusesByDate = new Shell();
 		shlBusesByDate.setSize(270, 270);
-		shlBusesByDate.setText("Buses by Date");
+		shlBusesByDate.setText(Messages.getString("BusesByDate.shlBusesByDate.text")); //$NON-NLS-1$
 		
 		// TODO: label dateTime
 		DateTime dateTime = new DateTime(shlBusesByDate, SWT.BORDER | SWT.CALENDAR);
@@ -102,20 +102,20 @@ public class BusesByDate extends AbstractProgramWindow
 		// TODO: label label
 		Label lblBuses = new Label(shlBusesByDate, SWT.NONE);
 		// TODO: label method calls
-		lblBuses.setBounds(10, 196, 42, 15);
-		lblBuses.setText("Buses: ");
+		lblBuses.setBounds(10, 196, 75, 15);
+		lblBuses.setText(Messages.getString("BusesByDate.lblBuses.text")); //$NON-NLS-1$
 		
 		// TODO: label label
 		Label lblNumBuses = new Label(shlBusesByDate, SWT.RIGHT);
 		lblNumBuses.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
 		// TODO: label method calls
-		lblNumBuses.setBounds(46, 196, 55, 25);
+		lblNumBuses.setBounds(91, 193, 71, 25);
 		
 		// TODO: label button
 		Button btnQuit = new Button(shlBusesByDate, SWT.NONE);
 		// TODO: label method calls
 		btnQuit.setBounds(168, 196, 75, 25);
-		btnQuit.setText("Exit");
+		btnQuit.setText(Messages.getString("BusesByDate.btnQuit.text")); //$NON-NLS-1$
 
 		/* event handlers */ 
 		

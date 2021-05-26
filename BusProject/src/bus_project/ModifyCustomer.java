@@ -96,50 +96,50 @@ public class ModifyCustomer extends AbstractProgramWindow
 		
 		shlModifyCustomers = new Shell();
 		shlModifyCustomers.setSize(600, 400);
-		shlModifyCustomers.setText("Modify Customers");
+		shlModifyCustomers.setText(Messages.getString("ModifyCustomer.shlModifyCustomers.text")); //$NON-NLS-1$
 		
 		Button btnExit = new Button(shlModifyCustomers, SWT.NONE);
-		btnExit.setText("Exit");
+		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
 		btnExit.setBounds(499, 326, 75, 25);
 		
 		customersTable = new Table(shlModifyCustomers, SWT.BORDER | SWT.FULL_SELECTION);
 		
-		customersTable.setToolTipText("");
+		customersTable.setToolTipText(Messages.getString("ModifyCustomer.customersTable.toolTipText")); //$NON-NLS-1$
 		customersTable.setLinesVisible(true);
-		customersTable.setBounds(10, 40, 316, 252);
+		customersTable.setBounds(10, 40, 316, 310);
 		if (customers.size() > 0) {
 			updateTable(customersTable, customers); 
 		}
 		
-		Label lblCustomers = new Label(shlModifyCustomers, SWT.NONE);
-		lblCustomers.setText("Customers: ");
-		lblCustomers.setBounds(140, 10, 63, 15);
+		Label lblCustomers = new Label(shlModifyCustomers, SWT.CENTER);
+		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
+		lblCustomers.setBounds(10, 10, 316, 15);
 		
 		Label lblName = new Label(shlModifyCustomers, SWT.NONE);
-		lblName.setText("Name:");
-		lblName.setBounds(341, 13, 73, 15);
+		lblName.setText(Messages.getString("lblName.text")); //$NON-NLS-1$
+		lblName.setBounds(341, 13, 120, 15);
 		
 		nameField = new Text(shlModifyCustomers, SWT.BORDER);
 		nameField.setText("");
-		nameField.setBounds(420, 10, 80, 24);
+		nameField.setBounds(474, 10, 100, 24);
 		
 		sizeField = new Text(shlModifyCustomers, SWT.BORDER);
-		sizeField.setBounds(420, 40, 80, 24);
+		sizeField.setBounds(474, 40, 100, 24);
 		
 		Label lblSize = new Label(shlModifyCustomers, SWT.NONE);
-		lblSize.setText("Group size: ");
-		lblSize.setBounds(341, 43, 73, 15);
+		lblSize.setText(Messages.getString("lblSize.text")); //$NON-NLS-1$
+		lblSize.setBounds(341, 43, 120, 15);
 		
 		Label lblNumber = new Label(shlModifyCustomers, SWT.NONE);
-		lblNumber.setText("ID: ");
-		lblNumber.setBounds(341, 71, 55, 15);
+		lblNumber.setText(Messages.getString("lblID.text")); //$NON-NLS-1$
+		lblNumber.setBounds(341, 71, 106, 15);
 		
 		idField = new Text(shlModifyCustomers, SWT.BORDER);
-		idField.setBounds(420, 70, 80, 24);
+		idField.setBounds(474, 70, 100, 24);
 		
 		Label lblTripDate = new Label(shlModifyCustomers, SWT.NONE);
-		lblTripDate.setText("Trip Date: ");
-		lblTripDate.setBounds(341, 92, 73, 15);
+		lblTripDate.setText(Messages.getString("lblTripDate.text")); //$NON-NLS-1$
+		lblTripDate.setBounds(341, 92, 100, 15);
 		
 		dateTime = new DateTime(shlModifyCustomers, SWT.BORDER | SWT.CALENDAR);
 		dateTime.setBounds(341, 113, 233, 151);
@@ -178,8 +178,8 @@ public class ModifyCustomer extends AbstractProgramWindow
 				}
 			}
 		});
-		btnModify.setText("Modify");
-		btnModify.setBounds(425, 267, 75, 25);
+		btnModify.setText(Messages.getString("btnModify.text")); //$NON-NLS-1$
+		btnModify.setBounds(341, 267, 233, 25);
 		shlModifyCustomers.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnModify, customersTable, btnExit});
 		
 		customersTable.addSelectionListener(new SelectionAdapter() 
