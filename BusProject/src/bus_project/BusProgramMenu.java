@@ -212,6 +212,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 			{
 				Messages.setLocale(Messages.programLocales().get(1));	// es_ES
 				//System.out.println(Messages.getLocale()); 
+				//shell.close(); //TODO: doesnt help
 				
 			}
 		});
