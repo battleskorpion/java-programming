@@ -15,6 +15,10 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 
 public class BusProgramMenu extends AbstractProgramWindow {
 
@@ -174,21 +178,61 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		{
 			// TODO: 
 			@Override
-			public void controlResized(ControlEvent e) {
+			public void controlResized(ControlEvent e)
+			{
 				
 			}
 		});
-		shell.setSize(700, 500);
-		shell.setText("Bus Program");
+		shell.setSize(700, 540);
+		shell.setText(Messages.getString("BusProgramMenu.0")); //$NON-NLS-1$
 		GridLayout gl_shell = new GridLayout(4, true);
 		shell.setLayout(gl_shell);
 				
 		/***********/
 		/* BUTTONS */
 		/***********/
+		
+		ToolBar toolBar = new ToolBar(shell, SWT.FLAT | SWT.RIGHT);
+		
+		ToolItem tltmLanguage = new ToolItem(toolBar, SWT.DROP_DOWN);
+		
+		tltmLanguage.setText(Messages.getString("BusProgramMenu.Language.text")); //$NON-NLS-1$
+		
+		Menu languageMenu = new Menu(toolBar);
+		toolBar.setMenu(languageMenu);
+		
+		MenuItem mntmEnus = new MenuItem(languageMenu, SWT.NONE);
+		mntmEnus.setText(Messages.getString("BusProgramMenu.Language.en_US.text")); //$NON-NLS-1$
+		
+		MenuItem mntmEses = new MenuItem(languageMenu, SWT.NONE);
+		mntmEses.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				Messages.setLocale(Messages.programLocales().get(1));	// es_ES
+				//System.out.println(Messages.getLocale()); 
+				
+			}
+		});
+		mntmEses.setText(Messages.getString("BusProgramMenu.Language.es_ES.text")); //$NON-NLS-1$
+		
+		tltmLanguage.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				languageMenu.setVisible(true);
+			}
+		});
+		
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		
 		Button btnAddCustomer = new Button(shell, SWT.NONE);
 		GridData gd_btnAddCustomer = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-		
+			
 		Button btnRemoveCustomer = new Button(shell, SWT.NONE);
 		GridData gd_btnRemoveCustomer = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
@@ -199,7 +243,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				
 		gd_btnModifyCustomer.widthHint = 122;
 		btnModifyCustomer.setLayoutData(gd_btnModifyCustomer);
-		btnModifyCustomer.setText("Modify Customer");
+		btnModifyCustomer.setText(Messages.getString("BusProgramMenu.1")); //$NON-NLS-1$
 		// TODO: label selection listener method call whatever
 		btnModifyCustomer.addSelectionListener(new SelectionAdapter()
 		{
@@ -216,7 +260,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		gd_btnBusesNeededByDate.widthHint = 122;
 		btnBusesNeededByDate.setLayoutData(gd_btnBusesNeededByDate);
-		btnBusesNeededByDate.setText("Buses needed by Date");
+		btnBusesNeededByDate.setText(Messages.getString("BusProgramMenu.2")); //$NON-NLS-1$
 		// TODO: label selection listener method call whatever
 		btnBusesNeededByDate.addSelectionListener(new SelectionAdapter() 
 		{
@@ -232,7 +276,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				
 		gd_btnListCustomersByName.widthHint = 140;
 		btnListCustomersByName.setLayoutData(gd_btnListCustomersByName);
-		btnListCustomersByName.setText("List customers by Name");
+		btnListCustomersByName.setText(Messages.getString("BusProgramMenu.3")); //$NON-NLS-1$
 		// TODO: label selection listener method call whatever
 		btnListCustomersByName.addSelectionListener(new SelectionAdapter() 
 		{
@@ -252,7 +296,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		gd_btnListCustomersBySize.widthHint = 167;
 		btnListCustomersBySize.setLayoutData(gd_btnListCustomersBySize);
-		btnListCustomersBySize.setText("List Customers by Group Size");
+		btnListCustomersBySize.setText(Messages.getString("BusProgramMenu.4")); //$NON-NLS-1$
 		// TODO: label selection listener method call whatever
 		btnListCustomersBySize.addSelectionListener(new SelectionAdapter() 
 		{
@@ -279,7 +323,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				openSubWindow(profitByDateWindow, shell); 
 			}
 		});
-		btnProfitByDate.setText("Profit by Date");
+		btnProfitByDate.setText(Messages.getString("BusProgramMenu.5")); //$NON-NLS-1$
 		
 		Button btnProfitTotal = new Button(shell, SWT.NONE);
 		GridData gd_btnProfitTotal = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
@@ -295,7 +339,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				openSubWindow(totalProfitWindow, shell);
 			}
 		});
-		btnProfitTotal.setText("Total profit details");
+		btnProfitTotal.setText(Messages.getString("BusProgramMenu.6")); //$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		
 		Button btnQuit = new Button(shell, SWT.NONE);
@@ -310,7 +354,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 				shell.dispose(); 		// QUIT 
 			}
 		});
-		btnQuit.setText("Quit");
+		btnQuit.setText(Messages.getString("BusProgramMenu.7")); //$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		
 		Image mainImage = new Image(Display.getDefault(), "ski-lift.jpg");	
@@ -325,7 +369,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		gd_btnAddCustomer.widthHint = 122;
 		btnAddCustomer.setLayoutData(gd_btnAddCustomer);
-		btnAddCustomer.setText("Add new customer");
+		btnAddCustomer.setText(Messages.getString("BusProgramMenu.9")); //$NON-NLS-1$
 		// TODO: label selection listener method call whatever
 		btnAddCustomer.addSelectionListener(new SelectionAdapter() {
 			// TODO: label method
@@ -339,7 +383,7 @@ public class BusProgramMenu extends AbstractProgramWindow {
 		
 		gd_btnRemoveCustomer.widthHint = 122;
 		btnRemoveCustomer.setLayoutData(gd_btnRemoveCustomer);
-		btnRemoveCustomer.setText("Remove customer");
+		btnRemoveCustomer.setText(Messages.getString("BusProgramMenu.10")); //$NON-NLS-1$
 		// TODO: label selection listener method call whatever
 		btnRemoveCustomer.addSelectionListener(new SelectionAdapter() 
 		{
