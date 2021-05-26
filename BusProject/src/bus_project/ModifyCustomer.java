@@ -16,7 +16,8 @@ import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Control;
 
-public class ModifyCustomer extends AbstractProgramWindow {
+public class ModifyCustomer extends AbstractProgramWindow 
+{
 
 	//TODO: label vars
 	/********************/
@@ -32,7 +33,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	private DateTime dateTime;
 	
 	//TODO: label constructor section
-	public ModifyCustomer (ArrayList<Customer> cstmrs) {
+	public ModifyCustomer (ArrayList<Customer> cstmrs)
+	{
 		customers = cstmrs; 
 	}
 	
@@ -88,7 +90,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
 	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
 	/*************************************************/
-	protected void createContents(Shell rootShell) {
+	protected void createContents(Shell rootShell) 
+	{
 		//TODO: labels
 		
 		shlModifyCustomers = new Shell();
@@ -179,16 +182,19 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		btnModify.setBounds(425, 267, 75, 25);
 		shlModifyCustomers.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnModify, customersTable, btnExit});
 		
-		customersTable.addSelectionListener(new SelectionAdapter() {
+		customersTable.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) 
+			{
 				Customer selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
 				
 				updateCustomerInfoDisplay(selectedCustomer); 
 			}
 		});
 		
-		btnExit.addSelectionListener(new SelectionAdapter() {
+		btnExit.addSelectionListener(new SelectionAdapter() 
+		{
 			public void widgetSelected(SelectionEvent e) 
 			{
 				rootShell.forceActive(); 
@@ -201,7 +207,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/* PRECONDITION:  MODIFICATIONS ARE LEGAL 
 	/* POSTCONDITION: 
 	/***************************************************************/
-	private void modifyCustomer(Customer slctdCstmr) {
+	private void modifyCustomer(Customer slctdCstmr) 
+	{
 		int id = Integer.parseInt(idField.getText()); 		// NEW ID OF SELECTED CUSTOMER
 		//int old_id = slctdCstmr.getIndex();  				// PREVIOUS ID OF SELECTED CUSTOMER (OR THE SAME) 
 		//Customer temp; 
@@ -219,6 +226,7 @@ public class ModifyCustomer extends AbstractProgramWindow {
 		//}
 		
 		setCustomerDetails(slctdCstmr, nameField, sizeField, id, slctdCstmr.getId(), dateTime); 
+		BusFinances.setCustomerProfit(slctdCstmr); 
 		
 		// SORT ARRAY CONSIDERING MODIFICATIONS TO ID
 		customers.sort(new Customer.CompareId());
@@ -229,7 +237,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/* PRECONDITION: 
 	/* POSTCONDITION: returns year in format acceptable for DateTime
 	/***************************************************************/
-	private int getDateTimeYear(Customer cstmr) {	
+	private int getDateTimeYear(Customer cstmr)
+	{	
 		return cstmr.getDate().getYear(); 
 	}
 	
@@ -237,7 +246,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/* PRECONDITION: 
 	/* POSTCONDITION: returns customer date in DateTime format
 	/***************************************************************/
-	private int getDateTimeMonth(Customer cstmr) {
+	private int getDateTimeMonth(Customer cstmr) 
+	{
 		return cstmr.getDate().getMonthValue() - 1; 
 	}
 	
@@ -245,7 +255,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/* PRECONDITION: 
 	/* POSTCONDITION: returns customer date in DateTime format
 	/***************************************************************/
-	private int getDateTimeDay(Customer cstmr) {
+	private int getDateTimeDay(Customer cstmr) 
+	{
 		return cstmr.getDate().getDayOfMonth(); 
 	}
 	
@@ -253,7 +264,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/* PRECONDITION:  
 	/* POSTCONDITION: 
 	/***************************************************************/
-	private void updateCustomerInfoDisplay(Customer cstmr) {
+	private void updateCustomerInfoDisplay(Customer cstmr) 
+	{
 		nameField.setText(cstmr.getName());
 		sizeField.setText(Integer.toString(cstmr.getNumPersons()));
 		idField.setText(Integer.toString(customersTable.getSelectionIndex()));
@@ -265,7 +277,8 @@ public class ModifyCustomer extends AbstractProgramWindow {
 	/* POSTCONDITION: DECIDES IF POTENTIAL MODIFICATIONS ARE ALLOWED,
 	/* 				  RETURNS FALSE OR TRUE
 	/***************************************************************/
-	private boolean legalCustomerModification(ArrayList<Customer> cstmrs) {
+	private boolean legalCustomerModification(ArrayList<Customer> cstmrs)
+	{
 		
 		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(idField.getText()) < 0 || Integer.parseInt(idField.getText()) >= cstmrs.size() || !vaildDate(dateTime))
 		{

@@ -17,10 +17,13 @@ public class BusFinances extends Finances
 	/***********************/ 
 	/* CONSTRUCTOR SECTION */
 	/***********************/ 
-	// default constructor will be called upon static reference of class
+	//TODO: // default constructor will be called upon static reference of class
+	// error, does not 
 	public BusFinances() 
 	{
 		nf.setCurrency(USD);
+		nf.setMinimumFractionDigits(2);
+		nf.setMaximumFractionDigits(2);
 	}
 	
 	/******************/
@@ -34,8 +37,10 @@ public class BusFinances extends Finances
 	// returns new value of profit 
 	public static double setCustomerProfit(Customer cstmr) 
 	{
+		// subtract previous profit amount + add new profit amount = add difference in profit
 		double amt = cstmr.getNumPersons() * TICKET_PRICE; 
-		cstmr.addTotalPrice(amt); 
+		subtractProfit(cstmr.getTotalPrice()); 
+		cstmr.setTotalPrice(amt); 
 		return addProfit(amt);
 	}
 	

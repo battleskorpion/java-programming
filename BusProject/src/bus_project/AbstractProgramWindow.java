@@ -129,6 +129,7 @@ public abstract class AbstractProgramWindow
 	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
 	{
 		cstmrs.add(indx, cstmr);
+		cstmrs.sort(new Customer.CompareId()); 
 		BusCalculation.scheduleTrip(cstmr);
 		BusFinances.setCustomerProfit(cstmr); 
 		updateTable(tbl, cstmrs); 

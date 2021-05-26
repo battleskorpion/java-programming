@@ -36,15 +36,28 @@ public class Customer
 		index = 0; 
 	}
 	
-	//TODO: label section
+	/************************************************************************/
+	/* 							METHOD SECTION								*/
+	/************************************************************************/
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION: AN AMOUNT NEEDS TO BE ADDED TO TOTAL PRICE 			*/
+	/*				 OF THIS CUSTOMER  										*/	
+	/* POSTCONDITION: ADDS amt TO totalPrice AND RETURNS NEW totalPrice		*/
+	/************************************************************************/
 	protected double addTotalPrice(double amt) 
 	{
 		return totalPrice += amt; 
+	}
+	
+	/************************************************************************/
+	/* PRECONDITION:  TOTAL PRICE OF THIS CUSTOMER NEEDS TO BE SET 			*/
+	/*				  TO A SPECIFIC AMOUNT									*/	
+	/* POSTCONDITION: ADDS amt TO AND RETURNS totalPrice					*/
+	/************************************************************************/
+	protected double setTotalProfit(double amt)
+	{
+		return totalPrice = amt; 
 	}
 	
 	/***************************************************************/
@@ -110,28 +123,30 @@ public class Customer
 		return Finances.nf.format(totalPrice); 
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  DATE OF THIS CUSTOMER NEEDS TO BE SET TO A NEW VALUE	*/
+	/* POSTCONDITION: date OF THIS CUSTOMER IS SET TO dt					*/
+	/************************************************************************/
 	public void setDate (LocalDate dt)
 	{
 		date = dt; 
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  NAME OF THIS CUSTOMER NEEDS TO BE SET TO A NEW VALUE	*/
+	/* POSTCONDITION: name OF THIS CUSTOMER IS SET TO nm					*/
+	/************************************************************************/
 	public void setName (String nm) 
 	{
 		name = nm; 
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  TOTAL PRICE OF THIS CUSTOMER NEEDS TO BE SET TO 		*/
+	/*				  A NEW VALUE (REPRESENTS AMOUNT OF PROFIT				*/
+	/*				  WHICH THIS CUSTOMER WILL BRING)						*/	
+	/* POSTCONDITION: totalPrice OF THIS CUSTOMER IS SET TO ttlPrc			*/
+	/************************************************************************/
 	protected void setTotalPrice(double ttlPrc) 
 	{
 		totalPrice = ttlPrc; 
@@ -146,58 +161,64 @@ public class Customer
 		index = indx; 
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  NUMBER OF PERSONS OF THIS CUSTOMER NEEDS TO BE SET TO */
+	/*				  A NEW VALUE											*/	
+	/* POSTCONDITION: numPersons OF THIS CUSTOMER IS SET TO nmPrsns			*/
+	/************************************************************************/
 	public void setNumPersons(int nmPrsns) 
-	{
+	{	
 		numPersons = nmPrsns; 
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  id OF THIS CUSTOMER IS NEEDED 						*/
+	/* POSTCONDITION: RETURNS id OF THIS CUSTOMER							*/
+	/************************************************************************/
 	public int getId() 
 	{
 		return id;
 	}
 
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  id OF THIS CUSTOMER NEEDS TO BE SET TO A NEW VALUE	*/
+	/* POSTCONDITION: SETS id OF THIS CUSTOMER TO id						*/
+	/************************************************************************/
 	public void setId(int id) 
 	{
 		this.id = id;
 	}
 
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  SOME PERSONS OF THIS CUSTOMER NEED TO BE REFUNDED;	*/	
+	/*				  prsns <= numPersons									*/
+	/* POSTCONDITION: RETURNS THE NUMBER OF PERSONS THAT WERE REFUNDED		*/
+	/************************************************************************/
 	public int refundPersons(int prsns) 
 	{
 		numPersons -= prsns; 
 		numPersonsRefunded += prsns; 
+		
+		/********************/
+		/* METHOD TO SET 
+		/*******************/
 		BusFinances.setCustomerProfit(this); 
 		return prsns; 
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  ALL PERSONS OF THIS CUSTOMER NEED TO BE REFUNDED;		*/	
+	/* POSTCONDITION: RETURNS THE NUMBER OF PERSONS THAT WERE REFUNDED		*/
+	/************************************************************************/
 	public int refundPersons() 
 	{
 		return refundPersons(numPersons); 
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  ALL PERSONS OF THIS CUSTOMER NEED TO BE UNREFUNDED	*/							
+	/* POSTCONDITION: RETURNS THE NUMBER OF PERSONS THAT WERE UNREFUNDED	*/
+	/************************************************************************/
 	public int unrefundPersons() 
 	{
 		int numUnrefunded = unrefundPersons(numPersonsRefunded);  
@@ -205,10 +226,11 @@ public class Customer
 		return numUnrefunded; 
 	}
 
-	/***************************************************************/
-	/* PRECONDITION: // precondition: prsns <= numPersonsRefunded
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  SOME PERSONS OF THIS CUSTOMER NEED TO BE UNREFUNDED;	*/	
+	/*				  prsns <= numPersonsRefunded							*/
+	/* POSTCONDITION: RETURNS THE NUMBER OF PERSONS THAT WERE UNREFUNDED	*/
+	/************************************************************************/
 	public int unrefundPersons(int prsns) 
 	{
 		numPersons += prsns; 
@@ -217,82 +239,122 @@ public class Customer
 		return (prsns); 
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  THIS OBJECT'S NUMBER OF PERSONS REFUNDED IS NEEDED	*/
+	/* POSTCONDITION: RETURNS NUMBER OF PERSONS REFUNDED					*/
+	/************************************************************************/
 	public int getNumPersonsRefunded() 
 	{
 		return numPersonsRefunded; 
 	}
 	
-	//TODO: modifications perhaps (does not print well in table (etc etc)) 
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  THIS CUSTOMER OBJECT NEEDS TO BE PRINTED				*/
+	/* POSTCONDITION: RETURNS A STRING REPRESENTATION OF THIS 				*/
+	/*				  CUSTOMER OBJECT										*/
+	/************************************************************************/
 	public String toString() 
 	{
 		return "Group: " + name + " \n\tID: " + id + " \n\tGroup Size: " + numPersons + " \n\tRefunded Customers: " + numPersonsRefunded + " \n\tDate: " + date.toString(); 
 	}
 	
-	/********************/
-	/* SUBCLASS SECTION */
-	/********************/
+	/************************************************************************/
+	/* 							SUBCLASS SECTION 							*/
+	/************************************************************************/
+	
+	/****************************************************/
+	/* CompareId CLASS, IMPLEMENTS COMPARATOR INTERFACE */
+	/* ASSISTS IN SORTING CUSTOMERS BY ID				*/
+	/****************************************************/
 	public static class CompareId implements Comparator<Customer>
 	{
+		/********************************************************************/
+		/* PRECONDITION:  CUSTOMERS NEED TO BE COMPARED BY ID				*/
+		/* POSTCONDITION: RETURNS THE VALUE 0 IF ID A IS NUMERICALLY		*/
+		/*			      EQUAL TO ID B; A VALUE LESS THAN 0 IF	ID A 		*/
+		/*				  IS NUMERICALLY LESS THAN ID B; 					*/
+		/* 				  AND A VALUE GREATER THAN 0 IF 					*/
+		/*				  ID A IS NUMERICALLY GREATER THAN ID B				*/ 				
+		/********************************************************************/
 		public int compare(Customer a, Customer b)
 		{
 			return Double.compare(a.getId(), b.getId()); 
 		}
 	}
 	
-	//TODO: label subclass
+	/********************************************************/
+	/* CompareDate CLASS, IMPLEMENTS COMPARATOR INTERFACE 	*/
+	/* ASSISTS IN SORTING CUSTOMERS BY DATE					*/
+	/********************************************************/
 	public static class CompareDate implements Comparator<Customer> 
 	{
-		/***************************************************************/
-		/* PRECONDITION: 
-		/* POSTCONDITION: 
-		/***************************************************************/
+		/********************************************************************/
+		/* PRECONDITION:  CUSTOMERS NEED TO BE COMPARED BY DATE				*/
+		/* POSTCONDITION: RETURNS THE VALUE 0 IF DATE A IS 					*/
+		/*			      LEXICOGRAPHICALLY EQUAL TO DATE B; A VALUE LESS  	*/
+		/*				  THAN 0 IF DATE A IS LEXICOGRAPHICALLY LESS THAN  	*/
+		/* 				  DATE B; AND A VALUE GREATER THAN 0 IF 			*/
+		/*				  DATE A IS LEXICOGRAPHICALLY GREATER THAN DATE B	*/ 				
+		/********************************************************************/
 		public int compare(Customer a, Customer b)
 		{
-			return a.getDate().compareTo(b.getDate()); 			// IF A > B WILL BE POSITIVE, SAME NUMBER WILL BE 0, A < B WILL RETURN NEGATIVE 
+			return a.getDate().compareTo(b.getDate()); 			
 		}
 	}
 	
-	//TODO: label subclass
+	/********************************************************/
+	/* CompareName CLASS, IMPLEMENTS COMPARATOR INTERFACE 	*/
+	/* ASSISTS IN SORTING CUSTOMERS BY NAME					*/
+	/********************************************************/
 	public static class CompareName implements Comparator<Customer> 
 	{
-		/***************************************************************/
-		/* PRECONDITION: 
-		/* POSTCONDITION: 
-		/***************************************************************/
+		/********************************************************************/
+		/* PRECONDITION:  CUSTOMERS NEED TO BE COMPARED BY NAME				*/
+		/* POSTCONDITION: RETURNS THE VALUE 0 IF NAME A IS 					*/
+		/*			      LEXICOGRAPHICALLY EQUAL TO NAME B; A VALUE LESS 	*/
+		/*				  THAN 0 IF NAME A IS LEXICOGRAPHICALLY  LESS THAN  */
+		/* 				  NAME B; AND A VALUE GREATER THAN 0 IF 			*/
+		/*				  NAME A IS LEXICOGRAPHICALLY  GREATER THAN NAME B	*/ 				
+		/********************************************************************/
 		public int compare(Customer a, Customer b) 
 		{
-			return a.getName().compareTo(b.getName()); 			// IF A > B WILL BE POSITIVE, SAME NUMBER WILL BE 0, A < B WILL RETURN NEGATIVE 
+			return a.getName().compareTo(b.getName()); 			 
 		}
 	}
 	
-	//TODO: label subclass
+	/********************************************************/
+	/* CompareSize CLASS, IMPLEMENTS COMPARATOR INTERFACE 	*/
+	/* ASSISTS IN SORTING CUSTOMERS BY NUMBER OF PERSONS	*/
+	/********************************************************/
 	public static class CompareSize implements Comparator<Customer> 
 	{
-		/***************************************************************/
-		/* PRECONDITION: 
-		/* POSTCONDITION: 
-		/***************************************************************/
+		/********************************************************************/
+		/* PRECONDITION:  CUSTOMERS NEED TO BE COMPARED BY SIZE, 			*/
+		/* 				  Customer.getNumPersons() >= 0						*/
+		/* POSTCONDITION: IF A > B WILL BE POSITIVE, SAME NUMBER WILL BE 0, */
+		/* 				  A < B WILL RETURN NEGATIVE (number of persons 	*/
+		/* 				  always >= 0)										*/ 				
+		/********************************************************************/
 		public int compare(Customer a, Customer b) 
 		{
-			return a.getNumPersons() - b.getNumPersons(); 		// IF A > B WILL BE POSITIVE, SAME NUMBER WILL BE 0, A < B WILL RETURN NEGATIVE (number of persons always >= 0 so this logic is fine) 
+			return a.getNumPersons() - b.getNumPersons(); 		
 		}
 	}
 	
-	//TODO: label subclass
+	/************************************************************/
+	/* CompareTotalPrice CLASS, IMPLEMENTS COMPARATOR INTERFACE */
+	/* ASSISTS IN SORTING CUSTOMERS BY ID						*/
+	/************************************************************/
 	public static class CompareTotalPrice implements Comparator<Customer> 
 	{
-		/***************************************************************/
-		/* PRECONDITION: 
-		/* POSTCONDITION: 
-		/***************************************************************/
+		/********************************************************************/
+		/* PRECONDITION:  CUSTOMERS NEED TO BE COMPARED BY PRICE			*/
+		/* POSTCONDITION: RETURNS THE VALUE 0 IF PRICE A IS NUMERICALLY		*/
+		/*			      EQUAL TO PRICE B; A VALUE LESS THAN 0 IF PRICE A 	*/
+		/*				  IS NUMERICALLY LESS THAN PRICE B; 				*/
+		/* 				  AND A VALUE GREATER THAN 0 IF 					*/
+		/*				  PRICE A IS NUMERICALLY GREATER THAN PRICE B		*/ 				
+		/********************************************************************/
 		public int compare(Customer a, Customer b) 
 		{
 			return Double.compare(a.getTotalPrice(), b.getTotalPrice()); 

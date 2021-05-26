@@ -2,19 +2,13 @@ package bus_project;
 
 import java.io.File;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.ImageFileNameProvider;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
@@ -62,8 +56,6 @@ public class BusProgramMenu extends AbstractProgramWindow {
 	/******************************************************************************************************/
 	/*											 METHOD SECTION 										  */
 	/******************************************************************************************************/
-	
-	// TODO: why is there two open functions are they both necessary? 
 	
 	public void open()
 	/****************************************************************/
