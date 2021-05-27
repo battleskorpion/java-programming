@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 
 public class Messages
 {
-	private static final String BUNDLE_NAME = "bus_project.messages"; //$NON-NLS-1$
-	private static Locale locale = Locale.getDefault(); 	//= new Locale("es", "ES");
+	private static final String BUNDLE_NAME = "bus_project.messages"; 	//$NON-NLS-1$
+	private static Locale locale = Locale.getDefault(); 				
 	private static ArrayList<Locale> locales; 
 	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale);
 
@@ -34,6 +34,7 @@ public class Messages
 		ArrayList<Locale> locales = new ArrayList<Locale>(); 
 		locales.add(new Locale("en", "US")); 
 		locales.add(new Locale("es", "ES")); 
+		locales.add(new Locale("pt", "PT")); 
 		
 		return locales; 
 	}
@@ -41,8 +42,7 @@ public class Messages
 	public static void setLocale(Locale locale)
 	{
 		Messages.locale = locale; 
-		RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale); 
-		
+		RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale); 		
 	}
 	
 	public static Locale getLocale() 

@@ -17,8 +17,9 @@ import org.eclipse.swt.widgets.DateTime;
 
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.TableColumn;
 
-//TODO: if < MIN_CAPACITY passengers do not allow add customer? 
+//TODO: if < MIN_CAPACITY passengers do not allow add customer? > 400 already on date?  
 
 public class AddCustomer extends AbstractProgramWindow
 {
@@ -94,17 +95,17 @@ public class AddCustomer extends AbstractProgramWindow
 	/* PRECONDITION:  WINDOW IS TO BE OPENED, ELEMENTS NEED TO BE ADDED TO WINDOW	*/
 	/* POSTCONDITION: ADDS ELEMENTS TO WINDOW										*/
 	/********************************************************************************/
-	protected void createContents(Shell rootShell) {
-		
+	protected void createContents(Shell rootShell) 
+	{
 		shlAddCustomer = new Shell();
 		// TODO: label method calls
-		shlAddCustomer.setSize(600, 400);
+		shlAddCustomer.setSize(700, 400);
 		shlAddCustomer.setText(Messages.getString("AddCustomer.shlAddCustomer.text")); //$NON-NLS-1$
 		
 		Label lblName = new Label(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
 		lblName.setBounds(10, 13, 109, 15);
-		lblName.setText(Messages.getString("AddCustomer.lblName.text")); //$NON-NLS-1$
+		lblName.setText(Messages.getString("lblName.text")); //$NON-NLS-1$
 		
 		nameField = new Text(shlAddCustomer, SWT.BORDER);
 		// TODO: label method calls
@@ -113,7 +114,7 @@ public class AddCustomer extends AbstractProgramWindow
 		
 		Label lblSize = new Label(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
-		lblSize.setText(Messages.getString("AddCustomer.lblSize.text")); //$NON-NLS-1$
+		lblSize.setText(Messages.getString("lblSize.text")); //$NON-NLS-1$
 		lblSize.setBounds(10, 43, 109, 15);
 		
 		sizeField = new Text(shlAddCustomer, SWT.BORDER);
@@ -123,7 +124,7 @@ public class AddCustomer extends AbstractProgramWindow
 		Label lblTripDate = new Label(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
 		lblTripDate.setBounds(10, 92, 109, 15);
-		lblTripDate.setText(Messages.getString("AddCustomer.lblTripDate.text")); //$NON-NLS-1$
+		lblTripDate.setText(Messages.getString("lblTripDate.text")); //$NON-NLS-1$
 		
 		dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
 		// TODO: label method calls
@@ -131,13 +132,13 @@ public class AddCustomer extends AbstractProgramWindow
 		
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
-		btnExit.setBounds(499, 326, 75, 25);
-		btnExit.setText(Messages.getString("AddCustomer.btnExit.text")); //$NON-NLS-1$
+		btnExit.setBounds(599, 326, 75, 25);
+		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
 		
 		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
 		btnAdd.setBounds(10, 270, 233, 25);
-		btnAdd.setText(Messages.getString("AddCustomer.btnAdd.text")); //$NON-NLS-1$
+		btnAdd.setText(Messages.getString("btnAdd.text")); //$NON-NLS-1$
 		
 		/************/
 		/* ID LABEL */
@@ -145,7 +146,7 @@ public class AddCustomer extends AbstractProgramWindow
 		Label lblID = new Label(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
 		lblID.setBounds(10, 71, 91, 15);
-		lblID.setText(Messages.getString("AddCustomer.lblID.text")); //$NON-NLS-1$
+		lblID.setText(Messages.getString("lblID.text")); //$NON-NLS-1$
 		
 		/***************/
 		/* ID FIELD */
@@ -159,16 +160,36 @@ public class AddCustomer extends AbstractProgramWindow
 		/*******************/ 
 		Label lblCustomers = new Label(shlAddCustomer, SWT.CENTER);
 		// TODO: label method calls
-		lblCustomers.setBounds(258, 13, 316, 15);
-		lblCustomers.setText(Messages.getString("AddCustomer.lblCustomers.text")); //$NON-NLS-1$
+		lblCustomers.setBounds(258, 13, 416, 15);
+		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
 		
 		/*******************/
 		/* CUSTOMERS TABLE */
 		/*******************/ 
-		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
+		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
 		customersTable.setToolTipText(Messages.getString("AddCustomer.customersTable.toolTipText")); //$NON-NLS-1$
-		customersTable.setBounds(258, 43, 316, 252);
+		customersTable.setBounds(258, 43, 416, 252);
 		customersTable.setLinesVisible(true);
+		
+		TableColumn tblclmnID = new TableColumn(customersTable, SWT.NONE);
+		tblclmnID.setWidth(100);
+		tblclmnID.setText(Messages.getString("AddCustomer.tblclmnNewColumn.text")); //$NON-NLS-1$
+		
+		TableColumn tblclmmName = new TableColumn(customersTable, SWT.NONE);
+		tblclmmName.setWidth(100);
+		tblclmmName.setText(Messages.getString("AddCustomer.tblclmnNewColumn_3.text")); //$NON-NLS-1$
+		
+		TableColumn tblclmnSize = new TableColumn(customersTable, SWT.NONE);
+		tblclmnSize.setWidth(100);
+		tblclmnSize.setText(Messages.getString("AddCustomer.tblclmnNewColumn_2.text")); //$NON-NLS-1$
+		
+		TableColumn tblclmnDate = new TableColumn(customersTable, SWT.NONE);
+		tblclmnDate.setWidth(100);
+		tblclmnDate.setText("New Column");
+		
+		TableColumn tblclmnRefunds = new TableColumn(customersTable, SWT.NONE);
+		tblclmnRefunds.setWidth(100);
+		tblclmnRefunds.setText(Messages.getString("AddCustomer.tblclmnNewColumn_1.text")); //$NON-NLS-1$
 		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnAdd, customersTable, btnExit});
 		// TODO: label if
 		if (customers.size() > 0)
@@ -247,8 +268,8 @@ public class AddCustomer extends AbstractProgramWindow
 	//}
 	
 	// TODO: label method
-	private boolean legalCustomerAddition() {
-		
+	private boolean legalCustomerAddition() 
+	{
 		if (nameField.getText().trim().equals("") || sizeField.getText().equals("") || Integer.parseInt(idField.getText()) < 0 || !vaildDate(dateTime))
 		{
 			return false; 

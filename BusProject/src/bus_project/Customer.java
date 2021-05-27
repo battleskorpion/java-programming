@@ -11,6 +11,7 @@
 package bus_project;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Customer 
@@ -255,9 +256,21 @@ public class Customer
 	/************************************************************************/
 	public String toString() 
 	{
-		return "Group: " + name + " \n\tID: " + id + " \n\tGroup Size: " + numPersons + " \n\tRefunded Customers: " + numPersonsRefunded + " \n\tDate: " + date.toString(); 
+		return "Group: " + name + " \n\tID: " + id + " \n\tGroup Size: " + numPersons 
+				+ " \n\tRefunded Customers: " + numPersonsRefunded + " \n\tDate: " + date.toString(); 
 	}
 	
+	public ArrayList<String> getData()
+	{
+		ArrayList<String> dta = new ArrayList<String>(5);
+		dta.add(Integer.toString(this.getId())); 
+		dta.add(this.getName()); 
+		dta.add(Integer.toString(this.getNumPersons())); 
+		dta.add(this.getDate().toString()); 
+		dta.add(Integer.toString(this.getNumPersonsRefunded()));
+		
+		return dta; 
+	}
 	/************************************************************************/
 	/* 							SUBCLASS SECTION 							*/
 	/************************************************************************/

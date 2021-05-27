@@ -182,7 +182,7 @@ public class BusProgramMenu extends AbstractProgramWindow
 			}
 		});
 		shell.setSize(700, 540);
-		shell.setText(Messages.getString("BusProgramMenu.title.text")); //$NON-NLS-1$
+		shell.setText(Messages.getString("title.text")); //$NON-NLS-1$
 		GridLayout gl_shell = new GridLayout(4, true);
 		shell.setLayout(gl_shell);
 				
@@ -221,6 +221,18 @@ public class BusProgramMenu extends AbstractProgramWindow
 			}
 		});
 		mntmEses.setText(Messages.getString("BusProgramMenu.Language.es_ES.text")); //$NON-NLS-1$
+		
+		MenuItem mntmPortuguesePortugal = new MenuItem(languageMenu, SWT.NONE);
+		mntmPortuguesePortugal.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				BusProgram.languageChanged(2); 
+				shell.close(); 
+			}
+		});
+		mntmPortuguesePortugal.setText(Messages.getString("BusProgramMenu.Language.pt_PT.text")); //$NON-NLS-1$
 		
 		tltmLanguage.addSelectionListener(new SelectionAdapter() 
 		{
@@ -340,7 +352,7 @@ public class BusProgramMenu extends AbstractProgramWindow
 				shell.dispose(); 		// QUIT 
 			}
 		});
-		btnQuit.setText(Messages.getString("BusProgramMenu.Quit.text")); //$NON-NLS-1$
+		btnQuit.setText(Messages.getString("btnQuit.text")); //$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		
 		Image mainImage = new Image(Display.getDefault(), "ski-lift.jpg");	

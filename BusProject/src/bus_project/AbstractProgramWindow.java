@@ -2,6 +2,8 @@ package bus_project;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 
 import org.eclipse.swt.SWT;
@@ -51,45 +53,94 @@ public abstract class AbstractProgramWindow
 		item.setText(dta.toString()); 
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected <E> void updateTable(Table tbl, ArrayList<E> dta) 
 	/********************************************************************************/
 	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	  	*/
 	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  		*/
 	/********************************************************************************/
 	{
-		/***************/
-		/* RESET TABLE */
-		/***************/ 
-		tbl.clearAll();							
-		tbl.setItemCount(0);
-		
-		/****************/
-		/* UPDATE TABLE */
-		/****************/ 
-		for (int i = 0; i < dta.size(); i++) 
+		int columnCount = tbl.getColumnCount(); 
+		if (columnCount <= 1) 
 		{
-			updateTable(tbl, dta.get(i)); 
+			/***************/
+			/* RESET TABLE */
+			/***************/ 
+			tbl.clearAll();							
+			tbl.setItemCount(0);
+			
+			/****************/
+			/* UPDATE TABLE */
+			/****************/ 
+			for (int i = 0; i < dta.size(); i++) 
+			{
+				updateTable(tbl, dta.get(i)); 
+			}
+		}
+		else 
+		{
+			//ArrayList<ArrayList<E>> dtaArray = (ArrayList<ArrayList<E>>) dta; 
+			 
+			/***************/
+			/* RESET TABLE */
+			/***************/ 
+			tbl.clearAll();						
+			for (int i = 0; i < dta.size(); i++) 
+			{
+				List<String> dtaList = Arrays.asList(dta.get(i).toString().split("\n")); 
+				for(int col = 0; col < columnCount; col++) 
+				{
+					/*********************/
+					/* ADD ITEM TO TABLE */
+					/*********************/
+					TableItem item = new TableItem(tbl, SWT.NULL); 
+					item.setText(dtaList.get(col));
+				}
+			}
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected <E> void updateTable(Table tbl, ArrayList<E> dta, Function<E, String> addtlDataFunction) 
 	/********************************************************************************/
 	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	  	*/
 	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  		*/
 	/********************************************************************************/
 	{
-		/***************/
-		/* RESET TABLE */
-		/***************/ 
-		tbl.clearAll();							
-		tbl.setItemCount(0);
-		
-		/****************/
-		/* UPDATE TABLE */
-		/****************/ 
-		for (int i = 0; i < dta.size(); i++) 
+		int columnCount = tbl.getColumnCount(); 
+		if (columnCount <= 1) 
 		{
-			updateTable(tbl, dta.get(i) + ", " + addtlDataFunction.apply(dta.get(i))); 
+			/***************/
+			/* RESET TABLE */
+			/***************/ 
+			tbl.clearAll();							
+			tbl.setItemCount(0);
+			
+			/****************/
+			/* UPDATE TABLE */
+			/****************/ 
+			for (int i = 0; i < dta.size(); i++) 
+			{
+				updateTable(tbl, dta.get(i) + ", " + addtlDataFunction.apply(dta.get(i))); 
+			}
+		}
+		else 
+		{
+			/***************/
+			/* RESET TABLE */
+			/***************/ 
+			tbl.clearAll();						
+			for (int i = 0; i < dta.size(); i++) 
+			{
+				for(int col = 0; col < columnCount; col++) 
+				{
+					/*********************/
+					/* ADD ITEM TO TABLE */
+					/*********************/
+					TableItem item = new TableItem(tbl, SWT.NULL); 
+					item.setText(((ArrayList<ArrayList<E>>) dta.get(i)).get(col).toString());
+				}
+			}
 		}
 	}
 	
@@ -141,9 +192,14 @@ public abstract class AbstractProgramWindow
 	
 	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
 	{
+		ArrayList<ArrayList<String>> cstmrData = new ArrayList<ArrayList<String>>(cstmrs.size()); 
 		cstmrs.add(cstmr);
 		BusCalculation.scheduleTrip(cstmr);
 		BusFinances.setCustomerProfit(cstmr); 
+		for (int i = 0; i < cstmrs.size(); i++) 
+		{
+			cstmrData.add(cstmr.getData()); 
+		}
 		updateTable(tbl, cstmrs); 
 	}
 	
