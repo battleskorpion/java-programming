@@ -210,22 +210,9 @@ public class ModifyCustomer extends AbstractProgramWindow
 	private void modifyCustomer(Customer slctdCstmr) 
 	{
 		int id = Integer.parseInt(idField.getText()); 		// NEW ID OF SELECTED CUSTOMER
-		//int old_id = slctdCstmr.getIndex();  				// PREVIOUS ID OF SELECTED CUSTOMER (OR THE SAME) 
-		//Customer temp; 
-
-		//TODO: remove
-		//if (id != old_id)	
-		//{	
-			//temp = customers.get(id); 
-			//customers.set(id, slctdCstmr); 
-			//
-			//// set temp to location where selected customer used to be and update its internal index
-			//customers.set(old_id, temp); 
-			//temp.setIndex(old_id);
-			
-		//}
 		
 		setCustomerDetails(slctdCstmr, nameField, sizeField, id, slctdCstmr.getId(), dateTime); 
+		BusCalculation.rescheduleTrip(slctdCstmr); 
 		BusFinances.setCustomerProfit(slctdCstmr); 
 		
 		// SORT ARRAY CONSIDERING MODIFICATIONS TO ID

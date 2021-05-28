@@ -220,7 +220,7 @@ public class BusProgramMenu extends AbstractProgramWindow
 				shell.close(); 
 			}
 		});
-		mntmEses.setText(Messages.getString("BusProgramMenu.Language.es_ES.text")); //$NON-NLS-1$
+		mntmEses.setText(Messages.getString("BusProgramMenu.Language.es_ES.text")); 				//$NON-NLS-1$
 		
 		MenuItem mntmPortuguesePortugal = new MenuItem(languageMenu, SWT.NONE);
 		mntmPortuguesePortugal.addSelectionListener(new SelectionAdapter() 
@@ -232,7 +232,7 @@ public class BusProgramMenu extends AbstractProgramWindow
 				shell.close(); 
 			}
 		});
-		mntmPortuguesePortugal.setText(Messages.getString("BusProgramMenu.Language.pt_PT.text")); //$NON-NLS-1$
+		mntmPortuguesePortugal.setText(Messages.getString("BusProgramMenu.Language.pt_PT.text"));	//$NON-NLS-1$
 		
 		tltmLanguage.addSelectionListener(new SelectionAdapter() 
 		{
@@ -257,7 +257,7 @@ public class BusProgramMenu extends AbstractProgramWindow
 		GridData gd_btnModifyCustomer = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_btnModifyCustomer.widthHint = 122;
 		btnModifyCustomer.setLayoutData(gd_btnModifyCustomer);
-		btnModifyCustomer.setText(Messages.getString("BusProgramMenu.ModifyCustomer.text")); //$NON-NLS-1$
+		btnModifyCustomer.setText(Messages.getString("BusProgramMenu.ModifyCustomer.text")); 		//$NON-NLS-1$
 		btnModifyCustomer.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -374,7 +374,8 @@ public class BusProgramMenu extends AbstractProgramWindow
 		gd_btnRemoveCustomer.widthHint = 122;
 		btnRemoveCustomer.setLayoutData(gd_btnRemoveCustomer);
 		btnRemoveCustomer.setText(Messages.getString("BusProgramMenu.RemoveCustomer.text"));
-		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnModifyCustomer, btnBusesNeededByDate, btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit, toolBar});
+		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnModifyCustomer, btnBusesNeededByDate, 
+				btnListCustomersByName, btnListCustomersBySize, btnProfitByDate, btnProfitTotal, btnQuit, toolBar});
 		btnRemoveCustomer.addSelectionListener(new SelectionAdapter() 
 		{
 			public void widgetSelected(SelectionEvent e) 

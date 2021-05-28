@@ -180,7 +180,6 @@ public class BusCalculation
 					
 					customers.get(dateIndex).add(cstmr); 
 					displayRefundDialog(numToRefund);
-					System.out.println("number refunded (< min capacity): " + numToRefund); 	// test
 					return -1 * numToRefund; 			// number refunded
 				}
 				
@@ -194,7 +193,6 @@ public class BusCalculation
 				
 				cstmr.refundPersons(numToRefund);
 				displayRefundDialog(numToRefund);
-				System.out.println("number refunded: " + numToRefund); 	// test
 				return -1 * numToRefund; 				// number refunded
 			}
 		}
@@ -203,7 +201,7 @@ public class BusCalculation
 	// TODO: label method
 	// TODO: modifications potential maybe
 	// TODO: make comment boxes out of some comments etc. 
-	public static boolean unscheduleTrip (Customer cstmr) 
+	public static void unscheduleTrip (Customer cstmr) 
 	{
 		//customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));
 		LocalDate date = cstmr.getDate(); 
@@ -274,8 +272,12 @@ public class BusCalculation
 			customers.remove(dateIndex);
 			dates.remove(dateIndex);
 		}
-		
-		return true; 
+	}
+	
+	//TODO: 
+	public static int rescheduleTrip() 
+	{
+		return 0; 
 	}
 	
 	// TODO: 
@@ -286,6 +288,10 @@ public class BusCalculation
 	
 	// TODO: label method properly 
 	// calculates number of buses which will be necessary for the day
+	/***************************/
+	/* PRECONDITION:  
+	/* POSTCONDITION: 
+	/************************/ 
 	public static int getNumBuses(LocalDate dt) 
 	{	
 		return (int)Math.ceil(getNumPaxOnDate(dt) / ((double)MAX_CAPACITY)); 

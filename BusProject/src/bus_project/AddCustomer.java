@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 
 //TODO: if < MIN_CAPACITY passengers do not allow add customer? > 400 already on date?  
 
@@ -99,7 +100,7 @@ public class AddCustomer extends AbstractProgramWindow
 	{
 		shlAddCustomer = new Shell();
 		// TODO: label method calls
-		shlAddCustomer.setSize(700, 400);
+		shlAddCustomer.setSize(800, 400);
 		shlAddCustomer.setText(Messages.getString("AddCustomer.shlAddCustomer.text")); //$NON-NLS-1$
 		
 		Label lblName = new Label(shlAddCustomer, SWT.NONE);
@@ -132,7 +133,7 @@ public class AddCustomer extends AbstractProgramWindow
 		
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
 		// TODO: label method calls
-		btnExit.setBounds(599, 326, 75, 25);
+		btnExit.setBounds(699, 326, 75, 25);
 		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
 		
 		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
@@ -166,30 +167,32 @@ public class AddCustomer extends AbstractProgramWindow
 		/*******************/
 		/* CUSTOMERS TABLE */
 		/*******************/ 
-		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
+		customersTable = new Table(shlAddCustomer, SWT.BORDER | SWT.FULL_SELECTION);
 		customersTable.setToolTipText(Messages.getString("AddCustomer.customersTable.toolTipText")); //$NON-NLS-1$
-		customersTable.setBounds(258, 43, 416, 252);
-		customersTable.setLinesVisible(true);
+		customersTable.setBounds(258, 43, 516, 252);
+		customersTable.setLinesVisible(true);	
+		customersTable.setHeaderVisible(true);
 		
 		TableColumn tblclmnID = new TableColumn(customersTable, SWT.NONE);
-		tblclmnID.setWidth(100);
-		tblclmnID.setText(Messages.getString("AddCustomer.tblclmnNewColumn.text")); //$NON-NLS-1$
-		
+		tblclmnID.setWidth(60);
+		tblclmnID.setText(Messages.getString("AddCustomer.tblclmnID.text")); //$NON-NLS-1$
+
 		TableColumn tblclmmName = new TableColumn(customersTable, SWT.NONE);
-		tblclmmName.setWidth(100);
-		tblclmmName.setText(Messages.getString("AddCustomer.tblclmnNewColumn_3.text")); //$NON-NLS-1$
-		
+		tblclmmName.setWidth(160);
+		tblclmmName.setText(Messages.getString("AddCustomer.tblclmnName.text")); //$NON-NLS-1$
+
 		TableColumn tblclmnSize = new TableColumn(customersTable, SWT.NONE);
 		tblclmnSize.setWidth(100);
-		tblclmnSize.setText(Messages.getString("AddCustomer.tblclmnNewColumn_2.text")); //$NON-NLS-1$
+		tblclmnSize.setText(Messages.getString("AddCustomer.tblclmnSize.text")); //$NON-NLS-1$
 		
 		TableColumn tblclmnDate = new TableColumn(customersTable, SWT.NONE);
 		tblclmnDate.setWidth(100);
-		tblclmnDate.setText("New Column");
+		tblclmnDate.setText(Messages.getString("AddCustomer.tblclmnDate.text")); //$NON-NLS-1$
 		
 		TableColumn tblclmnRefunds = new TableColumn(customersTable, SWT.NONE);
-		tblclmnRefunds.setWidth(100);
-		tblclmnRefunds.setText(Messages.getString("AddCustomer.tblclmnNewColumn_1.text")); //$NON-NLS-1$
+		tblclmnRefunds.setWidth(80);
+		tblclmnRefunds.setText(Messages.getString("AddCustomer.tblclmnRefunds.text")); //$NON-NLS-1$
+			
 		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnAdd, customersTable, btnExit});
 		// TODO: label if
 		if (customers.size() > 0)
