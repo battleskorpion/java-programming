@@ -103,7 +103,7 @@ public class BusesByDate extends AbstractProgramWindow
 		Label lblBuses = new Label(shlBusesByDate, SWT.NONE);
 		// TODO: label method calls
 		lblBuses.setBounds(10, 196, 75, 15);
-		lblBuses.setText(Messages.getString("BusesByDate.lblBuses.text")); //$NON-NLS-1$
+		lblBuses.setText(Messages.getString("lblBuses.text")); 	//$NON-NLS-1$
 		
 		// TODO: label label
 		Label lblNumBuses = new Label(shlBusesByDate, SWT.RIGHT);
@@ -115,7 +115,7 @@ public class BusesByDate extends AbstractProgramWindow
 		Button btnQuit = new Button(shlBusesByDate, SWT.NONE);
 		// TODO: label method calls
 		btnQuit.setBounds(168, 196, 75, 25);
-		btnQuit.setText(Messages.getString("BusesByDate.btnQuit.text")); //$NON-NLS-1$
+		btnQuit.setText(Messages.getString("btnExit.text")); 	//$NON-NLS-1$
 
 		/* event handlers */ 
 		

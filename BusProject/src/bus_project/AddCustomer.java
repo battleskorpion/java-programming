@@ -183,11 +183,11 @@ public class AddCustomer extends AbstractProgramWindow
 
 		TableColumn tblclmnSize = new TableColumn(customersTable, SWT.NONE);
 		tblclmnSize.setWidth(100);
-		tblclmnSize.setText(Messages.getString("AddCustomer.tblclmnSize.text")); //$NON-NLS-1$
+		tblclmnSize.setText(Messages.getString("AddCustomer.tblclmnDate.text")); //$NON-NLS-1$
 		
 		TableColumn tblclmnDate = new TableColumn(customersTable, SWT.NONE);
 		tblclmnDate.setWidth(100);
-		tblclmnDate.setText(Messages.getString("AddCustomer.tblclmnDate.text")); //$NON-NLS-1$
+		tblclmnDate.setText(Messages.getString("AddCustomer.tblclmnSize.text")); //$NON-NLS-1$
 		
 		TableColumn tblclmnRefunds = new TableColumn(customersTable, SWT.NONE);
 		tblclmnRefunds.setWidth(80);
