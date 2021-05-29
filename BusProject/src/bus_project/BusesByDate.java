@@ -41,8 +41,8 @@ public class BusesByDate extends AbstractProgramWindow
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		Display display = Display.getDefault();					// MANAGES THE CONNECTION BETWEEN SWT 
-																// AND THE UNDERLYING OPERATING SYSTEM 
+		Display display = Display.getDefault();			// MANAGES THE CONNECTION BETWEEN SWT 
+														// AND THE UNDERLYING OPERATING SYSTEM 
 
 		/**********************************************/
 		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
@@ -57,7 +57,7 @@ public class BusesByDate extends AbstractProgramWindow
 		/******************************************************************/
 		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
 		/******************************************************************/
-		shlBusesByDate.forceActive();							// SO WINDOW WILL BE FOCUSED WHEN CREATED
+		shlBusesByDate.forceActive();					// SO WINDOW WILL BE FOCUSED WHEN CREATED
 		
 		/*************************************************/
 		/* METHOD TO ENACT LAYOUT OF SHELL IF APPLICABLE */
@@ -85,7 +85,8 @@ public class BusesByDate extends AbstractProgramWindow
 		// TODO: label method calls
 		shlBusesByDate = new Shell();
 		shlBusesByDate.setSize(270, 270);
-		shlBusesByDate.setText(Messages.getString("BusesByDate.shlBusesByDate.text")); //$NON-NLS-1$
+		shlBusesByDate.setText(Messages.getString
+				("BusesByDate.shlBusesByDate.text")); 			//$NON-NLS-1$
 		
 		// TODO: label dateTime
 		DateTime dateTime = new DateTime(shlBusesByDate, SWT.BORDER | SWT.CALENDAR);
@@ -124,7 +125,9 @@ public class BusesByDate extends AbstractProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
+				LocalDate date = LocalDate.parse(StringToLocalDateFormat
+						(dateTime.getDay(), dateTime.getMonth(), 
+						dateTime.getYear()));
 				 
 				if (dates.contains(date)) 
 				{
@@ -144,7 +147,8 @@ public class BusesByDate extends AbstractProgramWindow
 				LocalDate date = dates.get(index); 
 				
 				// move calendar to date 
-				dateTime.setDate(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
+				dateTime.setDate(date.getYear(), date.getMonthValue() - 1, 
+						date.getDayOfMonth());
 				
 				// update number of buses text
 				lblNumBuses.setText(BusCalculation.getNumBuses(date) + "");

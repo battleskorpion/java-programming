@@ -211,7 +211,8 @@ public class ModifyCustomer extends AbstractProgramWindow
 	{
 		int id = Integer.parseInt(idField.getText()); 		// NEW ID OF SELECTED CUSTOMER
 		
-		setCustomerDetails(slctdCstmr, nameField, sizeField, id, slctdCstmr.getId(), dateTime); 
+		setCustomerDetails(slctdCstmr, nameField, sizeField, id, 
+				slctdCstmr.getId(), dateTime); 
 		BusCalculation.rescheduleTrip(slctdCstmr); 
 		BusFinances.setCustomerProfit(slctdCstmr); 
 		
@@ -256,7 +257,8 @@ public class ModifyCustomer extends AbstractProgramWindow
 		nameField.setText(cstmr.getName());
 		sizeField.setText(Integer.toString(cstmr.getNumPersons()));
 		idField.setText(Integer.toString(customersTable.getSelectionIndex()));
-		dateTime.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), getDateTimeDay(cstmr));
+		dateTime.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), 
+				getDateTimeDay(cstmr));
 	}
 	
 	/***************************************************************/
@@ -267,7 +269,10 @@ public class ModifyCustomer extends AbstractProgramWindow
 	private boolean legalCustomerModification(ArrayList<Customer> cstmrs)
 	{
 		
-		if (nameField.getText().equals("") || sizeField.getText().equals("") || Integer.parseInt(idField.getText()) < 0 || Integer.parseInt(idField.getText()) >= cstmrs.size() || !vaildDate(dateTime))
+		if (nameField.getText().equals("") || sizeField.getText().equals("") 
+				|| Integer.parseInt(idField.getText()) < 0 
+				|| Integer.parseInt(idField.getText()) >= cstmrs.size() 
+				|| !vaildDate(dateTime))
 		{
 			return false; 
 		}

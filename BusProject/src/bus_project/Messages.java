@@ -1,9 +1,13 @@
 package bus_project;
 
+import java.text.MessageFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
+import org.eclipse.swt.widgets.DateTime;
 
 public class Messages
 {
@@ -11,7 +15,7 @@ public class Messages
 	private static Locale locale = Locale.getDefault(); 				
 	private static ArrayList<Locale> locales; 
 	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale);
-
+	
 	private Messages()
 	{
 		locales = programLocales(); 
@@ -29,13 +33,23 @@ public class Messages
 		}
 	}
 	
+	public static String getCompoundString(String key, Object[] dta)
+	{
+		String result; 
+		
+		MessageFormat formatter = new MessageFormat(""); 
+		formatter.setLocale(locale); 
+		formatter.applyPattern(RESOURCE_BUNDLE.getString(key)); 
+		result = formatter.format(dta); 
+		return result; 
+	}
+	
 	public static ArrayList<Locale> programLocales()
 	{
 		ArrayList<Locale> locales = new ArrayList<Locale>(); 
 		locales.add(new Locale("en", "US")); 
 		locales.add(new Locale("es", "ES")); 
 		locales.add(new Locale("pt", "PT")); 
-		
 		return locales; 
 	}
 	
@@ -49,4 +63,5 @@ public class Messages
 	{
 		return locale; 
 	}
+	
 }

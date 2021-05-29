@@ -19,18 +19,24 @@ public abstract class AbstractProgramWindow
 	
 	protected Shell shell;
 
-	/******************************************************************************************************/
-	/*											 METHOD SECTION 										  */
-	/******************************************************************************************************/
+	/**************************************************************************/
+	/*								METHOD SECTION 			  				  */
+	/**************************************************************************/
 	
-	/**
-	 * Open the window.
-	 */
+	/**************************************************************************/
+	/* PRECONDITION:  WINDOW NEEDS TO BE DISPLAYED ON SCREEN 				  */
+	/* POSTCONDITION: SHELL OF WINDOW IS OPENED (WINDOW DISPLAYED ON SCREEN)  */
+	/**************************************************************************/
 	public void open(Shell shell) 
 	{
 		shell.open(); 
 	}
 
+	/**************************************************************************/
+	/* PRECONDITION:  WINDOW NEEDS TO BE CLOSED 				  			  */
+	/* POSTCONDITION: SHELL OF WINDOW IS CLOSED  							  */
+	/*           	  (WINDOW IS NO LONGER DISPLAYED ON SCREEN)  			  */
+	/**************************************************************************/
 	public void close(Shell shell)
 	{
 		shell.close(); 
@@ -41,10 +47,10 @@ public abstract class AbstractProgramWindow
 	//protected abstract void createContents(); 
 	
 	protected void updateTable(Table tbl, Object dta) 
-	/********************************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE 			*/
-	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   			*/
-	/********************************************************************************/
+	/**************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE	  */
+	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   	  */
+	/**************************************************************************/
 	{
 		/*********************/
 		/* ADD ITEM TO TABLE */
@@ -54,10 +60,10 @@ public abstract class AbstractProgramWindow
 	}
 	
 	protected void updateTable(Table tbl, String[] dta) 
-	/********************************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE 			*/
-	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   			*/
-	/********************************************************************************/
+	/**************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE 	  */
+	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   	  */
+	/**************************************************************************/
 	{
 		/*********************/
 		/* ADD ITEM TO TABLE */
@@ -67,10 +73,10 @@ public abstract class AbstractProgramWindow
 	}
 	
 	protected <E> void updateTable(Table tbl, ArrayList<E> dta) 
-	/********************************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	  	*/
-	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  		*/
-	/********************************************************************************/
+	/**************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES */
+	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  */
+	/**************************************************************************/
 	{
 		int columnCount = tbl.getColumnCount(); 
 		
@@ -97,11 +103,12 @@ public abstract class AbstractProgramWindow
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected <E> void updateTable(Table tbl, ArrayList<E> dta, Function<E, String> addtlDataFunction) 
-	/********************************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	  	*/
-	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  		*/
-	/********************************************************************************/
+	protected <E> void updateTable(Table tbl, ArrayList<E> dta, 
+			Function<E, String> addtlDataFunction) 
+	/**************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES */
+	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  */
+	/**************************************************************************/
 	{
 		int columnCount = tbl.getColumnCount(); 
 		if (columnCount <= 1) 
@@ -117,7 +124,8 @@ public abstract class AbstractProgramWindow
 			/****************/ 
 			for (int i = 0; i < dta.size(); i++) 
 			{
-				updateTable(tbl, dta.get(i) + ", " + addtlDataFunction.apply(dta.get(i))); 
+				updateTable(tbl, dta.get(i) + ", " 
+						+ addtlDataFunction.apply(dta.get(i))); 
 			}
 		}
 		else 
@@ -134,7 +142,8 @@ public abstract class AbstractProgramWindow
 					/* ADD ITEM TO TABLE */
 					/*********************/
 					TableItem item = new TableItem(tbl, SWT.NULL); 
-					item.setText(((ArrayList<ArrayList<E>>) dta.get(i)).get(col).toString());
+					item.setText(((ArrayList<ArrayList<E>>) dta.get(i))
+							.get(col).toString());
 				}
 			}
 		}
@@ -148,7 +157,9 @@ public abstract class AbstractProgramWindow
 	{
 		if (dta.size() > 0) 
 		{	
-			bx.setItems(dta.toString().substring(0, dta.toString().length() - 1).substring(1, dta.toString().length() - 1).split(", ")); 	// TODO: FIX THIS BEAUTFUL MESS
+			// TODO: THIS WORKS BUT IS UNREADABLE
+			bx.setItems(dta.toString().substring(0, dta.toString().length() - 1)
+					.substring(1, dta.toString().length() - 1).split(", ")); 	
 		}
 		else 
 		{
@@ -157,7 +168,8 @@ public abstract class AbstractProgramWindow
 	}
 	
 	// TODO: COMMENT
-	protected void setCustomerDetails(Customer cstmr, Text nmField, Text szField, int indx, int id, DateTime dtTime) 
+	protected void setCustomerDetails(Customer cstmr, Text nmField, 
+			Text szField, int indx, int id, DateTime dtTime) 
 	{
 		LocalDate tripDate; 
 		
@@ -177,7 +189,8 @@ public abstract class AbstractProgramWindow
 		cstmr.setDate(tripDate); 
 	}
 	
-	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, 
+			int indx, Table tbl) 
 	{
 		cstmrs.add(indx, cstmr);
 		cstmrs.sort(new Customer.CompareId()); 
@@ -186,7 +199,8 @@ public abstract class AbstractProgramWindow
 		updateTable(tbl, cstmrs); 
 	}
 	
-	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, 
+			Table tbl) 
 	{
 		cstmrs.add(cstmr);
 		BusCalculation.scheduleTrip(cstmr);
@@ -239,7 +253,8 @@ public abstract class AbstractProgramWindow
 	// TODO: COMMENT
 	protected boolean vaildDate(DateTime dateTime) 		
 	{
-		LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
+		LocalDate date = LocalDate.parse(StringToLocalDateFormat
+				(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
 		
 		if (date.isAfter(LocalDate.now()))	
 		{			
