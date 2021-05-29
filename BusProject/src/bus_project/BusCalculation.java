@@ -275,7 +275,7 @@ public class BusCalculation
 	}
 	
 	//TODO: 
-	public static int rescheduleTrip() 
+	public static int rescheduleTrip(Customer cstmr) 
 	{
 		return 0; 
 	}
