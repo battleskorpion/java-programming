@@ -1,5 +1,6 @@
 package bus_project;
 
+//TODO: COMMENT
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,28 +20,29 @@ public class BusCalculation
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/
-	// static variables
-	private static ArrayList<LocalDate> dates = new ArrayList<LocalDate>(); 								//TODO: issues because this isnt in order i think 
-	private static ArrayList<ArrayList<Customer>> customers = new ArrayList<ArrayList<Customer>>(); 	 	// customers each date 
+	// static variables						 
+	private static ArrayList<ArrayList<Customer>> customers; 
+	private static ArrayList<LocalDate> dates; 		
+			
+	//TODO: constructor
+	public BusCalculation()
+	{
+		customers = new ArrayList<ArrayList<Customer>>(); 	 	// customers each date 
+		dates = new ArrayList<LocalDate>(); 
+	}
 	
-	/******************/
-	/* METHOD SECTION */
-	/******************/
-	
-	// TODO: 
-	// new version
-	// prioritize filling buses to max 
-	// codes: 
-	// 0 	- no error/issue
-	// -x 	- number refunded
+	/************************************************************************************************/
+	/* 										  METHOD SECTION 										*/
+	/************************************************************************************************/
 	
 	//TODO: LABEL CODE BETTER 
-	/*****************************************************************************************************************/
-	/* PRECONDITION:  CUSTOMER TRIP NEEDS TO BE SCHEDULED ON DATE AFTER TODAY										 */
-	/* POSTCONDITION: CUSTOMER IS SCHEDULED ON THE CORRECT DATE, REFUNDS OR UNREFUNDS ARE MADE TO MATCH MINIMUM AND  */
-	/* MAXIMUM CAPACITIES OF BUSES 																					 */
-	/*****************************************************************************************************************/ 
 	public static int scheduleTrip(Customer cstmr)   
+	/************************************************************************************************/
+	/* PRECONDITION:  CUSTOMER TRIP NEEDS TO BE SCHEDULED ON DATE AFTER TODAY						*/
+	/* POSTCONDITION: CUSTOMER IS SCHEDULED ON THE CORRECT DATE, REFUNDS OR UNREFUNDS ARE MADE TO   */
+	/* 				  MATCH MINIMUM ANDMAXIMUM CAPACITIES OF BUSES, NUMBER OF REFUNDS RETURNED IF 	*/
+	/*				  APPLICABLE																	*/
+	/************************************************************************************************/
 	{
 		/********************/
 		/* VARIABLE SECTION */
@@ -79,16 +81,6 @@ public class BusCalculation
 				System.out.println("number refunded (too many pax): " + numToRefund); 	// test
 				return -1 * numToRefund;  	// number refunded
 			}
-			// if prexisting customers + new customer fill a bus at least to minimum capacity, 
-			// or fill a bus entirely 
-		//	else if ((numPax + cstmr.getNumPersons()) % MAX_CAPACITY >= MIN_CAPACITY 
-		//			|| (numPax + cstmr.getNumPersons()) % MAX_CAPACITY == 0) 
-		//	{
-		//		// TODO: label method call
-		//		customers.get(dateIndex).add(cstmr); 
-		//		System.out.println("refund if possible"); 	// debug 
-		///		return 0; 	
-		//	}
 			// if prexisting customers + refund some customers + new customer fill a bus at least to minimum capacity, 
 			// or fill a bus entirely 
 			// TODO: LOGIC FIX
@@ -203,13 +195,18 @@ public class BusCalculation
 	// TODO: make comment boxes out of some comments etc. 
 	public static void unscheduleTrip (Customer cstmr) 
 	{
-		//customers.get(customers.indexOf(cstmr.getDate())).remove(customers.get(customers.indexOf(cstmr.getDate())).indexOf(cstmr));
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		int cstmrLocation; 
 		LocalDate date = cstmr.getDate(); 
 		int dateIndex = dates.indexOf(date); 
-		int cstmrLocation = customers.get(dateIndex).indexOf(cstmr); 
 		int numPax; 
 		int numToUnrefund; 
 		int numToRefund; 
+		
+		cstmrLocation = customers.get(dateIndex).indexOf(cstmr); 
+		
 		BusFinances.setCustomerProfit(customers.get(dateIndex).get(cstmrLocation)); 
 		customers.get(dateIndex).remove(cstmrLocation).refundPersons();	// removes customer from list and refunds the entire group 
 		
@@ -277,7 +274,8 @@ public class BusCalculation
 	//TODO: 
 	public static int rescheduleTrip(Customer cstmr) 
 	{
-		return 0; 
+		unscheduleTrip(cstmr);
+		return scheduleTrip(cstmr); 
 	}
 	
 	// TODO: 
@@ -286,13 +284,11 @@ public class BusCalculation
 		return 0; 
 	}
 	
-	// TODO: label method properly 
-	// calculates number of buses which will be necessary for the day
-	/***************************/
-	/* PRECONDITION:  
-	/* POSTCONDITION: 
-	/************************/ 
 	public static int getNumBuses(LocalDate dt) 
+	/************************************************************************************************/
+	/* PRECONDITION:  CUSTOMERS MAY HAVE BEEN SCHEDULED ON DATE										*/
+	/* POSTCONDITION: RETURNS NUMBER OF BUSES WHICH WILL BE NECESSARY FOR THE DAY					*/
+	/************************************************************************************************/
 	{	
 		return (int)Math.ceil(getNumPaxOnDate(dt) / ((double)MAX_CAPACITY)); 
 	}

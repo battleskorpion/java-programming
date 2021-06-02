@@ -3,9 +3,9 @@
 /* DARIAN SIEMBAB 									*/
 /* MARCH 7, 2021									*/
 /* Bus Program										*/
-/* 									*/
-/* THIS PROGRAM WILL     	*/
-/* 				*/
+/* 													*/
+/* THIS PROGRAM WILL SCHEDULE CUSTOMER TRIPS     	*/
+/* ON SELECTED DATES 								*/
 /* 	 			*/
 /****************************************************/
 
@@ -14,7 +14,7 @@
 /******************/
 package bus_project;
 
-import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;										// FOR JOPTIONPANE DIALOG WINDOWS
 
 public class BusProgram 
 {
@@ -31,23 +31,33 @@ public class BusProgram
 		/********************/
 		/* RUN PROGRAM LOOP */
 		/********************/
+		int runProgramResponse; 
 		do 
 		{
 			runProgram(); 
+			do 
+			{
+				runProgramResponse = runProgramPrompt(); 
+				if (runProgramResponse == 2)
+				{
+					window.open(); 				// reopen window
+				}
+			}
+			while (runProgramResponse == 2); 
 		}
-		while (runProgramPrompt() == true); 
+		while (runProgramResponse == 0);
 	}
 	
-	/******************************************************************************************************/
-	/*											 METHOD SECTION 										  */
-	/******************************************************************************************************/
+	/************************************************************************************************/
+	/*											METHOD SECTION 										*/
+	/************************************************************************************************/
 	
-	static boolean runProgramPrompt()  
-	/******************************************************************************************************/ 
-	/* PRECONDITION:  PROGRAM NEEDS TO PROMPT THE USER, IF THE PROGRAM SHOULD BE RUN AGAIN, OR NOT   	  */					  
-	/* POSTCONDITION: USER IS ASKED IF THEY WOULD LIKE TO RUN THE PROGRAM AGAIN (YES OR NO);              */
-	/* 				  USER'S INPUT IS RETURNED															  */
-	/******************************************************************************************************/	
+	static int runProgramPrompt()  
+	/************************************************************************************************/ 
+	/* PRECONDITION:  PROGRAM NEEDS TO PROMPT THE USER, IF THE PROGRAM SHOULD BE RUN AGAIN, OR NOT  */					  
+	/* POSTCONDITION: USER IS ASKED IF THEY WOULD LIKE TO RUN THE PROGRAM AGAIN (YES OR NO);        */
+	/* 				  USER'S INPUT IS RETURNED														*/
+	/************************************************************************************************/	
 	{ 
 		/********************/
 		/* VARIABLE SECTION */
@@ -58,24 +68,40 @@ public class BusProgram
 		/* INPUT SECTION */
 		/*****************/
 		runProgram = JOptionPane.showConfirmDialog(null, "Would you like to run the program again?", 
-				"Run Program Again?", JOptionPane.YES_NO_OPTION); 
-		// USER SELECTS YES: runProgram = 0
-		// USER SELECTS NO:  runProgram = 1
+				"Run Program Again?", JOptionPane.YES_NO_CANCEL_OPTION); 
+		// USER SELECTS YES: 	runProgram = 0
+		// USER SELECTS NO:  	runProgram = 1
+		// USER SELECTS CANCEL: runProgram = 2
 		
 		/******************************************/
 		/* RETURN EITHER TRUE OR FALSE		      */
 		/* DEPENDING ON VALUE OF runProgram	INPUT */
 		/******************************************/
-		return runProgram == 0;
+		return runProgram; 
 	}
 	
 	public static void runProgram()
 	{
-		/********************/
-		/* VARIABLE SECTION */
-		/********************/
+		/*****************************************/
+		/* INSTANTIATE NEW MENU (RESETS PROGRAM) */
+		/*****************************************/
 		window = new BusProgramMenu();
-					
+			
+		/*************************/
+		/* METHOD TO OPEN WINDOW */
+		/*************************/
+		openWindow(); 
+	}
+	public static void languageChanged(int index)
+	{
+		// 0 - en_US
+		// 1 - es_ES
+		Messages.setLocale(Messages.programLocales().get(index));	
+		window.close(); 
+		runProgram(); 
+	}
+	public static void openWindow ()
+	{
 		/*****************************/
 		/* METHOD TO OPEN GUI WINDOW */
 		/*****************************/
@@ -88,14 +114,6 @@ public class BusProgram
 			//TODO: error joptionpane
 			e.printStackTrace();
 		}
-	}
-	public static void languageChanged(int index)
-	{
-		// 0 - en_US
-		// 1 - es_ES
-		Messages.setLocale(Messages.programLocales().get(index));	
-		window.close(); 
-		runProgram(); 
 	}
 
 }

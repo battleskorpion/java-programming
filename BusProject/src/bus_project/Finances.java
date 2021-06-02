@@ -11,8 +11,8 @@ public abstract class Finances
 	/*********************/
 	/* CONSTANTS SECTION */
 	/*********************/
-	public static final NumberFormat nf = NumberFormat.getNumberInstance();
-	public static final Currency USD = Currency.getInstance("USD");
+	public static NumberFormat nf = NumberFormat.getNumberInstance();
+	public static Currency currency; 
 	
 	/********************/
 	/* VARIABLE SECTION */

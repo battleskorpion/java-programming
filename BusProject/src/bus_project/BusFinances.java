@@ -5,6 +5,7 @@ package bus_project;
 /******************/
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 public class BusFinances extends Finances 
@@ -17,11 +18,12 @@ public class BusFinances extends Finances
 	/***********************/ 
 	/* CONSTRUCTOR SECTION */
 	/***********************/ 
-	//TODO: // default constructor will be called upon static reference of class
-	// error, does not 
+	//TODO: 
 	public BusFinances() 
 	{
-		nf.setCurrency(USD);
+		System.out.println("called"); 
+		currency = Currency.getInstance(Messages.getLocale());
+		nf.setCurrency(currency);
 		nf.setMinimumFractionDigits(2);
 		nf.setMaximumFractionDigits(2);
 	}

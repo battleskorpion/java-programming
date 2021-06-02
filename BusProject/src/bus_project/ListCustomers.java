@@ -11,20 +11,20 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TableColumn;
 
-public class ListCustomers extends AbstractProgramWindow {
-
+public class ListCustomers extends AbstractProgramWindow 
+{
 	//TODO: label section, vars
 	protected Shell shlListCustomers;
 	private ArrayList<Customer> customers; 
 	private ArrayList<Customer> customersSorted; 
 	private int sortBy; 									// sort by filter		 
-															// srtBy = 0, sort by name  
-															// srtBy = 1, sort by size
 	private Table customersTable;
 	
 	//TODO: label method
-	public ListCustomers (ArrayList<Customer> cstmrs) {
+	public ListCustomers (ArrayList<Customer> cstmrs) 
+	{
 		customers = cstmrs;  
 	}
 	
@@ -81,35 +81,58 @@ public class ListCustomers extends AbstractProgramWindow {
 	/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
 	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
 	/*************************************************/
-	protected void createContents(Shell rootShell) {
-		
+	protected void createContents(Shell rootShell)
+	{
 		//TODO: label method calls/shell
 		shlListCustomers = new Shell();
-		shlListCustomers.setSize(352, 500);
+		shlListCustomers.setSize(550, 360);
 		shlListCustomers.setText(Messages.getString("ListCustomers.shlListCustomers.text")); //$NON-NLS-1$
 		
 		//TODO: label button
 		Button btnExit = new Button(shlListCustomers, SWT.NONE);
 		//TODO: label method calls
 		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
-		btnExit.setBounds(128, 426, 75, 25);
-		
-		//TODO: label table
-		customersTable = new Table(shlListCustomers, SWT.BORDER | SWT.FULL_SELECTION);
-		//TODO: label method calls
-		customersTable.setToolTipText(Messages.getString("ListCustomers.customersTable.toolTipText")); //$NON-NLS-1$
-		customersTable.setLinesVisible(true);
-		customersTable.setBounds(10, 40, 316, 380);
+		btnExit.setBounds(10, 289, 516, 25);
 		
 		// update table with sorted list, sort list depending on sort method specified
 		
 		//TODO: label method calls
+		sortCustomers();
+		
+		Label lblCustomers = new Label(shlListCustomers, SWT.CENTER);
+		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
+		lblCustomers.setBounds(10, 10, 516, 15);
+		
+		customersTable = new Table(shlListCustomers, SWT.BORDER | SWT.FULL_SELECTION);
+		customersTable.setToolTipText("!AddCustomer.customersTable.toolTipText!");
+		customersTable.setLinesVisible(true);
+		customersTable.setHeaderVisible(true);
+		customersTable.setBounds(10, 31, 516, 252);
+		
+		TableColumn tableColumn = new TableColumn(customersTable, SWT.NONE);
+		tableColumn.setWidth(60);
+		tableColumn.setText("ID");
+		
+		TableColumn tableColumn_1 = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_1.setWidth(160);
+		tableColumn_1.setText("Name");
+		
+		TableColumn tableColumn_2 = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_2.setWidth(100);
+		tableColumn_2.setText("Date");
+		
+		TableColumn tableColumn_3 = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_3.setWidth(100);
+		tableColumn_3.setText("Group Size");
+		
+		TableColumn tableColumn_4 = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_4.setWidth(80);
+		tableColumn_4.setText("Refunds");
+		
+		//TODO: logic section 
 		sortCustomers(); 
 		updateTable(customersTable, customersSorted); 
 		
-		Label lblCustomers = new Label(shlListCustomers, SWT.NONE);
-		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
-		lblCustomers.setBounds(140, 10, 63, 15);
 		//TODO: label listener
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
@@ -124,23 +147,27 @@ public class ListCustomers extends AbstractProgramWindow {
 	}
 	
 	//TODO: label method
-	public void setSortByName() {
+	public void setSortByName() 
+	{
 		sortBy = 0;  	// set sort by filter to name
 	}
 	
 	//TODO: label method
-	public void setSortBySize() {
+	public void setSortBySize() 
+	{
 		sortBy = 1; 	// set sort by filter to size
 	}
 	
 	//TODO: label method
 	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...." with arrayList cast 
-	private void sortCustomers() {
+	private void sortCustomers() 
+	{
 		//TODO: label call
 		customersSorted =  (ArrayList<Customer>) customers.clone(); 
 		
 		//TODO: label switch
-		switch (sortBy) {
+		switch (sortBy) 
+		{
 			case 0: 
 				customersSorted.sort(new Customer.CompareName());
 				break; 

@@ -1,15 +1,17 @@
 package bus_project;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Function;
-
-import org.eclipse.swt.SWT;
+import java.time.LocalDate;	
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import java.util.function.Function; 
+import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
+														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
+														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
+														// PROVIDED BY SWT. 
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Shell;					// REPRESENTS THE "WINDOWS" WHICH THE DESKTOP
+														// OR "WINDOW MANAGER" IS MANAGING. 			
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -19,25 +21,24 @@ public abstract class AbstractProgramWindow
 	
 	protected Shell shell;
 
-	/**************************************************************************/
-	/*								METHOD SECTION 			  				  */
-	/**************************************************************************/
-	
-	/**************************************************************************/
-	/* PRECONDITION:  WINDOW NEEDS TO BE DISPLAYED ON SCREEN 				  */
-	/* POSTCONDITION: SHELL OF WINDOW IS OPENED (WINDOW DISPLAYED ON SCREEN)  */
-	/**************************************************************************/
-	public void open(Shell shell) 
+	/************************************************************************************************/
+	/*										METHOD SECTION 			  				  				*/
+	/************************************************************************************************/
+
+	public void open(Shell shell)
+	/************************************************************************************************/
+	/* PRECONDITION:  WINDOW NEEDS TO BE DISPLAYED ON SCREEN 				  						*/
+	/* POSTCONDITION: SHELL OF WINDOW IS OPENED (WINDOW DISPLAYED ON SCREEN)  						*/
+	/************************************************************************************************/
 	{
 		shell.open(); 
 	}
-
-	/**************************************************************************/
-	/* PRECONDITION:  WINDOW NEEDS TO BE CLOSED 				  			  */
-	/* POSTCONDITION: SHELL OF WINDOW IS CLOSED  							  */
-	/*           	  (WINDOW IS NO LONGER DISPLAYED ON SCREEN)  			  */
-	/**************************************************************************/
+	
 	public void close(Shell shell)
+	/************************************************************************************************/
+	/* PRECONDITION:  WINDOW NEEDS TO BE CLOSED 				  			  						*/
+	/* POSTCONDITION: SHELL OF WINDOW IS CLOSED (WINDOW IS NO LONGER DISPLAYED ON SCREEN)  			*/
+	/************************************************************************************************/
 	{
 		shell.close(); 
 	}
@@ -47,10 +48,10 @@ public abstract class AbstractProgramWindow
 	//protected abstract void createContents(); 
 	
 	protected void updateTable(Table tbl, Object dta) 
-	/**************************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE	  */
-	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   	  */
-	/**************************************************************************/
+	/************************************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE	 						*/
+	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   	  						*/
+	/************************************************************************************************/
 	{
 		/*********************/
 		/* ADD ITEM TO TABLE */
@@ -60,10 +61,10 @@ public abstract class AbstractProgramWindow
 	}
 	
 	protected void updateTable(Table tbl, String[] dta) 
-	/**************************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE 	  */
-	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   	  */
-	/**************************************************************************/
+	/************************************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ADDITIONAL VALUE 	  						*/
+	/* POSTCONDITION: ADDS A VALUE TO THE TABLE 						   	  						*/
+	/************************************************************************************************/
 	{
 		/*********************/
 		/* ADD ITEM TO TABLE */
@@ -73,11 +74,14 @@ public abstract class AbstractProgramWindow
 	}
 	
 	protected <E> void updateTable(Table tbl, ArrayList<E> dta) 
-	/**************************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES */
-	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  */
-	/**************************************************************************/
+	/************************************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 						*/
+	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  						*/
+	/************************************************************************************************/
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
 		int columnCount = tbl.getColumnCount(); 
 		
 		/***************/
@@ -89,6 +93,7 @@ public abstract class AbstractProgramWindow
 		/****************/
 		/* UPDATE TABLE */
 		/****************/ 
+		//TODO: COMMENTS
 		for (int i = 0; i < dta.size(); i++) 
 		{
 			if (columnCount <= 1) 
@@ -105,12 +110,16 @@ public abstract class AbstractProgramWindow
 	@SuppressWarnings("unchecked")
 	protected <E> void updateTable(Table tbl, ArrayList<E> dta, 
 			Function<E, String> addtlDataFunction) 
-	/**************************************************************************/
-	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES */
-	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  */
-	/**************************************************************************/
+	/************************************************************************************************/
+	/* PRECONDITION:  A TABLE NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 						*/
+	/* POSTCONDITION: CLEARS PREVIOUS TABLE AND ADDS NEW VALUES TO TABLE	  						*/
+	/************************************************************************************************/
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/ 
 		int columnCount = tbl.getColumnCount(); 
+		//TODO: COMMENT
 		if (columnCount <= 1) 
 		{
 			/***************/
@@ -122,6 +131,7 @@ public abstract class AbstractProgramWindow
 			/****************/
 			/* UPDATE TABLE */
 			/****************/ 
+			//TODO: COMMENT better
 			for (int i = 0; i < dta.size(); i++) 
 			{
 				updateTable(tbl, dta.get(i) + ", " 
@@ -133,7 +143,9 @@ public abstract class AbstractProgramWindow
 			/***************/
 			/* RESET TABLE */
 			/***************/ 
-			tbl.clearAll();						
+			tbl.clearAll();	
+			
+			//TODO: COMMENT
 			for (int i = 0; i < dta.size(); i++) 
 			{
 				for(int col = 0; col < columnCount; col++) 
@@ -149,12 +161,13 @@ public abstract class AbstractProgramWindow
 		}
 	}
 	
-	/********************************************************************************/
-	/* PRECONDITION:  A COMBO BOX NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 	*/
-	/* POSTCONDITION: CLEARS PREVIOUS VALUES AND ADDS NEW VALUES TO COMBO BOX	  	*/
-	/********************************************************************************/
 	protected <E> void updateComboBox(Combo bx, ArrayList<E> dta) 
+	/************************************************************************************************/
+	/* PRECONDITION:  A COMBO BOX NEEDS TO BE UPDATED WITH AN ARRAY OF NEW VALUES 					*/
+	/* POSTCONDITION: CLEARS PREVIOUS VALUES AND ADDS NEW VALUES TO COMBO BOX	  					*/
+	/************************************************************************************************/
 	{
+		//TODO: COMMENT
 		if (dta.size() > 0) 
 		{	
 			// TODO: THIS WORKS BUT IS UNREADABLE
@@ -168,11 +181,17 @@ public abstract class AbstractProgramWindow
 	}
 	
 	// TODO: COMMENT
-	protected void setCustomerDetails(Customer cstmr, Text nmField, 
-			Text szField, int indx, int id, DateTime dtTime) 
+	protected void setCustomerDetails(Customer cstmr, Text nmField, Text szField, 
+			int indx, int id, DateTime dtTime) 
+	/************************************************************************************************/
+	/* PRECONDITION:  DETAILS OF CUSTOMER NEED TO BE SET											*/
+	/* POSTCONDITION: SETS CUSTOMER DETAILS TO NEW VALUES 						  					*/
+	/************************************************************************************************/
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
 		LocalDate tripDate; 
-		
 		int year;
 		int month; 
 		int day; 
@@ -189,8 +208,12 @@ public abstract class AbstractProgramWindow
 		cstmr.setDate(tripDate); 
 	}
 	
-	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, 
-			int indx, Table tbl) 
+	/************************************************************************************************/
+	/* PRECONDITION:  A CUSTOMER NEEDS TO BE ADDED TO THE ARRAY LIST OF CUSTOMERS					*/
+	/* POSTCONDITION: ADDS THE CUSTOMER TO THE ARRAY LIST OF CUSTOMERS, SCHEDULES THE CUSTOMER'S 	*/
+	/*				  TRIP, CALCULATES PROFIT FROM CUSTOMER											*/
+	/************************************************************************************************/
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
 	{
 		cstmrs.add(indx, cstmr);
 		cstmrs.sort(new Customer.CompareId()); 
@@ -199,8 +222,7 @@ public abstract class AbstractProgramWindow
 		updateTable(tbl, cstmrs); 
 	}
 	
-	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, 
-			Table tbl) 
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
 	{
 		cstmrs.add(cstmr);
 		BusCalculation.scheduleTrip(cstmr);
@@ -217,6 +239,7 @@ public abstract class AbstractProgramWindow
 	// TODO: comment
 	protected void clearInput(Text[] flds) 
 	{
+		//TODO: COMMETNS
 		for (int i = 0; i < flds.length; i++) 
 		{
 			flds[i].setText("");
@@ -226,6 +249,7 @@ public abstract class AbstractProgramWindow
 	// TODO: comment
 	protected void updateIndex(ArrayList<Customer> cstmrs)
 	{
+		//TODO: COMMENTS
 		for (int i = 0; i < cstmrs.size(); i++) 
 		{
 			cstmrs.get(i).setIndex(i);
@@ -233,29 +257,38 @@ public abstract class AbstractProgramWindow
 	}
 	
 	// TODO: COMMENT
-	protected String StringToLocalDateFormat(int day, int month, int year)
+	protected String StringToLocalDateFormat(int dy, int mnth, int yr)
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
 		String dateString; 
-		dateString = year + "-"; 
-		if ((month + 1) < 10) 
+		
+		//TODO: COMMENTS
+		dateString = yr + "-"; 
+		if ((mnth + 1) < 10) 
 		{
 			dateString += "0";  
 		}
-		dateString += (month + 1) + "-";
-		if (day < 10) 
+		dateString += (mnth + 1) + "-";
+		if (dy < 10) 
 		{
 			dateString += "0"; 
 		}
-		dateString += day; 
+		dateString += dy; 
 		return dateString; 
 	}
 	
 	// TODO: COMMENT
 	protected boolean vaildDate(DateTime dateTime) 		
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
 		LocalDate date = LocalDate.parse(StringToLocalDateFormat
 				(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
 		
+		//TODO: COMMENTS
 		if (date.isAfter(LocalDate.now()))	
 		{			
 			return true;
@@ -289,5 +322,4 @@ public abstract class AbstractProgramWindow
 		/******************************************************************/
 		shl.forceActive();	
 	}	
-	
 }

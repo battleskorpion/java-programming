@@ -1,20 +1,33 @@
 package bus_project;
 
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Label;
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import javax.swing.JOptionPane;							// FOR JOPTIONPANE DIALOG WINDOWS
+import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
+														//NUMBER OF SWT SYSTEM-WIDE METHODS, AND
+														//IN ADDITION DEFINES THE PUBLIC CONSTANTS 
+														//PROVIDED BY SWT. 
+import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
+														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
+														// BY THE SELECTIONLISTENER INTERFACE. 
+import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS A RESULT OF 
+														// WIDGETS BEING SELECTED. 
+import org.eclipse.swt.widgets.Display;					// RESPONSIBLE FOR MANAGING THE CONNECTION 
+														// BETWEEN SWT AND THE UNDERLYING OPERATING
+														// SYSTEM.
+import org.eclipse.swt.widgets.Shell;					// REPRESENTS THE "WINDOWS" WHICH THE DESKTOP
+														// OR "WINDOW MANAGER" IS MANAGING. 
+import org.eclipse.swt.widgets.Button;					// REPRESENTS A SELECTABLE USER INTERFACE 
+														// OBJECT THAT ISSUES NOTIFICATION WHEN 
+														// PRESSED AND RELEASED. 
+import org.eclipse.swt.widgets.Control;					// CONTROL IS THE ABSTRACT SUPERCLASS OF 
+														// ALL WINDOWED USER INTERFACE CLASSES. 
+														// (REPRESENTS CONTROL EVENTS).
 import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Control;
+
 
 public class ModifyCustomer extends AbstractProgramWindow 
 {
@@ -25,12 +38,11 @@ public class ModifyCustomer extends AbstractProgramWindow
 	/********************/ 
 	protected Shell shlModifyCustomers;			// REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 		// ArrayList of all customers
-	//private ArrayList<Customer> modifiedCustomers = new ArrayList<Customer>(); 		// LIST OF MODIFIED CUSTOMERS (BUT WILL STORE ORIGINAL CUSTOMER BEFORE MODIFICATION) 
 	private Table customersTable;				
+	private DateTime dateTime;
+	private Text idField;
 	private Text nameField;
 	private Text sizeField;
-	private Text idField;
-	private DateTime dateTime;
 	
 	//TODO: label constructor section
 	public ModifyCustomer (ArrayList<Customer> cstmrs)
