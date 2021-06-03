@@ -96,6 +96,7 @@ public class BusProgram
 		/*************************/
 		openWindow(); 
 	}
+	
 	public static void languageChanged(int index)
 	{
 		// 0 - en_US
@@ -104,6 +105,7 @@ public class BusProgram
 		window.close(); 
 		runProgram(); 
 	}
+	
 	public static void openWindow ()
 	{
 		/*****************************/
