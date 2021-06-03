@@ -81,12 +81,12 @@ public class RemoveCustomer extends AbstractProgramWindow{
 	protected void createContents(Shell rootShell) {
 		
 		shlRemoveCustomer = new Shell();
-		shlRemoveCustomer.setSize(674, 400);
+		shlRemoveCustomer.setSize(674, 440);
 		shlRemoveCustomer.setText(Messages.getString("RemoveCustomer.shlRemoveCustomer.text")); //$NON-NLS-1$
 		
 		Button btnExit = new Button(shlRemoveCustomer, SWT.NONE);
 		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
-		btnExit.setBounds(573, 326, 75, 25);
+		btnExit.setBounds(573, 366, 75, 25);
 		
 		Label lblCustomers = new Label(shlRemoveCustomer, SWT.CENTER);
 		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
@@ -163,6 +163,10 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		});
 		btnUndoDelete.setBounds(332, 295, 316, 25);
 		btnUndoDelete.setText(Messages.getString("btnUndoDelete.text")); //$NON-NLS-1$
+		
+		Button btnDeleteAll = new Button(shlRemoveCustomer, SWT.NONE);
+		btnDeleteAll.setText(Messages.getString("RemoveCustomer.btnDeleteAll.text")); //$NON-NLS-1$
+		btnDeleteAll.setBounds(10, 326, 316, 25);
 		
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
