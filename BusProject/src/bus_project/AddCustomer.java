@@ -18,15 +18,11 @@ import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 
 //TODO: if < MIN_CAPACITY passengers do not allow add customer? > 400 already on date?  
 
 public class AddCustomer extends AbstractProgramWindow
 {
-
 	protected Shell shlAddCustomer;
 	private ArrayList<Customer> customers; 
 	private Text nameField;
@@ -43,7 +39,9 @@ public class AddCustomer extends AbstractProgramWindow
 		customers = cstmrs; 
 	}
 	
-	// TODO: method section
+	/************************************************************************************************/
+	/* 										 METHOD SECTION 										*/
+	/************************************************************************************************/
 			
 	/**
 	 * Open the window.
@@ -81,12 +79,14 @@ public class AddCustomer extends AbstractProgramWindow
 		/*************************************************/
 		shlAddCustomer.layout();
 		
-		/************************************************************************/
-		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING TO DO */
-		/************************************************************************/
+		/*******************************/
+		/* WHILE SHELL IS NOT DISPOSED */
+		/*******************************/
 		while (!shlAddCustomer.isDisposed()) 
 		{
-			// TODO: label if
+			/*******************************************/
+			/* SLEEP DISPLAY IF THERE IS NOTHING TO DO */
+			/*******************************************/
 			if (!display.readAndDispatch()) 
 			{
 				display.sleep();

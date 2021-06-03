@@ -4,7 +4,8 @@ package bus_project;
 /* IMPORT SECTION */
 /******************/
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
 import java.util.Currency;
 import java.util.List;
 
@@ -88,40 +89,17 @@ public class BusFinances extends Finances
 		{
 			List<ArrayList<Customer>> customersToDate = BusCalculation.getCustomersToDate(dt); 
 			
-			//System.out.println(BusCalculation.getCustomersToDate(dt)); 
-			
-			//for (ArrayList<Customer> customers : BusCalculation.getCustomersToDate(dt)) 
-			//for (ArrayList<Customer> customers : customersToDate)
-			//{
-				//System.out.println("loop 1"); 
-				//for (Customer customer : customers) {
-				//	System.out.println("loop 2"); 
-				//	profit += customer.getTotalPrice(); 
-				//}
-				//for (int i = 0; i < customers.size(); i++) 
-				//{
-				//    profit += customers.get(i).getTotalPrice();  
-				//}
-			//}
-			
 			for (int i = 0; i < customersToDate.size(); i++) 
 			{
 				for (int j = 0; j < customersToDate.get(i).size(); j++) 
 				{
 					profit += customersToDate.get(i).get(j).getTotalPrice(); 
-					//System.out.println(customersToDate.get(i).get(j).getTotalPrice()); // still not working, no print ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 				}
 			}
-			
-			//System.out.println("good return"); 
-			//System.out.println(nf.format(profit)); 
 			return nf.format(profit); 
 		}
 		catch (Exception exc)
 		{
-			//System.out.println("exception: "); 
-			//exc.printStackTrace(); 
-			
 			profit = 0; 
 			return nf.format(profit); 
 		}

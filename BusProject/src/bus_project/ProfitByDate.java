@@ -1,29 +1,33 @@
 package bus_project;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
 import java.util.function.Function;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
+														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
+														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
+														// PROVIDED BY SWT. 
+import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
+														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
+														// BY THE SELECTIONLISTENER INTERFACE. 
+import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS A RESULT OF 
+														// WIDGETS BEING SELECTED. 
+import org.eclipse.swt.widgets.Button;					// REPRESENTS A SELECTABLE USER INTERFACE 
+														// OBJECT THAT ISSUES NOTIFICATION WHEN 
+														// PRESSED AND RELEASED. 
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Display;					// RESPONSIBLE FOR MANAGING THE CONNECTION 
+														// BETWEEN SWT AND THE UNDERLYING OPERATING
+														// SYSTEM.
+import org.eclipse.swt.widgets.Label;					// REPRESENTS A NON-SELECTABLE USER INTERFACE 
+														// OBJECT THAT DISPLAYS A STRING OR IMAGE 
+														// (OR HORIZONTAL/VERTICAL LINE).
+import org.eclipse.swt.widgets.Shell;					// REPRESENTS THE "WINDOWS" WHICH THE DESKTOP
+														// OR "WINDOW MANAGER" IS MANAGING. 
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.ExpandBar;
-import org.eclipse.swt.widgets.ExpandItem;
-import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.widgets.Slider;
-import org.eclipse.swt.widgets.ProgressBar;
-import org.eclipse.swt.widgets.Spinner;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.widgets.TrayItem;
 
 public class ProfitByDate extends AbstractProgramWindow
 {

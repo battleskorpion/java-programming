@@ -55,37 +55,15 @@ public class BusProgramMenu extends AbstractProgramWindow
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/
-	private ArrayList<Customer> customers = new ArrayList<Customer>(); 
+	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	protected Shell shell;
-
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	// TODO: better comment, as to why this is here
-	//public static void main(String[] args) 
-	//{
-	//	/********************/
-	//	/* VARIABLE SECTION */
-	//	/********************/
-	//	BusProgramMenu window = new BusProgramMenu();
-	//	
-	//	/*****************************/
-	//	/* METHOD TO OPEN GUI WINDOW */
-	//	/*****************************/
-	//	// TODO: also label try/catch? 
-	//	try 
-	//	{
-	//		window.open();
-	//	} 
-	//	catch (Exception e) 
-	//	{
-	//		e.printStackTrace();
-	//	}
-	//}
 	
+	/***********************/
+	/* CONSTRUCTOR SECTION */
+	/***********************/ 
 	public BusProgramMenu() 
 	{
+		customers = new ArrayList<Customer>(); 	
 		new BusFinances(); 
 		new BusCalculation(); 
 	}
@@ -126,11 +104,14 @@ public class BusProgramMenu extends AbstractProgramWindow
 		/*************************************************/
 		shell.layout();
 		
-		/*********************************************************************************/
-		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING IT NEEDS TO DO */
-		/*********************************************************************************/
+		/*******************************/
+		/* WHILE SHELL IS NOT DISPOSED */
+		/*******************************/
 		while (!shell.isDisposed()) 
 		{
+			/*******************************************/
+			/* SLEEP DISPLAY IF THERE IS NOTHING TO DO */
+			/*******************************************/
 			if (!display.readAndDispatch()) 
 			{
 				display.sleep();
@@ -430,6 +411,7 @@ public class BusProgramMenu extends AbstractProgramWindow
 		});
 	}
 	
+	//TODO: comment
 	public void close()  
 	{
 		super.close(shell);

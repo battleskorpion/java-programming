@@ -5,8 +5,8 @@
 /* Bus Program										*/
 /* 													*/
 /* THIS PROGRAM WILL SCHEDULE CUSTOMER TRIPS     	*/
-/* ON SELECTED DATES 								*/
-/* 	 			*/
+/* ON SELECTED DATES, AND CALCULATE COMPANY PROFIT  */
+/* AND BUSES NEEDED	 								*/
 /****************************************************/
 
 /******************/
@@ -22,28 +22,32 @@ public class BusProgram
 	
 	public static void main(String[] args) 
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/ 
+		int runProgramResponse; 
+		
 		/****************************/
 		/* USER DESCRIPTION SECTION */
 		/****************************/
-		JOptionPane.showMessageDialog(null, "This program will do stuff "
-				+ "\n" + "and stuff");
+		JOptionPane.showMessageDialog(null, "This program will schedule customer trips "
+				+ "on selected dates, \nand calculate company profit and buses needed."); 
 		
-		/********************/
-		/* RUN PROGRAM LOOP */
-		/********************/
-		int runProgramResponse; 
+		/**************************/
+		/* RUN PROGRAM AGAIN LOOP */
+		/**************************/
 		do 
 		{
+			/***********************/
+			/* REOPEN PROGRAM LOOP */
+			/***********************/
 			runProgram(); 
-			do 
+			runProgramResponse = runProgramPrompt(); 
+			while (runProgramResponse == 2)
 			{
+				window.open(); 				// reopen window
 				runProgramResponse = runProgramPrompt(); 
-				if (runProgramResponse == 2)
-				{
-					window.open(); 				// reopen window
-				}
 			}
-			while (runProgramResponse == 2); 
 		}
 		while (runProgramResponse == 0);
 	}

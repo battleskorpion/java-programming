@@ -1,37 +1,56 @@
 package bus_project;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Button;
-
-import java.util.ArrayList;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														//INTERFACE.
+import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
+														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
+														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
+														// PROVIDED BY SWT. 
+import org.eclipse.swt.widgets.Display;					// RESPONSIBLE FOR MANAGING THE CONNECTION 
+														// BETWEEN SWT AND THE UNDERLYING OPERATING
+														// SYSTEM.
+import org.eclipse.swt.widgets.Shell;					// REPRESENTS THE "WINDOWS" WHICH THE DESKTOP
+														// OR "WINDOW MANAGER" IS MANAGING. 	
+import org.eclipse.swt.widgets.Button;					// REPRESENTS A SELECTABLE USER INTERFACE 
+														// OBJECT THAT ISSUES NOTIFICATION WHEN 
+														// PRESSED AND RELEASED. 
+import org.eclipse.swt.widgets.Label;					// REPRESENTS A NON-SELECTABLE USER INTERFACE 
+														//OBJECT THAT DISPLAYS A STRING OR IMAGE 
+														//(OR HORIZONTAL/VERTICAL LINE).
+import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
+														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
+														// BY THE SELECTIONLISTENER INTERFACE. 
+import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS A RESULT OF 
+														// WIDGETS BEING SELECTED. 
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Label;
+
 import org.eclipse.swt.widgets.TableColumn;
 
 public class ListCustomers extends AbstractProgramWindow 
 {
-	//TODO: label section, vars
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
+	//TODO: 
 	protected Shell shlListCustomers;
-	private ArrayList<Customer> customers; 
-	private ArrayList<Customer> customersSorted; 
-	private int sortBy; 									// sort by filter		 
-	private Table customersTable;
+	private ArrayList<Customer> customers; 					// LIST OF CUSTOMERS
+	private ArrayList<Customer> customersSorted; 			// SORTED LIST OF CUSTOMERS 
+															// (by designated filter)
+	private Table customersTable;							
+	private int sortBy; 									// sort by filter		
 	
-	//TODO: label method
+	/***********************/
+	/* CONSTRUCTOR SECTION */
+	/***********************/ 
 	public ListCustomers (ArrayList<Customer> cstmrs) 
 	{
 		customers = cstmrs;  
 	}
 	
-	/**
-	 * Open the window.
-	 * @wbp.parser.entryPoint
-	 */
+	/****************************
+	 * Open the window.			*
+	 * @wbp.parser.entryPoint	*
+	 ****************************/
 	//TODO: label method more
 	public void open(Shell rootShell)
 	/****************************************************************/
@@ -65,11 +84,14 @@ public class ListCustomers extends AbstractProgramWindow
 		/*************************************************/
 		shlListCustomers.layout();
 		
-		/*********************************************************************************/
-		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING IT NEEDS TO DO */
-		/*********************************************************************************/
+		/*******************************/
+		/* WHILE SHELL IS NOT DISPOSED */
+		/*******************************/
 		while (!shlListCustomers.isDisposed()) 
 		{
+			/*******************************************/
+			/* SLEEP DISPLAY IF THERE IS NOTHING TO DO */
+			/*******************************************/
 			if (!display.readAndDispatch()) 
 			{
 				display.sleep();
