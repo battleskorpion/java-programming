@@ -71,7 +71,10 @@ public class BusProgramMenu extends AbstractProgramWindow
 	/************************************************************************************************/
 	/*											 METHOD SECTION 									*/
 	/************************************************************************************************/
-	
+	/**
+	 * Open the window.
+	 * @wbp.parser.entryPoint
+	 */
 	public void open()
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */

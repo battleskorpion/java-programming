@@ -11,14 +11,16 @@ import org.eclipse.swt.widgets.DateTime;
 
 public class Messages
 {
-	private static final String BUNDLE_NAME = "bus_project.messages"; 	//$NON-NLS-1$
+	private static final String BUNDLE_NAME = "bus_project.messages"; 					//$NON-NLS-1$
 	private static Locale locale = Locale.getDefault(); 				
-	private static ArrayList<Locale> locales; 
 	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale);
 	
+	/***********************/
+	/* CONSTRUCTOR SECTION */
+	/***********************/
 	private Messages()
 	{
-		locales = programLocales(); 
+		
 	}
 
 	public static String getString(String key) 

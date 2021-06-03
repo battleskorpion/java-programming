@@ -141,9 +141,11 @@ public class ProfitByDate extends AbstractProgramWindow
 		
 		// TODO: label button
 		Button btnQuit = new Button(shlProfitByDate, SWT.NONE);
-		btnQuit.addSelectionListener(new SelectionAdapter() {
+		btnQuit.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) 
+			{
 			}
 		});
 		// TODO: label method calls
@@ -204,7 +206,8 @@ public class ProfitByDate extends AbstractProgramWindow
 				dateTime.setDate(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
 				
 				// update number of buses text
-				lblAmtProfit.setText("$" + BusFinances.getProfitOnDate(date)); 
+				lblAmtProfit.setText(BusFinances.currency.getSymbol(Messages.getLocale())
+						+ BusFinances.getProfitOnDate(date)); 
 		
 			}
 		});

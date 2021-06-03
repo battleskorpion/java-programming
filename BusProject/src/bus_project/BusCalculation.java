@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+//TODO: number of refunds refunded not always correct if pax of another customer are refunded
 public class BusCalculation 
 {
 	// TODO: make these proper labels 
