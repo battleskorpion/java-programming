@@ -2,6 +2,7 @@ package bus_project;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
@@ -18,6 +19,9 @@ import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
 
 //TODO: if < MIN_CAPACITY passengers do not allow add customer? > 400 already on date?  
 
@@ -101,7 +105,7 @@ public class AddCustomer extends AbstractProgramWindow
 	protected void createContents(Shell rootShell) 
 	{
 		shlAddCustomer = new Shell();
-		shlAddCustomer.setSize(800, 400);
+		shlAddCustomer.setSize(820, 400);
 		shlAddCustomer.setText(Messages.getString
 				("AddCustomer.shlAddCustomer.text")); 			//$NON-NLS-1$
 		
@@ -135,7 +139,7 @@ public class AddCustomer extends AbstractProgramWindow
 		dateTime.setBounds(10, 113, 233, 151);
 		
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
-		btnExit.setBounds(699, 326, 75, 25);
+		btnExit.setBounds(720, 326, 75, 25);
 		btnExit.setText(Messages.getString("btnExit.text")); 	//$NON-NLS-1$
 		
 		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
@@ -161,7 +165,7 @@ public class AddCustomer extends AbstractProgramWindow
 		/* CUSTOMERS LABEL */
 		/*******************/ 
 		Label lblCustomers = new Label(shlAddCustomer, SWT.CENTER);
-		lblCustomers.setBounds(258, 13, 516, 15);
+		lblCustomers.setBounds(279, 13, 516, 15);
 		lblCustomers.setText(Messages.getString
 				("lblCustomers.text")); 						//$NON-NLS-1$
 		
@@ -172,7 +176,7 @@ public class AddCustomer extends AbstractProgramWindow
 				SWT.BORDER | SWT.FULL_SELECTION);
 		customersTable.setToolTipText(Messages.getString
 				("AddCustomer.customersTable.toolTipText")); 	//$NON-NLS-1$
-		customersTable.setBounds(258, 43, 516, 252);
+		customersTable.setBounds(279, 43, 516, 252);
 		customersTable.setLinesVisible(true);	
 		customersTable.setHeaderVisible(true);
 		
@@ -203,11 +207,16 @@ public class AddCustomer extends AbstractProgramWindow
 			
 		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, idField, 
 				dateTime, btnAdd, customersTable, btnExit});
-		// TODO: label if
-		//if (customers.size() > 0)
-		//{
+		
+		Label lblNameWarningIcon = new Label(shlAddCustomer, SWT.NONE);
+		lblNameWarningIcon.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
+		lblNameWarningIcon.setForeground(SWTResourceManager.getColor(255, 255, 0));
+		lblNameWarningIcon.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
+		lblNameWarningIcon.setBounds(249, 13, 24, 24);
+		lblNameWarningIcon.setText(Messages.getString("lblNameWarningIcon.text")); //$NON-NLS-1$
+		lblNameWarningIcon.setVisible(false);
+		
 		updateTable(customersTable, customers); 
-		//}
 		
 		/***********************/
 		/* ADD CUSTOMER BUTTON */
@@ -226,6 +235,12 @@ public class AddCustomer extends AbstractProgramWindow
 					try 
 					{
 						id = Integer.parseInt(idField.getText()); 
+						if (!uniqueID(id))
+						{
+							JOptionPane.showMessageDialog(null, 
+									"Invalid ID (Already taken)!"); 
+							return; 
+						}
 					}
 					catch (Exception exc) 
 					{
@@ -268,6 +283,22 @@ public class AddCustomer extends AbstractProgramWindow
 			}
 		});
 		
+		nameField.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				if (!lblNameWarningIcon.isVisible())
+				{
+					if (nameField.getText().length() > 20)
+					{
+						lblNameWarningIcon.setVisible(true);
+					}
+				}
+				else if (nameField.getText().length() <= 20)
+				{
+					lblNameWarningIcon.setVisible(false);
+				}
+			}
+		});
+		
 		/***************/
 		/* EXIT BUTTON */
 		/***************/ 
@@ -292,6 +323,10 @@ public class AddCustomer extends AbstractProgramWindow
 		{
 			return false; 
 		}
+		return true; 
+	}
+	private boolean uniqueID(int id)
+	{
 		for (int i = 0; i < customers.size(); i++) 
 		{
 			 if (customers.get(i).getId() == id) 

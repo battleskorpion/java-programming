@@ -181,6 +181,17 @@ public class ModifyCustomer extends AbstractProgramWindow
 		
 		updateTable(customersTable, customers); 
 		
+		customersTable.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				Customer selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
+				
+				updateCustomerInfoDisplay(selectedCustomer); 
+			}
+		});
+		
 		btnModify.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
