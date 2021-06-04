@@ -71,10 +71,10 @@ public class BusProgramMenu extends AbstractProgramWindow
 	/************************************************************************************************/
 	/*											 METHOD SECTION 									*/
 	/************************************************************************************************/
-	/**
-	 * Open the window.
-	 * @wbp.parser.entryPoint
-	 */
+	
+	/****************************
+	 * @wbp.parser.entryPoint	*
+	 ****************************/
 	public void open()
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
@@ -201,7 +201,7 @@ public class BusProgramMenu extends AbstractProgramWindow
 			}
 		});
 		shell.setSize(700, 540);
-		shell.setText(Messages.getString("title.text")); //$NON-NLS-1$
+		shell.setText(Messages.getString("title.text")); 								//$NON-NLS-1$
 		GridLayout gl_shell = new GridLayout(4, true);
 		shell.setLayout(gl_shell);
 				
@@ -401,7 +401,8 @@ public class BusProgramMenu extends AbstractProgramWindow
 		});
 		gd_btnRemoveCustomer.widthHint = 122;
 		btnRemoveCustomer.setLayoutData(gd_btnRemoveCustomer);
-		btnRemoveCustomer.setText(Messages.getString("BusProgramMenu.RemoveCustomer.text"));
+		btnRemoveCustomer.setText(Messages.getString
+				("BusProgramMenu.RemoveCustomer.text"));
 		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnModifyCustomer, 
 				btnBusesNeededByDate, btnListCustomersByName, btnListCustomersBySize, 
 				btnProfitByDate, btnProfitTotal, btnQuit, toolBar});

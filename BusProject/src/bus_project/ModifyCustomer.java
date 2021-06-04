@@ -4,9 +4,9 @@ import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.
 import javax.swing.JOptionPane;							// FOR JOPTIONPANE DIALOG WINDOWS
 import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
-														//NUMBER OF SWT SYSTEM-WIDE METHODS, AND
-														//IN ADDITION DEFINES THE PUBLIC CONSTANTS 
-														//PROVIDED BY SWT. 
+														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
+														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
+														// PROVIDED BY SWT. 
 import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
 														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
 														// BY THE SELECTIONLISTENER INTERFACE. 
@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.TableColumn;
 
 
 public class ModifyCustomer extends AbstractProgramWindow 
@@ -38,11 +39,11 @@ public class ModifyCustomer extends AbstractProgramWindow
 	/********************/ 
 	protected Shell shlModifyCustomers;			// REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 		// ArrayList of all customers
-	private Table customersTable;				
 	private DateTime dateTime;
 	private Text idField;
 	private Text nameField;
 	private Text sizeField;
+	private Table customersTable;
 	
 	//TODO: label constructor section
 	public ModifyCustomer (ArrayList<Customer> cstmrs)
@@ -107,56 +108,79 @@ public class ModifyCustomer extends AbstractProgramWindow
 		//TODO: labels
 		
 		shlModifyCustomers = new Shell();
-		shlModifyCustomers.setSize(600, 400);
+		shlModifyCustomers.setSize(800, 340);
 		shlModifyCustomers.setText(Messages.getString("ModifyCustomer.shlModifyCustomers.text")); //$NON-NLS-1$
 		
 		Button btnExit = new Button(shlModifyCustomers, SWT.NONE);
 		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
-		btnExit.setBounds(499, 326, 75, 25);
-		
-		customersTable = new Table(shlModifyCustomers, SWT.BORDER | SWT.FULL_SELECTION);
-		
-		customersTable.setToolTipText(Messages.getString("ModifyCustomer.customersTable.toolTipText")); //$NON-NLS-1$
-		customersTable.setLinesVisible(true);
-		customersTable.setBounds(10, 40, 316, 310);
-		if (customers.size() > 0) {
-			updateTable(customersTable, customers); 
-		}
+		btnExit.setBounds(699, 271, 75, 25);
 		
 		Label lblCustomers = new Label(shlModifyCustomers, SWT.CENTER);
 		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
-		lblCustomers.setBounds(10, 10, 316, 15);
+		lblCustomers.setBounds(258, 9, 516, 15);
 		
 		Label lblName = new Label(shlModifyCustomers, SWT.NONE);
 		lblName.setText(Messages.getString("lblName.text")); //$NON-NLS-1$
-		lblName.setBounds(341, 13, 120, 15);
+		lblName.setBounds(10, 9, 120, 21);
 		
 		nameField = new Text(shlModifyCustomers, SWT.BORDER);
 		nameField.setText("");
-		nameField.setBounds(474, 10, 100, 24);
+		nameField.setBounds(143, 6, 100, 24);
 		
 		sizeField = new Text(shlModifyCustomers, SWT.BORDER);
-		sizeField.setBounds(474, 40, 100, 24);
+		sizeField.setBounds(143, 36, 100, 24);
 		
 		Label lblSize = new Label(shlModifyCustomers, SWT.NONE);
 		lblSize.setText(Messages.getString("lblSize.text")); //$NON-NLS-1$
-		lblSize.setBounds(341, 43, 120, 15);
+		lblSize.setBounds(10, 39, 120, 21);
 		
 		Label lblNumber = new Label(shlModifyCustomers, SWT.NONE);
 		lblNumber.setText(Messages.getString("lblID.text")); //$NON-NLS-1$
-		lblNumber.setBounds(341, 71, 106, 15);
+		lblNumber.setBounds(10, 67, 106, 23);
 		
 		idField = new Text(shlModifyCustomers, SWT.BORDER);
-		idField.setBounds(474, 70, 100, 24);
+		idField.setBounds(143, 66, 100, 24);
 		
 		Label lblTripDate = new Label(shlModifyCustomers, SWT.NONE);
 		lblTripDate.setText(Messages.getString("lblTripDate.text")); //$NON-NLS-1$
-		lblTripDate.setBounds(341, 92, 100, 15);
+		lblTripDate.setBounds(10, 96, 100, 15);
 		
 		dateTime = new DateTime(shlModifyCustomers, SWT.BORDER | SWT.CALENDAR);
-		dateTime.setBounds(341, 113, 233, 151);
+		dateTime.setBounds(10, 117, 233, 151);
 
 		Button btnModify = new Button(shlModifyCustomers, SWT.NONE);
+		btnModify.setText(Messages.getString("btnModify.text")); //$NON-NLS-1$
+		btnModify.setBounds(10, 271, 233, 25);
+		
+		customersTable = new Table(shlModifyCustomers, SWT.BORDER | SWT.FULL_SELECTION);
+		customersTable.setToolTipText("!AddCustomer.customersTable.toolTipText!");
+		customersTable.setLinesVisible(true);
+		customersTable.setHeaderVisible(true);
+		customersTable.setBounds(258, 30, 516, 233);
+		
+		TableColumn tableColumn = new TableColumn(customersTable, SWT.NONE);
+		tableColumn.setWidth(60);
+		tableColumn.setText("ID");
+		
+		TableColumn tableColumn_1 = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_1.setWidth(160);
+		tableColumn_1.setText("Name");
+		
+		TableColumn tableColumn_2 = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_2.setWidth(100);
+		tableColumn_2.setText("Date");
+		
+		TableColumn tableColumn_3 = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_3.setWidth(100);
+		tableColumn_3.setText("Group Size");
+		
+		TableColumn tableColumn_4 = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_4.setWidth(80);
+		tableColumn_4.setText("Refunds");
+		shlModifyCustomers.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnModify, btnExit});
+		
+		updateTable(customersTable, customers); 
+		
 		btnModify.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -188,20 +212,6 @@ public class ModifyCustomer extends AbstractProgramWindow
 					updateCustomerInfoDisplay(selectedCustomer);			// reset modification if invalid modification 
 					JOptionPane.showMessageDialog(null, "Invalid modification."); 
 				}
-			}
-		});
-		btnModify.setText(Messages.getString("btnModify.text")); //$NON-NLS-1$
-		btnModify.setBounds(341, 267, 233, 25);
-		shlModifyCustomers.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnModify, customersTable, btnExit});
-		
-		customersTable.addSelectionListener(new SelectionAdapter() 
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e) 
-			{
-				Customer selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
-				
-				updateCustomerInfoDisplay(selectedCustomer); 
 			}
 		});
 		

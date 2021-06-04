@@ -205,6 +205,7 @@ public abstract class AbstractProgramWindow
 		updateTable(tbl, cstmrs); 
 	}
 	
+	//TODO: comment
 	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
 	{
 		cstmrs.add(cstmr);
@@ -213,10 +214,17 @@ public abstract class AbstractProgramWindow
 		updateTable(tbl, cstmrs); 
 	}
 	
+	//TODO: comment
 	protected Customer removeCustomer(ArrayList<Customer> cstmrs, int cstmrIndx)
 	{
 		BusCalculation.unscheduleTrip(cstmrs.get(cstmrIndx)); 
 		return cstmrs.remove(cstmrIndx); 
+	}
+	
+	//TODO: comment
+	protected String getCustomerProfitString(Customer cstmr) 
+	{
+		return cstmr.getTotalPriceFormatted(); 
 	}
 	
 	// TODO: comment

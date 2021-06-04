@@ -223,6 +223,17 @@ public class AddCustomer extends AbstractProgramWindow
 				// TODO: label try/catch
 				try
 				{
+					try 
+					{
+						id = Integer.parseInt(idField.getText()); 
+					}
+					catch (Exception exc) 
+					{
+						JOptionPane.showMessageDialog(null, 
+								"Invalid ID!"); 
+						return; 
+					}
+					
 					// TODO: label if
 					if (!legalCustomerAddition())
 					{
@@ -230,7 +241,7 @@ public class AddCustomer extends AbstractProgramWindow
 						/* PRINT ERROR */
 						/***************/
 						JOptionPane.showMessageDialog(null, 
-								"Invalid customer detail(s)!"); 
+								"Error: Invalid customer detail(s)!"); 
 					}
 					else
 					{
@@ -239,15 +250,10 @@ public class AddCustomer extends AbstractProgramWindow
 						customer = new Customer(); 
 						Text[] fields = {nameField, sizeField, idField};	
 						
-						id = Integer.parseInt(idField.getText()); 
 						setCustomerDetails(customer, nameField, sizeField, 
 								index, id, dateTime); 
 						clearInput(fields); 
 						addCustomer(customers, customer, index, customersTable); 	
-						
-						//TODO: comment out
-						System.out.println(BusFinances.nf.format
-								(BusFinances.getProfit())); 
 					}
 				}
 				catch (Exception exc) 
@@ -257,7 +263,7 @@ public class AddCustomer extends AbstractProgramWindow
 					/* PRINT ERROR */
 					/***************/
 					JOptionPane.showMessageDialog(null, 
-							"Error: Improper numerical input (or error)!");  
+							"Error: Improper input or other error.");  
 				}
 			}
 		});
@@ -279,16 +285,20 @@ public class AddCustomer extends AbstractProgramWindow
 	// TODO: label method
 	private boolean legalCustomerAddition() 
 	{
+		int id = Integer.parseInt(idField.getText()); 
 		if (nameField.getText().trim().equals("") 
 				|| sizeField.getText().equals("") 
-				|| Integer.parseInt(idField.getText()) < 0 
 				|| !vaildDate(dateTime))
 		{
 			return false; 
 		}
-		else 
+		for (int i = 0; i < customers.size(); i++) 
 		{
-			return true; 
-		} 
+			 if (customers.get(i).getId() == id) 
+			 {
+				 return false; 
+			 }
+		}
+		return true; 
 	}
 }

@@ -1,7 +1,7 @@
 package bus_project;
 
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
-														//INTERFACE.
+														// INTERFACE.
 import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
 														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
 														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
@@ -15,8 +15,8 @@ import org.eclipse.swt.widgets.Button;					// REPRESENTS A SELECTABLE USER INTER
 														// OBJECT THAT ISSUES NOTIFICATION WHEN 
 														// PRESSED AND RELEASED. 
 import org.eclipse.swt.widgets.Label;					// REPRESENTS A NON-SELECTABLE USER INTERFACE 
-														//OBJECT THAT DISPLAYS A STRING OR IMAGE 
-														//(OR HORIZONTAL/VERTICAL LINE).
+														// OBJECT THAT DISPLAYS A STRING OR IMAGE 
+														// (OR HORIZONTAL/VERTICAL LINE).
 import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
 														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
 														// BY THE SELECTIONLISTENER INTERFACE. 
@@ -33,11 +33,11 @@ public class ListCustomers extends AbstractProgramWindow
 	/********************/
 	//TODO: 
 	protected Shell shlListCustomers;
-	private ArrayList<Customer> customers; 					// LIST OF CUSTOMERS
-	private ArrayList<Customer> customersSorted; 			// SORTED LIST OF CUSTOMERS 
-															// (by designated filter)
+	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
+	private ArrayList<Customer> customersSorted; 		// SORTED LIST OF CUSTOMERS 
+														// (by designated filter)
 	private Table customersTable;							
-	private int sortBy; 									// sort by filter		
+	private int sortBy; 								// sort by filter		
 	
 	/***********************/
 	/* CONSTRUCTOR SECTION */
@@ -48,10 +48,8 @@ public class ListCustomers extends AbstractProgramWindow
 	}
 	
 	/****************************
-	 * Open the window.			*
 	 * @wbp.parser.entryPoint	*
 	 ****************************/
-	//TODO: label method more
 	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
@@ -61,8 +59,8 @@ public class ListCustomers extends AbstractProgramWindow
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		Display display = Display.getDefault();				// MANAGES THE CONNECTION BETWEEN SWT 
-															// AND THE UNDERLYING OPERATING SYSTEM 
+		Display display = Display.getDefault();			// MANAGES THE CONNECTION BETWEEN SWT 
+														// AND THE UNDERLYING OPERATING SYSTEM 
 
 		/**********************************************/
 		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
@@ -77,7 +75,7 @@ public class ListCustomers extends AbstractProgramWindow
 		/******************************************************************/
 		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
 		/******************************************************************/
-		shlListCustomers.forceActive();						// SO WINDOW WILL BE FOCUSED WHEN CREATED
+		shlListCustomers.forceActive();					// SO WINDOW WILL BE FOCUSED WHEN CREATED
 		
 		/*************************************************/
 		/* METHOD TO ENACT LAYOUT OF SHELL IF APPLICABLE */
@@ -108,12 +106,13 @@ public class ListCustomers extends AbstractProgramWindow
 		//TODO: label method calls/shell
 		shlListCustomers = new Shell();
 		shlListCustomers.setSize(550, 360);
-		shlListCustomers.setText(Messages.getString("ListCustomers.shlListCustomers.text")); //$NON-NLS-1$
+		shlListCustomers.setText(Messages.getString
+				("ListCustomers.shlListCustomers.text")); 								//$NON-NLS-1$
 		
 		//TODO: label button
 		Button btnExit = new Button(shlListCustomers, SWT.NONE);
 		//TODO: label method calls
-		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
+		btnExit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
 		btnExit.setBounds(10, 289, 516, 25);
 		
 		// update table with sorted list, sort list depending on sort method specified
@@ -122,7 +121,7 @@ public class ListCustomers extends AbstractProgramWindow
 		sortCustomers();
 		
 		Label lblCustomers = new Label(shlListCustomers, SWT.CENTER);
-		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
+		lblCustomers.setText(Messages.getString("lblCustomers.text")); 					//$NON-NLS-1$
 		lblCustomers.setBounds(10, 10, 516, 15);
 		
 		customersTable = new Table(shlListCustomers, SWT.BORDER | SWT.FULL_SELECTION);
@@ -131,25 +130,25 @@ public class ListCustomers extends AbstractProgramWindow
 		customersTable.setHeaderVisible(true);
 		customersTable.setBounds(10, 31, 516, 252);
 		
-		TableColumn tableColumn = new TableColumn(customersTable, SWT.NONE);
-		tableColumn.setWidth(60);
-		tableColumn.setText("ID");
+		TableColumn tableColumn_ID = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_ID.setWidth(60);
+		tableColumn_ID.setText("ID");
 		
-		TableColumn tableColumn_1 = new TableColumn(customersTable, SWT.NONE);
-		tableColumn_1.setWidth(160);
-		tableColumn_1.setText("Name");
+		TableColumn tableColumn_Name = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_Name.setWidth(160);
+		tableColumn_Name.setText("Name");
 		
-		TableColumn tableColumn_2 = new TableColumn(customersTable, SWT.NONE);
-		tableColumn_2.setWidth(100);
-		tableColumn_2.setText("Date");
+		TableColumn tableColumn_Date = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_Date.setWidth(100);
+		tableColumn_Date.setText("Date");
 		
-		TableColumn tableColumn_3 = new TableColumn(customersTable, SWT.NONE);
-		tableColumn_3.setWidth(100);
-		tableColumn_3.setText("Group Size");
+		TableColumn tableColumn_GroupSize = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_GroupSize.setWidth(100);
+		tableColumn_GroupSize.setText("Group Size");
 		
-		TableColumn tableColumn_4 = new TableColumn(customersTable, SWT.NONE);
-		tableColumn_4.setWidth(80);
-		tableColumn_4.setText("Refunds");
+		TableColumn tableColumn_Refunds = new TableColumn(customersTable, SWT.NONE);
+		tableColumn_Refunds.setWidth(80);
+		tableColumn_Refunds.setText("Refunds");
 		
 		//TODO: logic section 
 		sortCustomers(); 
@@ -185,7 +184,7 @@ public class ListCustomers extends AbstractProgramWindow
 	private void sortCustomers() 
 	{
 		//TODO: label call
-		customersSorted =  (ArrayList<Customer>) customers.clone(); 
+		customersSorted = (ArrayList<Customer>) customers.clone(); 
 		
 		//TODO: label switch
 		switch (sortBy) 

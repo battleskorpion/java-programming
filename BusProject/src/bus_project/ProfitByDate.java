@@ -37,9 +37,9 @@ public class ProfitByDate extends AbstractProgramWindow
 	protected Shell shlProfitByDate;
 	private ArrayList<Customer> customers; 
 	private ArrayList<Customer> customersSorted;
-	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 
-	private int sortBy = 0; 								// sort by filter		 
+	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 		 
 	private Table customersTable;
+	private int sortBy = 0; 								// sort by filter
 															// srtBy = 0, sort by date increasing
 															// srtBy = 1, sort by date decreasing
 															// srtBy = 2 sort by profit increasing
@@ -51,10 +51,9 @@ public class ProfitByDate extends AbstractProgramWindow
 		customers = cstmrs; 
 	}
 	
-	/**
-	 * Open the window.
-	 * @wbp.parser.entryPoint
-	 */
+	/****************************
+	 * @wbp.parser.entryPoint	*
+	 ****************************/
 	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
@@ -156,7 +155,7 @@ public class ProfitByDate extends AbstractProgramWindow
 		btnExit.setText(Messages.getString("btnExit.text"));
 		
 		
-		Label lblNewLabel = new Label(shlProfitByDate, SWT.NONE);
+		Label lblNewLabel = new Label(shlProfitByDate, SWT.CENTER);
 		lblNewLabel.setAlignment(SWT.CENTER);
 		lblNewLabel.setBounds(258, 10, 507, 15);
 		lblNewLabel.setText(Messages.getString("ProfitByDate.lblTable.text"));			//$NON-NLS-1$
@@ -266,10 +265,5 @@ public class ProfitByDate extends AbstractProgramWindow
 			default: 
 				break; 
 		}
-	}
-	
-	private String getCustomerProfitString(Customer cstmr) 
-	{
-		return cstmr.getTotalPriceFormatted(); 
 	}
 }

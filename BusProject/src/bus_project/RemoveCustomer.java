@@ -27,10 +27,9 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		customers = cstmrs; 
 	}
 	
-	/**
-	 * Open the window.
-	 * @wbp.parser.entryPoint
-	 */
+	/****************************
+	 * @wbp.parser.entryPoint	*
+	 ****************************/
 	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
@@ -108,6 +107,16 @@ public class RemoveCustomer extends AbstractProgramWindow{
 		btnUndoDelete.setText(Messages.getString("btnUndoDelete.text")); 				//$NON-NLS-1$
 		
 		Button btnDeleteAll = new Button(shlRemoveCustomer, SWT.NONE);
+		btnDeleteAll.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				customers = new ArrayList<Customer>(); 
+				BusCalculation.unscheduleAll(); 
+				updateTable(customersTable, customers); 
+			}
+		});
 		btnDeleteAll.setText(Messages.getString("RemoveCustomer.btnDeleteAll.text")); 	//$NON-NLS-1$
 		btnDeleteAll.setBounds(271, 295, 255, 25);
 		

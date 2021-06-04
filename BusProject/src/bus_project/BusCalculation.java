@@ -28,8 +28,7 @@ public class BusCalculation
 	//TODO: constructor
 	public BusCalculation()
 	{
-		customers = new ArrayList<ArrayList<Customer>>(); 	 	// customers each date 
-		dates = new ArrayList<LocalDate>(); 
+		instantiateLists();
 	}
 	
 	/************************************************************************************************/
@@ -280,9 +279,15 @@ public class BusCalculation
 	}
 	
 	// TODO: 
-	public static int unscheduleAll() 
+	public static void unscheduleAll() 
 	{
-		return 0; 
+		instantiateLists(); 
+	}
+	
+	public static void instantiateLists()
+	{
+		customers = new ArrayList<ArrayList<Customer>>(); 	 	// customers each date 
+		dates = new ArrayList<LocalDate>(); 
 	}
 	
 	public static int getNumBuses(LocalDate dt) 

@@ -24,7 +24,7 @@ public class Customer
 	private int numPersonsRefunded;	// number refunded
 	private LocalDate date; 		// date of trip
 	private int index;				// INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
-	private int id; 				// CUSTOMER ID NUMBER 
+	private int id; 				// CUSTOMER ID NUMBER
 	private double totalPrice; 		// total price of all tickets for group 
 	
 	//TODO: constructor 
@@ -35,6 +35,17 @@ public class Customer
 		numPersons = 0;
 		numPersonsRefunded = 0; 
 		index = 0; 
+		id = 0; 
+	}
+	
+	public Customer(Customer cstmr)
+	{
+		date = cstmr.getDate();
+		name = cstmr.getName();
+		numPersons = cstmr.getNumPersons(); 
+		numPersonsRefunded = cstmr.getNumPersonsRefunded();
+		index = cstmr.getIndex(); 
+		id = cstmr.getId(); 
 	}
 	
 	/************************************************************************/
