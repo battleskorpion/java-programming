@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
 import javax.swing.JOptionPane;
+import org.eclipse.swt.widgets.TableColumn;
 
 public class RemoveCustomer extends AbstractProgramWindow{
 
@@ -81,33 +82,95 @@ public class RemoveCustomer extends AbstractProgramWindow{
 	protected void createContents(Shell rootShell) {
 		
 		shlRemoveCustomer = new Shell();
-		shlRemoveCustomer.setSize(674, 440);
+		shlRemoveCustomer.setSize(1075, 370);
 		shlRemoveCustomer.setText(Messages.getString("RemoveCustomer.shlRemoveCustomer.text")); //$NON-NLS-1$
 		
 		Button btnExit = new Button(shlRemoveCustomer, SWT.NONE);
 		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
-		btnExit.setBounds(573, 366, 75, 25);
+		btnExit.setBounds(973, 295, 75, 25);
 		
 		Label lblCustomers = new Label(shlRemoveCustomer, SWT.CENTER);
 		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
-		lblCustomers.setBounds(10, 10, 316, 15);
-		
-		customersTable = new Table(shlRemoveCustomer, SWT.BORDER | SWT.FULL_SELECTION);
-		customersTable.setToolTipText(Messages.getString("RemoveCustomer.customersTable.toolTipText")); //$NON-NLS-1$
-		customersTable.setLinesVisible(true);
-		customersTable.setBounds(10, 40, 316, 252);
-		updateTable(customersTable, customers); 
+		lblCustomers.setBounds(10, 10, 516, 15);
 		
 		Label lblRemovedCustomers = new Label(shlRemoveCustomer, SWT.CENTER);
 		lblRemovedCustomers.setText(Messages.getString("RemoveCustomer.lblRemovedCustomers.text")); //$NON-NLS-1$
-		lblRemovedCustomers.setBounds(332, 10, 316, 15);
+		lblRemovedCustomers.setBounds(532, 10, 516, 15);
 		
+		Button btnDelete = new Button(shlRemoveCustomer, SWT.NONE);
+		
+		btnDelete.setBounds(10, 295, 255, 25);
+		btnDelete.setText(Messages.getString("btnDelete.text")); //$NON-NLS-1$
+		
+		Button btnUndoDelete = new Button(shlRemoveCustomer, SWT.NONE);
+		
+		btnUndoDelete.setBounds(532, 295, 255, 25);
+		btnUndoDelete.setText(Messages.getString("btnUndoDelete.text")); 				//$NON-NLS-1$
+		
+		Button btnDeleteAll = new Button(shlRemoveCustomer, SWT.NONE);
+		btnDeleteAll.setText(Messages.getString("RemoveCustomer.btnDeleteAll.text")); 	//$NON-NLS-1$
+		btnDeleteAll.setBounds(271, 295, 255, 25);
+		
+		/*******************/
+		/* CUSTOMERS TABLE */
+		/*******************/
+		customersTable = new Table(shlRemoveCustomer, SWT.BORDER | SWT.FULL_SELECTION);
+		customersTable.setToolTipText(Messages.getString("RemoveCustomer.customersTable.toolTipText")); //$NON-NLS-1$
+		customersTable.setLinesVisible(true);
+		customersTable.setHeaderVisible(true);
+		customersTable.setBounds(10, 31, 516, 252);
+		
+		TableColumn tblclmnID = new TableColumn(customersTable, SWT.NONE);
+		tblclmnID.setWidth(60);
+		tblclmnID.setText("ID");
+		
+		TableColumn tblclmnName = new TableColumn(customersTable, SWT.NONE);
+		tblclmnName.setWidth(160);
+		tblclmnName.setText("Name");
+		
+		TableColumn tblclmnDate = new TableColumn(customersTable, SWT.NONE);
+		tblclmnDate.setWidth(100);
+		tblclmnDate.setText("Date");
+		
+		TableColumn tblclmnSize = new TableColumn(customersTable, SWT.NONE);
+		tblclmnSize.setWidth(100);
+		tblclmnSize.setText("Group Size");
+		
+		TableColumn tblclmnRefunds = new TableColumn(customersTable, SWT.NONE);
+		tblclmnRefunds.setWidth(80);
+		tblclmnRefunds.setText("Refunds");
+		
+		updateTable(customersTable, customers); 
+		
+		/***************************/
+		/* REMOVED CUSTOMERS TABLE */
+		/***************************/
 		remCustomersTable = new Table(shlRemoveCustomer, SWT.BORDER | SWT.FULL_SELECTION);
 		remCustomersTable.setToolTipText(Messages.getString("RemoveCustomer.remCustomersTable.toolTipText")); //$NON-NLS-1$
 		remCustomersTable.setLinesVisible(true);
-		remCustomersTable.setBounds(332, 40, 316, 252);
+		remCustomersTable.setHeaderVisible(true);
+		remCustomersTable.setBounds(532, 31, 516, 252);
 		
-		Button btnDelete = new Button(shlRemoveCustomer, SWT.NONE);
+		TableColumn removedtblclmnID = new TableColumn(remCustomersTable, SWT.NONE);
+		removedtblclmnID.setWidth(60);
+		removedtblclmnID.setText("ID");
+		
+		TableColumn removedtblclmnName = new TableColumn(remCustomersTable, SWT.NONE);
+		removedtblclmnName.setWidth(160);
+		removedtblclmnName.setText("Name");
+		
+		TableColumn removedtblclmnDate = new TableColumn(remCustomersTable, SWT.NONE);
+		removedtblclmnDate.setWidth(100);
+		removedtblclmnDate.setText("Date");
+		
+		TableColumn removedtblclmnSize = new TableColumn(remCustomersTable, SWT.NONE);
+		removedtblclmnSize.setWidth(100);
+		removedtblclmnSize.setText("Group Size");
+		
+		TableColumn removedtblclmnRefunds = new TableColumn(remCustomersTable, SWT.NONE);
+		removedtblclmnRefunds.setWidth(80);
+		removedtblclmnRefunds.setText("Refunds");
+		
 		btnDelete.addSelectionListener(new SelectionAdapter() 
 		{
 			public void widgetSelected(SelectionEvent e) 
@@ -129,10 +192,6 @@ public class RemoveCustomer extends AbstractProgramWindow{
 				}
 			}
 		});
-		btnDelete.setBounds(10, 295, 316, 25);
-		btnDelete.setText(Messages.getString("btnDelete.text")); //$NON-NLS-1$
-		
-		Button btnUndoDelete = new Button(shlRemoveCustomer, SWT.NONE);
 		//TODO: make sure everything good good now etc. 
 		btnUndoDelete.addSelectionListener(new SelectionAdapter() 
 		{
@@ -160,14 +219,8 @@ public class RemoveCustomer extends AbstractProgramWindow{
 					JOptionPane.showMessageDialog(null, "Error: no selection"); 
 				}
 			}
-		});
-		btnUndoDelete.setBounds(332, 295, 316, 25);
-		btnUndoDelete.setText(Messages.getString("btnUndoDelete.text")); //$NON-NLS-1$
-		
-		Button btnDeleteAll = new Button(shlRemoveCustomer, SWT.NONE);
-		btnDeleteAll.setText(Messages.getString("RemoveCustomer.btnDeleteAll.text")); //$NON-NLS-1$
-		btnDeleteAll.setBounds(10, 326, 316, 25);
-		
+		}); 
+				
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
 			public void widgetSelected(SelectionEvent e) 

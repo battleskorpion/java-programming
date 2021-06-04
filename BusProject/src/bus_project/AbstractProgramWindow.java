@@ -107,7 +107,6 @@ public abstract class AbstractProgramWindow
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected <E> void updateTable(Table tbl, ArrayList<E> dta, 
 			Function<E, String> addtlDataFunction) 
 	/************************************************************************************************/
@@ -119,44 +118,28 @@ public abstract class AbstractProgramWindow
 		/* VARIABLE SECTION */
 		/********************/ 
 		int columnCount = tbl.getColumnCount(); 
-		//TODO: COMMENT
-		if (columnCount <= 1) 
+		
+		/***************/
+		/* RESET TABLE */
+		/***************/ 
+		tbl.clearAll();							
+		tbl.setItemCount(0);
+		
+		/****************/
+		/* UPDATE TABLE */
+		/****************/ 
+		//TODO: COMMENTS
+		for (int i = 0; i < dta.size(); i++) 
 		{
-			/***************/
-			/* RESET TABLE */
-			/***************/ 
-			tbl.clearAll();							
-			tbl.setItemCount(0);
-			
-			/****************/
-			/* UPDATE TABLE */
-			/****************/ 
-			//TODO: COMMENT better
-			for (int i = 0; i < dta.size(); i++) 
+			if (columnCount <= 1) 
 			{
 				updateTable(tbl, dta.get(i) + ", " 
 						+ addtlDataFunction.apply(dta.get(i))); 
 			}
-		}
-		else 
-		{
-			/***************/
-			/* RESET TABLE */
-			/***************/ 
-			tbl.clearAll();	
-			
-			//TODO: COMMENT
-			for (int i = 0; i < dta.size(); i++) 
-			{
-				for(int col = 0; col < columnCount; col++) 
-				{
-					/*********************/
-					/* ADD ITEM TO TABLE */
-					/*********************/
-					TableItem item = new TableItem(tbl, SWT.NULL); 
-					item.setText(((ArrayList<ArrayList<E>>) dta.get(i))
-							.get(col).toString());
-				}
+			else 
+			{ 
+				updateTable(tbl, (dta.get(i).toString() + "\n" 
+						+ addtlDataFunction.apply(dta.get(i))).split("\n")); 
 			}
 		}
 	}

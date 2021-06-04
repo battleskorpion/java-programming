@@ -204,10 +204,10 @@ public class AddCustomer extends AbstractProgramWindow
 		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, idField, 
 				dateTime, btnAdd, customersTable, btnExit});
 		// TODO: label if
-		if (customers.size() > 0)
-		{
-			updateTable(customersTable, customers); 
-		}
+		//if (customers.size() > 0)
+		//{
+		updateTable(customersTable, customers); 
+		//}
 		
 		/***********************/
 		/* ADD CUSTOMER BUTTON */

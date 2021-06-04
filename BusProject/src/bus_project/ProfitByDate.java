@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Shell;					// REPRESENTS THE "WINDOWS" WHICH THE 
 														// OR "WINDOW MANAGER" IS MANAGING. 
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 
 public class ProfitByDate extends AbstractProgramWindow
 {
@@ -37,8 +38,8 @@ public class ProfitByDate extends AbstractProgramWindow
 	private ArrayList<Customer> customers; 
 	private ArrayList<Customer> customersSorted;
 	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 
-	private Table customersTable;
 	private int sortBy = 0; 								// sort by filter		 
+	private Table customersTable;
 															// srtBy = 0, sort by date increasing
 															// srtBy = 1, sort by date decreasing
 															// srtBy = 2 sort by profit increasing
@@ -109,7 +110,7 @@ public class ProfitByDate extends AbstractProgramWindow
 		
 		// TODO: label method calls
 		shlProfitByDate = new Shell();
-		shlProfitByDate.setSize(600, 400);
+		shlProfitByDate.setSize(880, 330);
 		shlProfitByDate.setText(Messages.getString("ProfitByDate.shlProfitByDate.text")); //$NON-NLS-1$
 		
 		// TODO: label dateTime
@@ -122,7 +123,6 @@ public class ProfitByDate extends AbstractProgramWindow
 		Combo comboDatesList = new Combo(shlProfitByDate, SWT.NONE);
 		// TODO: label method calls
 		comboDatesList.setBounds(10, 167, 91, 23);
-		updateComboBox(comboDatesList, dates); 
 		
 		// TODO: label label
 		Label lblProfit = new Label(shlProfitByDate, SWT.NONE);
@@ -140,37 +140,66 @@ public class ProfitByDate extends AbstractProgramWindow
 		lblAmtProfit.setBounds(107, 203, 136, 25);
 		
 		// TODO: label button
-		Button btnQuit = new Button(shlProfitByDate, SWT.NONE);
-		btnQuit.addSelectionListener(new SelectionAdapter() 
+		Button btnExit = new Button(shlProfitByDate, SWT.NONE);
+		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
+				//TODO: label method calls
+				rootShell.forceActive(); 
+				shlProfitByDate.close(); 
 			}
 		});
 		// TODO: label method calls
-		btnQuit.setBounds(10, 326, 75, 25);
-		btnQuit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
+		btnExit.setBounds(10, 258, 75, 25);
+		btnExit.setText(Messages.getString("btnExit.text"));
 		
-		customersTable = new Table(shlProfitByDate, SWT.BORDER | SWT.FULL_SELECTION);
-		customersTable.setToolTipText(Messages.getString
-				("ProfitByDate.customersTable.toolTipText")); 							//$NON-NLS-1$
-		customersTable.setLinesVisible(true);
-		customersTable.setBounds(258, 31, 316, 320);
-		
-		//TODO: label method calls
-		sortCustomers(); 
-		customerProfit = this::getCustomerProfitString; 	//TODO: label this 
-		updateTable(customersTable, customersSorted, customerProfit); 
 		
 		Label lblNewLabel = new Label(shlProfitByDate, SWT.NONE);
 		lblNewLabel.setAlignment(SWT.CENTER);
-		lblNewLabel.setBounds(258, 10, 316, 15);
+		lblNewLabel.setBounds(258, 10, 507, 15);
 		lblNewLabel.setText(Messages.getString("ProfitByDate.lblTable.text"));			//$NON-NLS-1$
 		
 		Label label = new Label(shlProfitByDate, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label.setBounds(10, 198, 233, 2);
+		
+		customersTable = new Table(shlProfitByDate, SWT.BORDER | SWT.FULL_SELECTION);
+		customersTable.setToolTipText("!AddCustomer.customersTable.toolTipText!");
+		customersTable.setLinesVisible(true);
+		customersTable.setHeaderVisible(true);
+		customersTable.setBounds(249, 31, 605, 252);
+		
+		TableColumn tblclmnID = new TableColumn(customersTable, SWT.NONE);
+		tblclmnID.setWidth(60);
+		tblclmnID.setText("ID");
+		
+		TableColumn tblclmnName = new TableColumn(customersTable, SWT.NONE);
+		tblclmnName.setWidth(160);
+		tblclmnName.setText("Name");
+		
+		TableColumn tblclmnDate = new TableColumn(customersTable, SWT.NONE);
+		tblclmnDate.setWidth(100);
+		tblclmnDate.setText("Date");
+		
+		TableColumn tblclmnSize = new TableColumn(customersTable, SWT.NONE);
+		tblclmnSize.setWidth(100);
+		tblclmnSize.setText("Group Size");
+		
+		TableColumn tblclmnRefunds = new TableColumn(customersTable, SWT.NONE);
+		tblclmnRefunds.setWidth(80);
+		tblclmnRefunds.setText("Refunds");
+		
+		TableColumn tblclmnProfit = new TableColumn(customersTable, SWT.NONE);
+		tblclmnProfit.setWidth(100);
+		tblclmnProfit.setText(Messages.getString("tblclmnProfit.text")); //$NON-NLS-1$
 
+		//TODO: label method calls
+		sortCustomers(); 
+		customerProfit = this::getCustomerProfitString;
+		updateComboBox(comboDatesList, dates); 
+		updateTable(customersTable, customersSorted, customerProfit); 
+		
 		/* event handlers */ //TODO: fix
 		dateTime.addSelectionListener(new SelectionAdapter()
 		{
@@ -241,6 +270,6 @@ public class ProfitByDate extends AbstractProgramWindow
 	
 	private String getCustomerProfitString(Customer cstmr) 
 	{
-		return "Profit: " + cstmr.getTotalPriceFormatted(); 
+		return cstmr.getTotalPriceFormatted(); 
 	}
 }
