@@ -16,6 +16,11 @@ import java.util.Comparator;
 
 public class Customer 
 {
+	/*********************/
+	/* CONSTANTS SECTION */
+	/*********************/ 
+	public static final int MAX_NAME_LENGTH = 20; 
+	
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/ 

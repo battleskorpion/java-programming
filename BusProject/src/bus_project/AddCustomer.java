@@ -264,7 +264,6 @@ public class AddCustomer extends AbstractProgramWindow
 						// TODO: label vars etc. 
 						customer = new Customer(); 
 						Text[] fields = {nameField, sizeField, idField};	
-						
 						setCustomerDetails(customer, nameField, sizeField, 
 								index, id, dateTime); 
 						clearInput(fields); 
@@ -283,8 +282,10 @@ public class AddCustomer extends AbstractProgramWindow
 			}
 		});
 		
-		nameField.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
+		nameField.addModifyListener(new ModifyListener() 
+		{
+			public void modifyText(ModifyEvent e) 
+			{
 				if (!lblNameWarningIcon.isVisible())
 				{
 					if (nameField.getText().length() > 20)

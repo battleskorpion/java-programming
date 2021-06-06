@@ -179,7 +179,7 @@ public abstract class AbstractProgramWindow
 		int month; 
 		int day; 
 
-		cstmr.setName(nmField.getText()); 
+		cstmr.setName(nmField.getText().substring(0, Customer.MAX_NAME_LENGTH)); 
 		cstmr.setNumPersons(Integer.parseInt(szField.getText())); 
 		cstmr.setIndex(indx);
 		cstmr.setId(id);
