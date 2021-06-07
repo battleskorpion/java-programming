@@ -32,7 +32,7 @@ public class ListCustomers extends AbstractProgramWindow
 	/* VARIABLE SECTION */
 	/********************/
 	//TODO: 
-	protected Shell shlListCustomers;
+	protected Shell shlListCustomers;					// SHELL WHICH REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	private ArrayList<Customer> customersSorted; 		// SORTED LIST OF CUSTOMERS 
 														// (by designated filter)

@@ -17,13 +17,17 @@ import org.eclipse.swt.widgets.TableColumn;
 
 public class RemoveCustomer extends AbstractProgramWindow{
 
-	protected Shell shlRemoveCustomer;
-	private ArrayList<Customer> customers; 
+	protected Shell shlRemoveCustomer;					// SHELL WHICH REPRESENTS THIS WINDOW
+	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	private ArrayList<Customer> customersRemoved = new ArrayList<Customer>(); 
 	private Table customersTable;
 	private Table remCustomersTable;
 
-	public RemoveCustomer (ArrayList<Customer> cstmrs) {
+	/***********************/
+	/* CONSTRUCTOR SECTION */
+	/***********************/
+	public RemoveCustomer (ArrayList<Customer> cstmrs)
+	{
 		customers = cstmrs; 
 	}
 	

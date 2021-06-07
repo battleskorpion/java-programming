@@ -18,8 +18,10 @@ import org.eclipse.swt.widgets.Text;
 
 public abstract class AbstractProgramWindow 
 {
-	
-	protected Shell shell;
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/ 
+	protected Shell shell;								// SHELL WHICH REPRESENTS THIS WINDOW
 
 	/************************************************************************************************/
 	/*										METHOD SECTION 			  				  				*/
@@ -31,6 +33,10 @@ public abstract class AbstractProgramWindow
 	/* POSTCONDITION: SHELL OF WINDOW IS OPENED (WINDOW DISPLAYED ON SCREEN)  						*/
 	/************************************************************************************************/
 	{
+		/***********************************************/
+		/* METHOD TO OPEN SHELL 					   */
+		/* (OPEN WINDOW REPRESENTED BY SHELL ON SCREEN */
+		/***********************************************/
 		shell.open(); 
 	}
 	
@@ -40,12 +46,12 @@ public abstract class AbstractProgramWindow
 	/* POSTCONDITION: SHELL OF WINDOW IS CLOSED (WINDOW IS NO LONGER DISPLAYED ON SCREEN)  			*/
 	/************************************************************************************************/
 	{
+		/***************************************/
+		/* METHOD TO CLOSE SHELL 			   */
+		/* (CLOSE WINDOW REPRESENTED BY SHELL) */
+		/***************************************/
 		shell.close(); 
 	}
-	/**
-	* Create contents of the window.
-	*/
-	//protected abstract void createContents(); 
 	
 	protected void updateTable(Table tbl, Object dta) 
 	/************************************************************************************************/
@@ -57,6 +63,10 @@ public abstract class AbstractProgramWindow
 		/* ADD ITEM TO TABLE */
 		/*********************/
 		TableItem item = new TableItem(tbl, SWT.NULL); 
+		
+		/*************************/
+		/* SET ITEM TEXT TO DATA */
+		/*************************/
 		item.setText(dta.toString()); 
 	}
 	
@@ -70,6 +80,10 @@ public abstract class AbstractProgramWindow
 		/* ADD ITEM TO TABLE */
 		/*********************/
 		TableItem item = new TableItem(tbl, SWT.NULL); 
+		
+		/*************************/
+		/* SET ITEM TEXT TO DATA */
+		/*************************/
 		item.setText(dta); 
 	}
 	
@@ -87,21 +101,45 @@ public abstract class AbstractProgramWindow
 		/***************/
 		/* RESET TABLE */
 		/***************/ 
+		
+		/************************************************/
+		/* METHOD CALL TO CLEAR ALL ELEMENTS FROM TABLE */
+		/************************************************/
 		tbl.clearAll();							
+		
+		/********************************************/
+		/* METHOD CALL TO SET TABLE ITEM COUNT TO 0 */
+		/* (SO NEW DATA WILL BE ADDED AT THE TOP)   */
+		/********************************************/
 		tbl.setItemCount(0);
 		
 		/****************/
 		/* UPDATE TABLE */
 		/****************/ 
-		//TODO: COMMENTS
+
+		/****************************************************/
+		/* FOR LOOP TO UPDATE TABLE BY ROW WITH DATA IN dta */
+		/****************************************************/
 		for (int i = 0; i < dta.size(); i++) 
 		{
+			/************************************************************/
+			/* IF STATEMENT TO UPDATE TABLE DIFFERENTLY DEPENDING ON IF */
+			/* IT IS MADE UP OF MUTIPLE COLUMNS 						*/
+			/************************************************************/ 
 			if (columnCount <= 1) 
 			{
+				/*************************************/
+				/* METHOD CALL TO UPDATE TABLE WITH  */
+				/* DATA AT i IN dta					 */
+				/*************************************/
 				updateTable(tbl, dta.get(i)); 
 			}
 			else 
 			{
+				/************************************/
+				/* METHOD CALL TO UPDATE TABLE WITH */
+				/* ARRAY OF DATA AT i IN dta		*/
+				/************************************/
 				updateTable(tbl, dta.get(i).toString().split("\n")); 
 			}
 		}
@@ -122,22 +160,44 @@ public abstract class AbstractProgramWindow
 		/***************/
 		/* RESET TABLE */
 		/***************/ 
+		
+		/************************************************/
+		/* METHOD CALL TO CLEAR ALL ELEMENTS FROM TABLE */
+		/************************************************/
 		tbl.clearAll();							
+		
+		/********************************************/
+		/* METHOD CALL TO SET TABLE ITEM COUNT TO 0 */
+		/* (SO NEW DATA WILL BE ADDED AT THE TOP)   */
+		/********************************************/
 		tbl.setItemCount(0);
 		
 		/****************/
 		/* UPDATE TABLE */
 		/****************/ 
-		//TODO: COMMENTS
+
+		/****************************************************/
+		/* FOR LOOP TO UPDATE TABLE BY ROW WITH DATA IN dta */
+		/****************************************************/
 		for (int i = 0; i < dta.size(); i++) 
 		{
 			if (columnCount <= 1) 
 			{
+				/*************************************/
+				/* METHOD CALL TO UPDATE TABLE WITH  */
+				/* DATA AT i IN dta					 */
+				/* AS WELL AS ADDITIONAL DATA 		 */
+				/*************************************/
 				updateTable(tbl, dta.get(i) + ", " 
 						+ addtlDataFunction.apply(dta.get(i))); 
 			}
 			else 
 			{ 
+				/************************************/
+				/* METHOD CALL TO UPDATE TABLE WITH */
+				/* ARRAY OF DATA AT i IN dta		*/
+				/* AS WELL AS ADDITIONAL DATA		*/
+				/************************************/
 				updateTable(tbl, (dta.get(i).toString() + "\n" 
 						+ addtlDataFunction.apply(dta.get(i))).split("\n")); 
 			}
@@ -150,20 +210,20 @@ public abstract class AbstractProgramWindow
 	/* POSTCONDITION: CLEARS PREVIOUS VALUES AND ADDS NEW VALUES TO COMBO BOX	  					*/
 	/************************************************************************************************/
 	{
-		//TODO: COMMENT
+		/************************************************************/
+		/* IF STATEMENT TO UPDATE COMBO BOX IF THERE IS DATA IN dta */
+		/************************************************************/ 
 		if (dta.size() > 0) 
 		{	
-			// TODO: THIS WORKS BUT IS UNREADABLE
-			bx.setItems(dta.toString().substring(0, dta.toString().length() - 1)
-					.substring(1, dta.toString().length() - 1).split(", ")); 	
-		}
-		else 
-		{
-			
+			/**************************************/
+			/* METHOD CALL TO FILL COMBO BOX WITH */
+			/* DATA IN dta (SPLITS DATA IN dta BY */
+			/* COMMA AND REMOVES [] FROM toString */
+			/**************************************/
+			bx.setItems(dta.toString().substring(1, dta.toString().length() - 1).split(", ")); 	
 		}
 	}
 	
-	// TODO: COMMENT
 	protected void setCustomerDetails(Customer cstmr, Text nmField, Text szField, 
 			int indx, int id, DateTime dtTime) 
 	/************************************************************************************************/
@@ -174,20 +234,73 @@ public abstract class AbstractProgramWindow
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		LocalDate tripDate; 
-		int year;
-		int month; 
-		int day; 
-
-		cstmr.setName(nmField.getText().substring(0, Customer.MAX_NAME_LENGTH)); 
+		LocalDate tripDate; 				// DATE OF CUSTOMER TRIP
+		int year;							// YEAR SELECTED IN CALENDAR
+		int month; 							// MONTH SELECTED IN CALENDAR
+		int day; 							// DAY SELECTED IN CALENDAR
+		
+		/******************************************************************/
+		/* IF STATEMENT TO SET CUSTOMER NAME DEPENDING ON LENGTH OF INPUT */
+		/******************************************************************/ 
+		if (nmField.getText().length() > Customer.MAX_NAME_LENGTH) 
+		{
+			/***************************************/
+			/* METHOD CALL TO SET CUSTOMER NAME TO */
+			/* FIRST 20 CHARACTERS IN NAME FIELD   */
+			/***************************************/
+			cstmr.setName(nmField.getText().substring					
+					(0, Customer.MAX_NAME_LENGTH)); 					
+		}
+		else 
+		{
+			/***************************************/
+			/* METHOD CALL TO SET CUSTOMER NAME TO */
+			/* TEXT IN NAME FIELD   			   */
+			/***************************************/
+			cstmr.setName(nmField.getText());							
+																		
+		}
+		
+		/***************************************************/
+		/* METHOD CALL TO SET CUSTOMER'S NUMBER OF PERSONS */
+		/* TO NUMBER ENTERED IN SIZE FIELD				   */
+		/***************************************************/
 		cstmr.setNumPersons(Integer.parseInt(szField.getText())); 
-		cstmr.setIndex(indx);
-		cstmr.setId(id);
-		year = dtTime.getYear(); 
+		
+		/********************************************************/
+		/* METHOD CALL TO SET CUSTOMER'S INDEX PROPERTY TO indx */
+		/********************************************************/
+		cstmr.setIndex(indx);			
+		
+		/****************************************/
+		/* METHOD CALL TO SET CUSTOMER ID TO id */
+		/****************************************/
+		cstmr.setId(id);							
+		
+		/********************************************/
+		/* METHOD CALL TO SET YEAR TO CALENDAR YEAR */
+		/********************************************/
+		year = dtTime.getYear();
+		
+		/*********************************************/
+		/* METHOD CALL TO SET MONTH TO CALENDAR MONTH */
+		/*********************************************/
 		month = dtTime.getMonth(); 
+		
+		/******************************************/
+		/* METHOD CALL TO SET DAY TO CALENDAR DAY */
+		/******************************************/
 		day = dtTime.getDay(); 
 		
+		/******************************************************/
+		/* METHOD CALL TO SET TRIP DATE TO LOCAL DATE VERSION */
+		/* OF CALENDAR YEAR, MONTH, AND DATE 				  */
+		/******************************************************/
 		tripDate = LocalDate.parse(StringToLocalDateFormat(day, month, year)); 
+		
+		/*************************************************/
+		/* METHOD CALL TO SET CUSTOMER DATE TO TRIP DATE */
+		/*************************************************/
 		cstmr.setDate(tripDate); 
 	}
 	

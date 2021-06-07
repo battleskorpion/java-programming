@@ -14,7 +14,7 @@
 /******************/
 package bus_project;
 
-import javax.swing.JOptionPane;										// FOR JOPTIONPANE DIALOG WINDOWS
+import javax.swing.JOptionPane;							// FOR JOPTIONPANE DIALOG WINDOWS
 
 public class BusProgram 
 {

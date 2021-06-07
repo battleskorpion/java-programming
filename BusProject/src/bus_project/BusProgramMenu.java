@@ -46,7 +46,8 @@ import org.eclipse.swt.layout.GridData;					// GRIDDATA IS THE LAYOUT DATA OBJEC
 import org.eclipse.swt.events.ControlAdapter;			// PROVIDES DEFAULT IMPLEMENTATIONS FOR THE 
 														// METHODS DESCRIBED BY THE CONTROLLISTENER 
 														// INTERFACE. 
-import org.eclipse.swt.events.ControlEvent;				// INSTANCES OF THIS CLASS ARE SENT AS A 
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.browser.Browser;					// INSTANCES OF THIS CLASS ARE SENT AS A 
 														// RESULT OF CONTROLS BEING MOVED OR RESIZED.
 
 public class BusProgramMenu extends AbstractProgramWindow 
@@ -56,7 +57,7 @@ public class BusProgramMenu extends AbstractProgramWindow
 	/* VARIABLE SECTION */
 	/********************/
 	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
-	protected Shell shell;
+	protected Shell shell;								// SHELL WHICH REPRESENTS THIS WINDOW
 	
 	/***********************/
 	/* CONSTRUCTOR SECTION */
@@ -363,7 +364,7 @@ public class BusProgramMenu extends AbstractProgramWindow
 			}
 		});
 		btnProfitTotal.setText(Messages.getString
-				("BusProgramMenu.TotalProfit.text")); 									//$NON-NLS-1$
+				("BusProgramMenu.TotalProfit.text"));
 		new Label(shell, SWT.NONE);
 		
 		Button btnQuit = new Button(shell, SWT.NONE);

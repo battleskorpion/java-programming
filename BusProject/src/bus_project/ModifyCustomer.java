@@ -37,8 +37,8 @@ public class ModifyCustomer extends AbstractProgramWindow
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/ 
-	protected Shell shlModifyCustomers;			// REPRESENTS THIS WINDOW
-	private ArrayList<Customer> customers; 		// ArrayList of all customers
+	protected Shell shlModifyCustomers;					// SHELL WHICH REPRESENTS THIS WINDOW
+	private ArrayList<Customer> customers; 				// ArrayList of all customers
 	private DateTime dateTime;
 	private Text idField;
 	private Text nameField;

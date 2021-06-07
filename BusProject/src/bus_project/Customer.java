@@ -32,7 +32,9 @@ public class Customer
 	private int id; 				// CUSTOMER ID NUMBER
 	private double totalPrice; 		// total price of all tickets for group 
 	
-	//TODO: constructor 
+	/***********************/
+	/* CONSTRUCTOR SECTION */
+	/***********************/
 	public Customer() 
 	{
 		date = LocalDate.now(); 
@@ -276,17 +278,6 @@ public class Customer
 				+ "\n" + numPersons + "\n" + numPersonsRefunded; 
 	}
 	
-	//public ArrayList<String> getData()
-	//{
-	//	ArrayList<String> dta = new ArrayList<String>(5);
-	//	dta.add(Integer.toString(this.getId())); 
-	//	dta.add(this.getName()); 
-	//	dta.add(Integer.toString(this.getNumPersons())); 
-	//	dta.add(this.getDate().toString()); 
-	//	dta.add(Integer.toString(this.getNumPersonsRefunded()));
-	//	
-	//	return dta; 
-	//}
 	/************************************************************************/
 	/* 							SUBCLASS SECTION 							*/
 	/************************************************************************/

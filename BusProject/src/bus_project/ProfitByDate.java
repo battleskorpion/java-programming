@@ -33,22 +33,28 @@ import org.eclipse.swt.widgets.TableColumn;
 public class ProfitByDate extends AbstractProgramWindow
 {
 
-	// TODO: instance var section, label vars
-	protected Shell shlProfitByDate;
-	private ArrayList<Customer> customers; 
-	private ArrayList<Customer> customersSorted;
-	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 		 
-	private Table customersTable;
-	private int sortBy = 0; 								// sort by filter
-															// srtBy = 0, sort by date increasing
-															// srtBy = 1, sort by date decreasing
-															// srtBy = 2 sort by profit increasing
-															// srtBy = 3 sort by profit decreasing
+	/********************/
+	/* VARAIBLE SECTION */
+	/********************/ 
+	protected Shell shlProfitByDate;					// SHELL WHICH REPRESENTS THIS WINDOW
+	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
+	private ArrayList<Customer> customersSorted;		// SORTED LIST OF CUSTOMERS 
+														// BY sortBY FILTER
+	private ArrayList<LocalDate> dates; 	 			// LIST OF DATES OF TRIPS
+	private Table customersTable;						// TABLE OF CUSTOMERS
+	private int sortBy = 0; 							// sort by filter
+														// srtBy = 0, sort by date increasing
+														// srtBy = 1, sort by date decreasing
+														// srtBy = 2 sort by profit increasing
+														// srtBy = 3 sort by profit decreasing
 	
-	// TODO: constructor section
+	/***********************/
+	/* CONSTRUCTOR SECTION */
+	/***********************/
 	public ProfitByDate (ArrayList<Customer> cstmrs) 
 	{
 		customers = cstmrs; 
+		dates = BusCalculation.getDates(); 	
 	}
 	
 	/****************************

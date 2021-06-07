@@ -27,8 +27,8 @@ import org.eclipse.swt.events.ModifyEvent;
 
 public class AddCustomer extends AbstractProgramWindow
 {
-	protected Shell shlAddCustomer;
-	private ArrayList<Customer> customers; 
+	protected Shell shlAddCustomer;						// SHELL WHICH REPRESENTS THIS WINDOW
+	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	private Text nameField;
 	private Text sizeField;
 	private Table customersTable;
@@ -209,7 +209,7 @@ public class AddCustomer extends AbstractProgramWindow
 				dateTime, btnAdd, customersTable, btnExit});
 		
 		Label lblNameWarningIcon = new Label(shlAddCustomer, SWT.NONE);
-		lblNameWarningIcon.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
+		lblNameWarningIcon.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
 		lblNameWarningIcon.setForeground(SWTResourceManager.getColor(255, 255, 0));
 		lblNameWarningIcon.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
 		lblNameWarningIcon.setBounds(249, 13, 24, 24);
@@ -278,6 +278,7 @@ public class AddCustomer extends AbstractProgramWindow
 					/***************/
 					JOptionPane.showMessageDialog(null, 
 							"Error: Improper input or other error.");  
+					exc.printStackTrace();
 				}
 			}
 		});

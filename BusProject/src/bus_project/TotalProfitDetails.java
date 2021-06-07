@@ -18,7 +18,7 @@ public class TotalProfitDetails extends AbstractProgramWindow
 {
 
 	//TODO: label section, vars
-	protected Shell shlTotalProfitDetails;
+	protected Shell shlTotalProfitDetails;				// SHELL WHICH REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 		 
 	
 	//TODO: label method
