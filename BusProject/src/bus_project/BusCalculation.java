@@ -207,7 +207,7 @@ public class BusCalculation
 		
 		cstmrLocation = customers.get(dateIndex).indexOf(cstmr); 
 		
-		BusFinances.setCustomerProfit(customers.get(dateIndex).get(cstmrLocation)); 
+		BusFinances.updateCustomerProfit(customers.get(dateIndex).get(cstmrLocation)); 
 		customers.get(dateIndex).remove(cstmrLocation).refundPersons();	// removes customer from list and refunds the entire group 
 		
 		// get number of pax left after customer has been removed 
@@ -286,7 +286,7 @@ public class BusCalculation
 	
 	public static void instantiateLists()
 	{
-		customers = new ArrayList<ArrayList<Customer>>(); 	 	// customers each date 
+		customers = new ArrayList<ArrayList<Customer>>(); 	 	// CUSTOMERS EACH DATE 
 		dates = new ArrayList<LocalDate>(); 
 	}
 	
@@ -302,7 +302,7 @@ public class BusCalculation
 	// TODO: label method
 	public static int getNumPaxOnDate(LocalDate dt) 
 	{
-		int numPax = 0; 		// number of passengers on the day
+		int numPax = 0; 		// NUMBER OF PASSENGERS ON THE DAY
 		
 		// TODO: label if
 		if (dates.contains(dt))
@@ -316,7 +316,7 @@ public class BusCalculation
 		}
 		else 
 		{
-			return 0; 			// date not found in booked dates so no bookings are on the date, means no pax on the date
+			return 0; 			// DATE NOT FOUND IN BOOKED DATES SO NO BOOKINGS ARE ON THE DATE, MEANS NO PAX ON THE DATE
 		}
 	}
 	
@@ -374,7 +374,7 @@ public class BusCalculation
 			}
 			else 
 			{
-				return customers.subList(0, dates.indexOf(priorDate) + 1); 		//.sublist is exclusive requiring the +1
+				return customers.subList(0, dates.indexOf(priorDate) + 1); 		//.SUBLIST IS EXCLUSIVE REQUIRING THE +1
 			}
 		}
 	}

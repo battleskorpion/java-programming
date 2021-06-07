@@ -247,7 +247,7 @@ public class ModifyCustomer extends AbstractProgramWindow
 		setCustomerDetails(slctdCstmr, nameField, sizeField, id, 
 				slctdCstmr.getId(), dateTime); 
 		BusCalculation.rescheduleTrip(slctdCstmr); 
-		BusFinances.setCustomerProfit(slctdCstmr); 
+		BusFinances.updateCustomerProfit(slctdCstmr); 
 		
 		// SORT ARRAY CONSIDERING MODIFICATIONS TO ID
 		customers.sort(new Customer.CompareId());

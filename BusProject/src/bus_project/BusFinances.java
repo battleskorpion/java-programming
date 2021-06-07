@@ -38,7 +38,7 @@ public class BusFinances extends Finances
 	/* POSTCONDITION: 
 	/***************************************************************/
 	// returns new value of profit 
-	public static double setCustomerProfit(Customer cstmr) 
+	public static double updateCustomerProfit(Customer cstmr) 
 	{
 		// subtract previous profit amount + add new profit amount = add difference in profit
 		double amt = cstmr.getNumPersons() * TICKET_PRICE; 

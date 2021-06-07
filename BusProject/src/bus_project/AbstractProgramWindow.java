@@ -96,7 +96,9 @@ public abstract class AbstractProgramWindow
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		int columnCount = tbl.getColumnCount(); 
+		int columnCount = tbl.getColumnCount(); 		// NUMBER OF COLUMN OBJECTS IN TABLE 
+														// (TABLE CAN HAVE ONE PHYSICAL COLUMN 
+														// BUT 0 COLUMN OBJECTS)
 		
 		/***************/
 		/* RESET TABLE */
@@ -155,7 +157,9 @@ public abstract class AbstractProgramWindow
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/ 
-		int columnCount = tbl.getColumnCount(); 
+		int columnCount = tbl.getColumnCount(); 		// NUMBER OF COLUMN OBJECTS IN TABLE 
+														// (TABLE CAN HAVE ONE PHYSICAL COLUMN 
+														// BUT 0 COLUMN OBJECTS)
 		
 		/***************/
 		/* RESET TABLE */
@@ -296,7 +300,7 @@ public abstract class AbstractProgramWindow
 		/* METHOD CALL TO SET TRIP DATE TO LOCAL DATE VERSION */
 		/* OF CALENDAR YEAR, MONTH, AND DATE 				  */
 		/******************************************************/
-		tripDate = LocalDate.parse(StringToLocalDateFormat(day, month, year)); 
+		tripDate = LocalDate.parse(dateTimeToLocalDateStringFormat(day, month, year)); 
 		
 		/*************************************************/
 		/* METHOD CALL TO SET CUSTOMER DATE TO TRIP DATE */
@@ -311,88 +315,191 @@ public abstract class AbstractProgramWindow
 	/************************************************************************************************/
 	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
 	{
+		/*************************************************/
+		/* METHOD CALL TO ADD CUSTOMER TO CUSTOMERS LIST */
+		/*************************************************/
 		cstmrs.add(indx, cstmr);
+		
+		/********************************************/
+		/* METHOD CALL TO SORT CUSTOMERS LIST BY ID */
+		/********************************************/
 		cstmrs.sort(new Customer.CompareId()); 
+		
+		/***************************************************************************/
+		/* METHOD CALL TO SCHEDULE CUSTOMER TRIP ON DATE STORED IN CUSTOMER OBJECT */
+		/***************************************************************************/
 		BusCalculation.scheduleTrip(cstmr);
-		BusFinances.setCustomerProfit(cstmr); 
+		
+		/***************************************************************************/
+		/* METHOD CALL TO UPDATE PROFIT IN CUSTOMER OBJECT AND UPDATE TOTAL PROFIT */
+		/***************************************************************************/
+		BusFinances.updateCustomerProfit(cstmr); 
+		
+		/************************************************/
+		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
+		/************************************************/
 		updateTable(tbl, cstmrs); 
 	}
 	
-	//TODO: comment
+	/************************************************************************************************/
+	/* PRECONDITION:  A CUSTOMER NEEDS TO BE ADDED AT THE END OF THE ARRAY LIST OF CUSTOMERS		*/
+	/* POSTCONDITION: ADDS THE CUSTOMER TO THE ARRAY LIST OF CUSTOMERS, SCHEDULES THE CUSTOMER'S 	*/
+	/*				  TRIP, CALCULATES PROFIT FROM CUSTOMER											*/
+	/************************************************************************************************/
 	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
 	{
+		/*************************************************/
+		/* METHOD CALL TO ADD CUSTOMER TO CUSTOMERS LIST */
+		/*************************************************/
 		cstmrs.add(cstmr);
+		
+		/********************************************/
+		/* METHOD CALL TO SORT CUSTOMERS LIST BY ID */
+		/********************************************/
+		cstmrs.sort(new Customer.CompareId());
+		
+		/***************************************************************************/
+		/* METHOD CALL TO SCHEDULE CUSTOMER TRIP ON DATE STORED IN CUSTOMER OBJECT */
+		/***************************************************************************/
 		BusCalculation.scheduleTrip(cstmr);
-		BusFinances.setCustomerProfit(cstmr); 
+		
+		/***************************************************************************/
+		/* METHOD CALL TO UPDATE PROFIT IN CUSTOMER OBJECT AND UPDATE TOTAL PROFIT */
+		/***************************************************************************/
+		BusFinances.updateCustomerProfit(cstmr); 
+		
+		/************************************************/
+		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
+		/************************************************/
 		updateTable(tbl, cstmrs); 
 	}
 	
-	//TODO: comment
+	/************************************************************************************************/
+	/* PRECONDITION:  A CUSTOMER AT THE SPECIFIED INDEX NEEDS TO BE REMOVED FROM 					*/
+	/*				  THE LIST OF CUSTOMERS 														*/
+	/* POSTCONDITION: UNSCHEDULES THE CUSTOMER'S TRIP, AND REMOVES THE CUSTOMER FROM THE ARRAY LIST */
+	/*				  OF CUSTOMERS																	*/
+	/************************************************************************************************/
 	protected Customer removeCustomer(ArrayList<Customer> cstmrs, int cstmrIndx)
 	{
+		/*********************************************/
+		/* METHOD CALL TO UNSCHEDULE CUSTOMER'S TRIP */
+		/*********************************************/
 		BusCalculation.unscheduleTrip(cstmrs.get(cstmrIndx)); 
+		
+		/****************************************************************/
+		/* REMOVE CUSTOMER FROM CUSTOMERS LIST, RETURN REMOVED CUSTOMER */
+		/****************************************************************/
 		return cstmrs.remove(cstmrIndx); 
 	}
 	
-	//TODO: comment
-	protected String getCustomerProfitString(Customer cstmr) 
-	{
-		return cstmr.getTotalPriceFormatted(); 
-	}
-	
-	// TODO: comment
+	/************************************************************************************************/
+	/* PRECONDITION:  TEXT FIELDS NEED TO BE CLEARED 												*/
+	/* POSTCONDITION: CLEARS ALL INPUT IN TEXT FIELDS 												*/
+	/************************************************************************************************/
 	protected void clearInput(Text[] flds) 
 	{
-		//TODO: COMMETNS
+		/***********************************************************/
+		/* FOR LOOP TO CLEAR TEXT FIELDS (SET TEXT TO EMPTY STRING */
+		/***********************************************************/
 		for (int i = 0; i < flds.length; i++) 
 		{
 			flds[i].setText("");
 		}
 	}
 
-	// TODO: comment
+	/************************************************************************************************/
+	/* PRECONDITION:  CUSTOMERS IN CUSTOMER ARRAY NEED THEIR INDEX PROPERTY UPDATED					*/
+	/* POSTCONDITION: UPDATES THE INDEX LOCAL VARIABLE OF EACH CUSTOMER IN CUSTOMER ARRAY 			*/
+	/*				  TO THE CORRECT VALUE															*/
+	/************************************************************************************************/
 	protected void updateIndex(ArrayList<Customer> cstmrs)
 	{
-		//TODO: COMMENTS
+		/************************************************************/
+		/* FOR LOOP TO UPDATE INDEX OF CUSTOMER IN CUSTOMER OBJECTS */
+		/* TO THEIR CURRENT INDEX IN CUSTOMER LIST 					*/
+		/************************************************************/
 		for (int i = 0; i < cstmrs.size(); i++) 
 		{
 			cstmrs.get(i).setIndex(i);
 		}
 	}
 	
-	// TODO: COMMENT
-	protected String StringToLocalDateFormat(int dy, int mnth, int yr)
+	/************************************************************************************************/
+	/* PRECONDITION:  A DAY, MONTH, AND YEAR IN LocalDate FORMAT NEED TO BE CONVERTED TO A STRING 	*/
+	/*				  IN DateTime FORMAT															*/
+	/* POSTCONDITION: CONVERTS A DAY, MONTH, AND YEAR IN LocalDate FORMAT TO A STRING IN DateTime 	*/
+	/*				  PARSEABLE FORMAT																*/																
+	/************************************************************************************************/
+	protected String dateTimeToLocalDateStringFormat(int dy, int mnth, int yr)
 	{
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
 		String dateString; 
 		
-		//TODO: COMMENTS
+		/****************************************************/
+		/* START DATE STRING AS THE YEAR + A DASH SEPARATOR */
+		/****************************************************/ 
 		dateString = yr + "-"; 
-		if ((mnth + 1) < 10) 
+		
+		/****************************************************************/
+		/* INCREMENT MONTH (DateTime FORMAT IS 0-11, LocalDate is 1-12) */
+		/****************************************************************/ 
+		mnth++; 
+		
+		/*****************************************************/
+		/* IF MONTH IS LESS THAN 10 ADD A 0 TO DATE STRING   */
+		/* (LocalDate REQUIRES A 0 FOR MONTHS AND DAYS < 10) */
+		/*****************************************************/ 
+		if (mnth < 10) 
 		{
 			dateString += "0";  
 		}
-		dateString += (mnth + 1) + "-";
+		
+		/***********************************************/
+		/* ADD MONTH AND DASH SEPARATOR TO DATE STRING */
+		/***********************************************/ 
+		dateString += mnth + "-";
+		
+		/*****************************************************/
+		/* IF DAY IS LESS THAN 10 ADD A 0 TO DATE STRING     */
+		/* (LocalDate REQUIRES A 0 FOR MONTHS AND DAYS < 10) */
+		/*****************************************************/ 
 		if (dy < 10) 
 		{
 			dateString += "0"; 
 		}
+		
+		/**************************/
+		/* ADD DAY TO DATE STRING */
+		/**************************/
 		dateString += dy; 
+
+		/**********************/
+		/* RETURN DATE STRING */
+		/**********************/
 		return dateString; 
 	}
 	
-	// TODO: COMMENT
+	/************************************************************************************************/
+	/* PRECONDITION:  A DATE NEEDS TO BE DETERMINED TO BE A VALID DATE 								*/
+	/* POSTCONDITION: DETERMINES IF THE DATE IS A VALID DATE (DATE IS AFTER TODAY) 					*/															
+	/************************************************************************************************/
 	protected boolean vaildDate(DateTime dateTime) 		
 	{
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		LocalDate date = LocalDate.parse(StringToLocalDateFormat
-				(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));
+		LocalDate date = LocalDate.parse(dateTimeToLocalDateStringFormat		// DATE REPRESENTED 
+				(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()));	// BY dateTime OBJECT
+																				// (CONVERTED TO 
+																				// LocalDate FORMAT) 
 		
-		//TODO: COMMENTS
+		/***********************************************************/
+		/* IF STATEMENT TO RETURN TRUE IF THE DATE IS AFTER TODAY, */
+		/* FALSE IF THE DATE IS TODAY'S DATE OR BEFORE TODAY 	   */
+		/***********************************************************/ 
 		if (date.isAfter(LocalDate.now()))	
 		{			
 			return true;
@@ -403,7 +510,11 @@ public abstract class AbstractProgramWindow
 		}
 	}
 	
-	// TODO: comment
+	/************************************************************************************************/
+	/* PRECONDITION:  A SUB WINDOW OF THE WINDOW REPRESENTED BY THE SHELL OBJECT NEEDS TO BE OPENED */
+	/*				  (shl SHOULD BE A SHELL REPRESENTING AN EXISTING WINDOW)						*/
+	/* POSTCONDITION: A SPECIFIED WINDOW (wndw) IS OPENED USING shl AS ITS' SHELL					*/													
+	/************************************************************************************************/
 	protected void openSubWindow(AbstractProgramWindow wndw, Shell shl) 
 	{
 		/**********************************************/

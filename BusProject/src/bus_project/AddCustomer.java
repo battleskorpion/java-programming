@@ -216,7 +216,14 @@ public class AddCustomer extends AbstractProgramWindow
 		lblNameWarningIcon.setText(Messages.getString("lblNameWarningIcon.text")); //$NON-NLS-1$
 		lblNameWarningIcon.setVisible(false);
 		
+		/************************************************/
+		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
+		/************************************************/
 		updateTable(customersTable, customers); 
+		
+		/**************************/
+		/* EVENT LISTENER SECTION */
+		/**************************/
 		
 		/***********************/
 		/* ADD CUSTOMER BUTTON */

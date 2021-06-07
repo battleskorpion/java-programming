@@ -3,15 +3,14 @@
 /* Customer.java							*/
 /* Darian Siembab 							*/
 /* 											*/
-/* Customer object for storing 				*/
-/* and obtaining details about customers,	*/
-/* and sorting customers 					*/
+/* CUSTOMER OBJECT FOR STORING 				*/
+/* AND OBTAINING DETAILS ABOUT CUSTOMERS,	*/
+/* AND SORTING CUSTOMERS 					*/
 /********************************************/ 
 
 package bus_project;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Customer 
@@ -19,7 +18,7 @@ public class Customer
 	/*********************/
 	/* CONSTANTS SECTION */
 	/*********************/ 
-	public static final int MAX_NAME_LENGTH = 20; 
+	public static final int MAX_NAME_LENGTH = 20; 	// MAX CUSTOMER NAME LENGTH
 	
 	/********************/
 	/* VARIABLE SECTION */
@@ -133,10 +132,11 @@ public class Customer
 		return totalPrice; 
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
+	/************************************************************************/
+	/* PRECONDITION:  FORMATTED PROFIT OF CUSTOMER IS NEEDED 				*/
+	/* POSTCONDITION: RETURNS THE FORMATTED PROFIT OF THE CUSTOMER TRIP 	*/
+	/*				  AS A STRING OF CUSTOMERS								*/
+	/************************************************************************/
 	public String getTotalPriceFormatted() 
 	{
 		return Finances.nf.format(totalPrice); 
@@ -221,7 +221,7 @@ public class Customer
 		/********************/
 		/* METHOD TO SET 
 		/*******************/
-		BusFinances.setCustomerProfit(this); 
+		BusFinances.updateCustomerProfit(this); 
 		return prsns; 
 	}
 	
@@ -241,7 +241,7 @@ public class Customer
 	public int unrefundPersons() 
 	{
 		int numUnrefunded = unrefundPersons(numPersonsRefunded);  
-		BusFinances.setCustomerProfit(this); 
+		BusFinances.updateCustomerProfit(this); 
 		return numUnrefunded; 
 	}
 
@@ -254,7 +254,7 @@ public class Customer
 	{
 		numPersons += prsns; 
 		numPersonsRefunded -= prsns; 
-		BusFinances.setCustomerProfit(this);
+		BusFinances.updateCustomerProfit(this);
 		return (prsns); 
 	}
 	

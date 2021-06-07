@@ -126,7 +126,7 @@ public class BusesByDate extends AbstractProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				LocalDate date = LocalDate.parse(StringToLocalDateFormat
+				LocalDate date = LocalDate.parse(dateTimeToLocalDateStringFormat
 						(dateTime.getDay(), dateTime.getMonth(), 
 						dateTime.getYear()));
 				 

@@ -110,38 +110,32 @@ public class ProfitByDate extends AbstractProgramWindow
 	 */
 	protected void createContents(Shell rootShell) 
 	{
-		// TODO: var 
-		Function<Customer, String> customerProfit; 
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		Function<Customer, String> customerProfit; 		// REPRESENTS A FUNCTION WHICH RETURNS 
+														// PROFIT FROM A CUSTOMER 
 		
 		// TODO: label method calls
 		shlProfitByDate = new Shell();
 		shlProfitByDate.setSize(880, 330);
 		shlProfitByDate.setText(Messages.getString("ProfitByDate.shlProfitByDate.text")); //$NON-NLS-1$
 		
-		// TODO: label dateTime
 		DateTime dateTime = new DateTime(shlProfitByDate, SWT.BORDER | SWT.CALENDAR);
-		
-		// TODO: label method calls
 		dateTime.setBounds(10, 10, 233, 151);
 
-		// TODO: label combo
 		Combo comboDatesList = new Combo(shlProfitByDate, SWT.NONE);
-		// TODO: label method calls
 		comboDatesList.setBounds(10, 167, 91, 23);
 		
-		// TODO: label label
 		Label lblProfit = new Label(shlProfitByDate, SWT.NONE);
 		lblProfit.setFont(SWTResourceManager.getFont("Segoe UI Semibold", 10, SWT.NORMAL));
-		// TODO: label method calls
 		lblProfit.setBounds(10, 206, 91, 25);
 		lblProfit.setText(Messages.getString("lblProfit.text")); 						//$NON-NLS-1$
 		
-		// TODO: label label
 		Label lblAmtProfit = new Label(shlProfitByDate, SWT.RIGHT);
 		lblAmtProfit.setAlignment(SWT.LEFT);
 		lblAmtProfit.setText(Messages.getString("ProfitByDate.lblAmtProfit.text")); 	//$NON-NLS-1$
 		lblAmtProfit.setFont(SWTResourceManager.getFont("Segoe UI Light", 12, SWT.NORMAL));
-		// TODO: label method calls
 		lblAmtProfit.setBounds(107, 203, 136, 25);
 		
 		// TODO: label button
@@ -156,10 +150,8 @@ public class ProfitByDate extends AbstractProgramWindow
 				shlProfitByDate.close(); 
 			}
 		});
-		// TODO: label method calls
 		btnExit.setBounds(10, 258, 75, 25);
 		btnExit.setText(Messages.getString("btnExit.text"));
-		
 		
 		Label lblNewLabel = new Label(shlProfitByDate, SWT.CENTER);
 		lblNewLabel.setAlignment(SWT.CENTER);
@@ -201,7 +193,9 @@ public class ProfitByDate extends AbstractProgramWindow
 
 		//TODO: label method calls
 		sortCustomers(); 
-		customerProfit = this::getCustomerProfitString;
+		
+		//TODO: label dis
+		customerProfit = Customer::getTotalPriceFormatted;
 		updateComboBox(comboDatesList, dates); 
 		updateTable(customersTable, customersSorted, customerProfit); 
 		
@@ -211,21 +205,11 @@ public class ProfitByDate extends AbstractProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				LocalDate date = LocalDate.parse(StringToLocalDateFormat(dateTime.getDay(), 
+				LocalDate date = LocalDate.parse(dateTimeToLocalDateStringFormat(dateTime.getDay(), 
 						dateTime.getMonth(), dateTime.getYear()));
-				 
-				//if (dates.contains(date)) 
-				//{
-				// update combo box maybe ?
-				//	combo.set
-					
-					lblAmtProfit.setText(BusFinances.currency.getSymbol(Messages.getLocale())
-							+ BusFinances.getProfitOnDate(date)); 
-				//}
-				//else 
-				//{
-				//	lblAmtProfit.setText("$" + "0"); 
-				//}
+			
+				lblAmtProfit.setText(BusFinances.currency.getSymbol(Messages.getLocale())
+						+ BusFinances.getProfitOnDate(date)); 
 			}
 		});
 		comboDatesList.addSelectionListener(new SelectionAdapter() 
