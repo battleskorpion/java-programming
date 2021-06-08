@@ -2,32 +2,39 @@ package bus_project;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
-
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
-
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 
 //TODO: if < MIN_CAPACITY passengers do not allow add customer? > 400 already on date?  
 
 public class AddCustomer extends AbstractProgramWindow
 {
+	/*********************/
+	/* CONSTANTS SECTION */
+	/*********************/
+	private static final String helpWindowText = "To enter a customer, input the customer's name, "
+			+ "group size, unique ID number, and trip date. For further clarification, "
+			+ "hover over the labels for each input. To select the date of the trip, "
+			+ "select a date in the calendar. When ready, select the \"Add\" button."; 
+	
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
 	protected Shell shlAddCustomer;						// SHELL WHICH REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	private Text nameField;
@@ -35,13 +42,15 @@ public class AddCustomer extends AbstractProgramWindow
 	private Table customersTable;
 	private Text idField;
 	private DateTime dateTime; 
-	
+	private HelpWindow helpWindow; 
+
 	/***********************/
 	/* CONSTRUCTOR SECTION */
 	/***********************/
 	public AddCustomer (ArrayList<Customer> cstmrs) 
 	{
 		customers = cstmrs; 
+		helpWindow = new HelpWindow(helpWindowText); 
 	}
 	
 	/************************************************************************************************/
@@ -106,12 +115,12 @@ public class AddCustomer extends AbstractProgramWindow
 	protected void createContents(Shell rootShell) 
 	{
 		shlAddCustomer = new Shell();
-		shlAddCustomer.setSize(820, 400);
+		shlAddCustomer.setSize(820, 410);
 		shlAddCustomer.setText(Messages.getString
 				("AddCustomer.shlAddCustomer.text")); 			//$NON-NLS-1$
 		
 		Label lblName = new Label(shlAddCustomer, SWT.NONE);
-		lblName.setBounds(10, 13, 109, 15);
+		lblName.setBounds(10, 13, 109, 24);
 		lblName.setText(Messages.getString("lblName.text")); 	//$NON-NLS-1$
 		lblName.setToolTipText(Messages.getString
 				("lblName.tooltipText")); 						//$NON-NLS-1$
@@ -126,32 +135,32 @@ public class AddCustomer extends AbstractProgramWindow
 				("lblSize.toolTipText", new Object[] 
 				{Integer.valueOf(BusCalculation.MIN_CAPACITY), 
 				Integer.valueOf(BusCalculation.MAX_PAX)})); 	//$NON-NLS-1$
-		lblSize.setBounds(10, 43, 109, 15);
+		lblSize.setBounds(10, 43, 109, 24);
 		
 		sizeField = new Text(shlAddCustomer, SWT.BORDER);
 		sizeField.setBounds(140, 43, 103, 24);
 		
 		Label lblTripDate = new Label(shlAddCustomer, SWT.NONE);
-		lblTripDate.setBounds(10, 92, 109, 15);
+		lblTripDate.setBounds(10, 103, 109, 15);
 		lblTripDate.setText(Messages.getString
 				("lblTripDate.text")); 							//$NON-NLS-1$
 		
 		dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
-		dateTime.setBounds(10, 113, 233, 151);
+		dateTime.setBounds(10, 124, 233, 151);
 		
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
-		btnExit.setBounds(720, 326, 75, 25);
+		btnExit.setBounds(719, 316, 75, 25);
 		btnExit.setText(Messages.getString("btnExit.text")); 	//$NON-NLS-1$
 		
 		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
-		btnAdd.setBounds(10, 270, 233, 25);
+		btnAdd.setBounds(10, 281, 233, 25);
 		btnAdd.setText(Messages.getString("btnAdd.text")); 		//$NON-NLS-1$
 		
 		/************/
 		/* ID LABEL */
 		/************/ 
 		Label lblID = new Label(shlAddCustomer, SWT.NONE);
-		lblID.setBounds(10, 71, 91, 15);
+		lblID.setBounds(10, 71, 91, 26);
 		lblID.setText(Messages.getString("lblID.text")); 		//$NON-NLS-1$
 		lblID.setToolTipText(Messages.getString
 				("lblID.tooltipText")); 						//$NON-NLS-1$
@@ -177,7 +186,7 @@ public class AddCustomer extends AbstractProgramWindow
 				SWT.BORDER | SWT.FULL_SELECTION);
 		customersTable.setToolTipText(Messages.getString
 				("AddCustomer.customersTable.toolTipText")); 	//$NON-NLS-1$
-		customersTable.setBounds(279, 43, 516, 252);
+		customersTable.setBounds(279, 43, 516, 263);
 		customersTable.setLinesVisible(true);	
 		customersTable.setHeaderVisible(true);
 		
@@ -214,13 +223,31 @@ public class AddCustomer extends AbstractProgramWindow
 		lblNameWarningIcon.setForeground(SWTResourceManager.getColor(255, 255, 0));
 		lblNameWarningIcon.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
 		lblNameWarningIcon.setBounds(249, 13, 24, 24);
-		lblNameWarningIcon.setText(Messages.getString("lblNameWarningIcon.text")); //$NON-NLS-1$
+		lblNameWarningIcon.setText(Messages.getString("lblNameWarningIcon.text")); 		//$NON-NLS-1$
 		lblNameWarningIcon.setVisible(false);
+		
+		Menu menu = new Menu(shlAddCustomer, SWT.BAR);
+		shlAddCustomer.setMenuBar(menu);
+		
+		MenuItem mntmHelp = new MenuItem(menu, SWT.NONE);
+		mntmHelp.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				openSubWindow(helpWindow, shlAddCustomer);
+			}
+		});
+		mntmHelp.setText(Messages.getString("AddCustomer.mntmHelp.text")); //$NON-NLS-1$
 		
 		/************************************************/
 		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
 		/************************************************/
 		updateTable(customersTable, customers);
+		
+		//Browser browser = new Browser(shlAddCustomer, SWT.NONE);
+		//browser.setUrl("https://www.youtube.com/watch?v=6bcil1vXb5k"); 					//$NON-NLS-1$
+		//browser.setBounds(10, 301, 704, 250);
 		
 		/**************************/
 		/* EVENT LISTENER SECTION */
