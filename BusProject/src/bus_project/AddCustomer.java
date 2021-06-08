@@ -19,6 +19,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.browser.Browser;
 
 //TODO: if < MIN_CAPACITY passengers do not allow add customer? > 400 already on date?  
 
@@ -115,7 +116,7 @@ public class AddCustomer extends AbstractProgramWindow
 	protected void createContents(Shell rootShell) 
 	{
 		shlAddCustomer = new Shell();
-		shlAddCustomer.setSize(820, 410);
+		shlAddCustomer.setSize(820, 600);
 		shlAddCustomer.setText(Messages.getString
 				("AddCustomer.shlAddCustomer.text")); 			//$NON-NLS-1$
 		
