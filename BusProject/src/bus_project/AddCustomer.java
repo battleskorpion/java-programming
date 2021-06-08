@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.browser.Browser;
 
 //TODO: if < MIN_CAPACITY passengers do not allow add customer? > 400 already on date?  
 
@@ -219,7 +220,7 @@ public class AddCustomer extends AbstractProgramWindow
 		/************************************************/
 		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
 		/************************************************/
-		updateTable(customersTable, customers); 
+		updateTable(customersTable, customers);
 		
 		/**************************/
 		/* EVENT LISTENER SECTION */

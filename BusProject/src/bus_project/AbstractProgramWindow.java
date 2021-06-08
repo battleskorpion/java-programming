@@ -308,12 +308,12 @@ public abstract class AbstractProgramWindow
 		cstmr.setDate(tripDate); 
 	}
 	
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
 	/************************************************************************************************/
 	/* PRECONDITION:  A CUSTOMER NEEDS TO BE ADDED TO THE ARRAY LIST OF CUSTOMERS					*/
 	/* POSTCONDITION: ADDS THE CUSTOMER TO THE ARRAY LIST OF CUSTOMERS, SCHEDULES THE CUSTOMER'S 	*/
 	/*				  TRIP, CALCULATES PROFIT FROM CUSTOMER											*/
 	/************************************************************************************************/
-	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
 	{
 		/*************************************************/
 		/* METHOD CALL TO ADD CUSTOMER TO CUSTOMERS LIST */
@@ -341,12 +341,12 @@ public abstract class AbstractProgramWindow
 		updateTable(tbl, cstmrs); 
 	}
 	
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
 	/************************************************************************************************/
 	/* PRECONDITION:  A CUSTOMER NEEDS TO BE ADDED AT THE END OF THE ARRAY LIST OF CUSTOMERS		*/
 	/* POSTCONDITION: ADDS THE CUSTOMER TO THE ARRAY LIST OF CUSTOMERS, SCHEDULES THE CUSTOMER'S 	*/
 	/*				  TRIP, CALCULATES PROFIT FROM CUSTOMER											*/
 	/************************************************************************************************/
-	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
 	{
 		/*************************************************/
 		/* METHOD CALL TO ADD CUSTOMER TO CUSTOMERS LIST */
@@ -374,13 +374,13 @@ public abstract class AbstractProgramWindow
 		updateTable(tbl, cstmrs); 
 	}
 	
+	protected Customer removeCustomer(ArrayList<Customer> cstmrs, int cstmrIndx)
 	/************************************************************************************************/
 	/* PRECONDITION:  A CUSTOMER AT THE SPECIFIED INDEX NEEDS TO BE REMOVED FROM 					*/
 	/*				  THE LIST OF CUSTOMERS 														*/
 	/* POSTCONDITION: UNSCHEDULES THE CUSTOMER'S TRIP, AND REMOVES THE CUSTOMER FROM THE ARRAY LIST */
 	/*				  OF CUSTOMERS																	*/
 	/************************************************************************************************/
-	protected Customer removeCustomer(ArrayList<Customer> cstmrs, int cstmrIndx)
 	{
 		/*********************************************/
 		/* METHOD CALL TO UNSCHEDULE CUSTOMER'S TRIP */
@@ -392,12 +392,12 @@ public abstract class AbstractProgramWindow
 		/****************************************************************/
 		return cstmrs.remove(cstmrIndx); 
 	}
-	
+
+	protected void clearInput(Text[] flds) 
 	/************************************************************************************************/
 	/* PRECONDITION:  TEXT FIELDS NEED TO BE CLEARED 												*/
 	/* POSTCONDITION: CLEARS ALL INPUT IN TEXT FIELDS 												*/
 	/************************************************************************************************/
-	protected void clearInput(Text[] flds) 
 	{
 		/***********************************************************/
 		/* FOR LOOP TO CLEAR TEXT FIELDS (SET TEXT TO EMPTY STRING */
@@ -407,13 +407,13 @@ public abstract class AbstractProgramWindow
 			flds[i].setText("");
 		}
 	}
-
+	
+	protected void updateIndex(ArrayList<Customer> cstmrs)
 	/************************************************************************************************/
 	/* PRECONDITION:  CUSTOMERS IN CUSTOMER ARRAY NEED THEIR INDEX PROPERTY UPDATED					*/
 	/* POSTCONDITION: UPDATES THE INDEX LOCAL VARIABLE OF EACH CUSTOMER IN CUSTOMER ARRAY 			*/
 	/*				  TO THE CORRECT VALUE															*/
 	/************************************************************************************************/
-	protected void updateIndex(ArrayList<Customer> cstmrs)
 	{
 		/************************************************************/
 		/* FOR LOOP TO UPDATE INDEX OF CUSTOMER IN CUSTOMER OBJECTS */
@@ -424,14 +424,14 @@ public abstract class AbstractProgramWindow
 			cstmrs.get(i).setIndex(i);
 		}
 	}
-	
+
+	protected String dateTimeToLocalDateStringFormat(int dy, int mnth, int yr)
 	/************************************************************************************************/
 	/* PRECONDITION:  A DAY, MONTH, AND YEAR IN LocalDate FORMAT NEED TO BE CONVERTED TO A STRING 	*/
 	/*				  IN DateTime FORMAT															*/
 	/* POSTCONDITION: CONVERTS A DAY, MONTH, AND YEAR IN LocalDate FORMAT TO A STRING IN DateTime 	*/
 	/*				  PARSEABLE FORMAT																*/																
 	/************************************************************************************************/
-	protected String dateTimeToLocalDateStringFormat(int dy, int mnth, int yr)
 	{
 		/********************/
 		/* VARIABLE SECTION */
@@ -482,11 +482,11 @@ public abstract class AbstractProgramWindow
 		return dateString; 
 	}
 	
+	protected boolean vaildDate(DateTime dateTime) 		
 	/************************************************************************************************/
 	/* PRECONDITION:  A DATE NEEDS TO BE DETERMINED TO BE A VALID DATE 								*/
 	/* POSTCONDITION: DETERMINES IF THE DATE IS A VALID DATE (DATE IS AFTER TODAY) 					*/															
 	/************************************************************************************************/
-	protected boolean vaildDate(DateTime dateTime) 		
 	{
 		/********************/
 		/* VARIABLE SECTION */
@@ -510,12 +510,12 @@ public abstract class AbstractProgramWindow
 		}
 	}
 	
+	protected void openSubWindow(AbstractProgramWindow wndw, Shell shl) 
 	/************************************************************************************************/
 	/* PRECONDITION:  A SUB WINDOW OF THE WINDOW REPRESENTED BY THE SHELL OBJECT NEEDS TO BE OPENED */
 	/*				  (shl SHOULD BE A SHELL REPRESENTING AN EXISTING WINDOW)						*/
 	/* POSTCONDITION: A SPECIFIED WINDOW (wndw) IS OPENED USING shl AS ITS' SHELL					*/													
 	/************************************************************************************************/
-	protected void openSubWindow(AbstractProgramWindow wndw, Shell shl) 
 	{
 		/**********************************************/
 		/* DISABLE ROOT SHELL WHILE PERFORMING ACTION */
