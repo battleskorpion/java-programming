@@ -1,3 +1,13 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* Finances.java							*/
+/* Darian Siembab 							*/
+/* 											*/
+/* ABSTRACT CLASS FOR PERFORMING BASIC		*/
+/* FINANCE CALCULATIONS, AND STORING 		*/
+/* FORMATTING INFORMATION					*/
+/********************************************/ 
+
 package bus_project;
 
 /******************/

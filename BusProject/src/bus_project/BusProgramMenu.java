@@ -1,3 +1,12 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* BusProgramMenu.java						*/
+/* Darian Siembab 							*/
+/* 											*/
+/* WINDOW CLASS FOR DISPLAYING THE PROGRAM	*/
+/* MAIN MENU								*/
+/********************************************/ 
+
 package bus_project;
 
 /******************/

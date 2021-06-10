@@ -1,8 +1,18 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* TotalProfitDetails.java					*/
+/* Darian Siembab 							*/
+/* 											*/
+/* WINDOW CLASS TO PRINT TOTAL COMPANY		*/
+/* PROFIT UP TO A SPECIFIED DATE			*/
+/********************************************/ 
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -10,7 +20,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.DateTime;
 
@@ -18,13 +27,12 @@ public class TotalProfitDetails extends AbstractProgramWindow
 {
 
 	//TODO: label section, vars
-	protected Shell shlTotalProfitDetails;				// SHELL WHICH REPRESENTS THIS WINDOW
-	private ArrayList<Customer> customers; 		 
+	protected Shell shlTotalProfitDetails;				// SHELL WHICH REPRESENTS THIS WINDOW 
 	
-	//TODO: label method
+	//TODO: label method //TODO: 
 	public TotalProfitDetails (ArrayList<Customer> cstmrs) 
 	{
-		customers = cstmrs;  
+		//customers = cstmrs;  
 	}
 	
 	/**

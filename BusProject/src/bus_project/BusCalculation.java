@@ -1,6 +1,17 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* BusCalculation.java						*/
+/* Darian Siembab 							*/
+/* 											*/
+/* CLASS WITH STATIC METHODS AND VARIABLES	*/
+/* FOR SCHEDULING AND UNSCHEDULING CUSTOMER	*/
+/* TRIPS, AND PERFORMING NECESSARY LOGIC	*/
+/********************************************/ 
 package bus_project;
 
-//TODO: COMMENT
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

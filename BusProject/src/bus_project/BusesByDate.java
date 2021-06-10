@@ -1,6 +1,17 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* BusesByDate.java							*/
+/* Darian Siembab 							*/
+/* 											*/
+/* WINDOW CLASS FOR DISPLAYING				*/
+/* THE NUMBER OF BUSES REQUIRED FOR A GIVEN	*/
+/* DATE					 					*/
+/********************************************/ 
 package bus_project;
 
-//TODO: COMMENT
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.time.LocalDate;
 import java.util.ArrayList;
 

@@ -10,6 +10,9 @@
 
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.time.LocalDate;
 import java.util.Comparator;
 
@@ -108,8 +111,8 @@ public class Customer
 	
 	public LocalDate getDate()
 	/************************************************************************/	
-	/* PRECONDITION:  
-	/* POSTCONDITION: 
+	/* PRECONDITION:  THE DATE OF THIS CUSTOMER'S TRIP IS NEEDED			*/
+	/* POSTCONDITION: RETURNS THE TRIP DATE OF THIS CUSTOMER				*/
 	/************************************************************************/	
 	{
 		return date; 
@@ -117,8 +120,8 @@ public class Customer
 	
 	public int getIndex() 
 	/************************************************************************/	
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
+	/* PRECONDITION:  THE INDEX OF THIS CUSTOMER IS NEEDED					*/
+	/* POSTCONDITION: RETURNS THE INDEX OF THIS CUSTOMER					*/
 	/************************************************************************/	
 	{
 		return index; 
@@ -126,8 +129,8 @@ public class Customer
 	
 	public double getTotalPrice() 
 	/************************************************************************/	
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
+	/* PRECONDITION:  THE TOTAL PRICE OF THIS CUSTOMER'S TRIP IS NEEDED		*/
+	/* POSTCONDITION: RETURNS THE TOTAL PRICE OF THIS CUSTOMER'S TRIP		*/
 	/************************************************************************/	
 	{
 		return totalPrice; 
@@ -217,13 +220,21 @@ public class Customer
 	/* POSTCONDITION: RETURNS THE NUMBER OF PERSONS THAT WERE REFUNDED		*/
 	/************************************************************************/
 	{
-		numPersons -= prsns; 
+		/***********************************************************/
+		/* REFUND PERSONS (SUBTRACT PERSONS FROM NUMBER OF PERSONS */
+		/* AND ADD THEM TO NUMBER OF PERSONS REFUNDED) 			   */
+		/***********************************************************/
+		numPersons -= prsns; 				
 		numPersonsRefunded += prsns; 
 		
-		/********************/
-		/* METHOD TO SET 
-		/*******************/
+		/****************************************************************/
+		/* METHOD TO UPDATE TOTAL PRICE (COST OF TRIP) OF THIS CUSTOMER */
+		/****************************************************************/
 		BusFinances.updateCustomerProfit(this); 
+		
+		/*************************************/
+		/* RETURN NUMBER OF PERSONS REFUNDED */
+		/*************************************/
 		return prsns; 
 	}
 	
@@ -242,8 +253,21 @@ public class Customer
 	/* POSTCONDITION: RETURNS THE NUMBER OF PERSONS THAT WERE UNREFUNDED	*/
 	/************************************************************************/
 	{
-		int numUnrefunded = unrefundPersons(numPersonsRefunded);  
-		BusFinances.updateCustomerProfit(this); 
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		int numUnrefunded = unrefundPersons(numPersonsRefunded);  // NUMBER OF PERSONS UNREFUNDED 
+																  // (REMOVED FROM REFUNDED PERSONS 
+																  // AND ADDED TO NUMBER OF PERSONS) 
+		
+		/****************************************************************/
+		/* METHOD TO UPDATE TOTAL PRICE (COST OF TRIP) OF THIS CUSTOMER */
+		/****************************************************************/
+		BusFinances.updateCustomerProfit(this); 				
+		
+		/***********************************************************/
+		/* RETURN NUMBER OF PERSONS OF GROUP WHICH WERE UNREFUNDED */
+		/***********************************************************/
 		return numUnrefunded; 
 	}
 	
@@ -254,9 +278,21 @@ public class Customer
 	/* POSTCONDITION: RETURNS THE NUMBER OF PERSONS THAT WERE UNREFUNDED	*/
 	/************************************************************************/
 	{
+		/********************************************************/
+		/* UNREFUND PERSONS (ADD PERSONS FROM NUMBER OF PERSONS */
+		/* AND SUBTRACT THEM TO NUMBER OF PERSONS REFUNDED) 	*/
+		/********************************************************/
 		numPersons += prsns; 
 		numPersonsRefunded -= prsns; 
+		
+		/****************************************************************/
+		/* METHOD TO UPDATE TOTAL PRICE (COST OF TRIP) OF THIS CUSTOMER */
+		/****************************************************************/
 		BusFinances.updateCustomerProfit(this);
+		
+		/***********************************************************/
+		/* RETURN NUMBER OF PERSONS OF GROUP WHICH WERE UNREFUNDED */
+		/***********************************************************/
 		return (prsns); 
 	}
 	

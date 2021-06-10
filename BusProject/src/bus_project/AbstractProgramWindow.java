@@ -1,5 +1,18 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* AbstractProgramWindow.java				*/
+/* Darian Siembab 							*/
+/* 											*/
+/* ABSTRACT WINDOW CLASS TO BE INHERITED 	*/
+/* BY WINDOW CLASSES, INCLUDES COMMON		*/
+/* METHODS AND VARIABLES 					*/
+/********************************************/ 
+
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.time.LocalDate;	
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.
@@ -46,6 +59,30 @@ public abstract class AbstractProgramWindow
 	/* POSTCONDITION: SHELL OF WINDOW IS CLOSED (WINDOW IS NO LONGER DISPLAYED ON SCREEN)  			*/
 	/************************************************************************************************/
 	{
+		/***************************************/
+		/* METHOD TO CLOSE SHELL 			   */
+		/* (CLOSE WINDOW REPRESENTED BY SHELL) */
+		/***************************************/
+		shell.close(); 
+	}
+	
+	/************************************************************************************************/
+	/* PRECONDITION:  SUB WINDOW NEEDS TO BE CLOSED 				  			  					*/
+	/* POSTCONDITION: SHELL OF WINDOW IS CLOSED (WINDOW IS NO LONGER DISPLAYED ON SCREEN), AND THE  */
+	/*				  ROOT WINDOW IS FORCED ACTIVE (DISPLAYED ON TOP) 								*/
+	/************************************************************************************************/
+	public void closeSubWindow(Shell rootShell, Shell shell)
+	{
+		/********************************************************************/
+		/* METHOD TO FORCE ROOT SHELL ACTIVE   								*/
+		/* (IF THE RECEIVER IS VISIBLE, MOVES IT TO THE TOP OF THE DRAWING	*/
+		/*  ORDER FOR THE DISPLAY ON WHICH IT WAS CREATED (SO THAT ALL 		*/
+		/*  OTHER SHELLS ON THAT DISPLAY, WHICH ARE NOTTHE RECEIVER'S 		*/
+		/*  CHILDREN WILL BE DRAWN BEHIND IT) AND FORCES THE WINDOW MANAGER	*/
+		/*  TO MAKE THE SHELL ACTIVE.) 										*/
+		/********************************************************************/
+		rootShell.forceActive(); 
+		
 		/***************************************/
 		/* METHOD TO CLOSE SHELL 			   */
 		/* (CLOSE WINDOW REPRESENTED BY SHELL) */

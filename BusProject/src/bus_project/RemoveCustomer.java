@@ -1,5 +1,17 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* RemoveCustomer.java						*/
+/* Darian Siembab 							*/
+/* 											*/
+/* CLASS TO ALLOW THE USER TO DELETE A 		*/
+/* SPECIFIED CUSTOMER OR DELETE ALL 		*/
+/* CUSTOMERS 								*/
+/********************************************/ 
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;

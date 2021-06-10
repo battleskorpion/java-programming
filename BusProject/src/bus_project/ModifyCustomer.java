@@ -1,5 +1,19 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* ModifyCustomer.java						*/
+/* Darian Siembab 							*/
+/* 											*/
+/* WINDOW CLASS TO DISPLAY A LIST OF 		*/
+/* CUSTOMERS AND ALLOW THE USER TO MODIFY	*/
+/* A CUSTOMER BY SELECTING THE CUSTOMER IN 	*/
+/* THE LIST AND EDITING AND SAVING THE 		*/
+/* NEW DETAILS 								*/
+/********************************************/ 
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.
 import javax.swing.JOptionPane;							// FOR JOPTIONPANE DIALOG WINDOWS

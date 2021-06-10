@@ -1,5 +1,16 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* ListCustomers.java						*/
+/* Darian Siembab 							*/
+/* 											*/
+/* WINDOW CLASS FOR LISTING CUSTOMERS		*/
+/* BY A SPECIFIED FILTER					*/
+/********************************************/ 
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.
 import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 

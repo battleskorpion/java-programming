@@ -1,5 +1,17 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* AddCustomer.java							*/
+/* Darian Siembab 							*/
+/* 											*/
+/* WINDOW TO ADD CUSTOMERS AND CUSTOMER		*/
+/* INFORMATION, INCLUDING TRIP DATE			*/
+/********************************************/ 
+
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
@@ -20,8 +32,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.browser.Browser;
-
-//TODO: if < MIN_CAPACITY passengers do not allow add customer? > 400 already on date?  
 
 public class AddCustomer extends AbstractProgramWindow
 {
@@ -261,16 +271,20 @@ public class AddCustomer extends AbstractProgramWindow
 		{
 			public void widgetSelected(SelectionEvent e) 
 			{
+				/********************/
+				/* VARIABLE SECTION */
+				/********************/ 
 				Customer customer; 
 				int index = customers.size(); 	// INDEX TO ADD CUSTOMER AT 
 				int id; 						// CUSTOMER ID
 				
-				// TODO: label try/catch
+				// TODO: label try/catch, if statements
 				try
 				{
 					try 
 					{
 						id = Integer.parseInt(idField.getText()); 
+	
 						if (!uniqueID(id))
 						{
 							JOptionPane.showMessageDialog(null, 
@@ -284,27 +298,32 @@ public class AddCustomer extends AbstractProgramWindow
 								"Invalid ID!"); 
 						return; 
 					}
-					
-					// TODO: label if
-					if (!legalCustomerAddition())
+					if (nameField.getText().trim().equals(""))
 					{
-						/***************/
-						/* PRINT ERROR */
-						/***************/
 						JOptionPane.showMessageDialog(null, 
-								"Error: Invalid customer detail(s)!"); 
+								"Error: Name is required!");
+						return; 
 					}
-					else
+					if (sizeField.getText().equals(""))
 					{
-						// TODO: label method calls
-						// TODO: label vars etc. 
-						customer = new Customer(); 
-						Text[] fields = {nameField, sizeField, idField};	
-						setCustomerDetails(customer, nameField, sizeField, 
-								index, id, dateTime); 
-						clearInput(fields); 
-						addCustomer(customers, customer, index, customersTable); 	
+						JOptionPane.showMessageDialog(null, 
+								"Error: Size is required!");
+						return;
 					}
+					if(!vaildDate(dateTime))
+					{
+						JOptionPane.showMessageDialog(null, 
+								"Error: Invalid date!");
+						return; 
+					}
+					// TODO: label method calls
+					// TODO: label vars etc. 
+					customer = new Customer(); 
+					Text[] fields = {nameField, sizeField, idField};	
+					setCustomerDetails(customer, nameField, sizeField, 
+							index, id, dateTime); 
+					clearInput(fields); 
+					addCustomer(customers, customer, index, customersTable); 	
 				}
 				catch (Exception exc) 
 				{
@@ -319,6 +338,10 @@ public class AddCustomer extends AbstractProgramWindow
 			}
 		});
 		
+		/***********************/
+		/* NAME FIELD MODIFIED */
+		/***********************/ 
+		//TODO: comment
 		nameField.addModifyListener(new ModifyListener() 
 		{
 			public void modifyText(ModifyEvent e) 
@@ -345,24 +368,23 @@ public class AddCustomer extends AbstractProgramWindow
 			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
 			{
-				rootShell.forceActive(); 
-				shlAddCustomer.close(); 
+				closeSubWindow(rootShell, shlAddCustomer); 
 			}
 		});
 	}
 	
 	// TODO: label method
-	private boolean legalCustomerAddition() 
-	{
-		int id = Integer.parseInt(idField.getText()); 
-		if (nameField.getText().trim().equals("") 
-				|| sizeField.getText().equals("") 
-				|| !vaildDate(dateTime))
-		{
-			return false; 
-		}
-		return true; 
-	}
+	//private boolean legalCustomerAddition() 
+	//{
+	//	int id = Integer.parseInt(idField.getText()); 
+	//	if (
+	///			|| 
+	//			|| ))
+	///	{
+	///		return false; 
+	///	}
+	//	return true; 
+	//}
 	private boolean uniqueID(int id)
 	{
 		for (int i = 0; i < customers.size(); i++) 

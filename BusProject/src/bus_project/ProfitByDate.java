@@ -1,5 +1,16 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* ProfitByDate.java						*/
+/* Darian Siembab 							*/
+/* 											*/
+/* WINDOW CLASS TO DISPLAY COMPANY PROFIT 	*/
+/* ON A SPECIFIED DATE						*/
+/********************************************/ 
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.time.LocalDate;
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.

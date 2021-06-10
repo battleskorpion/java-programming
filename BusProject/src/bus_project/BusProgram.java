@@ -14,6 +14,9 @@
 /******************/
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import javax.swing.JOptionPane;							// FOR JOPTIONPANE DIALOG WINDOWS
 
 public class BusProgram 

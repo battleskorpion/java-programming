@@ -1,3 +1,13 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* BusFinances.java							*/
+/* Darian Siembab 							*/
+/* 											*/
+/* CLASS INHERITING Finances.java TO 		*/
+/* PERFORM FINANCE CALCULATIONS SPECIFIC	*/
+/* TO THE BUS PROGRAM						*/
+/********************************************/ 
+
 package bus_project;
 
 /******************/

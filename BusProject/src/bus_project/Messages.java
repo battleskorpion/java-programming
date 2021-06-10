@@ -1,5 +1,21 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* Messages.java							*/
+/* Darian Siembab 							*/
+/* 											*/
+/* CLASS FOR OBTAINING MESSAGES TO BE 		*/
+/* DISPLAYED BY OBTAINING THEIR KEY			*/
+/* AND ACCESSING THE APPROPIATE MESSAGES 	*/
+/* FILE DEPENDING ON THE CURRENT LOCALE		*/
+/* (ALLOWS THE PROGRAM TO BE LOCALIZED AND  */
+/* TEXT TO CHANGE LANGUAGE, ETC. DEPENDING  */
+/* ON THE SPECIFIED LOCALE)					*/
+/********************************************/ 
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;

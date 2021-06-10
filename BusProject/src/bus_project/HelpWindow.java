@@ -1,5 +1,16 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* HelpWindow.java							*/
+/* Darian Siembab 							*/
+/* 											*/
+/* WINDOW CLASS FOR DISPLAYING A STRING		*/
+/* OF INFORMATION							*/
+/********************************************/ 
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
