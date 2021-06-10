@@ -12,12 +12,22 @@ public class ShowDirectoryDialog
 {
 	protected Shell shlDirectoryDialog;					// SHELL WHICH REPRESENTS THIS WINDOW
 	private String dir_to_select_text; 
-	private String dir; // the selected directory 
+	private String dir; 								// the selected directory or file
+	private int selectionType; 							// directory or file
 	
 	// constructors
-	public ShowDirectoryDialog() 
+	public ShowDirectoryDialog(int selectionType) 
 	{
-		dir_to_select_text = "Directory:";
+		this.selectionType = selectionType; 
+		
+		switch (selectionType)
+		{
+		case 0: 
+			dir_to_select_text = "Directory:";
+		case 1: 
+			dir_to_select_text = "File:";
+		}
+			
 	}
 	
 	public ShowDirectoryDialog(String dir_to_select_text) 
@@ -99,29 +109,50 @@ public class ShowDirectoryDialog
 		selectDirButton.setText("Browse...");
 		selectDirButton.addSelectionListener(new SelectionAdapter() 
 		{
-	    public void widgetSelected(SelectionEvent event) 
-	    {
-	    	DirectoryDialog dlg = new DirectoryDialog(shlDirectoryDialog);
+		    public void widgetSelected(SelectionEvent event) 
+		    {
+		    	if (selectionType == 0) 
+		    	{
+		    		DirectoryDialog dlg = new DirectoryDialog(shlDirectoryDialog);
+		    		
+		    		// Set the initial filter path according
+			    	// to anything they've selected or typed in
+		    		dlg.setFilterPath(text.getText());
+		    		
+		    		// Change the title bar text
+		    		dlg.setText("Select Directory");
+		    		
+		    		// Customizable message displayed in the dialog
+		    		dlg.setMessage("Select a directory");
+		    		
+		    		// Calling open() will open and run the dialog.
+			    	// It will return the selected directory, or
+			    	// null if user cancels
+		    		dir = dlg.open();
+		    	}
+		    	else if (selectionType == 1)
+		    	{
+		    		FileDialog dlg = new FileDialog(shlDirectoryDialog);
+		    		
+		    		// Set the initial filter path according
+			    	// to anything they've selected or typed in
+		    		dlg.setFilterPath(text.getText());
+		    		
+		    		// Change the title bar text
+		    		dlg.setText("Select File");
+		    		
+		    		// Calling open() will open and run the dialog.
+			    	// It will return the selected directory, or
+			    	// null if user cancels
+		    		dir = dlg.open();
+		    	}
 	
-	    	// Set the initial filter path according
-	    	// to anything they've selected or typed in
-	    	dlg.setFilterPath(text.getText());
-	    	
-	    	// Change the title bar text
-	    	dlg.setText("Select Directory");
-	
-	    	// Customizable message displayed in the dialog
-	    	dlg.setMessage("Select a directory");
-	
-	    	// Calling open() will open and run the dialog.
-	    	// It will return the selected directory, or
-	    	// null if user cancels
-	    	dir = dlg.open();
-	      		if (dir != null) {
-	      			// Set the text box to the new selection
-	      			text.setText(dir);
-	      		}
-	    	}
+		      	if (dir != null) 
+		      	{
+		      		// Set the text box to the new selection
+		      		text.setText(dir);
+		      	}
+		    }
 		});
 	  
 		// "Ok" button

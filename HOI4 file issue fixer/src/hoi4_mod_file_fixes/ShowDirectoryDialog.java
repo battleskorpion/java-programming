@@ -12,11 +12,19 @@ public class ShowDirectoryDialog {
 	
 	private String dir_to_select_text; 
 	
-	private String dir; // the selected directory 
+	private String dir; // the selected directory/file
 	
 	// constructors
-	public ShowDirectoryDialog() {
-		dir_to_select_text = "Directory:";
+	public ShowDirectoryDialog(int selectionType) 
+	{
+		switch (selectionType)
+		{
+		case 0: 
+			dir_to_select_text = "Directory:";
+		case 1: 
+			dir_to_select_text = "File:";
+		}
+		
 	}
 	
 	public ShowDirectoryDialog(String dir_to_select_text) {
@@ -26,7 +34,8 @@ public class ShowDirectoryDialog {
 	/**
 	 * Runs the application
 	 */
-	public void run() {
+	public void run() 
+	{
 		Display display = new Display();
 		Shell shell = new Shell(display);
 		shell.setText("File Explorer");
@@ -34,7 +43,8 @@ public class ShowDirectoryDialog {
 		shell.pack();
 		shell.open();
 		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch()) {
+			if (!display.readAndDispatch()) 
+			{
 				display.sleep();
 			}
 		}

@@ -26,7 +26,7 @@ public class ShowFileDialog {
 		Display.getDefault().syncExec(new Runnable() {
 		    public void run() {
 		    	Shell shell = new Shell(Display.getDefault());
-				shell.setText("Directory Browser");
+				shell.setText("File Explorer");
 				createContents(shell);
 				shell.pack();
 				shell.open();
