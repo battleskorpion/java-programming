@@ -39,10 +39,9 @@ public class HelpWindow extends AbstractProgramWindow
 	/* 										 METHOD SECTION 										*/
 	/************************************************************************************************/
 	
-	/**
-	 * Open the window.
-	 * @wbp.parser.entryPoint
-	 */
+	/**************************
+	 * @wbp.parser.entryPoint *
+	 **************************/
 	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */

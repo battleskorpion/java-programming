@@ -17,8 +17,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import javax.swing.JOptionPane;							// JOPTIONPANE MAKES IT EASY TO POP UP A 
+														// STANDARD DIALOG BOX THAT PROMPTS USERS
+														// FOR A VALUE OR INFORMS THEM OF SOMETHING.
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -68,10 +71,9 @@ public class AddCustomer extends AbstractProgramWindow
 	/* 										 METHOD SECTION 										*/
 	/************************************************************************************************/
 			
-	/**
-	 * Open the window.
-	 * @wbp.parser.entryPoint
-	 */
+	/**************************
+	 * @wbp.parser.entryPoint *
+	 **************************/
 	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
@@ -125,20 +127,22 @@ public class AddCustomer extends AbstractProgramWindow
 	/********************************************************************************/
 	protected void createContents(Shell rootShell) 
 	{
+		/*********************/ 
+		/* INSTANTIATE SHELL */
+		/*********************/ 
 		shlAddCustomer = new Shell();
 		shlAddCustomer.setSize(820, 600);
 		shlAddCustomer.setText(Messages.getString
 				("AddCustomer.shlAddCustomer.text")); 			//$NON-NLS-1$
 		
+		/**********/
+		/* LABELS */
+		/**********/
 		Label lblName = new Label(shlAddCustomer, SWT.NONE);
 		lblName.setBounds(10, 13, 109, 24);
 		lblName.setText(Messages.getString("lblName.text")); 	//$NON-NLS-1$
 		lblName.setToolTipText(Messages.getString
 				("lblName.tooltipText")); 						//$NON-NLS-1$
-		
-		nameField = new Text(shlAddCustomer, SWT.BORDER);
-		nameField.setText("");
-		nameField.setBounds(140, 13, 103, 24);
 		
 		Label lblSize = new Label(shlAddCustomer, SWT.NONE);
 		lblSize.setText(Messages.getString("lblSize.text")); 	//$NON-NLS-1$
@@ -148,17 +152,37 @@ public class AddCustomer extends AbstractProgramWindow
 				Integer.valueOf(BusCalculation.MAX_PAX)})); 	//$NON-NLS-1$
 		lblSize.setBounds(10, 43, 109, 24);
 		
-		sizeField = new Text(shlAddCustomer, SWT.BORDER);
-		sizeField.setBounds(140, 43, 103, 24);
-		
 		Label lblTripDate = new Label(shlAddCustomer, SWT.NONE);
 		lblTripDate.setBounds(10, 103, 109, 15);
 		lblTripDate.setText(Messages.getString
 				("lblTripDate.text")); 							//$NON-NLS-1$
 		
-		dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
-		dateTime.setBounds(10, 124, 233, 151);
+		Label lblID = new Label(shlAddCustomer, SWT.NONE);
+		lblID.setBounds(10, 71, 91, 26);
+		lblID.setText(Messages.getString("lblID.text")); 		//$NON-NLS-1$
+		lblID.setToolTipText(Messages.getString
+				("lblID.tooltipText")); 						//$NON-NLS-1$
 		
+		Label lblCustomers = new Label(shlAddCustomer, SWT.CENTER);
+		lblCustomers.setBounds(279, 13, 516, 15);
+		lblCustomers.setText(Messages.getString
+				("lblCustomers.text")); 						//$NON-NLS-1$
+		
+		Label lblNameWarningIcon = new Label(shlAddCustomer, SWT.NONE);
+		lblNameWarningIcon.setBackground(SWTResourceManager.getColor
+				(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
+		lblNameWarningIcon.setForeground(SWTResourceManager.getColor
+				(255, 255, 0));
+		lblNameWarningIcon.setFont(SWTResourceManager.getFont
+				("Segoe UI", 11, SWT.BOLD));
+		lblNameWarningIcon.setBounds(249, 13, 24, 24);
+		lblNameWarningIcon.setText(Messages.getString
+				("lblNameWarningIcon.text")); 					//$NON-NLS-1$
+		lblNameWarningIcon.setVisible(false);
+		
+		/***********/
+		/* BUTTONS */
+		/***********/
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
 		btnExit.setBounds(719, 316, 75, 25);
 		btnExit.setText(Messages.getString("btnExit.text")); 	//$NON-NLS-1$
@@ -167,32 +191,28 @@ public class AddCustomer extends AbstractProgramWindow
 		btnAdd.setBounds(10, 281, 233, 25);
 		btnAdd.setText(Messages.getString("btnAdd.text")); 		//$NON-NLS-1$
 		
-		/************/
-		/* ID LABEL */
-		/************/ 
-		Label lblID = new Label(shlAddCustomer, SWT.NONE);
-		lblID.setBounds(10, 71, 91, 26);
-		lblID.setText(Messages.getString("lblID.text")); 		//$NON-NLS-1$
-		lblID.setToolTipText(Messages.getString
-				("lblID.tooltipText")); 						//$NON-NLS-1$
+		/**********/
+		/* FIELDS */
+		/**********/
+		nameField = new Text(shlAddCustomer, SWT.BORDER);
+		nameField.setText("");
+		nameField.setBounds(140, 13, 103, 24);
 		
-		/************/
-		/* ID FIELD */
-		/************/ 
+		sizeField = new Text(shlAddCustomer, SWT.BORDER);
+		sizeField.setBounds(140, 43, 103, 24);
+	
 		idField = new Text(shlAddCustomer, SWT.BORDER);
 		idField.setBounds(140, 73, 103, 24);
 		
-		/*******************/
-		/* CUSTOMERS LABEL */
-		/*******************/ 
-		Label lblCustomers = new Label(shlAddCustomer, SWT.CENTER);
-		lblCustomers.setBounds(279, 13, 516, 15);
-		lblCustomers.setText(Messages.getString
-				("lblCustomers.text")); 						//$NON-NLS-1$
+		/************/
+		/* CALENDAR */
+		/************/
+		dateTime = new DateTime(shlAddCustomer, SWT.BORDER | SWT.CALENDAR);
+		dateTime.setBounds(10, 124, 233, 151);
 		
-		/*******************/
-		/* CUSTOMERS TABLE */
-		/*******************/ 
+		/*********/
+		/* TABLE */
+		/*********/ 
 		customersTable = new Table(shlAddCustomer, 
 				SWT.BORDER | SWT.FULL_SELECTION);
 		customersTable.setToolTipText(Messages.getString
@@ -225,31 +245,23 @@ public class AddCustomer extends AbstractProgramWindow
 		tblclmnRefunds.setWidth(80);
 		tblclmnRefunds.setText(Messages.getString
 				("AddCustomer.tblclmnRefunds.text")); 			//$NON-NLS-1$
-			
-		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, idField, 
-				dateTime, btnAdd, customersTable, btnExit});
-		
-		Label lblNameWarningIcon = new Label(shlAddCustomer, SWT.NONE);
-		lblNameWarningIcon.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT));
-		lblNameWarningIcon.setForeground(SWTResourceManager.getColor(255, 255, 0));
-		lblNameWarningIcon.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
-		lblNameWarningIcon.setBounds(249, 13, 24, 24);
-		lblNameWarningIcon.setText(Messages.getString("lblNameWarningIcon.text")); 		//$NON-NLS-1$
-		lblNameWarningIcon.setVisible(false);
-		
+
+		/************/
+		/* MENU BAR */
+		/************/
 		Menu menu = new Menu(shlAddCustomer, SWT.BAR);
 		shlAddCustomer.setMenuBar(menu);
 		
 		MenuItem mntmHelp = new MenuItem(menu, SWT.NONE);
-		mntmHelp.addSelectionListener(new SelectionAdapter() 
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e) 
-			{
-				openSubWindow(helpWindow, shlAddCustomer);
-			}
-		});
-		mntmHelp.setText(Messages.getString("AddCustomer.mntmHelp.text")); //$NON-NLS-1$
+		
+		mntmHelp.setText(Messages.getString
+				("AddCustomer.mntmHelp.text")); 				//$NON-NLS-1$
+		
+		/*****************/
+		/* SET TAB ORDER */
+		/*****************/
+		shlAddCustomer.setTabList(new Control[]{nameField, sizeField, idField, 
+				dateTime, btnAdd, customersTable, btnExit});
 		
 		/************************************************/
 		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
@@ -275,8 +287,8 @@ public class AddCustomer extends AbstractProgramWindow
 				/* VARIABLE SECTION */
 				/********************/ 
 				Customer customer; 
-				int index = customers.size(); 	// INDEX TO ADD CUSTOMER AT 
-				int id; 						// CUSTOMER ID
+				int index = customers.size(); 					// INDEX TO ADD CUSTOMER AT 
+				int id; 										// CUSTOMER ID
 				
 				// TODO: label try/catch, if statements
 				try
@@ -360,6 +372,18 @@ public class AddCustomer extends AbstractProgramWindow
 			}
 		});
 		
+		/**********************/
+		/* MENU BAR HELP MENU */
+		/**********************/ 
+		mntmHelp.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				openSubWindow(helpWindow, shlAddCustomer);
+			}
+		});
+		
 		/***************/
 		/* EXIT BUTTON */
 		/***************/ 
@@ -373,26 +397,25 @@ public class AddCustomer extends AbstractProgramWindow
 		});
 	}
 	
-	// TODO: label method
-	//private boolean legalCustomerAddition() 
-	//{
-	//	int id = Integer.parseInt(idField.getText()); 
-	//	if (
-	///			|| 
-	//			|| ))
-	///	{
-	///		return false; 
-	///	}
-	//	return true; 
-	//}
+	/********************************************************************************/
+	/* PRECONDITION:  AN ID IS ENTERED												*/
+	/* POSTCONDITION: RETURNS TRUE IF THE ID IS UNIQUE, FALSE IF NOT				*/
+	/********************************************************************************/
 	private boolean uniqueID(int id)
 	{
+		/*******************************************/
+		/* FOR LOOP ITERATE THROUGH CUSTOMERS LIST */
+		/*******************************************/
 		for (int i = 0; i < customers.size(); i++) 
 		{
-			 if (customers.get(i).getId() == id) 
-			 {
-				 return false; 
-			 }
+			/********************************************************/
+			/* IF A CUSTOMER'S ID IS IDENTICAL TO THE ID SUBMITTED, */
+			/* RETURN FALSE 										*/
+			/********************************************************/ 
+			if (customers.get(i).getId() == id) 
+			{
+				return false; 
+			}
 		}
 		return true; 
 	}

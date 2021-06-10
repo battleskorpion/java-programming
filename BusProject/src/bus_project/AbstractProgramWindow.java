@@ -13,21 +13,32 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.time.LocalDate;	
+import java.time.LocalDate;								// A DATE WITHOUT A TIME-ZONE IN THE ISO-8601 
+														// CALENDAR SYSTEM
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.
-import java.util.function.Function; 
+import java.util.function.Function; 					// REPRESENTS A FUNCTION THAT ACCEPTS ONE 
+														// ARGUMENT AND PRODUCES A RESULT. 
 import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
 														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
 														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
 														// PROVIDED BY SWT. 
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Combo;					// FOR CONTROLS THAT ALLOW THE USER TO 
+														// CHOOSE AN ITEM FROM A LIST OF ITEMS,
+														// OR OPTIONALLY ENTER A NEW VALUE BY
+														// TYPING IT INTO AN EDITABLE TEXT FIELD.
+import org.eclipse.swt.widgets.DateTime;				// FOR SELECTABLE USER INTERFACE OBJECTS THAT
+														// ALLOW THE USER TO ENTER AND MODIFY DATE OR 
+														// TIME VALUES. 
 import org.eclipse.swt.widgets.Shell;					// REPRESENTS THE "WINDOWS" WHICH THE DESKTOP
 														// OR "WINDOW MANAGER" IS MANAGING. 			
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Table;					// FOR A SELECTABLE USER INTERFACE OBJECT THAT 
+														// DISPLAYS A LIST OF IMAGES AND STRINGS AND 
+														// ISSUES NOTIFICATION WHEN SELECTED. 
+import org.eclipse.swt.widgets.TableItem;				// FOR A SELECTABLE USER INTERFACE OBJECT THAT
+														// REPRESENTS AN ITEM IN A TABLE. 
+import org.eclipse.swt.widgets.Text;					// FOR SELECTABLE USER INTERFACE OBJECTS THAT
+														// ALLOW THE USER TO ENTER AND MODIFY TEXT.
 
 public abstract class AbstractProgramWindow 
 {

@@ -83,7 +83,7 @@ public class Test
 			}
 		}
 	}
-	 
+	
 	private static void createOptionWindow(String[] args)
 	{
 		if (args.length == 1) 	// by this point length will be at least 1

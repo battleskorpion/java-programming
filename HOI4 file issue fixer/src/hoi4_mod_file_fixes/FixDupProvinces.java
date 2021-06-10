@@ -10,7 +10,7 @@ public class FixDupProvinces {
 	
 	// removes all duplicate provinces in each file in the directory
 	public static boolean RemoveDuplicates(File dir) throws IOException {
-		for( File f : dir.listFiles()){
+		for( File f : dir.listFiles()) {
 			
 			String fContents = FileRead.readFile(f); 
 			

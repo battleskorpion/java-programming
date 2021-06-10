@@ -35,10 +35,9 @@ public class TotalProfitDetails extends AbstractProgramWindow
 		//customers = cstmrs;  
 	}
 	
-	/**
-	 * Open the window.
-	 * @wbp.parser.entryPoint
-	 */
+	/**************************
+	 * @wbp.parser.entryPoint *
+	 **************************/
 	//TODO: label method more
 	public void open(Shell rootShell)
 	/****************************************************************/

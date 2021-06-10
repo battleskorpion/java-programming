@@ -12,33 +12,43 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
+import java.time.LocalDate;								// A DATE WITHOUT A TIME-ZONE IN THE ISO-8601 
+														// CALENDAR SYSTEM
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import java.util.List;									// AN ORDERED COLLECTION (ALSO KNOWN AS A
+														// SEQUENCE). 
+import javax.swing.JOptionPane;							// JOPTIONPANE MAKES IT EASY TO POP UP A 
+														// STANDARD DIALOG BOX THAT PROMPTS USERS
+														// FOR A VALUE OR INFORMS THEM OF SOMETHING.
 
-//TODO: number of refunds refunded not always correct if pax of another customer are refunded
 public class BusCalculation 
 {
-	// TODO: make these proper labels 
 	/*********************/
 	/* CONSTANTS SECTION */
 	/*********************/ 
 	public static final int MAX_BUSES = 20; 						// maximum buses available per day
 	public static final int MAX_CAPACITY = 20; 						// maximum capacity of a bus
-	public static final int MIN_CAPACITY = 10;						// minimum capacity a bus should be operating with
+	public static final int MIN_CAPACITY = 10;						// minimum capacity a bus should 
+																	// be operating with
 	public static final int MAX_PAX = MAX_BUSES * MAX_CAPACITY; 	// maximum passengers per day
 	
 	/********************/
 	/* VARIABLE SECTION */
-	/********************/
-	// static variables						 
-	private static ArrayList<ArrayList<Customer>> customers; 
-	private static ArrayList<LocalDate> dates; 		
+	/********************/					 
+	private static ArrayList<ArrayList<Customer>> customers; 		// ARRAY LIST OF ARRAY LISTS OF
+																	// CUSTOMERS (EACH ARRAY LIST OF
+																	// CUSTOMERS IS FOR ONE DATE)
+	private static ArrayList<LocalDate> dates; 						// ARRAY LIST OF TRIP DATES
 			
-	//TODO: constructor
+	/***********************/
+	/* CONSTRUCTOR SECTION */
+	/***********************/
 	public BusCalculation()
 	{
+		/****************************************************/
+		/* METHOD TO INSTANTIATE CUSTOMERS AND DATES ARRAYS */
+		/****************************************************/
 		instantiateLists();
 	}
 	
@@ -46,7 +56,6 @@ public class BusCalculation
 	/* 										  METHOD SECTION 										*/
 	/************************************************************************************************/
 	
-	//TODO: LABEL CODE BETTER 
 	public static int scheduleTrip(Customer cstmr)   
 	/************************************************************************************************/
 	/* PRECONDITION:  CUSTOMER TRIP NEEDS TO BE SCHEDULED ON DATE AFTER TODAY						*/
@@ -58,13 +67,14 @@ public class BusCalculation
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		LocalDate date = cstmr.getDate(); 		// 
-		int dateIndex; 							// index of current date in dates array
-		int numPax; 							// number of other individual passengers 
-												// (based on combined group size from all other groups that day) 
-		int numPaxRefunded; 
-		int numToRefund; 						// number of persons to refund
-		int numToUnrefund; 
+		LocalDate date = cstmr.getDate(); 		// TRIP DATE 
+		int dateIndex; 							// INDEX OF CURRENT DATE IN DATES ARRAY
+		int numPax; 							// NUMBER OF OTHER INDIVIDUAL PASSENGERS 
+												// (BASED ON COMBINED GROUP SIZE FROM ALL
+												// OTHER GROUPS THAT DAY) 
+		int numPaxRefunded; 					// NUMBER OF PERSONS REFUNDED
+		int numToRefund; 						// NUMBER OF PERSONS TO REFUND
+		int numToUnrefund; 						// NUMBER OF PERSONS TO UNREFUND 
 		
 		// take previously refunded persons into account 
 		cstmr.unrefundPersons(); 
@@ -72,7 +82,6 @@ public class BusCalculation
 		// another trip already on date 
 		if (dates.contains(date)) 
 		{
-			System.out.println("date exists"); 
 			//TODO: label method calls 
 			// get index of date in dates 
 			dateIndex = dates.indexOf(date); 
@@ -89,7 +98,6 @@ public class BusCalculation
 				
 				customers.get(dateIndex).add(cstmr); 
 				displayRefundDialog(numToRefund); 
-				System.out.println("number refunded (too many pax): " + numToRefund); 	// test
 				return -1 * numToRefund;  	// number refunded
 			}
 			// if prexisting customers + refund some customers + new customer fill a bus at least to minimum capacity, 
@@ -114,9 +122,6 @@ public class BusCalculation
 					}	
 				}
 				
-				// debug 
-				System.out.println(numToUnrefund + "(unrefund)"); 
-				
 				unrefundLoop: 
 				for (int i = 0; i < customers.get(dateIndex).size(); i++)
 				{
@@ -135,7 +140,6 @@ public class BusCalculation
 				
 				customers.get(dateIndex).add(cstmr); 
 				// TODO: customers were unrefunded window 
-				System.out.println("no refund"); 	// test
 				return 0; // none refunded from this customer, only other customers unrefunded
 			}
 			// else (some customers will have to be refunded because a bus won't be filled to MIN_CAPACITY
@@ -146,7 +150,6 @@ public class BusCalculation
 				
 				customers.get(dateIndex).add(cstmr); 
 				displayRefundDialog(numToRefund);
-				System.out.println("number refunded (< min capacity): " + numToRefund); 	// test
 				return -1 * numToRefund; 		// number refunded
 			}
 		}
@@ -186,7 +189,6 @@ public class BusCalculation
 					return -1 * numToRefund; 			// number refunded
 				}
 				
-				System.out.println("no refund"); 	// test
 				return 0; 		// no error
 			}
 			// TODO: ISSUES MAY BE HERE: 
@@ -201,20 +203,25 @@ public class BusCalculation
 		}
 	}
 	
-	// TODO: label method
 	// TODO: modifications potential maybe
 	// TODO: make comment boxes out of some comments etc. 
 	public static void unscheduleTrip (Customer cstmr) 
+	/************************************************************************************************/
+	/* PRECONDITION:  A CUSTOMER NEEDS TO BE UNSCHEDULED											*/
+	/* POSTCONDITION: UNSCHEDULES THE CUSTOMER'S TRIP AND PERFORMS NECESSARY ACTIONS				*/
+	/************************************************************************************************/
 	{
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		int cstmrLocation; 
-		LocalDate date = cstmr.getDate(); 
-		int dateIndex = dates.indexOf(date); 
-		int numPax; 
-		int numToUnrefund; 
-		int numToRefund; 
+		int cstmrLocation; 						// INDEX OF CUSTOMER IN CUSTOMERS 2D ARRAYLIST 
+		LocalDate date = cstmr.getDate(); 		// TRIP DATE 
+		int dateIndex = dates.indexOf(date); 	// INDEX OF DATE IN DATES LIST (ALSO INDEX OF 
+												// CUSTOMERS LIST FOR THAT DATE IN CUSTOMERS 
+												// 2D ARRAYLIST)
+		int numPax; 							// NUMBER OF PASSENGERS ON DATE
+		int numToRefund; 						// NUMBER OF PERSONS TO REFUND
+		int numToUnrefund; 						// NUMBER OF PERSONS TO UNREFUND
 		
 		cstmrLocation = customers.get(dateIndex).indexOf(cstmr); 
 		
@@ -282,20 +289,34 @@ public class BusCalculation
 		}
 	}
 	
-	//TODO: 
 	public static int rescheduleTrip(Customer cstmr) 
+	/************************************************************************************************/
+	/* PRECONDITION:  A CUSTOMER NEEDS TO BE RESCHEDULED											*/
+	/* POSTCONDITION: UNSCHEDULES THE CUSTOMER'S TRIP, THEN SCHEDULES A NEW TRIP					*/
+	/************************************************************************************************/
 	{
 		unscheduleTrip(cstmr);
 		return scheduleTrip(cstmr); 
 	}
 	
-	// TODO: 
+
 	public static void unscheduleAll() 
+	/************************************************************************************************/
+	/* PRECONDITION:  ALL CUSTOMERS NEED TO BE UNSCHEDULED											*/
+	/* POSTCONDITION: UNSCHEDULES ALL CUSTOMER TRIPS (RESETS LISTS) 								*/
+	/************************************************************************************************/
 	{
+		/****************************************************/
+		/* METHOD TO INSTANTIATE CUSTOMERS AND DATES ARRAYS */
+		/****************************************************/
 		instantiateLists(); 
 	}
 	
 	public static void instantiateLists()
+	/************************************************************************************************/
+	/* PRECONDITION:  CLASS LISTS NEED TO BE INSTANTIATED											*/
+	/* POSTCONDITION: INSTANTIATES/CREATES NEW LISTS 												*/
+	/************************************************************************************************/
 	{
 		customers = new ArrayList<ArrayList<Customer>>(); 	 	// CUSTOMERS EACH DATE 
 		dates = new ArrayList<LocalDate>(); 
@@ -312,6 +333,10 @@ public class BusCalculation
 	
 	// TODO: label method
 	public static int getNumPaxOnDate(LocalDate dt) 
+	/************************************************************************************************/
+	/* PRECONDITION:  NUNBER OF PASSENGERS SCHEDULED ON A PARTICULAR DATE IS NEEDED					*/
+	/* POSTCONDITION: RETURNS NUMBER OF PASSENGERS FOR A PARTICULAR DATE (DOES NOT INCLUDE REFUNDS)	*/
+	/************************************************************************************************/
 	{
 		int numPax = 0; 		// NUMBER OF PASSENGERS ON THE DAY
 		
@@ -332,6 +357,11 @@ public class BusCalculation
 	}
 	
 	public static int getNumPaxRefundedOnDate(LocalDate dt) 
+	/************************************************************************************************/
+	/* PRECONDITION:  NUNBER OF PASSENGERS WHICH WERE REFUNDED ON A PARTICULAR DATE IS NEEDED		*/			
+	/* POSTCONDITION: RETURNS NUMBER OF PASSENGERS REFUNDED ON A PARTICULAR DATE 					*/
+	/*				  (NOT INCLUDING UNSCHEDULED TRIPS/DELETED CUSTOMERS)							*/
+	/************************************************************************************************/
 	{
 		int numPaxRefunded = 0;
 		
@@ -351,6 +381,10 @@ public class BusCalculation
 	}
 	
 	public static ArrayList<Customer> getCustomersOnDate(LocalDate dt) 
+	/************************************************************************************************/
+	/* PRECONDITION:  NUNBER OF CUSTOMERS SCHEDULED ON A PARTICULAR DATE IS NEEDED					*/
+	/* POSTCONDITION: RETURNS NUMBER OF CUSTOMERS FOR A PARTICULAR DATE 							*/
+	/************************************************************************************************/
 	{
 		if (dates.contains(dt)) 
 		{
@@ -363,6 +397,11 @@ public class BusCalculation
 	}
 	
 	public static List<ArrayList<Customer>> getCustomersToDate(LocalDate dt) 
+	/************************************************************************************************/
+	/* PRECONDITION:  NUNBER OF CUSTOMERS SCHEDULED ON ALL DATES PRIOR AND INCLUDING THE 			*/
+	/* 				  SPECIFIED DATE IS NEEDED														*/
+	/* POSTCONDITION: RETURNS NUMBER OF CUSTOMERS SCHEDULED UP TO AND INCLUDING THE SPECIFIED DATE	*/
+	/************************************************************************************************/
 	{
 		
 		if (dates.contains(dt)) 
@@ -392,11 +431,20 @@ public class BusCalculation
 
 	// TODO: label method
 	public static ArrayList<LocalDate> getDates() 
+	/************************************************************************************************/
+	/* PRECONDITION:  THE LIST OF TRIP DATES IS NEEDED												*/		
+	/* POSTCONDITION: RETURNS THE LIST OF SCHEDULED TRIP DATES										*/
+	/************************************************************************************************/
 	{
 		return dates;
 	}
 	
 	public static LocalDate getFirstDateAfterDate(LocalDate dt) 
+	/************************************************************************************************/
+	/* PRECONDITION:  THE FIRST SCHEDULED TRIP DATE AFTER THE SPECIFIED DATE IS NEEDED 				*/
+	/* POSTCONDITION: IF THERE IS A TRIP DATE AFTER THE SPECIFIED DATE, RETURNS THE DATE, OTHERWISE */
+	/*			      RETURNS NULL																	*/ 
+	/************************************************************************************************/
 	{
 		LocalDate firstDateAfterDate = null; 
 		for (LocalDate date : dates)  
@@ -417,7 +465,12 @@ public class BusCalculation
 	}
 	
 	protected static void displayRefundDialog(int numRefunded) 
+	/************************************************************************************************/
+	/* PRECONDITION:  NUNBER OF PERSONS REFUNDED NEEDS TO BE DISPLAYED								*/
+	/* POSTCONDITION: DISPLAYS A MESSAGE DIALOG INCLUDING THE NUMBER OF PERSONS REFUNDED			*/
+	/************************************************************************************************/
 	{
-		JOptionPane.showMessageDialog(null, numRefunded + "customers were refunded, due to not meeting minimum capacity");
+		JOptionPane.showMessageDialog(null, numRefunded + "customers were refunded, due to not "
+				+ "meeting minimum capacity");
 	}
 }

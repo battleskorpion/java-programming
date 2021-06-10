@@ -65,10 +65,9 @@ public class ModifyCustomer extends AbstractProgramWindow
 		customers = cstmrs; 
 	}
 	
-	/**
-	 * Open the window.
-	 * @wbp.parser.entryPoint
-	 */
+	/**************************
+	 * @wbp.parser.entryPoint *
+	 **************************/
 	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */

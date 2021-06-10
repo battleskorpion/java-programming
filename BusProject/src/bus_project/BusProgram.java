@@ -33,22 +33,29 @@ public class BusProgram
 		/****************************/
 		/* USER DESCRIPTION SECTION */
 		/****************************/
-		JOptionPane.showMessageDialog(null, "This program will schedule customer trips "
+		JOptionPane.showMessageDialog(null, "This program helps schedule customer trips "
 				+ "on selected dates, \nand calculate company profit and buses needed."); 
 		
-		/**************************/
-		/* RUN PROGRAM AGAIN LOOP */
-		/**************************/
+		/***************************/
+		/* RUN PROGRAM AGAIN LOOP  */
+		/***************************/
+		/* YES: 	runProgram = 0 */
+		/* NO:  	runProgram = 1 */
+		/* CANCEL: 	runProgram = 2 */
+		/***************************/
 		do 
 		{
 			/***********************/
 			/* REOPEN PROGRAM LOOP */
 			/***********************/
 			runProgram(); 
-			runProgramResponse = runProgramPrompt(); 
+			runProgramResponse = runProgramPrompt(); 	
 			while (runProgramResponse == 2)
 			{
-				window.open(); 				// reopen window
+				/***************************/
+				/* METHOD TO REOPEN WINDOW */
+				/***************************/ 
+				window.open(); 				
 				runProgramResponse = runProgramPrompt(); 
 			}
 		}
