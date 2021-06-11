@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Table;
 
 import org.eclipse.swt.widgets.TableColumn;
 
-public class ListCustomers extends AbstractProgramWindow 
+public class ListCustomers extends AbstractBusProgramWindow 
 {
 	/********************/
 	/* VARIABLE SECTION */

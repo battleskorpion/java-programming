@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.browser.Browser;
 
-public class AddCustomer extends AbstractProgramWindow
+public class AddCustomer extends AbstractBusProgramWindow
 {
 	/*********************/
 	/* CONSTANTS SECTION */

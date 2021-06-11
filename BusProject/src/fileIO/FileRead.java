@@ -3,12 +3,12 @@ package fileIO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
-
 import org.eclipse.swt.widgets.Shell;
 
-public class FileRead 
+import abstractProgramWindow.AbstractProgramWindow;
+
+public class FileRead extends AbstractProgramWindow
 {
 	public static String readFile(File f) 
 	{

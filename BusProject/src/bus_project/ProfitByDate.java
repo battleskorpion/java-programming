@@ -41,7 +41,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-public class ProfitByDate extends AbstractProgramWindow
+public class ProfitByDate extends AbstractBusProgramWindow
 {
 
 	/********************/

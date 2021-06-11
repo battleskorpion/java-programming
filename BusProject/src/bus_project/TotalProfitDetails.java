@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.DateTime;
 
-public class TotalProfitDetails extends AbstractProgramWindow 
+public class TotalProfitDetails extends AbstractBusProgramWindow 
 {
 
 	//TODO: label section, vars

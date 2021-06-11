@@ -27,7 +27,8 @@ import org.eclipse.swt.widgets.Table;
 import javax.swing.JOptionPane;
 import org.eclipse.swt.widgets.TableColumn;
 
-public class RemoveCustomer extends AbstractProgramWindow{
+public class RemoveCustomer extends AbstractBusProgramWindow
+{
 
 	protected Shell shlRemoveCustomer;					// SHELL WHICH REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS

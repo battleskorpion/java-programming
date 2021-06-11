@@ -26,7 +26,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class BusesByDate extends AbstractProgramWindow 
+public class BusesByDate extends AbstractBusProgramWindow 
 {
 
 	// TODO: instance var section, label vars

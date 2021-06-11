@@ -5,10 +5,12 @@ import org.eclipse.swt.events.*;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
+import bus_project.AbstractProgramWindow;
+
 /**
 * This class demonstrates the DirectoryDialog class
 */
-public class ShowDirectoryDialog 
+public class ShowDirectoryDialog extends AbstractProgramWindow
 {
 	protected Shell shlDirectoryDialog;					// SHELL WHICH REPRESENTS THIS WINDOW
 	private String dir_to_select_text; 

@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TableColumn;
 
 
-public class ModifyCustomer extends AbstractProgramWindow 
+public class ModifyCustomer extends AbstractBusProgramWindow 
 {
 
 	//TODO: label vars

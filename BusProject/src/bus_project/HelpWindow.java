@@ -22,7 +22,7 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.graphics.Point;
 
-public class HelpWindow extends AbstractProgramWindow 
+public class HelpWindow extends AbstractBusProgramWindow 
 {
 	/********************/
 	/* VARIABLE SECTION */

@@ -12,6 +12,7 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
+import fileIO.*; 
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.
 import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
@@ -59,7 +60,7 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.browser.Browser;					// INSTANCES OF THIS CLASS ARE SENT AS A 
 														// RESULT OF CONTROLS BEING MOVED OR RESIZED.
 
-public class BusProgramMenu extends AbstractProgramWindow 
+public class BusProgramMenu extends AbstractBusProgramWindow 
 {
 	//TODO: comment vars
 	/********************/
@@ -196,6 +197,8 @@ public class BusProgramMenu extends AbstractProgramWindow
 		BusesByDate busesByDateWindow = new BusesByDate(customers); 
 		ProfitByDate profitByDateWindow = new ProfitByDate(customers); 
 		TotalProfitDetails totalProfitWindow = new TotalProfitDetails(customers); 
+		Files fileWindow = new Files(customers); 
+		ShowDirectoryDialog fileDialogWindow = new ShowDirectoryDialog(1); 
 	
 		/*********/
 		/* SHELL */
@@ -381,13 +384,6 @@ public class BusProgramMenu extends AbstractProgramWindow
 		gd_btnQuit.heightHint = 38;
 		gd_btnQuit.widthHint = 335;
 		btnQuit.setLayoutData(gd_btnQuit);
-		btnQuit.addSelectionListener(new SelectionAdapter() 
-		{
-			public void widgetSelected(SelectionEvent e) 
-			{
-				shell.dispose(); 		// QUIT 
-			}
-		});
 		btnQuit.setText(Messages.getString("btnQuit.text")); 							//$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		
@@ -413,6 +409,47 @@ public class BusProgramMenu extends AbstractProgramWindow
 		btnRemoveCustomer.setLayoutData(gd_btnRemoveCustomer);
 		btnRemoveCustomer.setText(Messages.getString
 				("BusProgramMenu.RemoveCustomer.text"));
+		
+		Menu menu = new Menu(shell, SWT.BAR);
+		shell.setMenuBar(menu);
+		
+		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
+		mntmFile.setText(Messages.getString("mntmFile.text")); //$NON-NLS-1$
+		
+		Menu menu_1 = new Menu(mntmFile);
+		mntmFile.setMenu(menu_1);
+		
+		MenuItem mntmNew = new MenuItem(menu_1, SWT.NONE);
+		mntmNew.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+			}
+		});
+		mntmNew.setText("New...");
+		
+		MenuItem mntmLoad = new MenuItem(menu_1, SWT.NONE);
+		mntmLoad.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				openSubWindow(fileDialogWindow, shell); 
+				//openSubWindow(fileWindow, shell);
+			}
+		});
+		
+		mntmLoad.setText("Load...");
+		
+		MenuItem mntmSave = new MenuItem(menu_1, SWT.NONE);
+		mntmSave.setText("Save");
+		
+		MenuItem mntmSaveAs = new MenuItem(menu_1, SWT.NONE);
+		mntmSaveAs.setText("Save as...");
+		
+		MenuItem mntmHelp = new MenuItem(menu, SWT.NONE);
+		mntmHelp.setText(Messages.getString("mntmHelp.text")); //$NON-NLS-1$
 		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnModifyCustomer, 
 				btnBusesNeededByDate, btnListCustomersByName, btnListCustomersBySize, 
 				btnProfitByDate, btnProfitTotal, btnQuit, toolBar});
@@ -421,6 +458,14 @@ public class BusProgramMenu extends AbstractProgramWindow
 			public void widgetSelected(SelectionEvent e) 
 			{
 				openSubWindow(removeCustomerWindow, shell);	
+			}
+		});
+		
+		btnQuit.addSelectionListener(new SelectionAdapter() 
+		{
+			public void widgetSelected(SelectionEvent e) 
+			{
+				shell.dispose(); 		// QUIT 
 			}
 		});
 	}
