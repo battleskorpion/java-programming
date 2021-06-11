@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
-import org.eclipse.swt.widgets.Shell;
 
 import abstractProgramWindow.AbstractProgramWindow;
 
@@ -27,7 +26,7 @@ public class FileRead extends AbstractProgramWindow
 		StringBuffer buffer = new StringBuffer(); 
 		while (file_scan.hasNextLine()) 
 		{
-			buffer.append(file_scan.nextLine()+System.lineSeparator());
+			buffer.append(file_scan.nextLine() + System.lineSeparator());
 		}
 		String fileContents = buffer.toString();
 		// testing 
@@ -36,10 +35,5 @@ public class FileRead extends AbstractProgramWindow
 		file_scan.close();
 		
 		return fileContents;
-	}
-	
-	public static void main (String args[])
-	{
-		new ShowDirectoryDialog(1).open(new Shell()); 
 	}
 }

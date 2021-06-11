@@ -1,0 +1,53 @@
+200
+125
+Taunton High School
+100
+12/17/2021
+136
+Boston Academy
+156
+12/09/2021
+127
+Bristol Plymouth
+167
+12/14/2021
+111
+Coyle & Cassidy
+210
+11/25/2021
+114
+Snow Bird Ski Club
+145
+12/15/2021
+147
+Taunton Ski Club
+123
+11/18/2021
+101
+Love To Ski Club
+100
+12/01/2021
+105
+BCC Ski Club
+95
+1/15/2022
+157
+ABC Ski Club
+54
+1/16/2022
+117
+SnowShoes and SnowBoots Ski Club
+125
+1/16/2022
+125
+RunAway Ski Club
+17
+1/19/2022
+102
+Lets Ski Club
+200
+1/16/2022
+167
+CrossSabers
+152
+12/17/2021

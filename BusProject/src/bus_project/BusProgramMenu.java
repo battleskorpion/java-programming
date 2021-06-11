@@ -14,7 +14,10 @@ package bus_project;
 /******************/
 import fileIO.*; 
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
-														// INTERFACE.
+
+import javax.swing.JOptionPane;
+
+// INTERFACE.
 import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
 														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
 														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
@@ -197,7 +200,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		BusesByDate busesByDateWindow = new BusesByDate(customers); 
 		ProfitByDate profitByDateWindow = new ProfitByDate(customers); 
 		TotalProfitDetails totalProfitWindow = new TotalProfitDetails(customers); 
-		Files fileWindow = new Files(customers); 
+		FileInfo fileWindow = new FileInfo(customers); 
 		ShowDirectoryDialog fileDialogWindow = new ShowDirectoryDialog(1); 
 	
 		/*********/
@@ -423,7 +426,8 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		mntmNew.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) 
+			{
 				
 			}
 		});
@@ -435,8 +439,38 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				openSubWindow(fileDialogWindow, shell); 
-				//openSubWindow(fileWindow, shell);
+				int confirmLoad; 				// 0: 	YES
+												// 1: 	NO
+												// 2:	CANCEL
+				if (customers.size() > 0) 
+				{
+					confirmLoad = JOptionPane.showConfirmDialog
+							(null, "Warning: loading a file will reset program data and delete "
+									+ "any unsaved data. Continue?"); 
+				}
+				else 
+				{
+					confirmLoad = 0; 
+				}
+				
+				if (confirmLoad == 0) 
+				{
+					openSubWindow(fileDialogWindow, shell); 
+					if (fileDialogWindow.getDir() != null)
+					{
+						fileWindow.setFileNameText(fileDialogWindow.getName()); 
+						fileWindow.setFilePath(fileDialogWindow.getDir()); 
+						openSubWindow(fileWindow, shell); 
+					}
+					else 
+					{
+						// no file selected
+					}
+				}
+				else 
+				{
+					return; 
+				}
 			}
 		});
 		

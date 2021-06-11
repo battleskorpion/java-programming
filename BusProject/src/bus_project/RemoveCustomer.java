@@ -124,16 +124,6 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 		btnUndoDelete.setText(Messages.getString("btnUndoDelete.text")); 				//$NON-NLS-1$
 		
 		Button btnDeleteAll = new Button(shlRemoveCustomer, SWT.NONE);
-		btnDeleteAll.addSelectionListener(new SelectionAdapter() 
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e) 
-			{
-				customers = new ArrayList<Customer>(); 
-				BusCalculation.unscheduleAll(); 
-				updateTable(customersTable, customers); 
-			}
-		});
 		btnDeleteAll.setText(Messages.getString("RemoveCustomer.btnDeleteAll.text")); 	//$NON-NLS-1$
 		btnDeleteAll.setBounds(271, 295, 255, 25);
 		
@@ -246,6 +236,22 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 				}
 			}
 		}); 
+		
+		btnDeleteAll.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int confirm; 
+				confirm = JOptionPane.showConfirmDialog(null, "Warning: deleting all customers is irreversable. Continue?"); 
+				if (confirm == 0) 
+				{
+					customers = new ArrayList<Customer>(); 
+					BusCalculation.unscheduleAll(); 
+					updateTable(customersTable, customers); 
+				}
+			}
+		});
 				
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{

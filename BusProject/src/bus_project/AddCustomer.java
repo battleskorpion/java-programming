@@ -131,7 +131,7 @@ public class AddCustomer extends AbstractBusProgramWindow
 		/* INSTANTIATE SHELL */
 		/*********************/ 
 		shlAddCustomer = new Shell();
-		shlAddCustomer.setSize(820, 600);
+		shlAddCustomer.setSize(820, 410);
 		shlAddCustomer.setText(Messages.getString
 				("AddCustomer.shlAddCustomer.text")); 			//$NON-NLS-1$
 		

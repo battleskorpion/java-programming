@@ -1,11 +1,13 @@
 package fileIO;
 
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.*;
 import org.eclipse.swt.events.*;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
-import bus_project.AbstractProgramWindow;
+import abstractProgramWindow.*;
 
 /**
 * This class demonstrates the DirectoryDialog class
@@ -176,6 +178,20 @@ public class ShowDirectoryDialog extends AbstractProgramWindow
 	public String getDir() 
 	{
 		return dir; 
+	}
+
+	// get name of specific directory/file
+	public String getName()
+	{
+		// last section of directory/file path string
+		try 
+		{
+			return dir.substring(dir.lastIndexOf("\\") + 1, dir.length()); 
+		}
+		catch (Exception exc)
+		{
+			return null; 
+		}
 	}
 
 }
