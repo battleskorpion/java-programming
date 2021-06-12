@@ -70,6 +70,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 	/********************/
 	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	protected Shell shell;								// SHELL WHICH REPRESENTS THIS WINDOW
+	private boolean skiVideoEnabled = true; 
 	
 	/***********************/
 	/* CONSTRUCTOR SECTION */
@@ -206,15 +207,6 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		/* SHELL */
 		/*********/
 		shell = new Shell();
-		shell.addControlListener(new ControlAdapter() 
-		{
-			// TODO: 
-			@Override
-			public void controlResized(ControlEvent e)
-			{
-				
-			}
-		});
 		shell.setSize(700, 540);
 		shell.setText(Messages.getString("title.text")); 								//$NON-NLS-1$
 		GridLayout gl_shell = new GridLayout(4, true);
@@ -321,7 +313,6 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		Button btnListCustomersByName = new Button(shell, SWT.NONE);
 		GridData gd_btnListCustomersByName = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
-				
 		gd_btnListCustomersByName.widthHint = 140;
 		btnListCustomersByName.setLayoutData(gd_btnListCustomersByName);
 		btnListCustomersByName.setText(Messages.getString
@@ -359,7 +350,8 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		btnProfitByDate.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) 
+			{
 				openSubWindow(profitByDateWindow, shell); 
 			}
 		});
@@ -373,7 +365,8 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		btnProfitTotal.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) 
+			{
 				openSubWindow(totalProfitWindow, shell);
 			}
 		});
@@ -389,13 +382,30 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		btnQuit.setText(Messages.getString("btnQuit.text")); 							//$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		
+		/***************/
+		/* IMAGE/VIDEO */
+		/***************/
 		Image mainImage = new Image(Display.getDefault(), "ski-lift.jpg");	
 		Label lblMainImage = new Label(shell, SWT.CENTER);
+	
+		Browser videoBrowser = new Browser(shell, SWT.NONE);
+			
 		GridData gd_lblMainImage = new GridData(SWT.CENTER, SWT.CENTER, true, true, 4, 1);
-		gd_lblMainImage.widthHint = 680;
-		gd_lblMainImage.heightHint = 360;
-		lblMainImage.setLayoutData(gd_lblMainImage);
-		lblMainImage.setImage(mainImage);
+		gd_lblMainImage.widthHint = 1280;
+		gd_lblMainImage.heightHint = 960;
+			
+		if (skiVideoEnabled == true) 
+		{
+			videoBrowser.setLayoutData(gd_lblMainImage);
+			videoBrowser.setUrl("https://www.youtube.com/embed/VRnk5gx2t1w"
+					+ "?autoplay=1&amp;html5=1%20frameborder=%220%22%20allowfullscreen"); 
+		}
+		else 
+		{
+			lblMainImage.setLayoutData(gd_lblMainImage);
+			lblMainImage.setImage(mainImage);
+		}
+		
 		gd_btnAddCustomer.widthHint = 122;
 		btnAddCustomer.setLayoutData(gd_btnAddCustomer);
 		btnAddCustomer.setText(Messages.getString
@@ -416,7 +426,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		shell.setMenuBar(menu);
 		
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
-		mntmFile.setText(Messages.getString("mntmFile.text")); //$NON-NLS-1$
+		mntmFile.setText(Messages.getString("mntmFile.text")); 							//$NON-NLS-1$
 		
 		Menu menu_1 = new Menu(mntmFile);
 		mntmFile.setMenu(menu_1);
@@ -481,11 +491,48 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		MenuItem mntmSaveAs = new MenuItem(menu_1, SWT.NONE);
 		mntmSaveAs.setText("Save as...");
 		
+		MenuItem mntmSettings = new MenuItem(menu, SWT.CASCADE);
+		mntmSettings.setText("Settings");
+		
+		Menu menu_2 = new Menu(mntmSettings);
+		mntmSettings.setMenu(menu_2);
+		
+		MenuItem mntmSkiVideo = new MenuItem(menu_2, SWT.CHECK);
+		mntmSkiVideo.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				skiVideoEnabled = mntmSkiVideo.getSelection();  
+				
+				if (skiVideoEnabled == true) 
+				{
+					lblMainImage.setVisible(false);
+					videoBrowser.setVisible(true);
+					videoBrowser.setLayoutData(gd_lblMainImage);
+					videoBrowser.setUrl("https://www.youtube.com/embed/VRnk5gx2t1w"
+							+ "?autoplay=1&amp;html5=1%20frameborder=%220%22%20allowfullscreen"); 
+				}
+				else 
+				{
+					videoBrowser.setVisible(false);
+					lblMainImage.setVisible(true);
+					lblMainImage.setLayoutData(gd_lblMainImage);
+					lblMainImage.setImage(mainImage);
+				}
+			}
+		});
+		mntmSkiVideo.setText("Ski Video");
+		mntmSkiVideo.setSelection(skiVideoEnabled);
+		
 		MenuItem mntmHelp = new MenuItem(menu, SWT.NONE);
-		mntmHelp.setText(Messages.getString("mntmHelp.text")); //$NON-NLS-1$
+		mntmHelp.setText(Messages.getString("mntmHelp.text")); 							//$NON-NLS-1$
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
 		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnModifyCustomer, 
 				btnBusesNeededByDate, btnListCustomersByName, btnListCustomersBySize, 
 				btnProfitByDate, btnProfitTotal, btnQuit, toolBar});
+		
 		btnRemoveCustomer.addSelectionListener(new SelectionAdapter() 
 		{
 			public void widgetSelected(SelectionEvent e) 

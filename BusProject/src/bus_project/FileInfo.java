@@ -211,7 +211,8 @@ public class FileInfo extends AbstractBusProgramWindow
 		List<String> dataList = new ArrayList<String>(); 
 		Customer customer; 
 		
-		Collections.addAll(dataList, FileRead.readFile(new File(filePath)).split(System.lineSeparator())); 
+		Collections.addAll(dataList, FileRead.readFile(new File(filePath))
+				.split(System.lineSeparator())); 
 	
 		// skip first line, 4 lines of data per customer
 		for (int i = 1; i < dataList.size(); i+=4, index++)
@@ -219,12 +220,14 @@ public class FileInfo extends AbstractBusProgramWindow
 			customer = new Customer(); 
 			try 
 			{
-				setCustomerDetails(customer, dataList.get(i + 1), Integer.parseInt(dataList.get(i + 2)), 
-						index,  Integer.parseInt(dataList.get(i)), dataList.get(i + 3));  
+				setCustomerDetails(customer, dataList.get(i + 1), 
+						Integer.parseInt(dataList.get(i + 2)), index, 
+						Integer.parseInt(dataList.get(i)), dataList.get(i + 3));  
 			}
 			catch (Exception exc)
 			{
-				JOptionPane.showMessageDialog(null, "Error: issue loading in customer data.");
+				JOptionPane.showMessageDialog
+					(null, "Error: issue loading in customer data.");
 				exc.printStackTrace();
 				customers.clear();  
 				return; 
