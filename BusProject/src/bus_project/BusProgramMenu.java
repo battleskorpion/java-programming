@@ -65,7 +65,6 @@ import org.eclipse.swt.browser.Browser;					// INSTANCES OF THIS CLASS ARE SENT 
 
 public class BusProgramMenu extends AbstractBusProgramWindow 
 {
-	//TODO: comment vars
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/

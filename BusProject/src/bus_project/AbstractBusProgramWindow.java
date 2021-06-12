@@ -12,6 +12,7 @@
 package bus_project;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList; 
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Table;
@@ -98,6 +99,39 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		/* METHOD CALL TO SET CUSTOMER DATE TO TRIP DATE */
 		/*************************************************/
 		cstmr.setDate(tripDate); 
+	}
+	
+	protected void setCustomerDetails(Customer customer, String name, int groupSize, 
+			int index, int id, String tripDateString) 
+	/************************************************************************************************/
+	/* PRECONDITION:  DETAILS OF CUSTOMER NEED TO BE SET											*/
+	/* POSTCONDITION: SETS CUSTOMER DETAILS TO NEW VALUES 						  					*/
+	/************************************************************************************************/
+	{
+		/**************************************/
+		/* METHOD CALL TO SET CUSTOMER'S NAME */
+		/**************************************/
+		customer.setName(name);
+		
+		/***************************************************/
+		/* METHOD CALL TO SET CUSTOMER'S NUMBER OF PERSONS */
+		/***************************************************/
+		customer.setNumPersons(groupSize); 
+		
+		/********************************************************/
+		/* METHOD CALL TO SET CUSTOMER'S INDEX PROPERTY TO indx */
+		/********************************************************/
+		customer.setIndex(index);			
+		
+		/****************************************/
+		/* METHOD CALL TO SET CUSTOMER ID TO id */
+		/****************************************/
+		customer.setId(id);							
+		
+		/*************************************************/
+		/* METHOD CALL TO SET CUSTOMER DATE TO TRIP DATE */
+		/*************************************************/
+		customer.setDate(LocalDate.parse(tripDateString, DateTimeFormatter.ofPattern("M[M]/dd/yyyy"))); 
 	}
 	
 	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
@@ -201,4 +235,9 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 			cstmrs.get(i).setIndex(i);
 		}
 	}
+	
+	//protected String customerFileDateToLocalDateStringFormat(String date)
+	//{
+	//	return date.replace("/", "-"); 
+	//}
 }
