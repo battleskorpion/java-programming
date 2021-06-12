@@ -98,13 +98,16 @@ public class FixFocus {
 		String focus_loc; 
 		//ArrayList<String> focus_loc_array; 
 		
-		for (String focus : focus_names) {
+		for (String focus : focus_names) 
+		{
 			// if focus not in localized focuses
-			if (!focuses_localized.contains(focus)) { 
+			if (!focuses_localized.contains(focus)) 
+			{ 
 				// write to loc file 
 				// separate words in focus name
 				int i = 0;	//counter
-				if (country_tags.contains(focus.substring(0, 3))) {
+				if (country_tags.contains(focus.substring(0, 3))) 
+				{
 					i+=3; 
 				}
 				// make a list of each word in focus_loc

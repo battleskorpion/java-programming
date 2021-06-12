@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Shell;					// REPRESENTS THE "WINDOWS" WHICH THE 
 import org.eclipse.swt.widgets.Button;					// REPRESENTS A SELECTABLE USER INTERFACE 
 														// OBJECT THAT ISSUES NOTIFICATION WHEN 
 														// PRESSED AND RELEASED. 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;					// CONTROL IS THE ABSTRACT SUPERCLASS OF 
 														// ALL WINDOWED USER INTERFACE CLASSES. 
 														// (REPRESENTS CONTROL EVENTS).
@@ -59,9 +60,9 @@ import org.eclipse.swt.layout.GridData;					// GRIDDATA IS THE LAYOUT DATA OBJEC
 import org.eclipse.swt.events.ControlAdapter;			// PROVIDES DEFAULT IMPLEMENTATIONS FOR THE 
 														// METHODS DESCRIBED BY THE CONTROLLISTENER 
 														// INTERFACE. 
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.browser.Browser;					// INSTANCES OF THIS CLASS ARE SENT AS A 
 														// RESULT OF CONTROLS BEING MOVED OR RESIZED.
+import org.eclipse.swt.custom.StackLayout;
 
 public class BusProgramMenu extends AbstractBusProgramWindow 
 {
@@ -70,7 +71,6 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 	/********************/
 	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	protected Shell shell;								// SHELL WHICH REPRESENTS THIS WINDOW
-	private boolean skiVideoEnabled = true; 
 	
 	/***********************/
 	/* CONSTRUCTOR SECTION */
@@ -385,25 +385,49 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		/***************/
 		/* IMAGE/VIDEO */
 		/***************/
-		Image mainImage = new Image(Display.getDefault(), "ski-lift.jpg");	
-		Label lblMainImage = new Label(shell, SWT.CENTER);
-	
-		Browser videoBrowser = new Browser(shell, SWT.NONE);
-			
+		Composite mediaComposite = new Composite(shell, SWT.NONE);
+		mediaComposite.setLayout(new GridLayout(1, false));
+		
+		StackLayout layout = new StackLayout();
+		mediaComposite.setLayout(layout); 
+		
+	    // video composite
+	    Composite videoComposite = new Composite(mediaComposite, SWT.NONE);
+	    videoComposite.setLayout(new GridLayout());
+	    Browser videoBrowser = new Browser(videoComposite, SWT.NONE);
+	    videoBrowser.setUrl("https://www.youtube.com/embed/VRnk5gx2t1w"
+				+ "?autoplay=1&amp;html5=1%20frameborder=%220%22%20allowfullscreen"); 
+	    
+	    // image composite
+	    Composite imageComposite = new Composite(mediaComposite, SWT.NONE);
+	    imageComposite.setLayout(new GridLayout());
+		Image skiImage = new Image(Display.getDefault(), "ski-lift.jpg");	
+		Label lblMainImage = new Label(imageComposite, SWT.CENTER);
+		lblMainImage.setImage(skiImage);
+		
 		GridData gd_lblMainImage = new GridData(SWT.CENTER, SWT.CENTER, true, true, 4, 1);
 		gd_lblMainImage.widthHint = 1280;
 		gd_lblMainImage.heightHint = 960;
-			
-		if (skiVideoEnabled == true) 
+		videoBrowser.setLayoutData(gd_lblMainImage);
+		lblMainImage.setLayoutData(gd_lblMainImage);
+		
+		GridData gd_mediaComposite = new GridData(SWT.CENTER, SWT.CENTER, true, true, 4, 1);
+		gd_lblMainImage.widthHint = 1280;
+		gd_lblMainImage.heightHint = 960;
+		mediaComposite.setLayoutData(gd_mediaComposite);
+		
+		/**************************************************************************/
+		/* IF STATEMENT TO DISPLAY IMAGE OR VIDEO COMPOSITE DEPENDING ON SETTINGS */
+		/**************************************************************************/
+		if (Settings.skiVideoEnabled == true) 
 		{
-			videoBrowser.setLayoutData(gd_lblMainImage);
-			videoBrowser.setUrl("https://www.youtube.com/embed/VRnk5gx2t1w"
-					+ "?autoplay=1&amp;html5=1%20frameborder=%220%22%20allowfullscreen"); 
+			layout.topControl = videoComposite; 
+			mediaComposite.layout();
 		}
 		else 
 		{
-			lblMainImage.setLayoutData(gd_lblMainImage);
-			lblMainImage.setImage(mainImage);
+			layout.topControl = imageComposite; 
+			mediaComposite.layout();
 		}
 		
 		gd_btnAddCustomer.widthHint = 122;
@@ -498,40 +522,46 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		mntmSettings.setMenu(menu_2);
 		
 		MenuItem mntmSkiVideo = new MenuItem(menu_2, SWT.CHECK);
-		mntmSkiVideo.addSelectionListener(new SelectionAdapter() 
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e) 
-			{
-				skiVideoEnabled = mntmSkiVideo.getSelection();  
-				
-				if (skiVideoEnabled == true) 
-				{
-					lblMainImage.setVisible(false);
-					videoBrowser.setVisible(true);
-					videoBrowser.setLayoutData(gd_lblMainImage);
-					videoBrowser.setUrl("https://www.youtube.com/embed/VRnk5gx2t1w"
-							+ "?autoplay=1&amp;html5=1%20frameborder=%220%22%20allowfullscreen"); 
-				}
-				else 
-				{
-					videoBrowser.setVisible(false);
-					lblMainImage.setVisible(true);
-					lblMainImage.setLayoutData(gd_lblMainImage);
-					lblMainImage.setImage(mainImage);
-				}
-			}
-		});
 		mntmSkiVideo.setText("Ski Video");
-		mntmSkiVideo.setSelection(skiVideoEnabled);
+		mntmSkiVideo.setSelection(Settings.skiVideoEnabled);
 		
 		MenuItem mntmHelp = new MenuItem(menu, SWT.NONE);
 		mntmHelp.setText(Messages.getString("mntmHelp.text")); 							//$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		
 		shell.setTabList(new Control[]{btnAddCustomer, btnRemoveCustomer, btnModifyCustomer, 
 				btnBusesNeededByDate, btnListCustomersByName, btnListCustomersBySize, 
 				btnProfitByDate, btnProfitTotal, btnQuit, toolBar});
+		
+		/**************************/
+		/* EVENT LISTENER SECTION */
+		/**************************/
+		mntmSkiVideo.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				Settings.skiVideoEnabled = mntmSkiVideo.getSelection();  
+				
+				/**************************************************************************/
+				/* IF STATEMENT TO DISPLAY IMAGE OR VIDEO COMPOSITE DEPENDING ON SETTINGS */
+				/**************************************************************************/
+				if (Settings.skiVideoEnabled == true) 
+				{
+					layout.topControl = videoComposite; 
+					videoBrowser.refresh();
+					mediaComposite.layout();
+				}
+				else 
+				{
+					layout.topControl = imageComposite; 
+					mediaComposite.layout();
+				}
+			}
+		});
 		
 		btnRemoveCustomer.addSelectionListener(new SelectionAdapter() 
 		{
@@ -550,7 +580,10 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		});
 	}
 	
-	//TODO: comment
+	/*************************************************************************/
+	/* PRECONDITION:  WINDOW NEEDS TO BE CLOSED								 */
+	/* POSTCONDITION: CALLS CLOSE FUNCTION OF SUPERCLASS TO CLOSE THE WINDOW */
+	/*************************************************************************/
 	public void close()  
 	{
 		super.close(shell);

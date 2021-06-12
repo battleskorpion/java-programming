@@ -19,7 +19,6 @@ public class FileRead extends AbstractProgramWindow
 		} 
 		catch (FileNotFoundException e) 
 		{
-			JOptionPane.showMessageDialog(null, "Error: file not found.");
 			return null; 
 		} 
 		
@@ -29,8 +28,10 @@ public class FileRead extends AbstractProgramWindow
 			buffer.append(file_scan.nextLine() + System.lineSeparator());
 		}
 		String fileContents = buffer.toString();
+		
 		// testing 
-		System.out.println("next file: " + fileContents);
+		//System.out.println("next file: " + fileContents);
+		
 		//closing the Scanner object
 		file_scan.close();
 		

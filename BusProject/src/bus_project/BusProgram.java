@@ -36,6 +36,11 @@ public class BusProgram
 		JOptionPane.showMessageDialog(null, "This program helps schedule customer trips "
 				+ "on selected dates, \nand calculate company profit and buses needed."); 
 		
+		/******************************************************/
+		/* METHOD TO READ PROGRAM SETTINGS FROM SETTINGS FILE */
+		/******************************************************/
+		Settings.readSettings(); 
+		
 		/***************************/
 		/* RUN PROGRAM AGAIN LOOP  */
 		/***************************/
@@ -60,6 +65,11 @@ public class BusProgram
 			}
 		}
 		while (runProgramResponse == 0);
+		
+		/****************************************************/
+		/* METHOD TO SAVE PROGRAM SETTINGS TO SETTINGS FILE */
+		/****************************************************/
+		Settings.saveSettings(); 
 	}
 	
 	/************************************************************************************************/
