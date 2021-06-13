@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import net.sf.image4j.codec.bmp.*; 
+import org.spongepowered.noise.*;
+import org.spongepowered.noise.module.source.Perlin;
+import org.spongepowered.noise.module.source.RidgedMulti;
+import org.spongepowered.noise.module.source.Simplex;
 
 public class ProvinceGeneration 
 {
@@ -63,8 +67,8 @@ public class ProvinceGeneration
 			for (int x = numSeedsX / 2 - 1; x < imageWidth; x+= imageWidth / numSeedsX) 
 			{
 				// set color
-				int xOffset = random.nextInt(7) - 3; 	// -3 to 3		// should make variables
-				int yOffset = random.nextInt(7) - 3; 	// -3 to 3		// should make variables
+				int xOffset = random.nextInt(numSeedsX - 1) - (numSeedsX / 2 - 1); 	// -3 to 3		// should make variables
+				int yOffset = random.nextInt(numSeedsY - 1) - (numSeedsY / 2 - 1); 	// -3 to 3		// should make variables
 				int rgb; 								// rgb color int value
 				
 				color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)); 
@@ -75,7 +79,17 @@ public class ProvinceGeneration
 				rgb = (rgb << 8) + color.getBlue();
 				
 				// set color at pixel cords
-				image.setRGB(x + xOffset, y + yOffset, rgb);
+				try
+				{
+					image.setRGB(x + xOffset, y + yOffset, rgb);
+				}
+				catch (ArrayIndexOutOfBoundsException exc)
+				{
+					exc.printStackTrace();
+					System.out.println("x: " + (x + xOffset)); 
+					System.out.println("y: " + (y + yOffset)); 
+					//continue; 	// skip rest of iteration 
+				}
 				
 				// add point to points array
 				// x and y not needed as should correlate to place in arraylist
@@ -153,40 +167,30 @@ public class ProvinceGeneration
 		
 		// set colors based on nearest seed
 		// y, x inner for loop will scan horizontally 
-		// adapted from https://stackoverflow.com/questions/22713688/2d-tile-map-generation-with-biomes
+		
+		//Simplex simplexNoise = new Simplex(); 
+		Simplex noise = new Simplex(); 
+		noise.setNoiseQuality(NoiseQualitySimplex.SMOOTH);
+		System.out.println(); 
+		
 		for (int y = 0; y < imageHeight; y++) 
 		{
 			for (int x = 0; x < imageWidth; x++) 
 			{
-	            int nearestColor = rgb_white; 			// color of nearest seed (int value) 
-	            										// (default white)
-	            int dist = Integer.MAX_VALUE; 			// select a big number
-
-	            // iterate through each seed
-	            for (int s = 0; s < seeds.size(); s++) 
-	            {
-
-	                // calculate the difference in x and y direction
-	                int xdiff = seeds.get(s).get(0) - x;
-	                int ydiff = seeds.get(s).get(1) - y;
-
-	                // calculate euclidean distance, sqrt is not needed
-	                // because we only compare and do not need the real value
-	                int cdist = xdiff*xdiff + ydiff*ydiff;
-
-	                // is the current distance smaller than the old distance?
-	                // if yes, take this biome
-	                if (cdist < dist) 
-	                {
-	                    nearestColor = seeds.get(s).get(2);		// index 2 is rgb int value of seed
-	                    dist = cdist;
-	                }
-	            }
-	            
-	            points.get(y).get(x).set(0, Integer.valueOf(nearestColor)); 
-	            image.setRGB(x, y, nearestColor);
-	        }
-	    }
+				//Noise.gradientCoherentNoise3D(x, y, 0.0, 1, NoiseQuality.STANDARD)
+				//Noise.gradientCoherentNoise3D(x, y, 0.0, 1, NoiseQuality.STANDARD) garbage
+				int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));	// test idk	// *3 is just a good number
+				int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));
+				System.out.println(xOffset + ", " + yOffset); 
+				int rgb = determineColor(x + xOffset, y + yOffset); 
+				
+				points.get(y).get(x).set(0, Integer.valueOf(rgb)); 
+				image.setRGB(x, y, rgb);
+			}
+		}
+		
+		
+		//image.setRGB(x, y, nearestColor);
 		
 		// write image 
 		try 
@@ -220,6 +224,36 @@ public class ProvinceGeneration
 				}
 			}
 		}
+	}
+	
+	private static int determineColor(int x, int y) 
+	{
+		int nearestColor = rgb_white; 			// color of nearest seed (int value) 
+			           							// (default white)
+		int dist = Integer.MAX_VALUE; 			// select a big number
+
+		// iterate through each seed
+		for (int s = 0; s < seeds.size(); s++) 
+		{
+
+			// calculate the difference in x and y direction
+			int xdiff = seeds.get(s).get(0) - x;
+			int ydiff = seeds.get(s).get(1) - y;
+
+	        // calculate euclidean distance, sqrt is not needed
+	        // because we only compare and do not need the real value
+	        int cdist = xdiff*xdiff + ydiff*ydiff;
+
+	        // is the current distance smaller than the old distance?
+	        // if yes, take this biome
+	        if (cdist < dist) 
+	        {
+	        	nearestColor = seeds.get(s).get(2);		// index 2 is rgb int value of seed
+	        	dist = cdist;
+	        }
+		}
+			            
+		return nearestColor; 
 	}
 	
 	//convert rgb int to r, g, b 
