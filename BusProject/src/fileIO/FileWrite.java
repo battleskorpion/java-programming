@@ -1,10 +1,21 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* FileRead.java							*/
+/* Darian Siembab 							*/
+/* 											*/
+/* CLASS FOR WRITING CONTENTS TO A FILE  	*/
+/********************************************/ 
+
 package fileIO;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+/******************/
+/* IMPORT SECTION */
+/******************/
+import java.io.BufferedWriter;							// FOR FILE I/O 
+import java.io.File;									// FOR FILE I/O 
+import java.io.FileWriter;								// FOR FILE I/O 
+import java.io.IOException;								// FOR FILE I/O 
+import java.io.PrintWriter;								// FOR FILE I/O 
 
 public class FileWrite 
 {

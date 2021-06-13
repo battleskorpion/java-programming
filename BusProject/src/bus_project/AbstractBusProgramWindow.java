@@ -11,13 +11,16 @@
 
 package bus_project;
 
+/******************/
+/* IMPORT SECTION */
+/******************/
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList; 
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
-import abstractProgramWindow.*; 
+import org.eclipse.swt.widgets.Text;					
+import abstractProgramWindow.*; 						// FOR PROGRAM WINDOW SUPERCLASS FUNCTIONS 
 
 public class AbstractBusProgramWindow extends AbstractProgramWindow
 {
@@ -101,7 +104,7 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		cstmr.setDate(tripDate); 
 	}
 	
-	protected void setCustomerDetails(Customer customer, String name, int groupSize, 
+	public void setCustomerDetails(Customer customer, String name, int groupSize, 
 			int index, int id, String tripDateString) 
 	/************************************************************************************************/
 	/* PRECONDITION:  DETAILS OF CUSTOMER NEED TO BE SET											*/
@@ -219,7 +222,7 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		return cstmrs.remove(cstmrIndx); 
 	}
 	
-	protected void updateIndex(ArrayList<Customer> cstmrs)
+	public void updateIndex(ArrayList<Customer> cstmrs)
 	/************************************************************************************************/
 	/* PRECONDITION:  CUSTOMERS IN CUSTOMER ARRAY NEED THEIR INDEX PROPERTY UPDATED					*/
 	/* POSTCONDITION: UPDATES THE INDEX LOCAL VARIABLE OF EACH CUSTOMER IN CUSTOMER ARRAY 			*/
@@ -236,8 +239,26 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		}
 	}
 	
-	//protected String customerFileDateToLocalDateStringFormat(String date)
-	//{
-	//	return date.replace("/", "-"); 
-	//}
+	/********************************************************************************/
+	/* PRECONDITION:  AN ID IS ENTERED												*/
+	/* POSTCONDITION: RETURNS TRUE IF THE ID IS UNIQUE, FALSE IF NOT				*/
+	/********************************************************************************/
+	public boolean uniqueID(int id, ArrayList<Customer> customers)
+	{
+		/*******************************************/
+		/* FOR LOOP ITERATE THROUGH CUSTOMERS LIST */
+		/*******************************************/
+		for (int i = 0; i < customers.size(); i++) 
+		{
+			/********************************************************/
+			/* IF A CUSTOMER'S ID IS IDENTICAL TO THE ID SUBMITTED, */
+			/* RETURN FALSE 										*/
+			/********************************************************/ 
+			if (customers.get(i).getId() == id) 
+			{
+				return false; 
+			}
+		}
+		return true; 
+	}
 }

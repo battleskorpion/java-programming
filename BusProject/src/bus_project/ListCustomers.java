@@ -42,13 +42,12 @@ public class ListCustomers extends AbstractBusProgramWindow
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/
-	//TODO: 
 	protected Shell shlListCustomers;					// SHELL WHICH REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	private ArrayList<Customer> customersSorted; 		// SORTED LIST OF CUSTOMERS 
-														// (by designated filter)
-	private Table customersTable;							
-	private int sortBy; 								// sort by filter		
+														// (BY DESIGNATED FILTER)
+	private Table customersTable;						// DISPLAYS CUSTOMERS LIST
+	private int sortBy; 								// SORT BY FILTER		
 	
 	/***********************/
 	/* CONSTRUCTOR SECTION */
@@ -120,15 +119,12 @@ public class ListCustomers extends AbstractBusProgramWindow
 		shlListCustomers.setText(Messages.getString
 				("ListCustomers.shlListCustomers.text")); 								//$NON-NLS-1$
 		
-		//TODO: label button
 		Button btnExit = new Button(shlListCustomers, SWT.NONE);
-		//TODO: label method calls
 		btnExit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
 		btnExit.setBounds(10, 289, 516, 25);
 		
 		// update table with sorted list, sort list depending on sort method specified
 		
-		//TODO: label method calls
 		sortCustomers();
 		
 		Label lblCustomers = new Label(shlListCustomers, SWT.CENTER);
@@ -161,19 +157,18 @@ public class ListCustomers extends AbstractBusProgramWindow
 		tableColumn_Refunds.setWidth(80);
 		tableColumn_Refunds.setText("Refunds");
 		
-		//TODO: logic section 
 		sortCustomers(); 
 		updateTable(customersTable, customersSorted); 
 		
-		//TODO: label listener
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
-			//TODO: label method
 			public void widgetSelected(SelectionEvent e) 
+			/****************************************************************************************/
+			/* PRECONDITION:  SENT WHEN CONTROL IS SELECTED								  			*/
+			/* POSTCONDITION: CLOSES THIS WINDOW					 								*/
+			/****************************************************************************************/
 			{
-				//TODO: label method calls
-				rootShell.forceActive(); 
-				shlListCustomers.close(); 
+				closeSubWindow(rootShell, shlListCustomers); 
 			}
 		});
 	}
@@ -191,13 +186,24 @@ public class ListCustomers extends AbstractBusProgramWindow
 	}
 	
 	//TODO: label method
-	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...." with arrayList cast 
+	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...."
+										// WITH ArrayList CAST 
 	private void sortCustomers() 
+	/************************************************************************************************/
+	/* PRECONDITION:  CUSTOMERS LIST NEEDS TO BE SORTED								  				*/
+	/* POSTCONDITION: SORTS CUSTOMERS LIST BY CURRENT FILTER (STORED IN SEPERATE LIST, 				*/
+	/*				  CUSTOMERS LIST UNAFFECTED)													*/
+	/************************************************************************************************/
 	{
-		//TODO: label call
-		customersSorted = (ArrayList<Customer>) customers.clone(); 
+		/*****************************************************************/
+		/* CREATE NEW SORTED CUSTOMERS LIST AS A CLONE OF CUSTOMERS LIST */
+		/*****************************************************************/
+		customersSorted = (ArrayList<Customer>) customers.clone(); // "TYPE SAFETY: UNCHECKED 
+																   // CAST...." WARNING SUPPRESSED
 		
-		//TODO: label switch
+		/*****************************************************/ 
+		/* SORT CUSTOMERS LIST DEPENDING ON SPECIFIED FILTER */
+		/*****************************************************/ 
 		switch (sortBy) 
 		{
 			case 0: 

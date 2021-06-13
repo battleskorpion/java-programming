@@ -213,28 +213,67 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 				int confirmModify; 
 				Text[] fields = {nameField, sizeField, idField}; 
 				Customer selectedCustomer; 
+				int id; 						// NEW CUSTOMER ID
 				
 				selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
 				
-				if (legalCustomerModification(customers)) 
+				try 
 				{
-					confirmModify = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to modify these customers?", JOptionPane.YES_NO_OPTION); 
-					if (confirmModify == 1) 								// no option
+					id = Integer.parseInt(idField.getText()); 
+
+					if (!uniqueID(id, customers))
 					{
-						//updateTable(customersTable, customers); 			// reset table
-						updateCustomerInfoDisplay(selectedCustomer);
+						JOptionPane.showMessageDialog(null, 
+								"Invalid ID (Already taken)!"); 
+						updateCustomerInfoDisplay(selectedCustomer);	// RESET MODIFICATION IF 
+																		// INVALID MODIFICATION 
 						return; 
 					}
-					else 													// yes option
-					{
-						modifyCustomer(selectedCustomer);
-						clearInput(fields); 								// customer now modified 
-						updateTable(customersTable, customers); 
-					}
 				}
-				else {
-					updateCustomerInfoDisplay(selectedCustomer);			// reset modification if invalid modification 
-					JOptionPane.showMessageDialog(null, "Invalid modification."); 
+				catch (Exception exc) 
+				{
+					JOptionPane.showMessageDialog(null, 
+							"Invalid ID!"); 
+					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
+																		// INVALID MODIFICATION 
+					return; 
+				}
+				if (nameField.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "Invalid modification: Name field is blank."); 
+					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
+																		// INVALID MODIFICATION 
+					return; 
+				}
+				if (sizeField.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "Invalid modification: Size field is blank."); 
+					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
+																		// INVALID MODIFICATION 
+					return; 
+				}
+				if (!vaildDate(dateTime))
+				{
+					JOptionPane.showMessageDialog(null, "Invalid modification: Name field is blank."); 
+					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
+																		// INVALID MODIFICATION 
+					return; 
+				}
+				
+				confirmModify = JOptionPane.showConfirmDialog
+						(null, "Are you sure you want to modify these customers?", 
+						"Confirm", JOptionPane.YES_NO_OPTION); 
+				if (confirmModify == 1) 								// no option
+				{
+					//updateTable(customersTable, customers); 			// reset table
+					updateCustomerInfoDisplay(selectedCustomer);
+					return; 
+				}
+				else 													// yes option
+				{
+					modifyCustomer(selectedCustomer);
+					clearInput(fields); 								// customer now modified 
+					updateTable(customersTable, customers); 
 				}
 			}
 		});
@@ -243,8 +282,7 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 		{
 			public void widgetSelected(SelectionEvent e) 
 			{
-				rootShell.forceActive(); 
-				shlModifyCustomers.close(); 	
+				closeSubWindow(rootShell, shlModifyCustomers); 	
 			}
 		});
 	}
@@ -312,19 +350,17 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 	/* POSTCONDITION: DECIDES IF POTENTIAL MODIFICATIONS ARE ALLOWED,
 	/* 				  RETURNS FALSE OR TRUE
 	/***************************************************************/
-	private boolean legalCustomerModification(ArrayList<Customer> cstmrs)
-	{
-		
-		if (nameField.getText().equals("") || sizeField.getText().equals("") 
-				|| Integer.parseInt(idField.getText()) < 0 
-				|| Integer.parseInt(idField.getText()) >= cstmrs.size() 
-				|| !vaildDate(dateTime))
-		{
-			return false; 
-		}
-		else 
-		{
-			return true; 
-		} 
-	}
+	//private boolean legalCustomerModification(ArrayList<Customer> cstmrs)
+	//{
+	//	
+	//	if ( || 
+	//			|| 
+	//	{
+	//		return false; 
+	//	}
+	//	else 
+	//	{
+	//		return true; 
+	//	} 
+	//}
 }

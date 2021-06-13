@@ -12,8 +12,11 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
+														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
+														// BY THE SELECTIONLISTENER INTERFACE. 
+import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS A RESULT OF 
+														// WIDGETS BEING SELECTED. 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
@@ -22,7 +25,10 @@ import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 import javax.swing.JOptionPane;							// JOPTIONPANE MAKES IT EASY TO POP UP A 
 														// STANDARD DIALOG BOX THAT PROMPTS USERS
 														// FOR A VALUE OR INFORMS THEM OF SOMETHING.
-import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
+														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
+														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
+														// PROVIDED BY SWT. 
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
@@ -34,7 +40,6 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.browser.Browser;
 
 public class AddCustomer extends AbstractBusProgramWindow
 {
@@ -254,8 +259,7 @@ public class AddCustomer extends AbstractBusProgramWindow
 		
 		MenuItem mntmHelp = new MenuItem(menu, SWT.NONE);
 		
-		mntmHelp.setText(Messages.getString
-				("AddCustomer.mntmHelp.text")); 				//$NON-NLS-1$
+		mntmHelp.setText(Messages.getString("mntmHelp.text")); //$NON-NLS-1$
 		
 		/*****************/
 		/* SET TAB ORDER */
@@ -268,10 +272,6 @@ public class AddCustomer extends AbstractBusProgramWindow
 		/************************************************/
 		updateTable(customersTable, customers);
 		
-		//Browser browser = new Browser(shlAddCustomer, SWT.NONE);
-		//browser.setUrl("https://www.youtube.com/watch?v=6bcil1vXb5k"); 					//$NON-NLS-1$
-		//browser.setBounds(10, 301, 704, 250);
-		
 		/**************************/
 		/* EVENT LISTENER SECTION */
 		/**************************/
@@ -282,90 +282,116 @@ public class AddCustomer extends AbstractBusProgramWindow
 		btnAdd.addSelectionListener(new SelectionAdapter() 
 		{
 			public void widgetSelected(SelectionEvent e) 
+			/****************************************************************************************/
+			/* PRECONDITION:  SENT WHEN CONTROL IS SELECTED				  							*/
+			/* POSTCONDITION: ATTEMPTS TO ADD A NEW CUSTOMER USING SPECIFIED DETAILS				*/
+			/****************************************************************************************/
 			{
 				/********************/
 				/* VARIABLE SECTION */
 				/********************/ 
 				Customer customer; 
-				int index = customers.size(); 					// INDEX TO ADD CUSTOMER AT 
-				int id; 										// CUSTOMER ID
+				int index = customers.size(); 						// INDEX TO ADD CUSTOMER AT 
+				int id; 											// CUSTOMER ID
+				Text[] fields = {nameField, sizeField, idField};	// INPUT FIELDS
 				
-				// TODO: label try/catch, if statements
-				try
+				/*******************/
+				/* TRY TO PARSE ID */
+				/*******************/
+				try 
 				{
-					try 
-					{
-						id = Integer.parseInt(idField.getText()); 
-	
-						if (!uniqueID(id))
-						{
-							JOptionPane.showMessageDialog(null, 
-									"Invalid ID (Already taken)!"); 
-							return; 
-						}
-					}
-					catch (Exception exc) 
+					id = Integer.parseInt(idField.getText()); 
+
+					/**********************************************************************/
+					/* DISPLAY ERROR MESSAGE AND CANCEL IF ID WAS INVALID (IS NOT UNIQUE) */
+					/**********************************************************************/
+					if (!uniqueID(id, customers))
 					{
 						JOptionPane.showMessageDialog(null, 
-								"Invalid ID!"); 
+								"Invalid ID (Already taken)!"); 
 						return; 
 					}
-					if (nameField.getText().trim().equals(""))
-					{
-						JOptionPane.showMessageDialog(null, 
-								"Error: Name is required!");
-						return; 
-					}
-					if (sizeField.getText().equals(""))
-					{
-						JOptionPane.showMessageDialog(null, 
-								"Error: Size is required!");
-						return;
-					}
-					if(!vaildDate(dateTime))
-					{
-						JOptionPane.showMessageDialog(null, 
-								"Error: Invalid date!");
-						return; 
-					}
-					// TODO: label method calls
-					// TODO: label vars etc. 
-					customer = new Customer(); 
-					Text[] fields = {nameField, sizeField, idField};	
-					setCustomerDetails(customer, nameField, sizeField, 
-							index, id, dateTime); 
-					clearInput(fields); 
-					addCustomer(customers, customer, index, customersTable); 	
 				}
+				
+				/******************************************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF ID WAS INVALID (INCLUDED NON-INTEGERS) */
+				/******************************************************************************/
 				catch (Exception exc) 
 				{
-					//switch(exc.)
-					/***************/
-					/* PRINT ERROR */
-					/***************/
 					JOptionPane.showMessageDialog(null, 
-							"Error: Improper input or other error.");  
-					exc.printStackTrace();
+							"Invalid ID!"); 
+					return; 
 				}
+				
+				/***********************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF NAME FIELD IS EMPTY */
+				/***********************************************************/
+				if (nameField.getText().trim().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, 
+							"Error: Name is required!");
+					return; 
+				}
+				
+				/***********************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF SIZE FIELD IS EMPTY */
+				/***********************************************************/
+				if (sizeField.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, 
+							"Error: Size is required!");
+					return;
+				}
+				
+				/*******************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF DATE IS INVALID */
+				/*******************************************************/
+				if(!vaildDate(dateTime))
+				{
+					JOptionPane.showMessageDialog(null, 
+							"Error: Invalid date! (trip date must be in the future)");
+					return; 
+				}
+				
+				/****************/ 
+				/* ADD CUSTOMER */
+				/****************/ 
+				customer = new Customer(); 							// CREATE NEW CUSTOMER
+				setCustomerDetails(customer, nameField, 			// SET DETAILS OF NEW CUSTOMER
+						sizeField, index, id, dateTime); 			
+				clearInput(fields); 								// CLEAR CUSTOMER DETAILS FIELDS
+				addCustomer(customers, customer, 					// ADD NEW CUSTOMER TO 
+						index, customersTable); 					// CUSTOMER LIST
 			}
 		});
 		
 		/***********************/
 		/* NAME FIELD MODIFIED */
 		/***********************/ 
-		//TODO: comment
 		nameField.addModifyListener(new ModifyListener() 
 		{
 			public void modifyText(ModifyEvent e) 
+			/****************************************************************************************/
+			/* PRECONDITION:  SENT WHEN RECIEVER'S TEXT IS MODIFIED						  			*/
+			/* POSTCONDITION: DISPLAYS WARNING IF NAME IS TOO LONG AND WILL BE TRUNCATED			*/
+			/****************************************************************************************/
 			{
+				/*********************************************************************/
+				/* IF WARNING ICON IS NOT VISIBLE AND SHOULD BE (INPUT IS TOO LONG), */
+				/* SET IT VISIBLE 													 */
+				/*********************************************************************/
 				if (!lblNameWarningIcon.isVisible())
 				{
-					if (nameField.getText().length() > 20)
+					if (nameField.getText().length() > Customer.MAX_NAME_LENGTH)
 					{
 						lblNameWarningIcon.setVisible(true);
 					}
 				}
-				else if (nameField.getText().length() <= 20)
+				/*************************************************************************/
+				/* IF WARNING ICON IS VISIBLE AND SHOULD NOT BE (INPUT IS NOT TOO LONG), */
+				/* SET IT NOT VISIBLE 													 */
+				/*************************************************************************/
+				else if (nameField.getText().length() <= Customer.MAX_NAME_LENGTH)
 				{
 					lblNameWarningIcon.setVisible(false);
 				}
@@ -375,10 +401,13 @@ public class AddCustomer extends AbstractBusProgramWindow
 		/**********************/
 		/* MENU BAR HELP MENU */
 		/**********************/ 
-		mntmHelp.addSelectionListener(new SelectionAdapter() 
+		mntmHelp.addSelectionListener(new SelectionAdapter()
 		{
-			@Override
 			public void widgetSelected(SelectionEvent e) 
+			/****************************************************************************************/
+			/* PRECONDITION:  SENT WHEN CONTROL IS SELECTED								  			*/
+			/* POSTCONDITION: OPENS HELP WINDOW					 									*/
+			/****************************************************************************************/
 			{
 				openSubWindow(helpWindow, shlAddCustomer);
 			}
@@ -389,34 +418,15 @@ public class AddCustomer extends AbstractBusProgramWindow
 		/***************/ 
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
-			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
+			/****************************************************************************************/
+			/* PRECONDITION:  SENT WHEN CONTROL IS SELECTED								  			*/
+			/* POSTCONDITION: CLOSES THIS WINDOW					 								*/
+			/****************************************************************************************/
 			{
 				closeSubWindow(rootShell, shlAddCustomer); 
 			}
 		});
 	}
-	
-	/********************************************************************************/
-	/* PRECONDITION:  AN ID IS ENTERED												*/
-	/* POSTCONDITION: RETURNS TRUE IF THE ID IS UNIQUE, FALSE IF NOT				*/
-	/********************************************************************************/
-	private boolean uniqueID(int id)
-	{
-		/*******************************************/
-		/* FOR LOOP ITERATE THROUGH CUSTOMERS LIST */
-		/*******************************************/
-		for (int i = 0; i < customers.size(); i++) 
-		{
-			/********************************************************/
-			/* IF A CUSTOMER'S ID IS IDENTICAL TO THE ID SUBMITTED, */
-			/* RETURN FALSE 										*/
-			/********************************************************/ 
-			if (customers.get(i).getId() == id) 
-			{
-				return false; 
-			}
-		}
-		return true; 
-	}
+
 }

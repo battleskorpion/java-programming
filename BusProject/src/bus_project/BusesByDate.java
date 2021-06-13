@@ -124,10 +124,10 @@ public class BusesByDate extends AbstractBusProgramWindow
 		lblNumBuses.setBounds(91, 193, 71, 25);
 		
 		// TODO: label button
-		Button btnQuit = new Button(shlBusesByDate, SWT.NONE);
+		Button btnExit = new Button(shlBusesByDate, SWT.NONE);
 		// TODO: label method calls
-		btnQuit.setBounds(168, 196, 75, 25);
-		btnQuit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
+		btnExit.setBounds(168, 196, 75, 25);
+		btnExit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
 
 		/* event handlers */ 
 		
@@ -164,6 +164,18 @@ public class BusesByDate extends AbstractBusProgramWindow
 				// update number of buses text
 				lblNumBuses.setText(BusCalculation.getNumBuses(date) + "");
 		
+			}
+		});
+			
+		btnExit.addSelectionListener(new SelectionAdapter() 
+		{
+			public void widgetSelected(SelectionEvent e) 
+			/****************************************************************************************/
+			/* PRECONDITION:  SENT WHEN CONTROL IS SELECTED								  			*/
+			/* POSTCONDITION: CLOSES THIS WINDOW					 								*/
+			/****************************************************************************************/
+			{
+				closeSubWindow(rootShell, shlBusesByDate); 	
 			}
 		});
 	}

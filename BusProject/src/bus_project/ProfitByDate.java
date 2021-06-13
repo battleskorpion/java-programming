@@ -156,9 +156,7 @@ public class ProfitByDate extends AbstractBusProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				//TODO: label method calls
-				rootShell.forceActive(); 
-				shlProfitByDate.close(); 
+				closeSubWindow(rootShell, shlProfitByDate); 
 			}
 		});
 		btnExit.setBounds(10, 258, 75, 25);

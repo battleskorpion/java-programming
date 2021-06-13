@@ -12,24 +12,32 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import javax.swing.JOptionPane;							// JOPTIONPANE MAKES IT EASY TO POP UP A 
+														// STANDARD DIALOG BOX THAT PROMPTS USERS
+														// FOR A VALUE OR INFORMS THEM OF SOMETHING.
+import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
+														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
+														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
+														// PROVIDED BY SWT. 
+import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
+														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
+														// BY THE SELECTIONLISTENER INTERFACE. 
+import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS A RESULT OF 
+														// WIDGETS BEING SELECTED. 
 import org.eclipse.swt.widgets.Button;
-
-import java.util.ArrayList;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-
-import javax.swing.JOptionPane;
 import org.eclipse.swt.widgets.TableColumn;
 
 public class RemoveCustomer extends AbstractBusProgramWindow
 {
-
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
 	protected Shell shlRemoveCustomer;					// SHELL WHICH REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	private ArrayList<Customer> customersRemoved = new ArrayList<Customer>(); 
@@ -266,8 +274,8 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 						return; 
 					}
 				}
-				rootShell.forceActive(); 
-				shlRemoveCustomer.close(); 	
+				
+				closeSubWindow(rootShell, shlRemoveCustomer); 	
 			}
 		});
 	}

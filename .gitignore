@@ -36,3 +36,4 @@ local.properties
 /.recommenders/
 .recommenders/caches/identified-project-coordinates.json
 .recommenders/caches/identified-project-coordinates.json
+BusProject/settings_busProgram.txt

@@ -1,11 +1,22 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* FileRead.java							*/
+/* Darian Siembab 							*/
+/* 											*/
+/* CLASS FOR READING CONTENTS OF A FILE  	*/
+/********************************************/ 
+
 package fileIO;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import javax.swing.JOptionPane;
-
-import abstractProgramWindow.AbstractProgramWindow;
+/******************/
+/* IMPORT SECTION */
+/******************/
+import java.io.File;									// FOR FILE I/O 
+import java.io.FileNotFoundException;					// FOR FILE I/O 
+import java.util.Scanner;								// READS IN FILE TEXT 
+import abstractProgramWindow.*;							// ABSTRACT WINDOW CLASS TO BE INHERITED
+														// BY WINDOW CLASSES, INCLUDES COMMON	
+														// METHODS AND VARIABLES 	
 
 public class FileRead extends AbstractProgramWindow
 {

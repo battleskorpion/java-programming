@@ -1,1 +1,1 @@
-skiVideoEnabled: false
+skiVideoEnabled: true
