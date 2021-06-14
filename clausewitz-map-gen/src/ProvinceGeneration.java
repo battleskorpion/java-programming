@@ -25,12 +25,13 @@ public class ProvinceGeneration
 	private static ArrayList<ArrayList<ArrayList<Integer>>> points;  				// stored y, x
 	private static ArrayList<ArrayList<Integer>> seeds = new ArrayList<ArrayList<Integer>>(); 
 	
-	static int rgb_white; 
+	private static int rgb_white; 
+	private static BufferedImage image; 
 	
 	public static void main (String args[]) 
 	{
 		// variable section 
-		BufferedImage image = new BufferedImage(imageHeight, imageWidth, BufferedImage.TYPE_INT_RGB); 
+		image = new BufferedImage(imageHeight, imageWidth, BufferedImage.TYPE_INT_RGB); 
 		Color color; 
 		Random random = new Random(); 
 		
@@ -181,7 +182,7 @@ public class ProvinceGeneration
 				//Noise.gradientCoherentNoise3D(x, y, 0.0, 1, NoiseQuality.STANDARD) garbage
 				int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));	// test idk	// *3 is just a good number
 				int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));
-				System.out.println(xOffset + ", " + yOffset); 
+				//System.out.println(xOffset + ", " + yOffset); 
 				int rgb = determineColor(x + xOffset, y + yOffset); 
 				
 				points.get(y).get(x).set(0, Integer.valueOf(rgb)); 
@@ -189,8 +190,8 @@ public class ProvinceGeneration
 			}
 		}
 		
-		
-		//image.setRGB(x, y, nearestColor);
+		// smooth province borders
+		provinceSmooth(); 
 		
 		// write image 
 		try 
@@ -210,7 +211,7 @@ public class ProvinceGeneration
 		
 		for (int y = 0; y < imageHeight; y++)
 		{
-			points.add(new ArrayList<ArrayList<Integer>>(imageHeight));
+			points.add(new ArrayList<ArrayList<Integer>>(imageHeight * 4));
 			for (int x = 0; x < imageWidth; x++)
 			{
 				points.get(y).add(new ArrayList<Integer>(4)); 
@@ -254,6 +255,62 @@ public class ProvinceGeneration
 		}
 			            
 		return nearestColor; 
+	}
+	
+	// prerequisite: points assigned colors
+	private static void provinceSmooth()
+	{
+		int left;			// color of left province
+		int right;			// color of right province
+		int above;			// color of province above
+		int below;			// color of province below
+		int point;			// color of this point
+		Random random = new Random(); 
+		
+		// skip edges for now
+		for (int y = 1; y < imageHeight - 1; y++)
+		{
+			for (int x = 1; x < imageWidth - 1; x++)
+			{
+				left  = points.get(x - 1).get(y).get(0); 
+				right = points.get(x + 1).get(y).get(0); 
+				above = points.get(x).get(y + 1).get(0); 
+				below = points.get(x).get(y - 1).get(0); 
+				point = points.get(x).get(y).get(0); 
+				
+				if (left == right && above == below)
+				{
+					if (point != left || point != right) 
+					{
+						if (random.nextBoolean())
+						{
+							point = left; 
+						}
+						else 
+						{
+							point = above; 
+							
+						}
+						points.get(x).get(y).set(0, Integer.valueOf(point)); 
+						image.setRGB(y, x, point); 	// TODO: why is this necessaary also bad
+					}
+				}
+				else if (left == right)
+				{
+					point = left; 
+					points.get(x).get(y).set(0, Integer.valueOf(point));
+					image.setRGB(y, x, point); 		// TODO: why is this necessaary also bad
+				}
+				else if (above == below)
+				{
+					point = right; 
+					points.get(x).get(y).set(0, Integer.valueOf(point));
+					image.setRGB(y, x, point); 		// TODO: why is this necessaary also bad
+				}		
+				
+				
+			}
+		}
 	}
 	
 	//convert rgb int to r, g, b 
