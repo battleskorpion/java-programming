@@ -154,10 +154,11 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		/********************************************/
 		cstmrs.sort(new Customer.CompareId()); 
 		
-		/***************************************************************************/
-		/* METHOD CALL TO SCHEDULE CUSTOMER TRIP ON DATE STORED IN CUSTOMER OBJECT */
-		/***************************************************************************/
-		BusCalculation.scheduleTrip(cstmr);
+		/*****************************************************************************/
+		/* METHOD CALLS TO SCHEDULE CUSTOMER TRIP ON DATE STORED IN CUSTOMER OBJECT, */
+		/* AND DISPLAY NUMBER OF PERSONS REFUNDED IF ANY 					  		 */ 
+		/*****************************************************************************/
+		BusCalculation.displayRefundDialog(BusCalculation.scheduleTrip(cstmr));
 		
 		/***************************************************************************/
 		/* METHOD CALL TO UPDATE PROFIT IN CUSTOMER OBJECT AND UPDATE TOTAL PROFIT */
@@ -187,10 +188,11 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		/********************************************/
 		cstmrs.sort(new Customer.CompareId());
 		
-		/***************************************************************************/
-		/* METHOD CALL TO SCHEDULE CUSTOMER TRIP ON DATE STORED IN CUSTOMER OBJECT */
-		/***************************************************************************/
-		BusCalculation.scheduleTrip(cstmr);
+		/*****************************************************************************/
+		/* METHOD CALLS TO SCHEDULE CUSTOMER TRIP ON DATE STORED IN CUSTOMER OBJECT, */
+		/* AND DISPLAY NUMBER OF PERSONS REFUNDED IF ANY 					  		 */ 
+		/*****************************************************************************/
+		BusCalculation.displayRefundDialog(BusCalculation.scheduleTrip(cstmr));
 		
 		/***************************************************************************/
 		/* METHOD CALL TO UPDATE PROFIT IN CUSTOMER OBJECT AND UPDATE TOTAL PROFIT */

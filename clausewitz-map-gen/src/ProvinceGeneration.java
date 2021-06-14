@@ -22,11 +22,14 @@ public class ProvinceGeneration
 	public static int numSeedsY = 32; 
 	public static int numSeedsX = 32; 
 	
+	public static int HEIGHTMAP_SEA_LEVEL = 95; 
+	
 	private static ArrayList<ArrayList<ArrayList<Integer>>> points;  				// stored y, x
-	private static ArrayList<ArrayList<Integer>> seeds = new ArrayList<ArrayList<Integer>>(); 
+	private static ArrayList<ArrayList<Integer>> seeds = new ArrayList<ArrayList<Integer>>(); // values of point stored as x, y
 	
 	private static int rgb_white; 
 	private static BufferedImage image; 
+	private static BufferedImage heightmap; 
 	
 	public static void main (String args[]) 
 	{
@@ -189,14 +192,46 @@ public class ProvinceGeneration
 				image.setRGB(x, y, rgb);
 			}
 		}
+
+		// to output file prior to special changes
+		//try 
+		//{
+		//	BMPEncoder.write(image, new File("outputprev.bmp"));
+		//}
+		//catch (IOException exc) 
+		//{
+		//	
+		//}
 		
 		// smooth province borders
-		provinceSmooth(); 
+		//for (int i = 0; i < 5; i++) 
+		//{
+			//provinceSmooth(); 	// will make setting to use smoothing instead? 
+									// (also removes exclaves in process) 
+			removeExclaves(); 
+		//}
 		
+		// special test 
+		//for (int i = 0; i < seeds.size(); i++)
+		//{
+		//	
+		//	int rgb; 								// rgb color int value
+		//		
+		//	color = new Color(0, 0, 0); 
+		//
+		//	// Color -> int
+		//	rgb = color.getRed(); 
+		//	rgb = (rgb << 8) + color.getGreen();
+		//	rgb = (rgb << 8) + color.getBlue();
+		//	
+		//	image.setRGB(seeds.get(i).get(0), seeds.get(i).get(1), rgb);
+		//}
+			
 		// write image 
 		try 
 		{
 			BMPEncoder.write(image, new File("output.bmp"));
+			
 		}
 		catch (IOException exc) 
 		{
@@ -272,11 +307,11 @@ public class ProvinceGeneration
 		{
 			for (int x = 1; x < imageWidth - 1; x++)
 			{
-				left  = points.get(x - 1).get(y).get(0); 
-				right = points.get(x + 1).get(y).get(0); 
-				above = points.get(x).get(y + 1).get(0); 
-				below = points.get(x).get(y - 1).get(0); 
-				point = points.get(x).get(y).get(0); 
+				left  = points.get(y).get(x - 1).get(0); 
+				right = points.get(y).get(x + 1).get(0); 
+				above = points.get(y + 1).get(x).get(0); 
+				below = points.get(y - 1).get(x).get(0); 
+				point = points.get(y).get(x).get(0); 
 				
 				if (left == right && above == below)
 				{
@@ -288,29 +323,65 @@ public class ProvinceGeneration
 						}
 						else 
 						{
-							point = above; 
-							
+							point = above; 	
 						}
-						points.get(x).get(y).set(0, Integer.valueOf(point)); 
-						image.setRGB(y, x, point); 	// TODO: why is this necessaary also bad
+						points.get(y).get(x).set(0, Integer.valueOf(point)); 
+						image.setRGB(x, y, point); 	
 					}
 				}
 				else if (left == right)
 				{
 					point = left; 
-					points.get(x).get(y).set(0, Integer.valueOf(point));
-					image.setRGB(y, x, point); 		// TODO: why is this necessaary also bad
+					points.get(y).get(x).set(0, Integer.valueOf(point));
+					image.setRGB(x, y, point); 		
 				}
 				else if (above == below)
 				{
-					point = right; 
-					points.get(x).get(y).set(0, Integer.valueOf(point));
-					image.setRGB(y, x, point); 		// TODO: why is this necessaary also bad
+					point = above; 
+					points.get(y).get(x).set(0, Integer.valueOf(point));
+					image.setRGB(x, y, point); 		
 				}		
 				
 				
 			}
 		}
+	}
+	
+	// remove single pixels fully surrounded by another color
+	private static void removeExclaves()
+	{
+		int left;			// color of left province
+		int right;			// color of right province
+		int above;			// color of province above
+		int below;			// color of province below
+		int point;			// color of this point
+
+		// skip edges for now
+		for (int y = 1; y < imageHeight - 1; y++)
+		{
+			for (int x = 1; x < imageWidth - 1; x++)
+			{
+				left  = points.get(y).get(x - 1).get(0); 
+				right = points.get(y).get(x + 1).get(0); 
+				above = points.get(y + 1).get(x).get(0); 
+				below = points.get(y - 1).get(x).get(0); 
+				point = points.get(y).get(x).get(0); 
+				
+				// only need three comparisons to see if all match
+				if (left == right && above == below && left == above)
+				{
+					point = left; 		// can set to any
+					
+					points.get(y).get(x).set(0, Integer.valueOf(point)); 
+					image.setRGB(x, y, point); 	
+				}
+			}
+		}
+	}
+	
+	private static void loadHeightmap()
+	{
+		
 	}
 	
 	//convert rgb int to r, g, b 
