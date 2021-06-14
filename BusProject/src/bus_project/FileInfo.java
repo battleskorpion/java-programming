@@ -204,38 +204,67 @@ public class FileInfo extends AbstractBusProgramWindow
 	/*   			  ADDS CUSTOMERS TO CUSTOMERS LIST 					   */
 	/***********************************************************************/
 	{
-		customers.clear(); 
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
 		int index = 0; 
-		
-		//Collections.addAll(data, FileRead.readFile(new File(filePath)).split(System.lineSeparator()));
+		Customer customer;
 		List<String> dataList = new ArrayList<String>(); 
-		Customer customer; 
 		
+		/************************/
+		/* CLEAR CUSTOMERS LIST */
+		/************************/
+		customers.clear(); 
+		
+		/***********************************/
+		/* ADD DATA FROM FILE TO DATA LIST */
+		/***********************************/
 		Collections.addAll(dataList, FileRead.readFile(new File(filePath))
 				.split(System.lineSeparator())); 
-	
-		// skip first line, 4 lines of data per customer
+
+		/*****************************************************/
+		/* FOR LOOP TO ADD CUSTOMERS USING DETAILS FROM FILE */
+		/* (SKIP FIRST LINE, 4 LINES OF DATA PER CUSTOMER)   */
+		/*****************************************************/
 		for (int i = 1; i < dataList.size(); i+=4, index++)
 		{
+			/***********************/
+			/* CREATE NEW CUSTOMER */
+			/***********************/
 			customer = new Customer(); 
+			
+			/**************************************************************/
+			/* TRY TO SET DETAILS OF NEW CUSTOMER USING DETAILS FROM FILE */
+			/**************************************************************/
 			try 
 			{
 				setCustomerDetails(customer, dataList.get(i + 1), 
 						Integer.parseInt(dataList.get(i + 2)), index, 
 						Integer.parseInt(dataList.get(i)), dataList.get(i + 3));  
 			}
+			
+			/**********************************************************************/
+			/* DISPLAY ERROR MESSAGE IF DETAILS WERE CORRUPTED AND CLEAR ALL DATA */
+			/**********************************************************************/
 			catch (Exception exc)
 			{
 				JOptionPane.showMessageDialog
 					(null, "Error: issue loading in customer data.");
-				exc.printStackTrace();
 				customers.clear();  
 				return; 
 			}
+			
+			/**************************************/
+			/* ADD NEW CUSTOMER TO CUSTOMERS LIST */
+			/**************************************/
 			customers.add(customer); 
 			updateIndex(customers); 
-			customers.sort(new Customer.CompareId()); 
 		}
+		
+		/*****************************/
+		/* SORT CUSTOMERS LIST BY ID */
+		/*****************************/
+		customers.sort(new Customer.CompareId()); 
 	}
 	
 	protected void setFileNameText(String fileName)

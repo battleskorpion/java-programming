@@ -95,7 +95,7 @@ public class BusesByDate extends AbstractBusProgramWindow
 	{
 		// TODO: label method calls
 		shlBusesByDate = new Shell();
-		shlBusesByDate.setSize(270, 270);
+		shlBusesByDate.setSize(270, 412);
 		shlBusesByDate.setText(Messages.getString
 				("BusesByDate.shlBusesByDate.text")); 			//$NON-NLS-1$
 		
@@ -108,27 +108,43 @@ public class BusesByDate extends AbstractBusProgramWindow
 		// TODO: label combo
 		Combo combo = new Combo(shlBusesByDate, SWT.NONE);
 		// TODO: label method calls
-		combo.setBounds(10, 167, 91, 23);
+		combo.setBounds(146, 167, 97, 23);
 		updateComboBox(combo, dates); 
 		
 		// TODO: label label
 		Label lblBuses = new Label(shlBusesByDate, SWT.NONE);
 		// TODO: label method calls
-		lblBuses.setBounds(10, 196, 75, 15);
+		lblBuses.setBounds(10, 196, 120, 23);
 		lblBuses.setText(Messages.getString("lblBuses.text")); 							//$NON-NLS-1$
 		
 		// TODO: label label
 		Label lblNumBuses = new Label(shlBusesByDate, SWT.RIGHT);
 		lblNumBuses.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
 		// TODO: label method calls
-		lblNumBuses.setBounds(91, 193, 71, 25);
+		lblNumBuses.setBounds(146, 196, 97, 25);
 		
 		// TODO: label button
 		Button btnExit = new Button(shlBusesByDate, SWT.NONE);
 		// TODO: label method calls
-		btnExit.setBounds(168, 196, 75, 25);
+		btnExit.setBounds(168, 338, 75, 25);
 		btnExit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
-
+		
+		Label lblNumEmptySeats = new Label(shlBusesByDate, SWT.NONE);
+		lblNumEmptySeats.setText("Number of seats available on date:");
+		lblNumEmptySeats.setBounds(10, 225, 233, 23);
+		
+		Label lblNumSeatsTotal = new Label(shlBusesByDate, SWT.RIGHT);
+		lblNumSeatsTotal.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
+		lblNumSeatsTotal.setBounds(10, 254, 97, 25);
+		
+		Label lblNumberOfSeats = new Label(shlBusesByDate, SWT.NONE);
+		lblNumberOfSeats.setText("Number of seats available to fill buses: ");
+		lblNumberOfSeats.setBounds(10, 285, 233, 23);
+		
+		Label lblNumSeatsOnUsedBuses = new Label(shlBusesByDate, SWT.RIGHT);
+		lblNumSeatsOnUsedBuses.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
+		lblNumSeatsOnUsedBuses.setBounds(10, 314, 97, 25); 
+		
 		/* event handlers */ 
 		
 		dateTime.addSelectionListener(new SelectionAdapter()
@@ -146,6 +162,8 @@ public class BusesByDate extends AbstractBusProgramWindow
 				//	combo.set
 					
 					lblNumBuses.setText(BusCalculation.getNumBuses(date) + "");
+					
+					lblNumSeatsTotal.setText("" + (BusCalculation.MAX_PAX - BusCalculation.getNumPaxOnDate(date)));
 				}
 			}
 		});
@@ -163,6 +181,8 @@ public class BusesByDate extends AbstractBusProgramWindow
 				
 				// update number of buses text
 				lblNumBuses.setText(BusCalculation.getNumBuses(date) + "");
+				
+				lblNumSeatsTotal.setText("" + (BusCalculation.MAX_PAX - BusCalculation.getNumPaxOnDate(date))); 
 		
 			}
 		});

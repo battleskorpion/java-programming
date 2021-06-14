@@ -76,33 +76,49 @@ public class BusCalculation
 		int numToRefund; 						// NUMBER OF PERSONS TO REFUND
 		int numToUnrefund; 						// NUMBER OF PERSONS TO UNREFUND 
 		
-		// take previously refunded persons into account 
-		cstmr.unrefundPersons(); 
 		
-		// another trip already on date 
+		cstmr.unrefundPersons(); 				// TAKE PREVIOUSLY REFUNDED PERSONS INTO ACCOUNT 
+		
+		/********************************************/
+		/* IF ANOTHER TRIP ALREADY EXISTS ON DATE   */
+		/* PERFORM SPECIAL CALCULATIONS CONSIDERING */
+		/* THE OTHER TRIP(S) AS WELL			    */
+		/********************************************/
 		if (dates.contains(date)) 
 		{
-			//TODO: label method calls 
-			// get index of date in dates 
-			dateIndex = dates.indexOf(date); 
+			/******************************/
+			/* GET INDEX OF DATE IN DATES */
+			/******************************/
+			dateIndex = dates.indexOf(date); 		
 						
-			// calculate numPax
+			/******************************************************/
+			/* CALCULATE NUMBER OF PASSENGERS AND NUMBER REFUNDED */
+			/******************************************************/
 			numPax = getNumPaxOnDate(date);
 			numPaxRefunded = getNumPaxRefundedOnDate(date); 
 						
-			// TODO: label if 
+			/**************************************************************************************/
+			/* IF NUMBER OF PERSONS ON DATE AND NUMBER OF PERSONS OF CUSTOMER TO SCHEDULE ON DATE */
+			/* EXCEED MAXIMUM NUMBER OF PASSENGERS ON DATE, REFUND SOME PERSONS OF CUSTOMER 	  */
+			/**************************************************************************************/
 			if (numPax + cstmr.getNumPersons() > MAX_PAX) 
 			{
 				numToRefund = numPax + cstmr.getNumPersons() - MAX_PAX;
 				cstmr.refundPersons(numToRefund);
 				
 				customers.get(dateIndex).add(cstmr); 
-				displayRefundDialog(numToRefund); 
-				return -1 * numToRefund;  	// number refunded
+				
+				/**************************/
+				/* RETURN NUMBER REFUNDED */
+				/**************************/
+				return -1 * numToRefund;  	
 			}
-			// if prexisting customers + refund some customers + new customer fill a bus at least to minimum capacity, 
-			// or fill a bus entirely 
-			// TODO: LOGIC FIX
+
+			/**************************************************************************************/
+			/* IF PREXISTING CUSTOMERS PASSENGERS + REFUND SOME PASSENGERS + NEW PASSENGERS FILL  */
+			/* A BUS AT LEAST TO MINIMUM CAPACITY, OR FILL A BUS ENTIRELY, UNREFUND SOME 	  	  */
+			/* CUSTOMERS IF POSSIBLE															  */
+			/**************************************************************************************/
 			else if ((numPax + cstmr.getNumPersons() + numPaxRefunded) % MAX_CAPACITY >= MIN_CAPACITY) 
 			{
 				numToUnrefund = numPaxRefunded; 
@@ -142,20 +158,36 @@ public class BusCalculation
 				// TODO: customers were unrefunded window 
 				return 0; // none refunded from this customer, only other customers unrefunded
 			}
-			// else (some customers will have to be refunded because a bus won't be filled to MIN_CAPACITY
+
+			/**************************************************************************************/
+			/* ELSE (SOME CUSTOMERS WILL HAVE TO BE REFUNDED BECAUSE A BUS WON'T BE FILLED TO     */
+			/* MIN_CAPACITY)  	  															  	  */
+			/**************************************************************************************/
 			else 
 			{
 				numToRefund = (numPax + cstmr.getNumPersons()) % MAX_CAPACITY; 
 				cstmr.refundPersons(numToRefund); 
 				
 				customers.get(dateIndex).add(cstmr); 
-				displayRefundDialog(numToRefund);
-				return -1 * numToRefund; 		// number refunded
+				
+				/**************************/
+				/* RETURN NUMBER REFUNDED */
+				/**************************/
+				return -1 * numToRefund; 		
 			}
 		}
-		// no trip on date 
+		
+		/********************************************/
+		/* ELSE NO TRIP EXISTS ON DATE   		    */
+		/* PERFORM CALCULATIONS ONLY 	 			*/
+		/* CONSIDERING POTENTIAL NECESSARY REFUNDS	*/
+		/********************************************/
 		else 
 		{	
+			/****************************************************/
+			/* IF CUSTOMER'S NUMBER OF PERSONS MEETS OR EXCEEDS */
+			/* MINIMUM CAPACITY									*/
+			/****************************************************/
 			if (cstmr.getNumPersons() >= MIN_CAPACITY) 
 			{
 				// TODO: label method calls
@@ -185,11 +217,17 @@ public class BusCalculation
 					cstmr.refundPersons(numToRefund); 
 					
 					customers.get(dateIndex).add(cstmr); 
-					displayRefundDialog(numToRefund);
-					return -1 * numToRefund; 			// number refunded
+					
+					/**************************/
+					/* RETURN NUMBER REFUNDED */
+					/**************************/
+					return -1 * numToRefund; 			
 				}
 				
-				return 0; 		// no error
+				/*********************************/
+				/* RETURN NUMBER REFUNDED (NONE) */
+				/*********************************/
+				return 0; 		
 			}
 			// TODO: ISSUES MAY BE HERE: 
 			else 
@@ -197,8 +235,11 @@ public class BusCalculation
 				numToRefund = cstmr.getNumPersons(); 
 				
 				cstmr.refundPersons(numToRefund);
-				displayRefundDialog(numToRefund);
-				return -1 * numToRefund; 				// number refunded
+				
+				/**************************/
+				/* RETURN NUMBER REFUNDED */
+				/**************************/
+				return -1 * numToRefund; 				
 			}
 		}
 	}
@@ -295,8 +336,16 @@ public class BusCalculation
 	/* POSTCONDITION: UNSCHEDULES THE CUSTOMER'S TRIP, THEN SCHEDULES A NEW TRIP					*/
 	/************************************************************************************************/
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/ 
+		int numToRefund; 
+		
 		unscheduleTrip(cstmr);
-		return scheduleTrip(cstmr); 
+		numToRefund = scheduleTrip(cstmr); 
+		displayRefundDialog(numToRefund);
+		
+		return numToRefund; 
 	}
 	
 
@@ -470,7 +519,10 @@ public class BusCalculation
 	/* POSTCONDITION: DISPLAYS A MESSAGE DIALOG INCLUDING THE NUMBER OF PERSONS REFUNDED			*/
 	/************************************************************************************************/
 	{
-		JOptionPane.showMessageDialog(null, numRefunded + "customers were refunded, due to not "
-				+ "meeting minimum capacity");
+		if (numRefunded > 0) 
+		{
+			JOptionPane.showMessageDialog(null, numRefunded + "customers were refunded, due to not "
+					+ "meeting minimum capacity");
+		}
 	}
 }

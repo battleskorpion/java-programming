@@ -62,7 +62,6 @@ public class Settings
 		/******************************************/ 
 		if (data == null)
 		{
-			//JOptionPane.showMessageDialog(null, "Error: file not found.");
 			try 
 			{
 				settingsFile.createNewFile();
@@ -106,8 +105,10 @@ public class Settings
 	/*				  SETTINGS TO FILE								*/
 	/****************************************************************/
 	{
-		// CAN NOT SAVE SETTINGS, AND SETTINGS WONT HAVE BEEN CHANGED, 
-		// IF SETTINGS FILE HAS NOT BEEN FOUND/CREATED
+		/***************************************************************/
+		/* IF SETTINGS FILE HAS NOT BEEN FOUND/CREATED, 			   */
+		/* CAN NOT SAVE SETTINGS, AND SETTINGS WONT HAVE BEEN CHANGED, */
+		/***************************************************************/
 		if (settingsFile != null)
 		{
 			updateSettingsList(); 
@@ -162,8 +163,11 @@ public class Settings
 		}
 	}
 	
-	//prerequisite: file exists
 	private static void writeSettings(File settingsFile, 
+	/****************************************************************/
+	/* PRECONDITION:  SETTINGS FILE EXISTS				  			*/
+	/* POSTCONDITION: WRITES SETTINGS TO SETTINGS FILE				*/
+	/****************************************************************/
 			ArrayList<ArrayList<String>> settingsList)
 	{
 		FileWrite fileWrite = null; 

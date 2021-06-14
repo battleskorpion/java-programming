@@ -387,6 +387,7 @@ public class AddCustomer extends AbstractBusProgramWindow
 						lblNameWarningIcon.setVisible(true);
 					}
 				}
+				
 				/*************************************************************************/
 				/* IF WARNING ICON IS VISIBLE AND SHOULD NOT BE (INPUT IS NOT TOO LONG), */
 				/* SET IT NOT VISIBLE 													 */
