@@ -255,7 +255,7 @@ public class ProvinceGeneration
 			// error
 		}
 		
-		System.out.println(points.toString()); 
+		//System.out.println(points.toString()); // NO
 		System.out.println("end."); 
 	}
 	
