@@ -13,14 +13,14 @@ import org.spongepowered.noise.module.source.Simplex;
 
 public class ProvinceGeneration 
 {
-	public static int imageHeight = 1024;
-	public static int imageWidth = 1024; 
+	public static int imageHeight = 2048;	// 1024 works	// 2048 - default
+	public static int imageWidth = 5632; 	// 1024 works	// 5632 - default
 	
 	public static Color WHITE = new Color(255, 255, 255); 
 	public static int INT_WHITE = ((WHITE.getRed() << 8) + WHITE.getGreen()) << 8 + WHITE.getBlue(); 
 	
-	public static int numSeedsY = 32; 
-	public static int numSeedsX = 32; 
+	public static int numSeedsY = 64; 
+	public static int numSeedsX = 64; 
 	
 	public static int HEIGHTMAP_SEA_LEVEL = 95; 
 	
@@ -34,12 +34,11 @@ public class ProvinceGeneration
 	public static void main (String args[]) 
 	{
 		// variable section 
-		image = new BufferedImage(imageHeight, imageWidth, BufferedImage.TYPE_INT_RGB); 
+		image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB); 
 		Color color; 
 		Random random = new Random(); 
 		
 		initializePoints(); 
-		
 		
 		// Color -> int
 		rgb_white = Color.white.getRed(); 
@@ -66,13 +65,13 @@ public class ProvinceGeneration
 		}
 		
 		// seeds 
-		for (int y = numSeedsY / 2 - 1; y < imageHeight; y+= imageHeight / numSeedsY) 
+		for (int y = imageHeight / numSeedsY / 2 - 1; y < imageHeight; y+= imageHeight / numSeedsY) 	// int y = numSeedsY / 2 - 1 worked sometimes
 		{
-			for (int x = numSeedsX / 2 - 1; x < imageWidth; x+= imageWidth / numSeedsX) 
+			for (int x = imageWidth / numSeedsX / 2 - 1; x < imageWidth; x+= imageWidth / numSeedsX) 				// int x = numSeedsX / 2 - 1 worked sometimes
 			{
 				// set color
-				int xOffset = random.nextInt(numSeedsX - 1) - (numSeedsX / 2 - 1); 	// -3 to 3		// should make variables
-				int yOffset = random.nextInt(numSeedsY - 1) - (numSeedsY / 2 - 1); 	// -3 to 3		// should make variables
+				int xOffset = random.nextInt(imageWidth / numSeedsX - 1) - (imageWidth / numSeedsX / 2 - 1); 	// -3 to 3		// should make variables	// int xOffset = random.nextInt(numSeedsX - 1) - (numSeedsX / 2 - 1); 
+				int yOffset = random.nextInt(imageHeight / numSeedsY - 1) - (imageHeight / numSeedsY / 2 - 1); 	// -3 to 3		// should make variables	// int yOffset = random.nextInt(numSeedsY - 1) - (numSeedsY / 2 - 1);
 				int rgb; 								// rgb color int value
 				
 				color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)); 
@@ -189,6 +188,7 @@ public class ProvinceGeneration
 				int rgb = determineColor(x + xOffset, y + yOffset); 
 				
 				points.get(y).get(x).set(0, Integer.valueOf(rgb)); 
+				//System.out.println("x: " + x + " y: " + y); // ok working
 				image.setRGB(x, y, rgb);
 			}
 		}
@@ -198,10 +198,12 @@ public class ProvinceGeneration
 		//{
 		//	BMPEncoder.write(image, new File("outputprev.bmp"));
 		//}
-		//catch (IOException exc) 
+		//catch (IOException exc) s
 		//{
 		//	
 		//}
+		
+		//System.out.println("work"); 
 		
 		// smooth province borders
 		//for (int i = 0; i < 5; i++) 
@@ -238,6 +240,8 @@ public class ProvinceGeneration
 			exc.printStackTrace();
 			// error
 		}
+		
+		System.out.println("end."); 
 	}
 	
 	private static void initializePoints()
