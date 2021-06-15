@@ -105,6 +105,10 @@ public class BusProgram
 	}
 	
 	public static void runProgram()
+	/************************************************************************************************/ 
+	/* PRECONDITION:  PROGRAM NEEDS TO BE RAN  														*/					  
+	/* POSTCONDITION: CREATES NEW PROGRAM MENU AND BEGINS PROGRAM									*/
+	/************************************************************************************************/	
 	{
 		/*****************************************/
 		/* INSTANTIATE NEW MENU (RESETS PROGRAM) */
@@ -118,6 +122,10 @@ public class BusProgram
 	}
 	
 	public static void languageChanged(int index)
+	/************************************************************************************************/ 
+	/* PRECONDITION:  USER HAS SELECTED A LANGUAGE/LOCALE											*/					  
+	/* POSTCONDITION: CHANGES LOCALE TO SELECTED LOCALE AND RESTARTS PROGRAM TO REFLECT CHANGES		*/
+	/************************************************************************************************/
 	{
 		// 0 - en_US
 		// 1 - es_ES
@@ -126,7 +134,11 @@ public class BusProgram
 		runProgram(); 
 	}
 	
-	public static void openWindow ()
+	public static void openWindow()
+	/************************************************************************************************/ 
+	/* PRECONDITION:  PROGRAM WINDOW NEEDS TO BE OPENED/REOPENED									*/					  
+	/* POSTCONDITION: TRIES TO OPEN WINDOW, DISPLAYS ERROR IF NOT POSSIBLE 							*/
+	/************************************************************************************************/
 	{
 		/*****************************/
 		/* METHOD TO OPEN GUI WINDOW */
@@ -137,8 +149,7 @@ public class BusProgram
 		} 
 		catch (Exception e) 
 		{
-			//TODO: error joptionpane
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: issue opening main program.");
 		}
 	}
 

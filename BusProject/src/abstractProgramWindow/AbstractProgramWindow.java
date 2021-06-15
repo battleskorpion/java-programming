@@ -293,9 +293,9 @@ public abstract class AbstractProgramWindow
 
 	protected String dateTimeToLocalDateStringFormat(int dy, int mnth, int yr)
 	/************************************************************************************************/
-	/* PRECONDITION:  A DAY, MONTH, AND YEAR IN LocalDate FORMAT NEED TO BE CONVERTED TO A STRING 	*/
-	/*				  IN DateTime FORMAT															*/
-	/* POSTCONDITION: CONVERTS A DAY, MONTH, AND YEAR IN LocalDate FORMAT TO A STRING IN DateTime 	*/
+	/* PRECONDITION:  A DAY, MONTH, AND YEAR IN DateTime FORMAT NEED TO BE CONVERTED TO A STRING 	*/
+	/*				  IN LocalDate FORMAT															*/
+	/* POSTCONDITION: CONVERTS A DAY, MONTH, AND YEAR IN LocalDate FORMAT TO A STRING IN LocalDate 	*/
 	/*				  PARSEABLE FORMAT																*/																
 	/************************************************************************************************/
 	{

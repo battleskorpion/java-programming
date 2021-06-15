@@ -29,10 +29,8 @@ public class BusFinances extends Finances
 	/***********************/ 
 	/* CONSTRUCTOR SECTION */
 	/***********************/ 
-	//TODO: 
 	public BusFinances() 
 	{
-		System.out.println("called"); 
 		currency = Currency.getInstance(Messages.getLocale());
 		nf.setCurrency(currency);
 		nf.setMinimumFractionDigits(2);
@@ -57,14 +55,6 @@ public class BusFinances extends Finances
 		return addProfit(amt);
 	}
 	
-	//TODO: method comment
-	// returns new value of profit 
-	//public static double removeCustomerProfit(Customer cstmr)
-	//{
-	//	double amt = cstmr.getNumPersons() * TICKET_PRICE;
-	//	cstmr.subtractTotalPrice(amt); 
-	//	return subtractProfit(amt); 
-	//}
 
 	/***************************************************************/
 	/* PRECONDITION: 
