@@ -330,8 +330,8 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 	}
 	
 	/***************************************************************/
-	/* PRECONDITION:  
-	/* POSTCONDITION: 
+	/* PRECONDITION:  CUSTOMER INFO DISPLAY NEEDS TO BE UPDATED	   */
+	/* POSTCONDITION: UPDATES CUSTOMER INFO DISPLAY				   */
 	/***************************************************************/
 	private void updateCustomerInfoDisplay(Customer cstmr) 
 	{
@@ -341,23 +341,4 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 		dateTime.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), 
 				getDateTimeDay(cstmr));
 	}
-	
-	/***************************************************************/
-	/* PRECONDITION:  
-	/* POSTCONDITION: DECIDES IF POTENTIAL MODIFICATIONS ARE ALLOWED,
-	/* 				  RETURNS FALSE OR TRUE
-	/***************************************************************/
-	//private boolean legalCustomerModification(ArrayList<Customer> cstmrs)
-	//{
-	//	
-	//	if ( || 
-	//			|| 
-	//	{
-	//		return false; 
-	//	}
-	//	else 
-	//	{
-	//		return true; 
-	//	} 
-	//}
 }

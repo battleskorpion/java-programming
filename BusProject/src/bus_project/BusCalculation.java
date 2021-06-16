@@ -76,7 +76,6 @@ public class BusCalculation
 		int numToRefund; 						// NUMBER OF PERSONS TO REFUND
 		int numToUnrefund; 						// NUMBER OF PERSONS TO UNREFUND 
 		
-		
 		cstmr.unrefundPersons(); 				// TAKE PREVIOUSLY REFUNDED PERSONS INTO ACCOUNT 
 		
 		/********************************************/
