@@ -103,8 +103,8 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 	/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
 	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
 	/*************************************************/
-	protected void createContents(Shell rootShell) {
-		
+	protected void createContents(Shell rootShell) 
+	{
 		shlRemoveCustomer = new Shell();
 		shlRemoveCustomer.setSize(1075, 370);
 		shlRemoveCustomer.setText(Messages.getString("RemoveCustomer.shlRemoveCustomer.text")); //$NON-NLS-1$
@@ -199,13 +199,16 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 		{
 			public void widgetSelected(SelectionEvent e) 
 			{
-				int customerToRemoveIndex = customersTable.getSelectionIndex(); 
+				/********************/
+				/* VARIABLE SECTION */
+				/********************/ 
+				int customerToRemoveIndex 				// INDEX OF CUSTOMER TO REMOVe
+					= customersTable.getSelectionIndex(); 
 				
 				if (customerToRemoveIndex >= 0) 
 				{
-					customersRemoved.add(removeCustomer(customers, customerToRemoveIndex));
-					//BusCalculation.unscheduleTrip(customers.get(customerToRemoveIndex)); 
-					//customersRemoved.add(customers.remove(customerToRemoveIndex)); 	// remove customer from customers and add to customersRemoved 
+					customersRemoved.add(customers.remove(customerToRemoveIndex));
+
 					updateIndex(customers); 
 					updateTable(customersTable, customers); 
 					updateTable(remCustomersTable, customersRemoved); 
@@ -221,16 +224,22 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 		{
 			public void widgetSelected(SelectionEvent e) 
 			{
+				/********************/
+				/* VARIABLE SECTION */
+				/********************/ 
+				Customer removed; 						// CUSTOMER REMOVED TO UNREMOVE
+				
 				if (remCustomersTable.getSelectionIndex() >= 0) 
 				{
-					Customer removed = customersRemoved.get(remCustomersTable.getSelectionIndex()); 
+					removed = customersRemoved.get(remCustomersTable.getSelectionIndex()); 
+					
 					if (removed.getIndex() <= customers.size()) 
 					{
-						addCustomer(customers, removed, removed.getIndex(), customersTable); 
+						reAddCustomer(customers, removed, removed.getIndex(), customersTable); 
 					}
 					else 
 					{
-						addCustomer(customers, removed, customersTable); 
+						reAddCustomer(customers, removed, customersTable); 
 					}
 					customersRemoved.remove(remCustomersTable.getSelectionIndex()); 
 					updateIndex(customers); 
@@ -252,7 +261,7 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 				confirm = JOptionPane.showConfirmDialog(null, "Warning: deleting all customers is irreversable. Continue?"); 
 				if (confirm == 0) 
 				{
-					customers = new ArrayList<Customer>(); 
+					customers.clear(); 					// CLEAR ALL CUSTOMERS
 					BusCalculation.unscheduleAll(); 
 					updateTable(customersTable, customers); 
 				}
@@ -267,9 +276,26 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 				if (customersRemoved.size() > 0) 
 				{
 					confirmDelete = JOptionPane.showConfirmDialog(null, "Confirm", "Are you sure you want to delete these customers?", JOptionPane.YES_NO_OPTION); 
-					if (confirmDelete == 1) //1 = NO
+					if (confirmDelete == 1) 			// 1: NO
 					{
 						return; 
+					}
+					/***********************************/
+					/* ELSE PERMA DELETE ALL CUSTOMERS */
+					/***********************************/
+					else 								// 0: YES
+					{
+						/***********************************************************/
+						/* FOR LOOP TO ITERATE THROUGH TEMP REMOVED CUSTOMERS LIST */
+						/***********************************************************/
+						for (Customer c: customersRemoved)
+						{
+							/*********************************************/
+							/* METHOD CALL TO UNSCHEDULE CUSTOMER'S TRIP */
+							/*********************************************/
+							BusCalculation.unscheduleTrip(c); 
+						}
+						customersRemoved.clear(); 
 					}
 				}
 				

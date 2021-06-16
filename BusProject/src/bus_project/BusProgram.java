@@ -149,7 +149,8 @@ public class BusProgram
 		} 
 		catch (Exception e) 
 		{
-			JOptionPane.showMessageDialog(null, "Error: issue opening main program.");
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error occured in main program.");
 		}
 	}
 

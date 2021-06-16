@@ -172,6 +172,50 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		updateTable(tbl, cstmrs); 
 	}
 	
+	protected void reAddCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
+	/************************************************************************************************/
+	/* PRECONDITION:  A CUSTOMER NEEDS TO BE ADDED BACK TO THE ARRAY LIST OF CUSTOMERS				*/
+	/* POSTCONDITION: ADDS THE CUSTOMER TO THE ARRAY LIST OF CUSTOMERS, 							*/
+	/************************************************************************************************/
+	{
+		/*************************************************/
+		/* METHOD CALL TO ADD CUSTOMER TO CUSTOMERS LIST */
+		/*************************************************/
+		cstmrs.add(indx, cstmr);
+		
+		/********************************************/
+		/* METHOD CALL TO SORT CUSTOMERS LIST BY ID */
+		/********************************************/
+		cstmrs.sort(new Customer.CompareId()); 
+		
+		/************************************************/
+		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
+		/************************************************/
+		updateTable(tbl, cstmrs); 
+	}
+	
+	protected void reAddCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
+	/************************************************************************************************/
+	/* PRECONDITION:  A CUSTOMER NEEDS TO BE RE-ADDED AT THE END OF THE ARRAY LIST OF CUSTOMERS		*/
+	/* POSTCONDITION: ADDS THE CUSTOMER TO THE ARRAY LIST OF CUSTOMERS, 							*
+	/************************************************************************************************/
+	{
+		/*************************************************/
+		/* METHOD CALL TO ADD CUSTOMER TO CUSTOMERS LIST */
+		/*************************************************/
+		cstmrs.add(cstmr);
+		
+		/********************************************/
+		/* METHOD CALL TO SORT CUSTOMERS LIST BY ID */
+		/********************************************/
+		cstmrs.sort(new Customer.CompareId());
+	
+		/************************************************/
+		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
+		/************************************************/
+		updateTable(tbl, cstmrs); 
+	}
+	
 	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
 	/************************************************************************************************/
 	/* PRECONDITION:  A CUSTOMER NEEDS TO BE ADDED AT THE END OF THE ARRAY LIST OF CUSTOMERS		*/

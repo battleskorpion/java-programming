@@ -313,6 +313,16 @@ public class AddCustomer extends AbstractBusProgramWindow
 								"Invalid ID (Already taken)!"); 
 						return; 
 					}
+					
+					/*******************************************************/
+					/* DISPLAY ERROR MESSAGE AND CANCEL IF ID WAS NEGATIVE */
+					/*******************************************************/
+					if (id < 0)
+					{
+						JOptionPane.showMessageDialog(null, 
+								"Invalid ID (Negative value)!"); 
+						return; 
+					}
 				}
 				
 				/******************************************************************************/
@@ -345,6 +355,32 @@ public class AddCustomer extends AbstractBusProgramWindow
 					return;
 				}
 				
+				/*********************/
+				/* TRY TO PARSE SIZE */
+				/*********************/
+				try 
+				{
+					/*******************************************************************/
+					/* DISPLAY ERROR MESSAGE AND CANCEL IF GROUP SIZE IS INVALID (< 0) */
+					/*******************************************************************/
+					if (Integer.parseInt(sizeField.getText()) < 0) 
+					{
+						JOptionPane.showMessageDialog(null, 
+								"Error: Size is negative!");
+						return;
+					}
+				}
+				
+				/*************************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF GROUP SIZE IS INVALID */
+				/*************************************************************/
+				catch (Exception exc)
+				{
+					JOptionPane.showMessageDialog(null, 
+							"Error: Size field is not an integer!");
+					return;
+				}
+					
 				/*******************************************************/
 				/* DISPLAY ERROR MESSAGE AND CANCEL IF DATE IS INVALID */
 				/*******************************************************/
