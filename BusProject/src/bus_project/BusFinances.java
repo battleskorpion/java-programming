@@ -37,16 +37,16 @@ public class BusFinances extends Finances
 		nf.setMaximumFractionDigits(2);
 	}
 	
-	/******************/
-	/* METHOD SECTION */
-	/******************/
+	/************************************************************************************************/
+	/*										METHOD SECTION 			  				  				*/
+	/************************************************************************************************/
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
-	// returns new value of profit 
+	// 
 	public static double updateCustomerProfit(Customer cstmr) 
+	/************************************************************************************************/
+	/* PRECONDITION:  CUSTOMER PROFIT NEEDS TO BE UPDATED 							  				*/
+	/* POSTCONDITION: RETURNS NEW VALUE OF PROFIT  													*/
+	/************************************************************************************************/
 	{
 		// subtract previous profit amount + add new profit amount = add difference in profit
 		double amt = cstmr.getNumPersons() * TICKET_PRICE; 
@@ -56,15 +56,25 @@ public class BusFinances extends Finances
 	}
 	
 
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
 	public static String getProfitOnDate(LocalDate dt) 
+	/************************************************************************************************/
+	/* PRECONDITION:  PROFIT OF THE SPECIFIED DATE IS NEEDED 				  						*/
+	/* POSTCONDITION: RETURNS TOTAL PROFIT FROM TRIPS SCHEDULED ON DATE								*/
+	/************************************************************************************************/
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
 		double profit = 0; 
 		
-		if (BusCalculation.getDates().contains(dt)) {
+		/**************************************/
+		/* IF A TRIP(S) IS BOOKED ON THE DATE */
+		/**************************************/
+		if (BusCalculation.getDates().contains(dt)) 
+		{
+			/*****************************************/
+			/* ADD THE PROFIT FROM EACH TRIP ON DATE */
+			/*****************************************/
 			for (Customer cstmr: BusCalculation.getCustomersOnDate(dt))
 			{
 				profit += cstmr.getTotalPrice();
@@ -77,11 +87,11 @@ public class BusFinances extends Finances
 		}
 	}
 	
-	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: 
-	/***************************************************************/
 	public static String getProfitToDate(LocalDate dt) 
+	/************************************************************************************************/
+	/* PRECONDITION:  PROFIT FROM TRIPS UNTIL DATE IS NEEDED				  						*/
+	/* POSTCONDITION: RETURNS SUM OF PROFIT FROM EACH DATE UNTIL SPECIFIED DATE						*/
+	/************************************************************************************************/
 	{
 		double profit = 0;
 		

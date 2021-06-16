@@ -161,6 +161,8 @@ public class AddCustomer extends AbstractBusProgramWindow
 		lblTripDate.setBounds(10, 103, 109, 15);
 		lblTripDate.setText(Messages.getString
 				("lblTripDate.text")); 							//$NON-NLS-1$
+		lblTripDate.setToolTipText(Messages.getString
+				("lblTripDate.tooltipText")); 	
 		
 		Label lblID = new Label(shlAddCustomer, SWT.NONE);
 		lblID.setBounds(10, 71, 91, 26);

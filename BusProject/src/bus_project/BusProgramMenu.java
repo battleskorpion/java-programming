@@ -291,7 +291,18 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				openSubWindow(modifyCustomerWindow, shell);
+				/************************************************************/
+				/* ONLY OPEN MODIFY WINDOW IF THERE ARE CUSTOMERS TO MODIFY */ 
+				/************************************************************/
+				if (customers.size() > 0)
+				{
+					openSubWindow(modifyCustomerWindow, shell);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "There are no customers to modify. "
+							+ "Open \"Add Customer\" to add customers.");
+				}
 			}
 		});
 		
