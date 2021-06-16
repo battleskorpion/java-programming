@@ -502,6 +502,7 @@ public class BusCalculation
 	/************************************************************************************************/
 	{
 		LocalDate firstDateAfterDate = null; 
+		
 		for (LocalDate date : dates)  
 		{
 			if (date.compareTo(dt) > 0) 

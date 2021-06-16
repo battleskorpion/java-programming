@@ -80,7 +80,6 @@ public class BusesByDate extends AbstractBusProgramWindow
 		/*********************************************************************************/
 		while (!shlBusesByDate.isDisposed()) 
 		{
-			// TODO: 
 			if (!display.readAndDispatch()) 
 			{
 				display.sleep();
@@ -94,39 +93,28 @@ public class BusesByDate extends AbstractBusProgramWindow
 	/* POSTCONDITION: ADDS ELEMENTS TO WINDOW										*/
 	/********************************************************************************/
 	{
-		// TODO: label method calls
 		shlBusesByDate = new Shell();
 		shlBusesByDate.setSize(270, 412);
 		shlBusesByDate.setText(Messages.getString
 				("BusesByDate.shlBusesByDate.text")); 			//$NON-NLS-1$
 		
-		// TODO: label dateTime
 		DateTime dateTime = new DateTime(shlBusesByDate, SWT.BORDER | SWT.CALENDAR);
 		
-		// TODO: label method calls
 		dateTime.setBounds(10, 10, 233, 151);
 
-		// TODO: label combo
 		Combo combo = new Combo(shlBusesByDate, SWT.NONE);
-		// TODO: label method calls
 		combo.setBounds(146, 167, 97, 23);
 		updateComboBox(combo, dates); 
 		
-		// TODO: label label
 		Label lblBuses = new Label(shlBusesByDate, SWT.NONE);
-		// TODO: label method calls
 		lblBuses.setBounds(10, 196, 120, 23);
 		lblBuses.setText(Messages.getString("lblBuses.text")); 							//$NON-NLS-1$
 		
-		// TODO: label label
 		Label lblNumBuses = new Label(shlBusesByDate, SWT.RIGHT);
 		lblNumBuses.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
-		// TODO: label method calls
 		lblNumBuses.setBounds(146, 196, 97, 25);
 		
-		// TODO: label button
 		Button btnExit = new Button(shlBusesByDate, SWT.NONE);
-		// TODO: label method calls
 		btnExit.setBounds(168, 338, 75, 25);
 		btnExit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
 		
@@ -159,9 +147,6 @@ public class BusesByDate extends AbstractBusProgramWindow
 				 
 				if (dates.contains(date)) 
 				{
-				// update combo box maybe ?
-				//	combo.set
-					
 					lblNumBuses.setText(BusCalculation.getNumBuses(date) + "");
 					
 					lblNumSeatsTotal.setText("" + (BusCalculation.MAX_PAX - BusCalculation.getNumPaxOnDate(date)));

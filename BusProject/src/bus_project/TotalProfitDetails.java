@@ -35,13 +35,12 @@ public class TotalProfitDetails extends AbstractBusProgramWindow
 	
 	public TotalProfitDetails (ArrayList<Customer> cstmrs) 
 	{
-		//customers = cstmrs;  
+		
 	}
 	
 	/**************************
 	 * @wbp.parser.entryPoint *
 	 **************************/
-	//TODO: label method more
 	public void open(Shell rootShell)
 	/****************************************************************/
 	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */

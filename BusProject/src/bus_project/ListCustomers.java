@@ -112,7 +112,6 @@ public class ListCustomers extends AbstractBusProgramWindow
 	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
 	/*************************************************/
 	{
-		//TODO: label method calls/shell
 		shlListCustomers = new Shell();
 		shlListCustomers.setSize(550, 360);
 		shlListCustomers.setText(Messages.getString

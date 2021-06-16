@@ -48,19 +48,17 @@ import org.eclipse.swt.widgets.TableColumn;				// FOR SWT WINDOWS/WIDGETS
 public class ModifyCustomer extends AbstractBusProgramWindow 
 {
 
-	//TODO: label vars
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/ 
 	protected Shell shlModifyCustomers;					// SHELL WHICH REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 				// ArrayList of all customers
-	private DateTime dateTime;
-	private Text idField;
-	private Text nameField;
-	private Text sizeField;
-	private Table customersTable;
+	private DateTime dateTime;							// dateTime CALENDAR
+	private Text idField;								// CUSTOMER ID FIELD
+	private Text nameField;								// CUSTOMER NAME FIELD
+	private Text sizeField;								// CUSTOMER SIZE FIELD	
+	private Table customersTable;						// CUSTOMERS TABLE
 	
-	//TODO: label constructor section
 	public ModifyCustomer (ArrayList<Customer> cstmrs)
 	{
 		customers = cstmrs; 
@@ -112,15 +110,13 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 			}
 		}
 	}
-
+	
+	protected void createContents(Shell rootShell) 
 	/*************************************************/
 	/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
 	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
 	/*************************************************/
-	protected void createContents(Shell rootShell) 
 	{
-		//TODO: labels
-		
 		shlModifyCustomers = new Shell();
 		shlModifyCustomers.setSize(800, 340);
 		shlModifyCustomers.setText(Messages.getString("ModifyCustomer.shlModifyCustomers.text")); //$NON-NLS-1$

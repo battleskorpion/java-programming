@@ -110,7 +110,6 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		/*********************************************************************************/
 		while (!shlProfitByDate.isDisposed()) 
 		{
-			// TODO: 
 			if (!display.readAndDispatch()) 
 			{
 				display.sleep();
@@ -118,10 +117,11 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
 	protected void createContents(Shell rootShell) 
+	/********************************************************************************/
+	/* PRECONDITION:  WINDOW IS TO BE OPENED, ELEMENTS NEED TO BE ADDED TO WINDOW	*/
+	/* POSTCONDITION: ADDS ELEMENTS TO WINDOW										*/
+	/********************************************************************************/
 	{
 		/********************/
 		/* VARIABLE SECTION */

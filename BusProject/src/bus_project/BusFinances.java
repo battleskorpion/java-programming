@@ -25,7 +25,7 @@ public class BusFinances extends Finances
 	/********************/
 	/* VARIABLE SECTION */
 	/********************/
-	public static double TICKET_PRICE = 49.99; 	//TODO: label
+	public static double TICKET_PRICE = 49.99; 			// DEFAULT PRICE PER CUSTOMER
 	
 	/***********************/ 
 	/* CONSTRUCTOR SECTION */

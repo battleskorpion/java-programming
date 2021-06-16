@@ -1,5 +1,5 @@
 /********************************************/
-2/* INFORMATION SECTION 						*/
+/* INFORMATION SECTION 						*/
 /* HelpWindow.java							*/
 /* Darian Siembab 							*/
 /* 											*/

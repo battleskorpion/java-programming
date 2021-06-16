@@ -31,9 +31,11 @@ import java.util.ResourceBundle;						// RESOURCE BUNDLES CONTAIN LOCALE-SPECIFI
 														// OBJECTS. (EX: STRINGS)
 public class Messages
 {
-	private static final String BUNDLE_NAME = "bus_project.messages"; 					//$NON-NLS-1$
-	private static Locale locale = Locale.getDefault();			
-	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale); 
+	private static final String BUNDLE_NAME = "bus_project.messages"; 	// $NON-NLS-1$
+	private static Locale locale = Locale.getDefault();					// PROGRAM LOCALE
+	private static ResourceBundle RESOURCE_BUNDLE 						// RESOURCE BUNDLE
+			= ResourceBundle.getBundle(BUNDLE_NAME, locale); 			// (STORES LOCALE-
+																		// SPECIFIC STRINGS)
 	
 	/***********************/
 	/* CONSTRUCTOR SECTION */
