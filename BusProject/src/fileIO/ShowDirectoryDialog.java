@@ -1,17 +1,24 @@
+/********************************************/
+/* INFORMATION SECTION 						*/
+/* ShowDirectoryDialog.java					*/
+/* Darian Siembab 							*/
+/* 											*/
+/* WINDOW CLASS FOR SHOWING DIALOG			*/
+/* FOR SELECTING A DIRECTORY/FILE			*/
+/********************************************/ 
+
 package fileIO;
 
-import javax.swing.JOptionPane;
+/******************/
+/* IMPORT SECTION */
+/******************/ 
+import org.eclipse.swt.*;								// FOR SWT WINDOWS
+import org.eclipse.swt.events.*;						// FOR SWT WINDOWS
+import org.eclipse.swt.layout.*;						// FOR SWT WINDOWS
+import org.eclipse.swt.widgets.*;						// FOR SWT WINDOWS
+import abstractProgramWindow.*;							// FOR ABSTRACT PROGRAM WINDOW GENERIC METHODS 
+														// (DESIGNED FOR USE WITH SWT WINDOWS)
 
-import org.eclipse.swt.*;
-import org.eclipse.swt.events.*;
-import org.eclipse.swt.layout.*;
-import org.eclipse.swt.widgets.*;
-
-import abstractProgramWindow.*;
-
-/**
-* This class demonstrates the DirectoryDialog class
-*/
 public class ShowDirectoryDialog extends AbstractProgramWindow
 {
 	protected Shell shlDirectoryDialog;					// SHELL WHICH REPRESENTS THIS WINDOW
@@ -95,6 +102,10 @@ public class ShowDirectoryDialog extends AbstractProgramWindow
 	 * @param shell the parent shell
 	 */
 	private void createContents(Shell rootShell) 
+	/*************************************************/
+	/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
+	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
+	/*************************************************/
 	{
 		shlDirectoryDialog = new Shell();
 		shlDirectoryDialog.setText("File Explorer");
@@ -105,7 +116,7 @@ public class ShowDirectoryDialog extends AbstractProgramWindow
 		final Text text = new Text(shlDirectoryDialog, SWT.BORDER);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.horizontalSpan = 4;
-		data.minimumWidth = 250; // so its long
+		data.minimumWidth = 250; 	// so its long
 		text.setLayoutData(data);
 	
 		// Button to open select directory menu
@@ -174,14 +185,21 @@ public class ShowDirectoryDialog extends AbstractProgramWindow
 	  
 	}
 	
-	// returns selected directory; 
 	public String getDir() 
+	/************************************************************************************************/
+	/* PRECONDITION:  DIRECTORY IS NEEDED						  									*/
+	/* POSTCONDITION: RETURNS DIRECTORY										  						*/
+	/************************************************************************************************/
 	{
 		return dir; 
 	}
 
-	// get name of specific directory/file
+	
 	public String getName()
+	/************************************************************************************************/
+	/* PRECONDITION:  NAME OF DIRECTORY/FILE IS NEEDED						  						*/
+	/* POSTCONDITION: RETURNS NAME OF SPECIFIC DIRECTORY/FILE				  						*/
+	/************************************************************************************************/
 	{
 		// last section of directory/file path string
 		try 

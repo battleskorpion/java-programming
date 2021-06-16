@@ -12,12 +12,10 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import fileIO.*; 
+import fileIO.*; 										// FOR FILE READING/WRITING
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
-
-import javax.swing.JOptionPane;
-
-// INTERFACE.
+														// INTERFACE
+import javax.swing.JOptionPane;							// JOPTIONPANE WINDOW DIALOGS
 import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
 														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
 														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
@@ -30,7 +28,8 @@ import org.eclipse.swt.widgets.Shell;					// REPRESENTS THE "WINDOWS" WHICH THE 
 import org.eclipse.swt.widgets.Button;					// REPRESENTS A SELECTABLE USER INTERFACE 
 														// OBJECT THAT ISSUES NOTIFICATION WHEN 
 														// PRESSED AND RELEASED. 
-import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Composite;				// CONTROL CAPABLE OF CONTAINING OTHER 
+														// CONTROLS
 import org.eclipse.swt.widgets.Control;					// CONTROL IS THE ABSTRACT SUPERCLASS OF 
 														// ALL WINDOWED USER INTERFACE CLASSES. 
 														// (REPRESENTS CONTROL EVENTS).

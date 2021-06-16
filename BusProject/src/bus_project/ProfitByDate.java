@@ -11,10 +11,11 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.time.LocalDate;
+import java.time.LocalDate;								// FOR STORING DATES
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.
-import java.util.function.Function;
+import java.util.function.Function;						// REPRESENTS A FUNCTION THAT ACCEPTS ONE 
+														// ARGUMENT AND PRODUCES A RESULT.
 import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL 
 														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
 														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
@@ -27,8 +28,9 @@ import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS 
 import org.eclipse.swt.widgets.Button;					// REPRESENTS A SELECTABLE USER INTERFACE 
 														// OBJECT THAT ISSUES NOTIFICATION WHEN 
 														// PRESSED AND RELEASED. 
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Combo;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.DateTime;				// FOR SWT WINDOWS/WIDGETS (CALENDAR AND 
+														// DATE/TIME SELECTION)
 import org.eclipse.swt.widgets.Display;					// RESPONSIBLE FOR MANAGING THE CONNECTION 
 														// BETWEEN SWT AND THE UNDERLYING OPERATING
 														// SYSTEM.
@@ -37,9 +39,9 @@ import org.eclipse.swt.widgets.Label;					// REPRESENTS A NON-SELECTABLE USER IN
 														// (OR HORIZONTAL/VERTICAL LINE).
 import org.eclipse.swt.widgets.Shell;					// REPRESENTS THE "WINDOWS" WHICH THE DESKTOP
 														// OR "WINDOW MANAGER" IS MANAGING. 
-import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.wb.swt.SWTResourceManager;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Table;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.TableColumn;				// FOR SWT WINDOWS/WIDGETS	
 
 public class ProfitByDate extends AbstractBusProgramWindow
 {
@@ -127,7 +129,6 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		Function<Customer, String> customerProfit; 		// REPRESENTS A FUNCTION WHICH RETURNS 
 														// PROFIT FROM A CUSTOMER 
 		
-		// TODO: label method calls
 		shlProfitByDate = new Shell();
 		shlProfitByDate.setSize(880, 330);
 		shlProfitByDate.setText(Messages.getString("ProfitByDate.shlProfitByDate.text")); //$NON-NLS-1$
@@ -149,7 +150,6 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		lblAmtProfit.setFont(SWTResourceManager.getFont("Segoe UI Light", 12, SWT.NORMAL));
 		lblAmtProfit.setBounds(107, 203, 136, 25);
 		
-		// TODO: label button
 		Button btnExit = new Button(shlProfitByDate, SWT.NONE);
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
@@ -200,15 +200,13 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		tblclmnProfit.setWidth(100);
 		tblclmnProfit.setText(Messages.getString("tblclmnProfit.text")); //$NON-NLS-1$
 
-		//TODO: label method calls
 		sortCustomers(); 
 		
-		//TODO: label dis
 		customerProfit = Customer::getTotalPriceFormatted;
 		updateComboBox(comboDatesList, dates); 
 		updateTable(customersTable, customersSorted, customerProfit); 
 		
-		/* event handlers */ //TODO: fix
+		/* event handlers */ 
 		dateTime.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -240,17 +238,18 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		});
 	}
 	
-	//TODO: label method
 	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...."
-	private void sortCustomers() {
-		//TODO: label call
+	private void sortCustomers() 
+	/************************************************************************************************/
+	/* PRECONDITION:  CUSTOMERS NEEDS TO BE SORTED													*/
+	/* POSTCONDITION: SORTS CUSTOMERS BY SORT BY FILTER INTO SORTED CUSTOMERS LIST					*/
+	/************************************************************************************************/
+	{
 		customersSorted =  (ArrayList<Customer>)customers.clone(); 
 			
-		//TODO: label switch
 		switch (sortBy) 
 		{
 			case 0: 
-				//customersSorted.sort(new Customer.CompareName());
 				customersSorted.sort(new Customer.CompareDate());
 				break; 
 			case 1: 

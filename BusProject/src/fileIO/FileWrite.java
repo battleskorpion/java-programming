@@ -19,38 +19,51 @@ import java.io.PrintWriter;								// FOR FILE I/O
 
 public class FileWrite 
 {
-	private FileWriter locWriter; 
-	private BufferedWriter locBWriter; 
-	private PrintWriter locPWriter; 
-	//private File file; 
-	
-	// THROWS IOException IF THE FILE EXISTS BUT IS A DIRECTORY RATHER THAN A REGULAR FILE, 
-	// DOES NOT EXIST BUT CANNOT BE CREATED, OR CANNOT BE OPENED FOR ANY OTHER REASON
-	// OVERWRITES FILE BY DEFAULT
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/ 
+	private FileWriter fileWriter; 						// FILE FILEWRITER	
+	private BufferedWriter fileBWriter; 				// FILE BUFFEREDWRITER
+	private PrintWriter filePWriter; 					// FILE PRINTWRITER (FOR CONSOLE PRINT SYNTAX)
+
 	public FileWrite(File file) throws IOException
+	/************************************************************************************************/
+	/* PRECONDITION:  CONSTRUCTOR								  									*/
+	/* POSTCONDITION: THROWS IOException IF THE FILE EXISTS BUT IS A DIRECTORY RATHER THAN A   		*/
+	/* 				  REGULAR FILE, DOES NOT EXIST BUT CANNOT BE CREATED, OR CANNOT BE OPENED FOR  	*/
+	/* 				  ANY OTHER REASON, OVERWRITES FILE BY DEFAULT 									*/
+	/************************************************************************************************/
 	{
-		//this.file = file; 
-		locWriter = new FileWriter(file, false);	
-		locBWriter = new BufferedWriter(locWriter); 
-		locPWriter = new PrintWriter(locBWriter); 		// for println syntax
+		fileWriter = new FileWriter(file, false);	
+		fileBWriter = new BufferedWriter(fileWriter); 
+		filePWriter = new PrintWriter(fileBWriter); 		// for println syntax
 	}
 		
-	// THROWS IOException IF THE FILE EXISTS BUT IS A DIRECTORY RATHER THAN A REGULAR FILE, 
-	// DOES NOT EXIST BUT CANNOT BE CREATED, OR CANNOT BE OPENED FOR ANY OTHER REASON
-	// APPENDS TO FILE OR OVERWRITES FILE IF APPEND IS FALSE
 	public FileWrite(File file, boolean append) throws IOException
+	/************************************************************************************************/
+	/* PRECONDITION:  CONSTRUCTOR								  									*/
+	/* POSTCONDITION: THROWS IOException IF THE FILE EXISTS BUT IS A DIRECTORY RATHER THAN A 		*/
+	/* 				  REGULAR FILE, DOES NOT EXIST BUT CANNOT BE CREATED, OR CANNOT BE OPENED FOR 	*/
+	/* 				  ANY OTHER REASON, APPENDS TO FILE OR OVERWRITES FILE IF APPEND IS FALSE 		*/
+	/************************************************************************************************/
 	{
-		//this.file = file; 
-		locWriter = new FileWriter(file, append);	
-		locBWriter = new BufferedWriter(locWriter); 
-		locPWriter = new PrintWriter(locBWriter); 		// for println syntax
+		fileWriter = new FileWriter(file, append);	
+		fileBWriter = new BufferedWriter(fileWriter); 
+		filePWriter = new PrintWriter(fileBWriter); 		// for println syntax
 	}
 	
 	public boolean writeToFile(String data)
+	/************************************************************************************************/
+	/* PRECONDITION:  DATA NEEDS TO BE WRITTEN TO FILE								  				*/
+	/* POSTCONDITION: WRITES DATA TO FILE USING println SYNTAX, RETURNS FALSE IF ERROR, ELSE TRUE	*/
+	/************************************************************************************************/
 	{
+		/***********************************************************************************/
+		/* TRY TO PRINT DATA TO FILE, RETURN FALSE IF EXCEPTION OCCURS, TRUE IF SUCCESSFUL */
+		/***********************************************************************************/
 		try 
 		{
-			locPWriter.println(data);
+			filePWriter.println(data);
 		}
 		catch (Exception exc)
 		{
@@ -58,9 +71,13 @@ public class FileWrite
 		}
 		return true; 
 	}
-	
+
 	public void close()
+	/************************************************************************************************/
+	/* PRECONDITION:  FILE WRITER NEEDS TO BE CLOSED								  				*/
+	/* POSTCONDITION: CLOSES FILE PRINT WRITER														*/
+	/************************************************************************************************/
 	{
-		locPWriter.close(); 
+		filePWriter.close(); 
 	}
 }

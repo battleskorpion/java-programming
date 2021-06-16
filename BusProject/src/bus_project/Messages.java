@@ -16,15 +16,19 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.text.MessageFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
-import org.eclipse.swt.widgets.DateTime;
-
+import java.text.MessageFormat;							// MESSAGE FORMAT PROVIDES A MEANS TO PRODUCE 
+														// CONCATENATED MESSAGES IN A LANGUAGE-NEUTRAL
+														// WAY. USE THIS TO CONSTRUCT MESSAGES 
+														// DISPLAYED FOR END USERS. 
+import java.time.LocalDate;								// FOR STORING DATES
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import java.util.Locale;								// A LOCALE OBJECT REPRESENTS A SPECIFIC 
+														// GEOGRAPHICAL, POLITICAL, OR CULTURAL 
+														// REGION.
+import java.util.MissingResourceException;				// SIGNALS THAT A RESOURCE IS MISSING.
+import java.util.ResourceBundle;						// RESOURCE BUNDLES CONTAIN LOCALE-SPECIFIC 
+														// OBJECTS. (EX: STRINGS)
 public class Messages
 {
 	private static final String BUNDLE_NAME = "bus_project.messages"; 					//$NON-NLS-1$
@@ -40,6 +44,10 @@ public class Messages
 	}
 
 	public static String getString(String key) 
+	/************************************************************************************************/
+	/* PRECONDITION:  LOCALIZED STRING IS NEEDED WHICH RELATES TO KEY				  				*/
+	/* POSTCONDITION: RETURNS CORRESPONDING STRING OF KEY IN CURRENT LOCALE			  				*/
+	/************************************************************************************************/
 	{
 		try 
 		{
@@ -52,6 +60,10 @@ public class Messages
 	}
 	
 	public static String getCompoundString(String key, Object[] dta)
+	/************************************************************************************************/
+	/* PRECONDITION:  LOCALIZED COMPOUND STRING IS NEEDED WHICH RELATES TO KEY				  		*/
+	/* POSTCONDITION: RETURNS CORRESPONDING COMPOUND STRING OF KEY IN CURRENT LOCALE			  	*/
+	/************************************************************************************************/
 	{
 		String result; 
 		
@@ -63,6 +75,10 @@ public class Messages
 	}
 	
 	public static ArrayList<Locale> programLocales()
+	/************************************************************************************************/
+	/* PRECONDITION:  LIST OF SUPPORTED LOCALES IS NEEDED			  								*/
+	/* POSTCONDITION: RETURNS  LIST OF SUPPORTED LOCALES 											*/
+	/************************************************************************************************/
 	{
 		ArrayList<Locale> locales = new ArrayList<Locale>(); 
 		locales.add(new Locale("en", "US")); 
@@ -72,12 +88,20 @@ public class Messages
 	}
 	
 	public static void setLocale(Locale locale)
+	/************************************************************************************************/
+	/* PRECONDITION:  LOCALE NEEDS TO BE SET TO SPECIFIED LOCALE		  							*/
+	/* POSTCONDITION: SETS LOCALE TO SPECIFIED LOCALE 												*/
+	/************************************************************************************************/
 	{
 		Messages.locale = locale; 
 		RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale); 		
 	}
 	
 	public static Locale getLocale() 
+	/************************************************************************************************/
+	/* PRECONDITION:  CURRENT LOCALE IS NEEDED		  												*/
+	/* POSTCONDITION: RETURNS LOCALE																*/
+	/************************************************************************************************/
 	{
 		return locale; 
 	}

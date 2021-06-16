@@ -13,9 +13,13 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.time.LocalDate;
-import java.util.Comparator;
-
+import java.time.LocalDate;								// FOR STORING DATES
+import java.util.Comparator;							// A COMPARISON FUNCTION, WHICH IMPOSES A 
+														// TOTAL ORDERING ON SOME COLLECTION OF 
+														// OBJECTS. COMPARATORS CAN BE PASSED TO A 
+														// SORT METHOD (SUCH AS COLLECTIONS.SORT OR 
+														// ARRAYS.SORT) TO ALLOW PRECISE CONTROL OVER
+														// THE SORT ORDER.
 public class Customer 
 {
 	/*********************/

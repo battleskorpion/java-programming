@@ -7,13 +7,15 @@
 /********************************************/ 
 package bus_project;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
-import fileIO.*; 
+/******************/
+/* IMPORT SECTION */
+/******************/ 		
+import java.io.File;									// FOR FILE READING/WRITING
+import java.io.IOException;								// GENERIC INPUT/OUTPUT EXCEPTION
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import javax.swing.JOptionPane;							// JOPTIONPANE WINDOW DIALOGS
+import fileIO.*; 										// FOR FILE READING/WRITING
 
 public class Settings 
 {
@@ -149,11 +151,9 @@ public class Settings
 			{
 			case "true": 
 				skiVideoEnabled = true; 
-				System.out.println("true"); 
 				break; 
 			case "false":
 				skiVideoEnabled = false; 
-				System.out.println("false"); 
 				break; 
 			default: 
 				break; 

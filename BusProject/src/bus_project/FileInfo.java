@@ -12,23 +12,27 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import fileIO.*;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Menu;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.swing.JOptionPane;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
+import fileIO.*;										// FOR FILE READING/WRITING
+import org.eclipse.swt.widgets.Display;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Shell;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Menu;					// FOR SWT WINDOWS/WIDGETS	
+import java.io.File;									// FOR FILE READING/WRITING
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import java.util.Collections;							// THIS CLASS CONSISTS EXCLUSIVELY OF STATIC 
+														// METHODS THAT OPERATE ON OR
+														// RETURN COLLECTIONS (SUCH AS LISTS). 
+import java.util.List;									// AN ORDERED COLLECTION (ALSO KNOWN AS A 
+														// SEQUENCE).
+import javax.swing.JOptionPane;							// JOPTIONPANE WINDOW DIALOGS			
+import org.eclipse.swt.SWT;								// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.SelectionAdapter;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.SelectionEvent;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.MenuItem;				// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Label;                   // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Button;                  // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Table;                   // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.TableColumn;             // FOR SWT WINDOWS/WIDGETS	
 
 public class FileInfo extends AbstractBusProgramWindow
 {
@@ -188,7 +192,6 @@ public class FileInfo extends AbstractBusProgramWindow
 		/***************/ 
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
-			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
 			{
 				closeSubWindow(rootShell, shlFileInfo); 

@@ -21,31 +21,48 @@ import abstractProgramWindow.*;							// ABSTRACT WINDOW CLASS TO BE INHERITED
 public class FileRead extends AbstractProgramWindow
 {
 	public static String readFile(File f) 
+	/************************************************************************************************/
+	/* PRECONDITION:  CONTENTS OF FILE ARE NEEDED	  												*/
+	/* POSTCONDITION: READS CONTENTS FROM FILE (LINES ARE SEPERATED BY System.lineSeperator 		*/
+	/* 				  (ON UNIX SYSTEMS, IT RETURNS "\n"; ON MICROSOFT WINDOWS SYSTEMS IT RETURNS 	*/
+	/*				  "\r\n") AND COMBINS DATA INTO A SINGLE STRING									*/
+	/************************************************************************************************/
 	{
-		// scan file and read from it 
-		Scanner file_scan;
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/ 
+		Scanner file_scan;								// SCAN FILE AND READ FROM IT 
+		StringBuffer buffer = new StringBuffer(); 		// STRING BUFFER TO READ FILE LINE BY LINE 
+														// AND CREATE STRING CONTAINING FILE DATA
+		String fileContents; 							// FILE DATA (LINES SEPERATED BY 
+														// System.lineSeperator)
+		
+		/***********************************/
+		/* TRY TO INSTANTIATE FILE SCANNER */
+		/***********************************/
 		try 
 		{
 			file_scan = new Scanner(f);
 		} 
+		
+		/*************************************************************************/
+		/* IF SCANNER COULD NOT BE INSTANTIATED RETURN NULL (FILE WAS NOT FOUND) */
+		/*************************************************************************/
 		catch (FileNotFoundException e) 
 		{
 			return null; 
 		} 
 		
-		StringBuffer buffer = new StringBuffer(); 
+		/********************************************************************/
+		/* APPEND LINE TO STRING BUFFER WHILE THERE IS ANOTHER LINE TO READ */
+		/********************************************************************/
 		while (file_scan.hasNextLine()) 
 		{
 			buffer.append(file_scan.nextLine() + System.lineSeparator());
 		}
-		String fileContents = buffer.toString();
 		
-		// testing 
-		//System.out.println("next file: " + fileContents);
-		
-		//closing the Scanner object
-		file_scan.close();
-		
-		return fileContents;
+		fileContents = buffer.toString();				// CREATE FILE CONTENTS STRING
+		file_scan.close();								// CLOSE THE SCANNER 
+		return fileContents;							// RETURN FILE DATA STRING
 	}
 }

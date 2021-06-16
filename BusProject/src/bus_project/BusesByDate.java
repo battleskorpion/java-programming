@@ -12,29 +12,29 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.wb.swt.SWTResourceManager;
+import java.time.LocalDate;								// FOR STORING DATES
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import org.eclipse.swt.widgets.Display;				    // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Shell;                   // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.DateTime;                // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.SWT;                             // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Combo;                   // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Label;                   // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Button;                  // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.SelectionAdapter;         // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.SelectionEvent;           // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.wb.swt.SWTResourceManager;           // FOR SWT WINDOWS/WIDGETS	
 
 public class BusesByDate extends AbstractBusProgramWindow 
 {
-
-	// TODO: instance var section, label vars
-	protected Shell shlBusesByDate;
-	private ArrayList<Customer> customers; 
-	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/
+	protected Shell shlBusesByDate;										// SHELL OF WINDOW
+	private ArrayList<Customer> customers; 								// CUSTOMERS LIST
+	private ArrayList<LocalDate> dates = BusCalculation.getDates(); 	// TRIP DATES LIST
 	
-	// TODO: constructor section
 	public BusesByDate (ArrayList<Customer> cstmrs) 
 	{
 		customers = cstmrs; 
@@ -88,10 +88,11 @@ public class BusesByDate extends AbstractBusProgramWindow
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
 	protected void createContents(Shell rootShell) 
+	/********************************************************************************/
+	/* PRECONDITION:  WINDOW IS TO BE OPENED, ELEMENTS NEED TO BE ADDED TO WINDOW	*/
+	/* POSTCONDITION: ADDS ELEMENTS TO WINDOW										*/
+	/********************************************************************************/
 	{
 		// TODO: label method calls
 		shlBusesByDate = new Shell();
@@ -167,6 +168,7 @@ public class BusesByDate extends AbstractBusProgramWindow
 				}
 			}
 		});
+		
 		combo.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override

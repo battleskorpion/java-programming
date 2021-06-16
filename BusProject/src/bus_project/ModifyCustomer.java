@@ -37,11 +37,12 @@ import org.eclipse.swt.widgets.Button;					// REPRESENTS A SELECTABLE USER INTER
 import org.eclipse.swt.widgets.Control;					// CONTROL IS THE ABSTRACT SUPERCLASS OF 
 														// ALL WINDOWED USER INTERFACE CLASSES. 
 														// (REPRESENTS CONTROL EVENTS).
-import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.DateTime;				// FOR SWT WINDOWS/WIDGETS (CALENDAR AND 
+														// DATE/TIME SELECTION)
+import org.eclipse.swt.widgets.Label;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Table;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Text;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.TableColumn;				// FOR SWT WINDOWS/WIDGETS	
 
 
 public class ModifyCustomer extends AbstractBusProgramWindow 

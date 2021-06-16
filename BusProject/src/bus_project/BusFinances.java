@@ -13,11 +13,12 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.time.LocalDate;
+import java.time.LocalDate;								// FOR STORING DATES
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.
-import java.util.Currency;
-import java.util.List;
+import java.util.Currency;								// REPRESENTS A CURRENCY
+import java.util.List;									// AN ORDERED COLLECTION (ALSO KNOWN AS A 
+														// SEQUENCE). 
 
 public class BusFinances extends Finances 
 {
@@ -65,7 +66,7 @@ public class BusFinances extends Finances
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		double profit = 0; 
+		double profit = 0; 								// PROFIT OF DATE
 		
 		/**************************************/
 		/* IF A TRIP(S) IS BOOKED ON THE DATE */
@@ -93,12 +94,22 @@ public class BusFinances extends Finances
 	/* POSTCONDITION: RETURNS SUM OF PROFIT FROM EACH DATE UNTIL SPECIFIED DATE						*/
 	/************************************************************************************************/
 	{
-		double profit = 0;
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		double profit = 0;								// PROFIT TO DATE
+		List<ArrayList<Customer>> customersToDate; 		// LIST OF CUSTOMERS ON EACH DAY TO DATE 
 		
+		/******************************************/
+		/* TRY TO SUM PROFIT OF ALL DATES TO DATE */
+		/******************************************/
 		try 
 		{
-			List<ArrayList<Customer>> customersToDate = BusCalculation.getCustomersToDate(dt); 
+			customersToDate = BusCalculation.getCustomersToDate(dt); 
 			
+			/**************************************************************/
+			/* LOOP THROUGH EACH LIST OF CUSTOMERS TO SUM PROFITS OF EACH */
+			/**************************************************************/
 			for (int i = 0; i < customersToDate.size(); i++) 
 			{
 				for (int j = 0; j < customersToDate.get(i).size(); j++) 
@@ -108,6 +119,9 @@ public class BusFinances extends Finances
 			}
 			return nf.format(profit); 
 		}
+		/**********************************/
+		/* SET PROFIT TO 0 IF FAIL OCCURS */
+		/**********************************/
 		catch (Exception exc)
 		{
 			profit = 0; 

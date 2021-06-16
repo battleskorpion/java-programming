@@ -33,9 +33,8 @@ import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES
 														// BY THE SELECTIONLISTENER INTERFACE. 
 import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS A RESULT OF 
 														// WIDGETS BEING SELECTED. 
-import org.eclipse.swt.widgets.Table;
-
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Table;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.TableColumn;				// FOR SWT WINDOWS/WIDGETS	
 
 public class ListCustomers extends AbstractBusProgramWindow 
 {
@@ -106,12 +105,12 @@ public class ListCustomers extends AbstractBusProgramWindow
 			}
 		}
 	}
-
+	
+	protected void createContents(Shell rootShell)
 	/*************************************************/
 	/* PRECONDITION:  WINDOW NEEDS ELEMENTS 		 */
 	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
 	/*************************************************/
-	protected void createContents(Shell rootShell)
 	{
 		//TODO: label method calls/shell
 		shlListCustomers = new Shell();
@@ -173,19 +172,24 @@ public class ListCustomers extends AbstractBusProgramWindow
 		});
 	}
 	
-	//TODO: label method
 	public void setSortByName() 
+	/************************************************************************************************/
+	/* PRECONDITION:  SORT BY FILTER NEEDS TO BE SET TO SORT BY NAME		  						*/
+	/* POSTCONDITION: SETS SORT BY FILTER TO SORT BY NAME					  						*/
+	/************************************************************************************************/
 	{
 		sortBy = 0;  	// set sort by filter to name
 	}
 	
-	//TODO: label method
 	public void setSortBySize() 
+	/************************************************************************************************/
+	/* PRECONDITION:  SORT BY FILTER NEEDS TO BE SET TO SORT BY SIZE		  						*/
+	/* POSTCONDITION: SETS SORT BY FILTER TO SORT BY SIZE					  						*/
+	/************************************************************************************************/
 	{
 		sortBy = 1; 	// set sort by filter to size
 	}
 	
-	//TODO: label method
 	@SuppressWarnings("unchecked")		// TO SUPRESS WARNING ABOUT "TYPE SAFETY: UNCHECKED CAST...."
 										// WITH ArrayList CAST 
 	private void sortCustomers() 

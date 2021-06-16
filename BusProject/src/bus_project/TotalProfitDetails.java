@@ -11,25 +11,28 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.time.LocalDate;
-import java.util.ArrayList;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.widgets.DateTime;
+import java.time.LocalDate;								// FOR STORING DATES
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.
+import org.eclipse.swt.SWT;								// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.SelectionAdapter;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.SelectionEvent;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Button;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Display;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Label;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Shell;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.wb.swt.SWTResourceManager;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.DateTime;				// FOR SWT WINDOWS/WIDGETS 
+														// (CALENDAR AND DATE SELECTION)
 
 public class TotalProfitDetails extends AbstractBusProgramWindow 
 {
 
-	//TODO: label section, vars
+	/********************/
+	/* VARIABLE SECTION */
+	/********************/ 
 	protected Shell shlTotalProfitDetails;				// SHELL WHICH REPRESENTS THIS WINDOW 
 	
-	//TODO: label method //TODO: 
 	public TotalProfitDetails (ArrayList<Customer> cstmrs) 
 	{
 		//customers = cstmrs;  
@@ -89,15 +92,11 @@ public class TotalProfitDetails extends AbstractBusProgramWindow
 	/* POSTCONDITION: CREATES CONTENTS OF THE WINDOW */
 	/*************************************************/
 	{
-		
-		//TODO: label method calls/shell
 		shlTotalProfitDetails = new Shell();
 		shlTotalProfitDetails.setSize(352, 300);
 		shlTotalProfitDetails.setText("List Customers");
 		
-		//TODO: label button
 		Button btnExit = new Button(shlTotalProfitDetails, SWT.NONE);
-		//TODO: label method calls
 		btnExit.setText("Exit");
 		btnExit.setBounds(128, 226, 75, 25);
 		
@@ -120,7 +119,6 @@ public class TotalProfitDetails extends AbstractBusProgramWindow
 		
 		DateTime dateTime = new DateTime(shlTotalProfitDetails, SWT.BORDER);
 		dateTime.setBounds(239, 41, 87, 24);
-		//TODO: 
 		dateTime.addSelectionListener(new SelectionAdapter()
 		{
 			public void widgetSelected(SelectionEvent e) 

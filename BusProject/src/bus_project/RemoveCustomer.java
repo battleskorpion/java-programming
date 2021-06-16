@@ -26,12 +26,12 @@ import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES
 														// BY THE SELECTIONLISTENER INTERFACE. 
 import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS A RESULT OF 
 														// WIDGETS BEING SELECTED. 
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Button;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Display;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Label;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Shell;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Table;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.TableColumn;				// FOR SWT WINDOWS/WIDGETS	
 
 public class RemoveCustomer extends AbstractBusProgramWindow
 {
@@ -216,26 +216,24 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 				}
 			}
 		});
-		//TODO: make sure everything good good now etc. 
+		
 		btnUndoDelete.addSelectionListener(new SelectionAdapter() 
 		{
 			public void widgetSelected(SelectionEvent e) 
 			{
-				if (remCustomersTable.getSelectionIndex() >= 0) {
+				if (remCustomersTable.getSelectionIndex() >= 0) 
+				{
 					Customer removed = customersRemoved.get(remCustomersTable.getSelectionIndex()); 
 					if (removed.getIndex() <= customers.size()) 
 					{
 						addCustomer(customers, removed, removed.getIndex(), customersTable); 
-						//customers.add(removed.getIndex(), removed);
 					}
 					else 
 					{
 						addCustomer(customers, removed, customersTable); 
-						//customers.add(removed); 
 					}
 					customersRemoved.remove(remCustomersTable.getSelectionIndex()); 
 					updateIndex(customers); 
-					//updateTable(customersTable, customers); 
 					updateTable(remCustomersTable, customersRemoved); 
 				}
 				else 

@@ -1,5 +1,5 @@
 /********************************************/
-/* INFORMATION SECTION 						*/
+2/* INFORMATION SECTION 						*/
 /* HelpWindow.java							*/
 /* Darian Siembab 							*/
 /* 											*/
@@ -11,18 +11,18 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Display;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Shell;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Button;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.SWT;								// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.layout.FormLayout;				// FOR SWT WINDOWS/WIDGETS		
+import org.eclipse.swt.layout.FormData;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.layout.FormAttachment;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.custom.StyledText;				// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.SelectionAdapter;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.SelectionEvent;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.wb.swt.SWTResourceManager;			// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.graphics.Point;					// FOR SWT WINDOWS/WIDGETS	
 
 public class HelpWindow extends AbstractBusProgramWindow 
 {
@@ -139,7 +139,6 @@ public class HelpWindow extends AbstractBusProgramWindow
 		/***************/ 
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
-			// TODO: label method
 			public void widgetSelected(SelectionEvent e) 
 			/****************************************************************************************/
 			/* PRECONDITION:  SENT WHEN CONTROL IS SELECTED								  			*/

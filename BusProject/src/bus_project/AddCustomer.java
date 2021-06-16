@@ -12,14 +12,6 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
-														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
-														// BY THE SELECTIONLISTENER INTERFACE. 
-import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS A RESULT OF 
-														// WIDGETS BEING SELECTED. 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Button;
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE.
 import javax.swing.JOptionPane;							// JOPTIONPANE MAKES IT EASY TO POP UP A 
@@ -29,17 +21,25 @@ import org.eclipse.swt.SWT;								// THIS CLASS PROVIDES ACCESS TO A SMALL
 														// NUMBER OF SWT SYSTEM-WIDE METHODS, AND
 														// IN ADDITION DEFINES THE PUBLIC CONSTANTS 
 														// PROVIDED BY SWT. 
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Display;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Shell;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Button;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Label;                   // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Text;                    // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.DateTime;                // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Table;                   // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Control;                 // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.TableColumn;             // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.wb.swt.SWTResourceManager;           // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.ModifyListener;           // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.ModifyEvent;              // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Menu;                    // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.MenuItem;                // FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
+														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
+														// BY THE SELECTIONLISTENER INTERFACE. 
+import org.eclipse.swt.events.SelectionEvent;			// SELECTION EVENTS ARE SENT AS A RESULT OF 
+														// WIDGETS BEING SELECTED. 
 
 public class AddCustomer extends AbstractBusProgramWindow
 {
@@ -125,12 +125,12 @@ public class AddCustomer extends AbstractBusProgramWindow
 			}
 		}
 	}
-
+	
+	protected void createContents(Shell rootShell) 
 	/********************************************************************************/
 	/* PRECONDITION:  WINDOW IS TO BE OPENED, ELEMENTS NEED TO BE ADDED TO WINDOW	*/
 	/* POSTCONDITION: ADDS ELEMENTS TO WINDOW										*/
 	/********************************************************************************/
-	protected void createContents(Shell rootShell) 
 	{
 		/*********************/ 
 		/* INSTANTIATE SHELL */

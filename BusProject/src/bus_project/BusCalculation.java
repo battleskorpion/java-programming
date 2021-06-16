@@ -155,8 +155,7 @@ public class BusCalculation
 				}
 				
 				customers.get(dateIndex).add(cstmr); 
-				// TODO: customers were unrefunded window 
-				return 0; // none refunded from this customer, only other customers unrefunded
+				return 0; 	// none refunded from this customer, only other customers unrefunded
 			}
 
 			/**************************************************************************************/
@@ -190,7 +189,6 @@ public class BusCalculation
 			/****************************************************/
 			if (cstmr.getNumPersons() >= MIN_CAPACITY) 
 			{
-				// TODO: label method calls
 				// if/else to add date to dates array
 				if (getFirstDateAfterDate(cstmr.getDate()) == null)
 				{
@@ -202,15 +200,18 @@ public class BusCalculation
 					dateIndex = dates.indexOf(getFirstDateAfterDate(cstmr.getDate())); 
 					dates.add(dateIndex, cstmr.getDate());
 				}
-				customers.add(dateIndex, new ArrayList<Customer>());			// create new ArrayList aligning with new date
+				customers.add(dateIndex, new ArrayList<Customer>());	// create new ArrayList 
+																		// aligning with new date
 				
-				// if prexisting customers + new customer fill a bus at least to minimum capacity, or fill a bus entirely 
+				// if prexisting customers + new customer fill a bus at least to minimum capacity, 
+				// or fill a bus entirely 
 				if (cstmr.getNumPersons() % MAX_CAPACITY >= MIN_CAPACITY 
 						|| cstmr.getNumPersons() % MAX_CAPACITY == 0) 
 				{
 					customers.get(dateIndex).add(cstmr);		// add customer to new ArrayList
 				}
-				// else (some customers will have to be refunded because a bus won't be filled to MIN_CAPACITY
+				// else (some customers will have to be refunded because a bus won't be filled 
+				// to MIN_CAPACITY
 				else 
 				{
 					numToRefund = cstmr.getNumPersons() % MAX_CAPACITY; 
@@ -229,7 +230,6 @@ public class BusCalculation
 				/*********************************/
 				return 0; 		
 			}
-			// TODO: ISSUES MAY BE HERE: 
 			else 
 			{
 				numToRefund = cstmr.getNumPersons(); 
@@ -244,8 +244,6 @@ public class BusCalculation
 		}
 	}
 	
-	// TODO: modifications potential maybe
-	// TODO: make comment boxes out of some comments etc. 
 	public static void unscheduleTrip (Customer cstmr) 
 	/************************************************************************************************/
 	/* PRECONDITION:  A CUSTOMER NEEDS TO BE UNSCHEDULED											*/
@@ -281,7 +279,6 @@ public class BusCalculation
 				{
 					numToUnrefund = MIN_CAPACITY - (numPax % MAX_CAPACITY); 
 					
-					// TODO: put into its own function? (appears before) 
 					unrefundLoop: 
 					for (int i = 0; i < customers.get(dateIndex).size(); i++)
 					{
@@ -380,19 +377,22 @@ public class BusCalculation
 		return (int)Math.ceil(getNumPaxOnDate(dt) / ((double)MAX_CAPACITY)); 
 	}
 	
-	// TODO: label method
 	public static int getNumPaxOnDate(LocalDate dt) 
 	/************************************************************************************************/
 	/* PRECONDITION:  NUNBER OF PASSENGERS SCHEDULED ON A PARTICULAR DATE IS NEEDED					*/
 	/* POSTCONDITION: RETURNS NUMBER OF PASSENGERS FOR A PARTICULAR DATE (DOES NOT INCLUDE REFUNDS)	*/
 	/************************************************************************************************/
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/ 
 		int numPax = 0; 		// NUMBER OF PASSENGERS ON THE DAY
 		
-		// TODO: label if
+		/*****************************************************************/
+		/* IF DATES CONTAINS DATE CALCULATE NUMBER OF PASSENGERS ON DATE */
+		/*****************************************************************/ 
 		if (dates.contains(dt))
 		{
-			// TODO: label for loop
 			for (Customer cstmr : customers.get(dates.indexOf(dt)))
 			{
 				numPax += cstmr.getNumPersons(); 
@@ -412,9 +412,14 @@ public class BusCalculation
 	/*				  (NOT INCLUDING UNSCHEDULED TRIPS/DELETED CUSTOMERS)							*/
 	/************************************************************************************************/
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
 		int numPaxRefunded = 0;
 		
-		//TODO: label le if
+		/***********************************************************************/
+		/* IF DATES CONTAINS DATE CALCULATE NUMBER OF PERSONS REFUNDED ON DATE */
+		/***********************************************************************/ 
 		if (dates.contains(dt)) 
 		{
 			for (Customer cstmr: customers.get(dates.indexOf(dt))) 
@@ -452,7 +457,9 @@ public class BusCalculation
 	/* POSTCONDITION: RETURNS NUMBER OF CUSTOMERS SCHEDULED UP TO AND INCLUDING THE SPECIFIED DATE	*/
 	/************************************************************************************************/
 	{
-		
+		/**************************************************************/
+		/* IF DATES CONTAINS DATE RETURN SUBLIST OF CUSTOMERS ON DATE */
+		/**************************************************************/
 		if (dates.contains(dt)) 
 		{
 			return customers.subList(0, dates.indexOf(dt)); 	
@@ -478,7 +485,6 @@ public class BusCalculation
 		}
 	}
 
-	// TODO: label method
 	public static ArrayList<LocalDate> getDates() 
 	/************************************************************************************************/
 	/* PRECONDITION:  THE LIST OF TRIP DATES IS NEEDED												*/		

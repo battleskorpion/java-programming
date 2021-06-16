@@ -14,12 +14,13 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList; 
-import org.eclipse.swt.widgets.DateTime;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;					
+import java.time.LocalDate;								// FOR STORING DATES
+import java.time.format.DateTimeFormatter;				// FOR FORMATTING DATES TO STORE AS LocalDate
+import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
+														// INTERFACE.							
+import org.eclipse.swt.widgets.DateTime;				// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Table;					// FOR SWT WINDOWS/WIDGETS	
+import org.eclipse.swt.widgets.Text;					// FOR SWT WINDOWS/WIDGETS		
 import abstractProgramWindow.*; 						// FOR PROGRAM WINDOW SUPERCLASS FUNCTIONS 
 
 public class AbstractBusProgramWindow extends AbstractProgramWindow
