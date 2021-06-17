@@ -280,6 +280,7 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 					{
 						return; 
 					}
+					
 					/***********************************/
 					/* ELSE PERMA DELETE ALL CUSTOMERS */
 					/***********************************/

@@ -482,6 +482,9 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
+				/********************/
+				/* VARIABLE SECTION */
+				/********************/
 				int confirmLoad; 				// 0: 	YES
 												// 1: 	NO
 												// 2:	CANCEL

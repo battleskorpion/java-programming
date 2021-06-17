@@ -27,11 +27,11 @@ public class BusCalculation
 	/*********************/
 	/* CONSTANTS SECTION */
 	/*********************/ 
-	public static final int MAX_BUSES = 20; 						// maximum buses available per day
-	public static final int MAX_CAPACITY = 20; 						// maximum capacity of a bus
-	public static final int MIN_CAPACITY = 10;						// minimum capacity a bus should 
-																	// be operating with
-	public static final int MAX_PAX = MAX_BUSES * MAX_CAPACITY; 	// maximum passengers per day
+	public static final int MAX_BUSES = 20; 						// MAXIMUM BUSES AVAILABLE PER DAY
+	public static final int MAX_CAPACITY = 20; 						// MAXIMUM CAPACITY OF A BUS
+	public static final int MIN_CAPACITY = 10;						// MINIMUM CAPACITY A BUS SHOULD 
+																	// BE OPERATING WITH
+	public static final int MAX_PAX = MAX_BUSES * MAX_CAPACITY; 	// MAXIMUM PASSENGERS PER DAY
 	
 	/********************/
 	/* VARIABLE SECTION */
@@ -181,7 +181,7 @@ public class BusCalculation
 		/* CONSIDERING POTENTIAL NECESSARY REFUNDS	*/
 		/********************************************/
 		else 
-		{	
+		{		
 			/****************************************************/
 			/* IF CUSTOMER'S NUMBER OF PERSONS MEETS OR EXCEEDS */
 			/* MINIMUM CAPACITY									*/
@@ -201,6 +201,22 @@ public class BusCalculation
 				}
 				customers.add(dateIndex, new ArrayList<Customer>());	// create new ArrayList 
 																		// aligning with new date
+				/************************************************************************************/
+				/* IF NUMBER OF PERSONS OF CUSTOMER TO SCHEDULE ON DATE 							*/
+				/* EXCEED MAXIMUM NUMBER OF PASSENGERS ON DATE, REFUND SOME PERSONS OF CUSTOMER 	*/
+				/************************************************************************************/
+				if (cstmr.getNumPersons() > MAX_PAX) 
+				{
+					numToRefund = cstmr.getNumPersons() - MAX_PAX;
+					cstmr.refundPersons(numToRefund);
+					
+					customers.get(dateIndex).add(cstmr); 
+					
+					/**************************/
+					/* RETURN NUMBER REFUNDED */
+					/**************************/
+					return -1 * numToRefund;  	
+				}
 				
 				// if prexisting customers + new customer fill a bus at least to minimum capacity, 
 				// or fill a bus entirely 
@@ -243,7 +259,16 @@ public class BusCalculation
 		}
 	}
 	
+	/************************************************************************************************/
+	/* PRECONDITION:  A CUSTOMER NEEDS TO BE UNSCHEDULED (CUSTOMER'S TRIP DATE HAS NOT CHANGED)		*/
+	/* POSTCONDITION: UNSCHEDULES THE CUSTOMER'S TRIP AND PERFORMS NECESSARY ACTIONS				*/
+	/************************************************************************************************/
 	public static void unscheduleTrip (Customer cstmr) 
+	{
+		unscheduleTrip(cstmr, cstmr.getDate()); 
+	}
+	
+	public static void unscheduleTrip (Customer cstmr, LocalDate prevDate) 
 	/************************************************************************************************/
 	/* PRECONDITION:  A CUSTOMER NEEDS TO BE UNSCHEDULED											*/
 	/* POSTCONDITION: UNSCHEDULES THE CUSTOMER'S TRIP AND PERFORMS NECESSARY ACTIONS				*/
@@ -253,14 +278,17 @@ public class BusCalculation
 		/* VARIABLE SECTION */
 		/********************/
 		int cstmrLocation; 						// INDEX OF CUSTOMER IN CUSTOMERS 2D ARRAYLIST 
-		LocalDate date = cstmr.getDate(); 		// TRIP DATE 
-		int dateIndex = dates.indexOf(date); 	// INDEX OF DATE IN DATES LIST (ALSO INDEX OF 
+		LocalDate date;							// TRIP DATE 
+		int dateIndex;							// INDEX OF DATE IN DATES LIST (ALSO INDEX OF 
 												// CUSTOMERS LIST FOR THAT DATE IN CUSTOMERS 
 												// 2D ARRAYLIST)
 		int numPax; 							// NUMBER OF PASSENGERS ON DATE
 		int numToRefund; 						// NUMBER OF PERSONS TO REFUND
 		int numToUnrefund; 						// NUMBER OF PERSONS TO UNREFUND
 		
+		date = prevDate; 
+		dateIndex = dates.indexOf(date); 
+				
 		cstmrLocation = customers.get(dateIndex).indexOf(cstmr); 
 		
 		BusFinances.updateCustomerProfit(customers.get(dateIndex).get(cstmrLocation)); 
@@ -326,7 +354,7 @@ public class BusCalculation
 		}
 	}
 	
-	public static int rescheduleTrip(Customer cstmr) 
+	public static int rescheduleTrip(Customer cstmr, LocalDate prevDate) 
 	/************************************************************************************************/
 	/* PRECONDITION:  A CUSTOMER NEEDS TO BE RESCHEDULED											*/
 	/* POSTCONDITION: UNSCHEDULES THE CUSTOMER'S TRIP, THEN SCHEDULES A NEW TRIP					*/
@@ -337,13 +365,12 @@ public class BusCalculation
 		/********************/ 
 		int numToRefund; 
 		
-		unscheduleTrip(cstmr);
+		unscheduleTrip(cstmr, prevDate);
 		numToRefund = scheduleTrip(cstmr); 
 		displayRefundDialog(numToRefund);
 		
 		return numToRefund; 
 	}
-	
 
 	public static void unscheduleAll() 
 	/************************************************************************************************/

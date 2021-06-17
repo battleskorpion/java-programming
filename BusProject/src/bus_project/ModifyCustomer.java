@@ -11,6 +11,7 @@
 /********************************************/ 
 package bus_project;
 
+import java.time.LocalDate;
 /******************/
 /* IMPORT SECTION */
 /******************/
@@ -53,7 +54,7 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 	/********************/ 
 	protected Shell shlModifyCustomers;					// SHELL WHICH REPRESENTS THIS WINDOW
 	private ArrayList<Customer> customers; 				// ArrayList of all customers
-	private DateTime dateTime;							// dateTime CALENDAR
+	private DateTime calendar;							// dateTime CALENDAR
 	private Text idField;								// CUSTOMER ID FIELD
 	private Text nameField;								// CUSTOMER NAME FIELD
 	private Text sizeField;								// CUSTOMER SIZE FIELD	
@@ -144,9 +145,9 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 		lblSize.setText(Messages.getString("lblSize.text")); //$NON-NLS-1$
 		lblSize.setBounds(10, 39, 120, 21);
 		
-		Label lblNumber = new Label(shlModifyCustomers, SWT.NONE);
-		lblNumber.setText(Messages.getString("lblID.text")); //$NON-NLS-1$
-		lblNumber.setBounds(10, 67, 106, 23);
+		Label lblID = new Label(shlModifyCustomers, SWT.NONE);
+		lblID.setText(Messages.getString("lblID.text")); //$NON-NLS-1$
+		lblID.setBounds(10, 67, 106, 23);
 		
 		idField = new Text(shlModifyCustomers, SWT.BORDER);
 		idField.setBounds(143, 66, 100, 24);
@@ -155,8 +156,8 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 		lblTripDate.setText(Messages.getString("lblTripDate.text")); //$NON-NLS-1$
 		lblTripDate.setBounds(10, 96, 100, 15);
 		
-		dateTime = new DateTime(shlModifyCustomers, SWT.BORDER | SWT.CALENDAR);
-		dateTime.setBounds(10, 117, 233, 151);
+		calendar = new DateTime(shlModifyCustomers, SWT.BORDER | SWT.CALENDAR);
+		calendar.setBounds(10, 117, 233, 151);
 
 		Button btnModify = new Button(shlModifyCustomers, SWT.NONE);
 		btnModify.setText(Messages.getString("btnModify.text")); //$NON-NLS-1$
@@ -187,7 +188,7 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 		TableColumn tableColumn_4 = new TableColumn(customersTable, SWT.NONE);
 		tableColumn_4.setWidth(80);
 		tableColumn_4.setText("Refunds");
-		shlModifyCustomers.setTabList(new Control[]{nameField, sizeField, idField, dateTime, btnModify, btnExit});
+		shlModifyCustomers.setTabList(new Control[]{nameField, sizeField, idField, calendar, btnModify, btnExit});
 		
 		updateTable(customersTable, customers); 
 		
@@ -207,26 +208,49 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				int confirmModify; 
-				Text[] fields = {nameField, sizeField, idField}; 
-				Customer selectedCustomer; 
-				int id; 						// NEW CUSTOMER ID
+				/********************/
+				/* VARIABLE SECTION */
+				/********************/
+				int confirmModify; 									// CONFIRM MODIFICATIONS
+				Text[] fields = {nameField, sizeField, idField}; 	// TEXT FIELDS
+				Customer selectedCustomer; 							// SELECTED CUSTOMER TO MODIFY
+				int id; 											// NEW CUSTOMER ID
 				
 				selectedCustomer = customers.get(customersTable.getSelectionIndex()); 
 				
+				/*******************/
+				/* TRY TO PARSE ID */
+				/*******************/
 				try 
 				{
 					id = Integer.parseInt(idField.getText()); 
 
-					if (!uniqueID(id, customers))
+					/**********************************************************************/
+					/* DISPLAY ERROR MESSAGE AND CANCEL IF ID WAS INVALID (IS NOT UNIQUE) */
+					/**********************************************************************/
+					if (!uniqueID(id, customers, selectedCustomer))
 					{
 						JOptionPane.showMessageDialog(null, 
 								"Invalid ID (Already taken)!"); 
-						updateCustomerInfoDisplay(selectedCustomer);	// RESET MODIFICATION IF 
-																		// INVALID MODIFICATION 
+						updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
+																			// INVALID MODIFICATION 
+						return; 
+					}
+					
+					/*******************************************************/
+					/* DISPLAY ERROR MESSAGE AND CANCEL IF ID WAS NEGATIVE */
+					/*******************************************************/
+					if (id < 0)
+					{
+						JOptionPane.showMessageDialog(null, 
+								"Invalid ID (Negative value)!"); 
 						return; 
 					}
 				}
+				
+				/******************************************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF ID WAS INVALID (INCLUDED NON-INTEGERS) */
+				/******************************************************************************/
 				catch (Exception exc) 
 				{
 					JOptionPane.showMessageDialog(null, 
@@ -235,31 +259,83 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 																		// INVALID MODIFICATION 
 					return; 
 				}
-				if (nameField.getText().equals(""))
+				
+				/***********************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF NAME FIELD IS EMPTY */
+				/***********************************************************/
+				if (nameField.getText().trim().equals(""))
 				{
-					JOptionPane.showMessageDialog(null, "Invalid modification: Name field is blank."); 
-					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
-																		// INVALID MODIFICATION 
-					return; 
-				}
-				if (sizeField.getText().equals(""))
-				{
-					JOptionPane.showMessageDialog(null, "Invalid modification: Size field is blank."); 
-					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
-																		// INVALID MODIFICATION 
-					return; 
-				}
-				if (!vaildDate(dateTime))
-				{
-					JOptionPane.showMessageDialog(null, "Invalid modification: Name field is blank."); 
+					JOptionPane.showMessageDialog(null, 
+							"Invalid modification: Name field is blank.");
 					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
 																		// INVALID MODIFICATION 
 					return; 
 				}
 				
+				/***********************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF SIZE FIELD IS EMPTY */
+				/***********************************************************/
+				if (sizeField.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, 
+							"Invalid modification: Size field is blank.");
+					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
+																		// INVALID MODIFICATION 
+					return;
+				}
+				
+				/*********************/
+				/* TRY TO PARSE SIZE */
+				/*********************/
+				try 
+				{
+					/*******************************************************************/
+					/* DISPLAY ERROR MESSAGE AND CANCEL IF GROUP SIZE IS INVALID (< 0) */
+					/*******************************************************************/
+					if (Integer.parseInt(sizeField.getText()) < 0) 
+					{
+						JOptionPane.showMessageDialog(null, 
+								"Error: Size is negative!");
+						updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
+																			// INVALID MODIFICATION 
+						return;
+					}
+				}
+				
+				/*************************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF GROUP SIZE IS INVALID */
+				/*************************************************************/
+				catch (Exception exc)
+				{
+					JOptionPane.showMessageDialog(null, 
+							"Error: Size field is not an integer!");
+					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
+																		// INVALID MODIFICATION 
+					return;
+				}
+				
+				/*******************************************************/
+				/* DISPLAY ERROR MESSAGE AND CANCEL IF DATE IS INVALID */
+				/*******************************************************/
+				if(!vaildDate(calendar))
+				{
+					JOptionPane.showMessageDialog(null, 
+							"Error: Invalid date! (trip date must be in the future)");
+					updateCustomerInfoDisplay(selectedCustomer);		// RESET MODIFICATION IF 
+																		// INVALID MODIFICATION
+					return; 
+				}
+				
+				/******************/ 
+				/* CONFIRM MODIFY */
+				/******************/ 
 				confirmModify = JOptionPane.showConfirmDialog
 						(null, "Are you sure you want to modify these customers?", 
 						"Confirm", JOptionPane.YES_NO_OPTION); 
+				
+				/*******************************************/ 
+				/* CANCEL MODIFICATIONS OR MODIFY CUSTOMER */
+				/*******************************************/ 
 				if (confirmModify == 1) 								// no option
 				{
 					//updateTable(customersTable, customers); 			// reset table
@@ -285,16 +361,23 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 	}
 	
 	/***************************************************************/
-	/* PRECONDITION:  MODIFICATIONS ARE LEGAL 
-	/* POSTCONDITION: 
+	/* PRECONDITION:  MODIFICATIONS ARE LEGAL 					   */
+	/* POSTCONDITION: MODIFIES CUSTOMER (SETS CUSTOMER DETAILS TO  */
+	/* 	 			  NEW ENTERED INFORMATION), RESCHEUDULES TRIP  */
+	/*				  AND RECALCULATES PROFIT 					   */
 	/***************************************************************/
 	private void modifyCustomer(Customer slctdCstmr) 
 	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
 		int id = Integer.parseInt(idField.getText()); 		// NEW ID OF SELECTED CUSTOMER
+		LocalDate prevDate = slctdCstmr.getDate(); 			// CUSTOMER TRIP DATE PRIOR TO 
+															// MODIFICATION (MAY NOT HAVE CHANGED)
 		
-		setCustomerDetails(slctdCstmr, nameField, sizeField, id, 
-				slctdCstmr.getId(), dateTime); 
-		BusCalculation.rescheduleTrip(slctdCstmr); 
+		setCustomerDetails(slctdCstmr, nameField, 
+				 sizeField, slctdCstmr.getIndex(), id, calendar); 		
+		BusCalculation.rescheduleTrip(slctdCstmr, prevDate); 
 		BusFinances.updateCustomerProfit(slctdCstmr); 
 		
 		// SORT ARRAY CONSIDERING MODIFICATIONS TO ID
@@ -303,8 +386,9 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 	
 	
 	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: returns year in format acceptable for DateTime
+	/* PRECONDITION:  TRIP YEAR IN DateTime FORMAT IS NEEDED	   */
+	/* POSTCONDITION: RETURNS YEAR IN FORMAT ACCEPTABLE FOR 	   */
+	/* 			      DateTime 									   */
 	/***************************************************************/
 	private int getDateTimeYear(Customer cstmr)
 	{	
@@ -312,8 +396,8 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 	}
 	
 	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: returns customer date in DateTime format
+	/* PRECONDITION:  CUSTOMER DATE IN DateTime FORMAT IS NEEDED   */
+	/* POSTCONDITION: RETURNS CUSTOMER DATE IN DateTime FORMAT	   */
 	/***************************************************************/
 	private int getDateTimeMonth(Customer cstmr) 
 	{
@@ -321,8 +405,8 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 	}
 	
 	/***************************************************************/
-	/* PRECONDITION: 
-	/* POSTCONDITION: returns customer date in DateTime format
+	/* PRECONDITION:  CUSTOMER DATE IN DateTime FORMAT IS NEEDED   */
+	/* POSTCONDITION: RETURNS CUSTOMER DATE IN DateTime FORMAT	   */
 	/***************************************************************/
 	private int getDateTimeDay(Customer cstmr) 
 	{
@@ -337,8 +421,8 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 	{
 		nameField.setText(cstmr.getName());
 		sizeField.setText(Integer.toString(cstmr.getNumPersons()));
-		idField.setText(Integer.toString(customersTable.getSelectionIndex()));
-		dateTime.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), 
+		idField.setText(Integer.toString(cstmr.getId()));
+		calendar.setDate(getDateTimeYear(cstmr), getDateTimeMonth(cstmr), 
 				getDateTimeDay(cstmr));
 	}
 }

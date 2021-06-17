@@ -172,6 +172,40 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		updateTable(tbl, cstmrs); 
 	}
 	
+	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
+	/************************************************************************************************/
+	/* PRECONDITION:  A CUSTOMER NEEDS TO BE ADDED AT THE END OF THE ARRAY LIST OF CUSTOMERS		*/
+	/* POSTCONDITION: ADDS THE CUSTOMER TO THE ARRAY LIST OF CUSTOMERS, SCHEDULES THE CUSTOMER'S 	*/
+	/*				  TRIP, CALCULATES PROFIT FROM CUSTOMER											*/
+	/************************************************************************************************/
+	{
+		/*************************************************/
+		/* METHOD CALL TO ADD CUSTOMER TO CUSTOMERS LIST */
+		/*************************************************/
+		cstmrs.add(cstmr);
+		
+		/********************************************/
+		/* METHOD CALL TO SORT CUSTOMERS LIST BY ID */
+		/********************************************/
+		cstmrs.sort(new Customer.CompareId());
+		
+		/*****************************************************************************/
+		/* METHOD CALLS TO SCHEDULE CUSTOMER TRIP ON DATE STORED IN CUSTOMER OBJECT, */
+		/* AND DISPLAY NUMBER OF PERSONS REFUNDED IF ANY 					  		 */ 
+		/*****************************************************************************/
+		BusCalculation.displayRefundDialog(BusCalculation.scheduleTrip(cstmr));
+		
+		/***************************************************************************/
+		/* METHOD CALL TO UPDATE PROFIT IN CUSTOMER OBJECT AND UPDATE TOTAL PROFIT */
+		/***************************************************************************/
+		BusFinances.updateCustomerProfit(cstmr); 
+		
+		/************************************************/
+		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
+		/************************************************/
+		updateTable(tbl, cstmrs); 
+	}
+	
 	protected void reAddCustomer(ArrayList<Customer> cstmrs, Customer cstmr, int indx, Table tbl) 
 	/************************************************************************************************/
 	/* PRECONDITION:  A CUSTOMER NEEDS TO BE ADDED BACK TO THE ARRAY LIST OF CUSTOMERS				*/
@@ -210,40 +244,6 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		/********************************************/
 		cstmrs.sort(new Customer.CompareId());
 	
-		/************************************************/
-		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
-		/************************************************/
-		updateTable(tbl, cstmrs); 
-	}
-	
-	protected void addCustomer(ArrayList<Customer> cstmrs, Customer cstmr, Table tbl) 
-	/************************************************************************************************/
-	/* PRECONDITION:  A CUSTOMER NEEDS TO BE ADDED AT THE END OF THE ARRAY LIST OF CUSTOMERS		*/
-	/* POSTCONDITION: ADDS THE CUSTOMER TO THE ARRAY LIST OF CUSTOMERS, SCHEDULES THE CUSTOMER'S 	*/
-	/*				  TRIP, CALCULATES PROFIT FROM CUSTOMER											*/
-	/************************************************************************************************/
-	{
-		/*************************************************/
-		/* METHOD CALL TO ADD CUSTOMER TO CUSTOMERS LIST */
-		/*************************************************/
-		cstmrs.add(cstmr);
-		
-		/********************************************/
-		/* METHOD CALL TO SORT CUSTOMERS LIST BY ID */
-		/********************************************/
-		cstmrs.sort(new Customer.CompareId());
-		
-		/*****************************************************************************/
-		/* METHOD CALLS TO SCHEDULE CUSTOMER TRIP ON DATE STORED IN CUSTOMER OBJECT, */
-		/* AND DISPLAY NUMBER OF PERSONS REFUNDED IF ANY 					  		 */ 
-		/*****************************************************************************/
-		BusCalculation.displayRefundDialog(BusCalculation.scheduleTrip(cstmr));
-		
-		/***************************************************************************/
-		/* METHOD CALL TO UPDATE PROFIT IN CUSTOMER OBJECT AND UPDATE TOTAL PROFIT */
-		/***************************************************************************/
-		BusFinances.updateCustomerProfit(cstmr); 
-		
 		/************************************************/
 		/* METHOD CALL UPDATE TABLE (LIST OF CUSTOMERS) */
 		/************************************************/
@@ -304,6 +304,39 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 			if (customers.get(i).getId() == id) 
 			{
 				return false; 
+			}
+		}
+		return true; 
+	}
+	
+	/********************************************************************************/
+	/* PRECONDITION:  AN ID IS ENTERED, CUSTOMER SHOULD BE IN CUSTOMERS LIST		*/
+	/* POSTCONDITION: RETURNS TRUE IF THE ID DOES NOT MATCH ANY OTHER CUSTOMER,		*/
+	/*				  FALSE IF NOT													*/
+	/********************************************************************************/
+	public boolean uniqueID(int id, ArrayList<Customer> customers, Customer cstmr)
+	{
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		int customerIndex = customers.indexOf(cstmr); 	// INDEX OF CUSTOMER IN CUSTOMERS LIST
+														// (-1 IF NOT IN LIST)
+		
+		/*******************************************/
+		/* FOR LOOP ITERATE THROUGH CUSTOMERS LIST */
+		/*******************************************/
+		for (int i = 0; i < customers.size(); i++) 
+		{
+			/********************************************************/
+			/* IF A CUSTOMER'S ID IS IDENTICAL TO THE ID SUBMITTED, */
+			/* RETURN FALSE 										*/
+			/********************************************************/ 
+			if (customers.get(i).getId() == id) 
+			{
+				if (i != customerIndex)
+				{
+					return false; 
+				}
 			}
 		}
 		return true; 
