@@ -228,9 +228,9 @@ public class ProvinceGeneration
 						int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
 						int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
 						
-						int rgb = determineColor(x + xOffset, localY + yOffset); 
+						int rgb = determineColor(x, xOffset, localY, yOffset); 
 						points.get(localY).get(x).set(0, Integer.valueOf(rgb)); 	
-						//System.out.println("x: " + x + " y: " + localY); // ok working
+						System.out.println("x: " + x + " y: " + localY); // ok working
 						image.setRGB(x, localY, rgb);
 					}
 				}
@@ -330,7 +330,7 @@ public class ProvinceGeneration
 		}
 	}
 	
-	private static int determineColor(int x, int y) 
+	private static int determineColor(int x, int xOffset, int y, int yOffset) 
 	{
 		int nearestColor = rgb_white; 			// color of nearest seed (int value) 
 			           							// (default white)
@@ -341,13 +341,14 @@ public class ProvinceGeneration
 		for (int s = 0; s < seeds.size(); s++) 
 		{
 			// calculate the difference in x and y direction
-			int xdiff = seeds.get(s).get(0) - x;
-			int ydiff = seeds.get(s).get(1) - y;
+			int xdiff = seeds.get(s).get(0) - (x + xOffset);
+			int ydiff = seeds.get(s).get(1) - (y + yOffset);
 
 	        // calculate euclidean distance, sqrt is not needed
 	        // because we only compare and do not need the real value
 	        int cdist = xdiff*xdiff + ydiff*ydiff;
 	        
+	        //System.out.println(x + ", " + y); 
 	        // calculate sea or land prov. 
 	        if (heightmap.getRGB(x, y) < SEA_LEVEL_INT_RGB)
 	        {
