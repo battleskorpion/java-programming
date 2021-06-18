@@ -12,14 +12,14 @@ import org.spongepowered.noise.module.source.Simplex;
 
 public class ProvinceGeneration 
 {
-	public static int imageHeight = 2048;	// 1024 works	// 2048 - default
-	public static int imageWidth = 5632; 	// 1024 works	// 5632 - default
+	public static int imageHeight = 512;	// 1024 works	// 2048 - default
+	public static int imageWidth = 512; 	// 1024 works	// 5632 - default
 	
 	public static Color WHITE = new Color(255, 255, 255); 
 	public static int INT_WHITE = ((WHITE.getRed() << 8) + WHITE.getGreen()) << 8 + WHITE.getBlue(); 
 	
-	public static int numSeedsY = 64; 
-	public static int numSeedsX = 64; 
+	public static int numSeedsY = 64; 		// 64 is ok
+	public static int numSeedsX = 64; 		// 64 is ok
 	
 	public static int HEIGHTMAP_SEA_LEVEL = 95; 
 	
@@ -188,22 +188,65 @@ public class ProvinceGeneration
 		Simplex noise = new Simplex(); 
 		noise.setNoiseQuality(NoiseQualitySimplex.SMOOTH); 
 		
+		// works but slow
+		//for (int y = 0; y < imageHeight; y++) 
+		//{
+		//	for (int x = 0; x < imageWidth; x++) 
+		//	{
+		//		//Noise.gradientCoherentNoise3D(x, y, 0.0, 1, NoiseQuality.STANDARD)
+		//		//Noise.gradientCoherentNoise3D(x, y, 0.0, 1, NoiseQuality.STANDARD) garbage
+		//		int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));	// test idk	// *3 is just a good number
+		//		int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));
+		//		//System.out.println(xOffset + ", " + yOffset); 
+		//		int rgb = determineColor(x + xOffset, y + yOffset); 
+		//		
+		//		points.get(y).get(x).set(0, Integer.valueOf(rgb)); 
+		//		System.out.println("x: " + x + " y: " + y); // ok working
+		//		image.setRGB(x, y, rgb);
+		//	}
+		//}
+		
+		Thread thisThread = Thread.currentThread(); 
+		// ~twice as fast using threads
 		for (int y = 0; y < imageHeight; y++) 
 		{
-			for (int x = 0; x < imageWidth; x++) 
+			
+			final int localY = y; 
+			Runnable runnable = new Runnable() 
 			{
-				//Noise.gradientCoherentNoise3D(x, y, 0.0, 1, NoiseQuality.STANDARD)
-				//Noise.gradientCoherentNoise3D(x, y, 0.0, 1, NoiseQuality.STANDARD) garbage
-				int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));	// test idk	// *3 is just a good number
-				int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));
-				//System.out.println(xOffset + ", " + yOffset); 
-				int rgb = determineColor(x + xOffset, y + yOffset); 
-				
-				points.get(y).get(x).set(0, Integer.valueOf(rgb)); 
-				System.out.println("x: " + x + " y: " + y); // ok working
-				image.setRGB(x, y, rgb);
-			}
+				public void run() 
+				{
+					for (int x = 0; x < imageWidth; x++) 
+					{
+						int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
+						int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
+						
+						int rgb = determineColor(x + xOffset, localY + yOffset); 
+						points.get(localY).get(x).set(0, Integer.valueOf(rgb)); 	
+						//System.out.println("x: " + x + " y: " + localY); // ok working
+						image.setRGB(x, localY, rgb);
+					}
+				}
+			}; 
+			
+			Thread thread = new Thread(runnable); 
+			thread.start(); 
+			try {
+				thread.join();
+			} 
+			catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 		}
+		
+		//try {
+		//	thisThread.wait();
+		//}
+		//catch (InterruptedException e) {
+		//	// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		//}
 
 		// to output file prior to special changes
 		//try 
@@ -350,16 +393,14 @@ public class ProvinceGeneration
 				{
 					point = left; 
 					points.get(y).get(x).set(0, Integer.valueOf(point));
-					image.setRGB(x, y, point); 		
+					image.setRGB(x, y, point); 	
 				}
 				else if (above == below)
 				{
 					point = above; 
 					points.get(y).get(x).set(0, Integer.valueOf(point));
-					image.setRGB(x, y, point); 		
+					image.setRGB(x, y, point); 		 
 				}		
-				
-				
 			}
 		}
 	}
@@ -372,7 +413,7 @@ public class ProvinceGeneration
 		int above;			// color of province above
 		int below;			// color of province below
 		int point;			// color of this point
-
+		
 		// skip edges for now
 		for (int y = 1; y < imageHeight - 1; y++)
 		{
@@ -385,10 +426,9 @@ public class ProvinceGeneration
 				point = points.get(y).get(x).get(0); 
 				
 				// only need three comparisons to see if all match
-				if (left == right && above == below && left == above)
+				if (left != point && right != point && above != point && below != point)
 				{
 					point = left; 		// can set to any
-					
 					points.get(y).get(x).set(0, Integer.valueOf(point)); 
 					image.setRGB(x, y, point); 	
 				}
