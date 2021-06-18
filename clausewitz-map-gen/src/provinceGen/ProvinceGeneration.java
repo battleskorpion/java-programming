@@ -12,16 +12,20 @@ import org.spongepowered.noise.module.source.Simplex;
 
 public class ProvinceGeneration 
 {
-	public static int imageHeight = 512;	// 1024 works	// 2048 - default
-	public static int imageWidth = 512; 	// 1024 works	// 5632 - default
+	public static int imageHeight = 1024;	// 1024 works	// 2048 - default
+	public static int imageWidth = 1024; 	// 1024 works	// 5632 - default
 	
 	public static Color WHITE = new Color(255, 255, 255); 
 	public static int INT_WHITE = ((WHITE.getRed() << 8) + WHITE.getGreen()) << 8 + WHITE.getBlue(); 
 	
+	public static int HEIGHTMAP_SEA_LEVEL = 95; 
+	
+	// SEA LEVEL COLOR/MAX 
+	public static final Color SEA_LEVEL_RGB = new Color(HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL); ;
+	public static final int SEA_LEVEL_INT_RGB = ((SEA_LEVEL_RGB.getRed() << 8) + SEA_LEVEL_RGB.getGreen()) << 8 + SEA_LEVEL_RGB.getBlue(); 
+	
 	public static int numSeedsY = 64; 		// 64 is ok
 	public static int numSeedsX = 64; 		// 64 is ok
-	
-	public static int HEIGHTMAP_SEA_LEVEL = 95; 
 	
 	private static ArrayList<ArrayList<ArrayList<Integer>>> points;  				// stored y, x
 	private static ArrayList<ArrayList<Integer>> seeds = new ArrayList<ArrayList<Integer>>(); // values of point stored as x, y
@@ -33,10 +37,15 @@ public class ProvinceGeneration
 	public static void main (String args[]) 
 	{
 		// variable section 
-		image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB); 
 		//ProvinceGenProgressWindow progressWindow = new ProvinceGenProgressWindow(imageHeight); 
 		Color color; 
 		Random random = new Random(); 
+		
+		loadHeightmap(); 
+		imageWidth = heightmap.getWidth(); 			
+		imageHeight = heightmap.getHeight(); 	// may break things but good idea 
+		
+		image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB); 
 		
 		initializePoints(); 
 		
@@ -64,22 +73,11 @@ public class ProvinceGeneration
 			}
 		}
 		
-	//Runnable runnableProgressWindow = () -> {progressWindow.open(Thread.currentThread()); }; 
-	//Thread threadProgressWindow = new Thread(runnableProgressWindow); 
-	//threadProgressWindow.start();
-	//try 
-	//{
-	//	Thread.currentThread().wait(); 
-	//}
-	//catch (Exception exc)
-	//{
-	//	
-	//}
+		/* seeds */  
 		
-		// seeds 
-		for (int y = imageHeight / numSeedsY / 2 - 1; y < imageHeight; y+= imageHeight / numSeedsY) 	// int y = numSeedsY / 2 - 1 worked sometimes
+		for (int y = imageHeight / numSeedsY / 2 - 1; y < imageHeight; y+= imageHeight / numSeedsY) 			// int y = numSeedsY / 2 - 1 worked sometimes
 		{
-			for (int x = imageWidth / numSeedsX / 2 - 1; x < imageWidth; x+= imageWidth / numSeedsX) 				// int x = numSeedsX / 2 - 1 worked sometimes
+			for (int x = imageWidth / numSeedsX / 2 - 1; x < imageWidth; x+= imageWidth / numSeedsX) 			// int x = numSeedsX / 2 - 1 worked sometimes
 			{
 				// set color
 				int xOffset = random.nextInt(imageWidth / numSeedsX - 1) - (imageWidth / numSeedsX / 2 - 1); 	// -3 to 3		// should make variables	// int xOffset = random.nextInt(numSeedsX - 1) - (numSeedsX / 2 - 1); 
@@ -119,7 +117,15 @@ public class ProvinceGeneration
 				seeds.get(seeds.size() - 1).add(Integer.valueOf(x + xOffset)); 
 				seeds.get(seeds.size() - 1).add(Integer.valueOf(y + yOffset));
 				seeds.get(seeds.size() - 1).add(rgb); 
-				seeds.get(seeds.size() - 1).add(Integer.valueOf(1)); 	// "true" (for later) // update: idk
+				if (heightmap.getRGB(x + xOffset, y + yOffset) < SEA_LEVEL_INT_RGB)
+				{
+					seeds.get(seeds.size() - 1).add(Integer.valueOf(1)); 	// "true" (is sea) (not great but for now ok)
+				}
+				else 
+				{
+					seeds.get(seeds.size() - 1).add(Integer.valueOf(1)); 	// "false" (not sea) (not great but for now ok)
+				}
+				
 			}
 			//progressWindow.setProgress(y); 
 		}
@@ -206,7 +212,8 @@ public class ProvinceGeneration
 		//	}
 		//}
 		
-		Thread thisThread = Thread.currentThread(); 
+		//Thread thisThread = Thread.currentThread(); 
+		
 		// ~twice as fast using threads
 		for (int y = 0; y < imageHeight; y++) 
 		{
@@ -237,6 +244,7 @@ public class ProvinceGeneration
 			catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return; 
 			} 
 		}
 		
@@ -327,11 +335,11 @@ public class ProvinceGeneration
 		int nearestColor = rgb_white; 			// color of nearest seed (int value) 
 			           							// (default white)
 		int dist = Integer.MAX_VALUE; 			// select a big number
-
+		int sea = 0; 							// sea province? (0 = false)
+		
 		// iterate through each seed
 		for (int s = 0; s < seeds.size(); s++) 
 		{
-
 			// calculate the difference in x and y direction
 			int xdiff = seeds.get(s).get(0) - x;
 			int ydiff = seeds.get(s).get(1) - y;
@@ -339,10 +347,16 @@ public class ProvinceGeneration
 	        // calculate euclidean distance, sqrt is not needed
 	        // because we only compare and do not need the real value
 	        int cdist = xdiff*xdiff + ydiff*ydiff;
-
+	        
+	        // calculate sea or land prov. 
+	        if (heightmap.getRGB(x, y) < SEA_LEVEL_INT_RGB)
+	        {
+	        	sea = 1;						// 1: true 
+	        }
+	        	
 	        // is the current distance smaller than the old distance?
-	        // if yes, take this biome
-	        if (cdist < dist) 
+	        // is it also the right type (sea/land?) 
+	        if (cdist < dist && seeds.get(s).get(3) == sea) 
 	        {
 	        	nearestColor = seeds.get(s).get(2);		// index 2 is rgb int value of seed
 	        	dist = cdist;
@@ -438,6 +452,15 @@ public class ProvinceGeneration
 	
 	private static void loadHeightmap()
 	{
+		try 
+		{
+			heightmap = BMPDecoder.read(new File("heightmap.bmp"));
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return; 
+		}
 		
 	}
 	
