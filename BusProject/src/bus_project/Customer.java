@@ -34,7 +34,8 @@ public class Customer
 	private int numPersons;			                    // NUMBER OF PEOPLE IN GROUP
 	private int numPersonsRefunded;	                    // number refunded
 	private LocalDate date; 		                    // date of trip
-	private int index;				                    // INDEX CUSTOMER IS/WAS AT IF BEING STORED IN AN ARRAY
+	private int index;				                    // INDEX CUSTOMER IS/WAS AT IF BEING STORED 
+														// IN AN ARRAY
 	private int id; 				                    // CUSTOMER ID NUMBER
 	private double totalPrice; 		                    // total price of all tickets for group 
 	
@@ -147,7 +148,7 @@ public class Customer
 	/*				  AS A STRING OF CUSTOMERS								*/
 	/************************************************************************/
 	{
-		return Finances.nf.format(totalPrice); 
+		return BusFinances.currency.getSymbol() + BusFinances.nf.format(totalPrice); 
 	}
 
 	public void setDate(LocalDate dt)

@@ -98,7 +98,8 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		/******************************************************************/
 		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
 		/******************************************************************/
-		shlProfitByDate.forceActive();							// SO WINDOW WILL BE FOCUSED WHEN CREATED
+		shlProfitByDate.forceActive();							// SO WINDOW WILL BE FOCUSED 
+																// WHEN CREATED
 		
 		/*************************************************/
 		/* METHOD TO ENACT LAYOUT OF SHELL IF APPLICABLE */
@@ -131,7 +132,8 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		
 		shlProfitByDate = new Shell();
 		shlProfitByDate.setSize(880, 330);
-		shlProfitByDate.setText(Messages.getString("ProfitByDate.shlProfitByDate.text")); //$NON-NLS-1$
+		shlProfitByDate.setText(Messages.getString
+				("ProfitByDate.shlProfitByDate.text")); 								//$NON-NLS-1$
 		
 		DateTime dateTime = new DateTime(shlProfitByDate, SWT.BORDER | SWT.CALENDAR);
 		dateTime.setBounds(10, 10, 233, 151);
@@ -198,10 +200,11 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		
 		TableColumn tblclmnProfit = new TableColumn(customersTable, SWT.NONE);
 		tblclmnProfit.setWidth(100);
-		tblclmnProfit.setText(Messages.getString("tblclmnProfit.text")); //$NON-NLS-1$
+		tblclmnProfit.setText(Messages.getString("tblclmnProfit.text")); 				//$NON-NLS-1$
+		tblclmnProfit.setAlignment(SWT.RIGHT); 
 
 		sortCustomers(); 
-		
+	
 		customerProfit = Customer::getTotalPriceFormatted;
 		updateComboBox(comboDatesList, dates); 
 		updateTable(customersTable, customersSorted, customerProfit); 

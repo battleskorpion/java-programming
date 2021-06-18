@@ -80,7 +80,7 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 		/******************************************************************/
 		/* METHOD TO FORCE SHELL TO BE ACTIVE WINDOW (FOCUSED AND ON TOP) */
 		/******************************************************************/
-		shlRemoveCustomer.forceActive();							// SO WINDOW WILL BE FOCUSED WHEN CREATED
+		shlRemoveCustomer.forceActive();				// SO WINDOW WILL BE FOCUSED WHEN CREATED
 		
 		/*************************************************/
 		/* METHOD TO ENACT LAYOUT OF SHELL IF APPLICABLE */
@@ -107,24 +107,26 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 	{
 		shlRemoveCustomer = new Shell();
 		shlRemoveCustomer.setSize(1075, 370);
-		shlRemoveCustomer.setText(Messages.getString("RemoveCustomer.shlRemoveCustomer.text")); //$NON-NLS-1$
+		shlRemoveCustomer.setText(Messages.getString
+				("RemoveCustomer.shlRemoveCustomer.text")); 							//$NON-NLS-1$
 		
 		Button btnExit = new Button(shlRemoveCustomer, SWT.NONE);
-		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
+		btnExit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
 		btnExit.setBounds(973, 295, 75, 25);
 		
 		Label lblCustomers = new Label(shlRemoveCustomer, SWT.CENTER);
-		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
+		lblCustomers.setText(Messages.getString("lblCustomers.text")); 					//$NON-NLS-1$
 		lblCustomers.setBounds(10, 10, 516, 15);
 		
 		Label lblRemovedCustomers = new Label(shlRemoveCustomer, SWT.CENTER);
-		lblRemovedCustomers.setText(Messages.getString("RemoveCustomer.lblRemovedCustomers.text")); //$NON-NLS-1$
+		lblRemovedCustomers.setText(Messages.getString
+				("RemoveCustomer.lblRemovedCustomers.text")); 							//$NON-NLS-1$
 		lblRemovedCustomers.setBounds(532, 10, 516, 15);
 		
 		Button btnDelete = new Button(shlRemoveCustomer, SWT.NONE);
 		
 		btnDelete.setBounds(10, 295, 255, 25);
-		btnDelete.setText(Messages.getString("btnDelete.text")); //$NON-NLS-1$
+		btnDelete.setText(Messages.getString("btnDelete.text")); 						//$NON-NLS-1$
 		
 		Button btnUndoDelete = new Button(shlRemoveCustomer, SWT.NONE);
 		
@@ -139,7 +141,8 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 		/* CUSTOMERS TABLE */
 		/*******************/
 		customersTable = new Table(shlRemoveCustomer, SWT.BORDER | SWT.FULL_SELECTION);
-		customersTable.setToolTipText(Messages.getString("RemoveCustomer.customersTable.toolTipText")); //$NON-NLS-1$
+		customersTable.setToolTipText(Messages.getString
+				("RemoveCustomer.customersTable.toolTipText"));							//$NON-NLS-1$
 		customersTable.setLinesVisible(true);
 		customersTable.setHeaderVisible(true);
 		customersTable.setBounds(10, 31, 516, 252);

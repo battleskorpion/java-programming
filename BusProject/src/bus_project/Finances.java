@@ -24,8 +24,8 @@ public abstract class Finances
 	/*********************/
 	/* CONSTANTS SECTION */
 	/*********************/
-	public static NumberFormat nf = NumberFormat.getNumberInstance();
-	public static Currency currency; 
+	protected static NumberFormat nf = NumberFormat.getNumberInstance();
+	protected static Currency currency; 
 	
 	/********************/
 	/* VARIABLE SECTION */

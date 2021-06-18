@@ -8,8 +8,6 @@ import java.util.Random;
 
 import net.sf.image4j.codec.bmp.*; 
 import org.spongepowered.noise.*;
-import org.spongepowered.noise.module.source.Perlin;
-import org.spongepowered.noise.module.source.RidgedMulti;
 import org.spongepowered.noise.module.source.Simplex;
 
 public class ProvinceGeneration 
@@ -202,7 +200,7 @@ public class ProvinceGeneration
 				int rgb = determineColor(x + xOffset, y + yOffset); 
 				
 				points.get(y).get(x).set(0, Integer.valueOf(rgb)); 
-				//System.out.println("x: " + x + " y: " + y); // ok working
+				System.out.println("x: " + x + " y: " + y); // ok working
 				image.setRGB(x, y, rgb);
 			}
 		}
