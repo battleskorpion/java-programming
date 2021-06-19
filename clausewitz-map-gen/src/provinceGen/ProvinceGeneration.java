@@ -12,8 +12,8 @@ import org.spongepowered.noise.module.source.Simplex;
 
 public class ProvinceGeneration 
 {
-	public static int imageHeight = 1024;	// 1024 works	// 2048 - default
-	public static int imageWidth = 1024; 	// 1024 works	// 5632 - default
+	public static int imageHeight = 256;	// 1024 works	// 2048 - default
+	public static int imageWidth = 256; 	// 1024 works	// 5632 - default
 	
 	public static Color WHITE = new Color(255, 255, 255); 
 	public static int INT_WHITE = ((WHITE.getRed() << 8) + WHITE.getGreen()) << 8 + WHITE.getBlue(); 
@@ -24,8 +24,8 @@ public class ProvinceGeneration
 	public static final Color SEA_LEVEL_RGB = new Color(HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL); ;
 	public static final int SEA_LEVEL_INT_RGB = ((SEA_LEVEL_RGB.getRed() << 8) + SEA_LEVEL_RGB.getGreen()) << 8 + SEA_LEVEL_RGB.getBlue(); 
 	
-	public static int numSeedsY = 64; 		// 64 is ok
-	public static int numSeedsX = 64; 		// 64 is ok
+	public static int numSeedsY = 32; 		// 64 is ok
+	public static int numSeedsX = 32; 		// 64 is ok
 	
 	private static ArrayList<ArrayList<ArrayList<Integer>>> points;  				// stored y, x
 	private static ArrayList<ArrayList<Integer>> seeds = new ArrayList<ArrayList<Integer>>(); // values of point stored as x, y
@@ -84,24 +84,36 @@ public class ProvinceGeneration
 				int yOffset = random.nextInt(imageHeight / numSeedsY - 1) - (imageHeight / numSeedsY / 2 - 1); 	// -3 to 3		// should make variables	// int yOffset = random.nextInt(numSeedsY - 1) - (numSeedsY / 2 - 1);
 				int rgb; 								// rgb color int value
 				
-				color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)); 
+				// heightmap color stuff
+				int heightmapRGB; 
+				int red; 
+
+				heightmapRGB = heightmap.getRGB(x + xOffset, y + yOffset); 
+				red = (heightmapRGB >> 16) & 0xFF;
+				//int green = (heightmapRGB >> 8) & 0xFF;		// grayscale, only need one to compare
+				//int blue = heightmapRGB & 0xFF;				// grayscale, only need one to compare
 				
-				// Color -> int
-				rgb = color.getRed(); 
-				rgb = (rgb << 8) + color.getGreen();
-				rgb = (rgb << 8) + color.getBlue();
-				
-				// set color at pixel cords
-				try
+				if (red < HEIGHTMAP_SEA_LEVEL)
 				{
-					image.setRGB(x + xOffset, y + yOffset, rgb);
+					/* prov color */
+					color = new Color(random.nextInt(64), random.nextInt(64), random.nextInt(64)); 
+					
+					// Color -> int
+					rgb = color.getRed(); 
+					rgb = (rgb << 8) + color.getGreen();
+					rgb = (rgb << 8) + color.getBlue();
+		
 				}
-				catch (ArrayIndexOutOfBoundsException exc)
+				else 
 				{
-					exc.printStackTrace();
-					System.out.println("x: " + (x + xOffset)); 
-					System.out.println("y: " + (y + yOffset)); 
-					//continue; 	// skip rest of iteration 
+					/* prov color */
+					color = new Color(random.nextInt(192) + 64, random.nextInt(192) + 64, random.nextInt(192) + 64); 
+					
+					// Color -> int
+					rgb = color.getRed(); 
+					rgb = (rgb << 8) + color.getGreen();
+					rgb = (rgb << 8) + color.getBlue();
+					
 				}
 				
 				// add point to points array
@@ -117,13 +129,27 @@ public class ProvinceGeneration
 				seeds.get(seeds.size() - 1).add(Integer.valueOf(x + xOffset)); 
 				seeds.get(seeds.size() - 1).add(Integer.valueOf(y + yOffset));
 				seeds.get(seeds.size() - 1).add(rgb); 
-				if (heightmap.getRGB(x + xOffset, y + yOffset) < SEA_LEVEL_INT_RGB)
+				if (red < HEIGHTMAP_SEA_LEVEL)
 				{
 					seeds.get(seeds.size() - 1).add(Integer.valueOf(1)); 	// "true" (is sea) (not great but for now ok)
 				}
 				else 
 				{
-					seeds.get(seeds.size() - 1).add(Integer.valueOf(1)); 	// "false" (not sea) (not great but for now ok)
+					seeds.get(seeds.size() - 1).add(Integer.valueOf(0)); 	// "false" (not sea) (not great but for now ok)
+				}
+				
+				// set color at pixel cords
+				try
+				{
+					image.setRGB(x + xOffset, y + yOffset, rgb);
+				}
+				catch (ArrayIndexOutOfBoundsException exc)
+				{
+					exc.printStackTrace();
+					System.out.println("x: " + (x + xOffset)); 
+					System.out.println("y: " + (y + yOffset)); 
+					return; 
+					//continue; 	// skip rest of iteration 
 				}
 				
 			}
@@ -225,12 +251,12 @@ public class ProvinceGeneration
 				{
 					for (int x = 0; x < imageWidth; x++) 
 					{
-						int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
-						int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
+						int xOffset = 0; //(int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
+						int yOffset = 0; //(int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
 						
 						int rgb = determineColor(x, xOffset, localY, yOffset); 
 						points.get(localY).get(x).set(0, Integer.valueOf(rgb)); 	
-						System.out.println("x: " + x + " y: " + localY); // ok working
+						//System.out.println("x: " + x + " y: " + localY); // ok working
 						image.setRGB(x, localY, rgb);
 					}
 				}
@@ -350,17 +376,28 @@ public class ProvinceGeneration
 	        
 	        //System.out.println(x + ", " + y); 
 	        // calculate sea or land prov. 
-	        if (heightmap.getRGB(x, y) < SEA_LEVEL_INT_RGB)
+	        // (heightmapRGB >> 16) & 0xFF to get red value
+	        if (((heightmap.getRGB(x, y) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL)
 	        {
 	        	sea = 1;						// 1: true 
-	        }
 	        	
+	        }
+	        //else {
+	        //	System.out.println(sea); 
+	        //}
+	        
 	        // is the current distance smaller than the old distance?
 	        // is it also the right type (sea/land?) 
 	        if (cdist < dist && seeds.get(s).get(3) == sea) 
 	        {
+	        	//System.out.println("sea: " + sea + ", sea: " + seeds.get(s).get(3) + "cdist: " + cdist + " dist: " + dist); 
 	        	nearestColor = seeds.get(s).get(2);		// index 2 is rgb int value of seed
 	        	dist = cdist;
+	        	
+	        }
+	        else 
+	        {
+	        	//System.out.println("sea: " + sea + ", sea: " + seeds.get(s).get(3) + "cdist: " + cdist + " dist: " + dist); 
 	        }
 		}
 			            
