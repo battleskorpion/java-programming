@@ -56,9 +56,6 @@ import org.eclipse.swt.layout.GridLayout;				// LAYS OUT THE CONTROL CHILDREN OF
 														// GRID FORMAT).
 import org.eclipse.swt.layout.GridData;					// GRIDDATA IS THE LAYOUT DATA OBJECT
 														// ASSOCIATED WITH GRIDLAYOUT.
-import org.eclipse.swt.events.ControlAdapter;			// PROVIDES DEFAULT IMPLEMENTATIONS FOR THE 
-														// METHODS DESCRIBED BY THE CONTROLLISTENER 
-														// INTERFACE. 
 import org.eclipse.swt.browser.Browser;					// INSTANCES OF THIS CLASS ARE SENT AS A 
 														// RESULT OF CONTROLS BEING MOVED OR RESIZED.
 import org.eclipse.swt.custom.StackLayout;
