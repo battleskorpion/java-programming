@@ -1,22 +1,14 @@
 package provinceGen;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import net.sf.image4j.codec.bmp.*; 
 import org.spongepowered.noise.*;
 import org.spongepowered.noise.module.source.Simplex;
-
-import de.jilocasin.nearestneighbour.kdtree.KdPoint;
-import de.jilocasin.nearestneighbour.kdtree.KdTree;
-import de.jilocasin.nearestneighbour.nnsolver.NNSolver;
-import de.jilocasin.nearestneighbour.nnsolver.NNSolverOrchestrator;
 
 public class ProvinceGeneration 
 {
