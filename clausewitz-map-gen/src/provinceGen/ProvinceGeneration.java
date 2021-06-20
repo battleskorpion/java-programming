@@ -1,19 +1,27 @@
 package provinceGen;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.sf.image4j.codec.bmp.*; 
 import org.spongepowered.noise.*;
 import org.spongepowered.noise.module.source.Simplex;
 
+import de.jilocasin.nearestneighbour.kdtree.KdPoint;
+import de.jilocasin.nearestneighbour.kdtree.KdTree;
+import de.jilocasin.nearestneighbour.nnsolver.NNSolver;
+import de.jilocasin.nearestneighbour.nnsolver.NNSolverOrchestrator;
+
 public class ProvinceGeneration 
 {
-	public static int imageHeight = 256;	// 1024 works	// 2048 - default
-	public static int imageWidth = 256; 	// 1024 works	// 5632 - default
+	public static int imageHeight = 2048;	// 1024, 512, 256 works	// 2048 - default
+	public static int imageWidth = 5632; 	// 1024, 512, 256 works	// 5632 - default
 	
 	public static Color WHITE = new Color(255, 255, 255); 
 	public static int INT_WHITE = ((WHITE.getRed() << 8) + WHITE.getGreen()) << 8 + WHITE.getBlue(); 
@@ -24,11 +32,14 @@ public class ProvinceGeneration
 	public static final Color SEA_LEVEL_RGB = new Color(HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL); ;
 	public static final int SEA_LEVEL_INT_RGB = ((SEA_LEVEL_RGB.getRed() << 8) + SEA_LEVEL_RGB.getGreen()) << 8 + SEA_LEVEL_RGB.getBlue(); 
 	
-	public static int numSeedsY = 32; 		// 64 is ok
-	public static int numSeedsX = 32; 		// 64 is ok
+	public static int numSeedsY = 64; 		// 64 is ok	// 64^2 = 4096
+	public static int numSeedsX = 64; 		// 64 is ok // 64^2 = 4096
 	
-	private static ArrayList<ArrayList<ArrayList<Integer>>> points;  				// stored y, x
-	private static ArrayList<ArrayList<Integer>> seeds = new ArrayList<ArrayList<Integer>>(); // values of point stored as x, y
+	private static ArrayList<ArrayList<ArrayList<Integer>>> points;  								// stored y, x
+	private static ArrayList<ArrayList<Integer>> seedsLand = new ArrayList<ArrayList<Integer>>(); 	// values of point stored as x, y
+	private static ArrayList<ArrayList<Integer>> seedsSea = new ArrayList<ArrayList<Integer>>(); 	// values of point stored as x, y
+	//private static ArrayList<Integer> seeds = new ArrayList<Integer>(); 		// just stores rgb values 
+	//private static ArrayList<Point> seedsCoords = new ArrayList<Point>(); 
 	
 	private static int rgb_white; 
 	private static BufferedImage image; 
@@ -74,7 +85,8 @@ public class ProvinceGeneration
 		}
 		
 		/* seeds */  
-		
+	
+		// (seed generation is very quick) 
 		for (int y = imageHeight / numSeedsY / 2 - 1; y < imageHeight; y+= imageHeight / numSeedsY) 			// int y = numSeedsY / 2 - 1 worked sometimes
 		{
 			for (int x = imageWidth / numSeedsX / 2 - 1; x < imageWidth; x+= imageWidth / numSeedsX) 			// int x = numSeedsX / 2 - 1 worked sometimes
@@ -116,28 +128,53 @@ public class ProvinceGeneration
 					
 				}
 				
-				// add point to points array
+				/* calculate sea or land prov. */  
+				int type = 0; // 0: land
+				// (heightmapRGB >> 16) & 0xFF to get red value (only value necessary since grayscale) 
+				if (((heightmap.getRGB(x, y) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL)
+				{
+					type = 1; // 1: sea  	
+				}
+				
+				/* add point to points array */
 				// x and y not needed as should correlate to place in arraylist
 				points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset))
-				.add(rgb); 
+				.set(0, rgb); 
 				points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset))
-				.add(Integer.valueOf(1)); 	// "true" (for later) // update: idk // (its a seed) 
+				.set(1, Integer.valueOf(1)); 	// "true" (for later) // (its a seed) 
+				points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset))
+				.set(2, Integer.valueOf(type)); // type of province (sea or land) 
+				if (type == 1)
+				{
+					//System.out.println(points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset)).get(points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset)).size() - 1)); 
+					
+				}
+				//System.out.println(points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset)).get(2).toString()); 	
+				
 				
 				// add point to seeds array 
 				// x and y needed
-				seeds.add(new ArrayList<Integer>(4)); 
-				seeds.get(seeds.size() - 1).add(Integer.valueOf(x + xOffset)); 
-				seeds.get(seeds.size() - 1).add(Integer.valueOf(y + yOffset));
-				seeds.get(seeds.size() - 1).add(rgb); 
 				if (red < HEIGHTMAP_SEA_LEVEL)
 				{
-					seeds.get(seeds.size() - 1).add(Integer.valueOf(1)); 	// "true" (is sea) (not great but for now ok)
+					seedsSea.add(new ArrayList<Integer>(4)); 
+					seedsSea.get(seedsSea.size() - 1).add(Integer.valueOf(x + xOffset)); 
+					seedsSea.get(seedsSea.size() - 1).add(Integer.valueOf(y + yOffset));
+					seedsSea.get(seedsSea.size() - 1).add(rgb); 
+					seedsSea.get(seedsSea.size() - 1).add(1); 	// "true" (is sea) (not great but for now ok)	//TODO: Unnecessary  
 				}
 				else 
 				{
-					seeds.get(seeds.size() - 1).add(Integer.valueOf(0)); 	// "false" (not sea) (not great but for now ok)
+					seedsLand.add(new ArrayList<Integer>(4)); 
+					seedsLand.get(seedsLand.size() - 1).add(Integer.valueOf(x + xOffset)); 
+					seedsLand.get(seedsLand.size() - 1).add(Integer.valueOf(y + yOffset));
+					seedsLand.get(seedsLand.size() - 1).add(rgb); 
+					seedsLand.get(seedsLand.size() - 1).add(0); 	// "false" (not sea) (not great but for now ok)	//TODO: Unnecessary 
+					
 				}
 				
+				//seedsCoords.add(new Point(x + xOffset, y + yOffset)); 
+				//seeds.add(rgb); 
+
 				// set color at pixel cords
 				try
 				{
@@ -243,7 +280,7 @@ public class ProvinceGeneration
 		// ~twice as fast using threads
 		for (int y = 0; y < imageHeight; y++) 
 		{
-			
+			//System.out.println("y = " + y); // ok working
 			final int localY = y; 
 			Runnable runnable = new Runnable() 
 			{
@@ -251,10 +288,20 @@ public class ProvinceGeneration
 				{
 					for (int x = 0; x < imageWidth; x++) 
 					{
-						int xOffset = 0; //(int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
-						int yOffset = 0; //(int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
+						int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
+						int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
+						int rgb;
 						
-						int rgb = determineColor(x, xOffset, localY, yOffset); 
+						if (((heightmap.getRGB(x, localY) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL)
+						{
+							rgb = determineColor(x, xOffset, localY, yOffset, seedsSea); 
+						}
+						else 
+						{
+							rgb = determineColor(x, xOffset, localY, yOffset, seedsLand); 
+						}
+		
+						//System.out.println(rgb); 
 						points.get(localY).get(x).set(0, Integer.valueOf(rgb)); 	
 						//System.out.println("x: " + x + " y: " + localY); // ok working
 						image.setRGB(x, localY, rgb);
@@ -331,6 +378,8 @@ public class ProvinceGeneration
 		}
 		
 		//System.out.println(points.toString()); // NO
+		System.out.println(seedsSea.size());
+		System.out.println(seedsLand.size());
 		System.out.println("end."); 
 	}
 	
@@ -340,7 +389,7 @@ public class ProvinceGeneration
 		
 		for (int y = 0; y < imageHeight; y++)
 		{
-			points.add(new ArrayList<ArrayList<Integer>>(imageHeight * 4));
+			points.add(new ArrayList<ArrayList<Integer>>(imageWidth));
 			for (int x = 0; x < imageWidth; x++)
 			{
 				points.get(y).add(new ArrayList<Integer>(4)); 
@@ -350,18 +399,68 @@ public class ProvinceGeneration
 				{
 					// white color default
 					points.get(y).get(x).add(rgb_white); 			// white color default
-					points.get(y).get(x).add(Integer.valueOf(0)); 	// 0 for false
+					points.get(y).get(x).add(0); 					// 0 for false
+					points.get(y).get(x).add(0);					// 0 default
 				}
 			}
 		}
 	}
 	
-	private static int determineColor(int x, int xOffset, int y, int yOffset) 
+	//// TODO: function takes forever
+	//private static int determineColor(int x, int xOffset, int y, int yOffset) 
+	//{
+	//	int nearestColor = rgb_white; 			// color of nearest seed (int value) 
+	//		           							// (default white)
+	//	int dist = Integer.MAX_VALUE; 			// select a big number
+	//	int sea = 0; 							// sea province? (0 = false)
+	//	
+	//	// iterate through each seeda
+	//	for (int s = 0; s < seeds.size(); s++) 
+	//	{
+	//		// calculate the difference in x and y direction
+	//		int xdiff = seeds.get(s).get(0) - (x + xOffset);
+	//		int ydiff = seeds.get(s).get(1) - (y + yOffset);
+    //
+	//        // calculate euclidean distance, sqrt is not needed
+	//        // because we only compare and do not need the real value
+	//        int cdist = xdiff*xdiff + ydiff*ydiff;
+	//        
+	//        //System.out.println(x + ", " + y); 
+	//        // calculate sea or land prov. 
+	//        // (heightmapRGB >> 16) & 0xFF to get red value
+	//        if (((heightmap.getRGB(x, y) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL)
+	//        {
+	//        	sea = 1;						// 1: true 
+	//        	
+	//        }
+	//        //else {
+	//        //	System.out.println(sea); 
+	//        //}
+	//        
+	//        // is the current distance smaller than the old distance?
+	//        // is it also the right type (sea/land?) 
+	//        if (cdist < dist && seeds.get(s).get(3) == sea) 
+	//        {
+	//        	//System.out.println("sea: " + sea + ", sea: " + seeds.get(s).get(3) + "cdist: " + cdist + " dist: " + dist); 
+	//        	nearestColor = seeds.get(s).get(2);		// index 2 is rgb int value of seed
+	//        	dist = cdist;
+	//        	
+	//        }
+	//        else 
+	//        {
+	//        	//System.out.println("sea: " + sea + ", sea: " + seeds.get(s).get(3) + "cdist: " + cdist + " dist: " + dist); 
+	//        }
+	//	}
+	//		            
+	//	return nearestColor; 
+	//}
+	
+	// TODO: function is faster
+	private static int determineColor(int x, int xOffset, int y, int yOffset, ArrayList<ArrayList<Integer>> seeds) 
 	{
 		int nearestColor = rgb_white; 			// color of nearest seed (int value) 
 			           							// (default white)
 		int dist = Integer.MAX_VALUE; 			// select a big number
-		int sea = 0; 							// sea province? (0 = false)
 		
 		// iterate through each seed
 		for (int s = 0; s < seeds.size(); s++) 
@@ -369,40 +468,70 @@ public class ProvinceGeneration
 			// calculate the difference in x and y direction
 			int xdiff = seeds.get(s).get(0) - (x + xOffset);
 			int ydiff = seeds.get(s).get(1) - (y + yOffset);
-
+		
 	        // calculate euclidean distance, sqrt is not needed
 	        // because we only compare and do not need the real value
 	        int cdist = xdiff*xdiff + ydiff*ydiff;
 	        
-	        //System.out.println(x + ", " + y); 
-	        // calculate sea or land prov. 
-	        // (heightmapRGB >> 16) & 0xFF to get red value
-	        if (((heightmap.getRGB(x, y) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL)
-	        {
-	        	sea = 1;						// 1: true 
-	        	
-	        }
-	        //else {
-	        //	System.out.println(sea); 
-	        //}
-	        
 	        // is the current distance smaller than the old distance?
 	        // is it also the right type (sea/land?) 
-	        if (cdist < dist && seeds.get(s).get(3) == sea) 
+	        if (cdist < dist)
 	        {
-	        	//System.out.println("sea: " + sea + ", sea: " + seeds.get(s).get(3) + "cdist: " + cdist + " dist: " + dist); 
 	        	nearestColor = seeds.get(s).get(2);		// index 2 is rgb int value of seed
 	        	dist = cdist;
 	        	
 	        }
-	        else 
-	        {
-	        	//System.out.println("sea: " + sea + ", sea: " + seeds.get(s).get(3) + "cdist: " + cdist + " dist: " + dist); 
-	        }
 		}
-			            
+		
 		return nearestColor; 
 	}
+	
+	// TODO: this is slower :(
+	//private static int determineColor(int x, int xOffset, int y, int yOffset, ArrayList<ArrayList<Integer>> seedsTypeList) 
+	//{
+	//	int nearestColor = rgb_white; 			// color of nearest seed (int value) 
+	//			           						// (default white)
+	//	//int dist = Integer.MAX_VALUE; 			// select a big number
+	//	//int sea = 0; 							// sea province? (0 = false)
+	//	
+	//	/* Kd nearest-neighbor experimental stuff */ 
+	//	List<KdPoint<Integer>> KdPoints = new ArrayList<>();
+	//	for (int s = 0; s < seedsTypeList.size(); s++) 
+	//	{
+	//		KdPoints.add(new KdPoint<>(seedsTypeList.get(s).get(0), seedsTypeList.get(s).get(1)));	// 0, 1 for x, y
+	//	}
+	//	KdTree<Integer> tree = new KdTree<>(KdPoints);
+	//	
+	//	NNSolver<Integer> solver = new NNSolver<>(tree);
+	//	//NNSolverOrchestrator<Integer> solverOrchestrator = new NNSolverOrchestrator<>(tree);
+	//	
+	//	// is seed? calculations unnecessary (and may mess up), so return color of seed
+	//	if (points.get(y).get(x).get(1) == 1)	
+	//	{
+	//		nearestColor = points.get(y).get(x).get(0); 
+	//		return nearestColor; 
+	//	}
+	//	
+	//	//iterate through each seeda
+	//	//for (int s = 0; s < seeds.size(); s++) 
+	//	//{
+	//		
+	//		KdPoint<Integer> searchPoint = new KdPoint<>(x + xOffset, y + yOffset);
+	//		KdPoint<Integer> nearestPoint = solver.findNearestPoint(searchPoint);
+    //
+	//		Point point = new Point(nearestPoint.getAxisValue(0), nearestPoint.getAxisValue(1)); 	//0: x, 1: y 
+	//		int index = seedsCoords.indexOf(point); 
+	//		if (index >= 0)
+	//		{
+	//		 	nearestColor = seeds.get(index);		// index 0 is rgb int value of seed
+	//		 	return nearestColor; 
+	//		}
+	//		else
+	//		{
+	//			return -1; 
+	//		}
+	//	//}
+	//}
 	
 	// prerequisite: points assigned colors
 	private static void provinceSmooth()
