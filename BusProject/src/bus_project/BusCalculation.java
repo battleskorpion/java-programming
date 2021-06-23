@@ -182,25 +182,29 @@ public class BusCalculation
 		/********************************************/
 		else 
 		{		
+			/**************************************/
+			/* if/else to add date to dates array */
+			/**************************************/ 
+			if (getFirstDateAfterDate(cstmr.getDate()) == null)
+			{
+				dates.add(cstmr.getDate()); 						// add new date 
+				dateIndex = dates.size() - 1; 
+			}
+			else 
+			{
+				dateIndex = dates.indexOf(getFirstDateAfterDate(cstmr.getDate())); 
+				dates.add(dateIndex, cstmr.getDate());
+			}
+			
+			customers.add(dateIndex, new ArrayList<Customer>());	// create new ArrayList 
+																	// aligning with new date
+			
 			/****************************************************/
 			/* IF CUSTOMER'S NUMBER OF PERSONS MEETS OR EXCEEDS */
 			/* MINIMUM CAPACITY									*/
 			/****************************************************/
 			if (cstmr.getNumPersons() >= MIN_CAPACITY) 
 			{
-				// if/else to add date to dates array
-				if (getFirstDateAfterDate(cstmr.getDate()) == null)
-				{
-					dates.add(cstmr.getDate()); 						// add new date 
-					dateIndex = dates.size() - 1; 
-				}
-				else 
-				{
-					dateIndex = dates.indexOf(getFirstDateAfterDate(cstmr.getDate())); 
-					dates.add(dateIndex, cstmr.getDate());
-				}
-				customers.add(dateIndex, new ArrayList<Customer>());	// create new ArrayList 
-																		// aligning with new date
 				/************************************************************************************/
 				/* IF NUMBER OF PERSONS OF CUSTOMER TO SCHEDULE ON DATE 							*/
 				/* EXCEED MAXIMUM NUMBER OF PASSENGERS ON DATE, REFUND SOME PERSONS OF CUSTOMER 	*/
@@ -250,6 +254,8 @@ public class BusCalculation
 				numToRefund = cstmr.getNumPersons(); 
 				
 				cstmr.refundPersons(numToRefund);
+				
+				customers.get(dateIndex).add(cstmr); 
 				
 				/**************************/
 				/* RETURN NUMBER REFUNDED */
