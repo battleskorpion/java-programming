@@ -108,18 +108,15 @@ public class BlackjackTable
 	 */
 	protected void createContents() 
 	{
-
+		/* shell */ 
 		shlBlackjack = new Shell(display);
 		shlBlackjack.setSize(1280, 720);
 		shlBlackjack.setText("Blackjack");
 		
-		//TODO: Test
 		shlBlackjack.setLayout(new GridLayout());
 		shlBlackjack.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
-				//tableComposite = new Composite(shlBlackjack, SWT.EMBEDDED);
-		
-		//TODO: this works
+
+		/* table composite */ 
 		tableComposite = new Composite(shlBlackjack, SWT.EMBEDDED);
 		tableComposite.setLayout(new GridLayout(1, false));
 		GridData gd_tableComposite = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 2);
@@ -127,9 +124,8 @@ public class BlackjackTable
 		gd_tableComposite.heightHint = 668;
 		tableComposite.setLayoutData(gd_tableComposite);
 		tableComposite.setBounds(10, 55, 1244, 616);
-		
-				//tableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
+
+		/* dealer composite */ 
 		Composite dealerComposite = new Composite(tableComposite, SWT.EMBEDDED);
 		GridData gd_dealerComposite = new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1);
 		gd_dealerComposite.widthHint = 1244;
@@ -137,83 +133,29 @@ public class BlackjackTable
 		dealerComposite.setLayoutData(gd_dealerComposite);
 		java.awt.Frame tableDealerFrame = SWT_AWT.new_Frame(dealerComposite);
 		
-		tableDealerFrame.add(createSVGPanel());		// TODO: breaks windowbuilder :(
+		// svg panel
+		JPanel dealerSVGPanel = new JPanel();
+		dealerSVGPanel.setLayout(null);				//TODO: yessss
+		dealerSVGPanel.setSize(300, 400);
 		
+		createSVGCanvas(dealerSVGPanel); 
+		tableDealerFrame.add(dealerSVGPanel);		// TODO: breaks windowbuilder :(
+		
+		/* player composite */ 
 		Composite playerComposite = new Composite(tableComposite, SWT.EMBEDDED);
 		GridData gd_playerComposite = new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1);
 		gd_playerComposite.widthHint = 1244;
 		gd_playerComposite.heightHint = gd_tableComposite.heightHint / 2;
 		playerComposite.setLayoutData(gd_playerComposite);
 		java.awt.Frame tablePlayerFrame = SWT_AWT.new_Frame(playerComposite);
-				//tablePlayerFrame.setBounds(playerComposite.getBounds().x, playerComposite.getBounds().y, playerComposite.getBounds().width, playerComposite.getBounds().height); 
 		
-		JPanel panel = createSVGPanel(); 
+		// svg panel
+		JPanel playerSVGPanel = new JPanel();
+		playerSVGPanel.setLayout(null);				//TODO: yessss
+		playerSVGPanel.setSize(300, 400);
 
-				//panel.setSize(1244, gd_tableComposite.heightHint / 2);
-				//panel.setBounds(playerComposite.getBounds().x, playerComposite.getBounds().y, playerComposite.getBounds().width, playerComposite.getBounds().height); 
-				//panel.getComponent(0).setBounds(playerComposite.getBounds().x, playerComposite.getBounds().y, playerComposite.getBounds().width, playerComposite.getBounds().height);
-		tablePlayerFrame.add(panel);		// TODO: breaks windowbuilder :(
-				//tablePlayerFrame.setBounds(playerComposite.getBounds().x, playerComposite.getBounds().y, playerComposite.getBounds().width, playerComposite.getBounds().height);
-
-		tablePlayerFrame.pack();
-				//TODO: progreks?
-		
-		
-				//SashForm sashForm = new SashForm(tableComposite, SWT.VERTICAL | SWT.EMBEDDED); //TODO: Test
-				//sashForm.setBounds(10, 10, 1224, 596);
-				//dealerComposite = new Composite(tableComposite, SWT.EMBEDDED); 
-				//dealerComposite.setLayout(new GridLayout());
-				//dealerComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-				//java.awt.Frame tableFrame = SWT_AWT.new_Frame(dealerComposite);
-				//tableFrame.add(createSVGPanel());
-				//tableFrame.pack();
-				
-				/* dealer */ 
-				//dealerComposite = new Composite(sashForm, SWT.EMBEDDED); 
-				
-				//dealerCompositeFrame = SWT_AWT.new_Frame(dealerComposite);
-				
-				//dealerCompositePanel = new Panel();
-				//dealerCompositeFrame.add(dealerCompositePanel);
-				//dealerCompositePanel.setLayout(new BorderLayout(0, 0));
-				//
-				//dealerCompositePanel.setVisible(true);
-				//dealerCompositeFrame.setVisible(true);
-				//
-				//dealerCompositeRootPane = new JRootPane();
-				//dealerCompositePanel.add(dealerCompositeRootPane);
-				//
-				//dealerSVGCanvas = new JSVGCanvas();
-				//dealerCompositeFrame.add(createSVGPanel());
-				//dealerCompositeFrame.pack(); 
-				//dealerCompositeFrame.setVisible(true);
-				/*
-				 * 
-				// */
-				////dealerCompositeRootPane.add(dealerSVGCanvas);
-				//dealerCompositeRootPane.getContentPane().add(createSVGPanel(dealerSVGCanvas)); 
-				//dealerCompositeRootPane.setVisible(true);
-				//
-				/* player */
-				//playerComposite = new Composite(sashForm, SWT.EMBEDDED); 
-				
-				//playerCompositeFrame = SWT_AWT.new_Frame(playerComposite);
-				
-				//playerCompositePanel = new Panel();
-				//playerCompositeFrame.add(playerCompositePanel);
-				//playerCompositePanel.setLayout(new BorderLayout(0, 0));
-				//
-				//playerCompositeRootPane = new JRootPane();
-				//playerCompositePanel.add(playerCompositeRootPane);
-				
-				//playerSVGCanvas = new JSVGCanvas();
-				////try {
-				//	playerSVGCanvas.setURI(new File("F:/java-programming/batik-1.14/samples/3D.svg").toURI().toURL().toString());
-				//} catch (MalformedURLException e) {
-				//	// TODO Auto-generated catch block
-				//	e.printStackTrace();
-				//}
-				//playerCompositePanel.add(playerSVGCanvas);
+		createSVGCanvas(playerSVGPanel); 
+		tablePlayerFrame.add(playerSVGPanel);		// TODO: breaks windowbuilder :(
 		
 		/* composites array */ 
 		composites = new ArrayList<Composite>();
@@ -227,15 +169,13 @@ public class BlackjackTable
 
 	}
 	
-	private JPanel createSVGPanel()
+	private JSVGCanvas createSVGCanvas(JPanel panel)
 	{
 		JSVGCanvas svgCanvas = new JSVGCanvas();
-		JPanel panel = new JPanel();
-		panel.setLayout(null);		//TODO: yessss
-		panel.setSize(100, 400);
+
 		svgCanvas.setBounds(panel.getBounds());
-		//////svgCanvas.setDocumentState(JSVGCanvas.ALWAYS_DYNAMIC);
 		panel.add(svgCanvas); 
+		//////svgCanvas.setDocumentState(JSVGCanvas.ALWAYS_DYNAMIC);
 		
 		//TODO: Temp
 		File f = new File("card_deck.svg"); 	//"F:/java-programming/batik-1.14/samples/3D.svg"
@@ -246,7 +186,7 @@ public class BlackjackTable
 			e.printStackTrace();
 		}
 
-		return panel; 
+		return svgCanvas; 
 	}
 	
 	/**
