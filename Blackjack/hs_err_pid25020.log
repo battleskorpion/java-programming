@@ -1,0 +1,217 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 268435456 bytes for G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (./open/src/hotspot/os/windows/os_windows.cpp:3321), pid=25020, tid=24620
+#
+# JRE version:  (15.0.2+7) (build )
+# Java VM: OpenJDK 64-Bit Server VM (15.0.2+7-27, mixed mode, sharing, tiered, compressed oops, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Djava.library.path=F:\java-programming\org.eclipse.swt -Dfile.encoding=Cp1252 -XX:+ShowCodeDetailsInExceptionMessages blackjack.Blackjack
+
+Host: AMD Ryzen 5 1600 Six-Core Processor            , 12 cores, 15G,  Windows 10 , 64 bit Build 19041 (10.0.19041.1023)
+Time: Thu Jun 24 00:37:44 2021 Eastern Daylight Time elapsed time: 0.009765 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000002a251084a60):  JavaThread "Unknown thread" [_thread_in_vm, id=24620, stack(0x000000ae60200000,0x000000ae60300000)]
+
+Stack: [0x000000ae60200000,0x000000ae60300000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x62ae9a]
+V  [jvm.dll+0x7817a9]
+V  [jvm.dll+0x782f03]
+V  [jvm.dll+0x783563]
+V  [jvm.dll+0x216325]
+V  [jvm.dll+0x6281d9]
+V  [jvm.dll+0x61cf55]
+V  [jvm.dll+0x2cffdd]
+V  [jvm.dll+0x2cfe42]
+V  [jvm.dll+0x2d5e1c]
+V  [jvm.dll+0x32590a]
+V  [jvm.dll+0x324fd4]
+V  [jvm.dll+0x2a6f5a]
+V  [jvm.dll+0x2a80f8]
+V  [jvm.dll+0x75e241]
+V  [jvm.dll+0x3341c4]
+V  [jvm.dll+0x73e926]
+V  [jvm.dll+0x3b7557]
+V  [jvm.dll+0x3b8fe1]
+C  [jli.dll+0x52fb]
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17034]
+C  [ntdll.dll+0x52651]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ff8266c4ff0, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x000002a2510d4da0 GCTaskThread "GC Thread#0" [stack: 0x000000ae60300000,0x000000ae60400000] [id=6724]
+  0x000002a2510e6750 ConcurrentGCThread "G1 Main Marker" [stack: 0x000000ae60400000,0x000000ae60500000] [id=23976]
+  0x000002a2510e9360 ConcurrentGCThread "G1 Conc#0" [stack: 0x000000ae60500000,0x000000ae60600000] [id=22936]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff825eb7e27]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000002a25107fee0] Heap_lock - owner thread: 0x000002a251084a60
+
+Heap address: 0x0000000700c00000, size: 4084 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 0.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+Heap:
+ garbage-first heap   total 262144K, used 0K [0x0000000700c00000, 0x0000000800000000)
+  region size 2048K, 0 young (0K), 0 survivors (0K)
+ Metaspace       used 0K, capacity 0K, committed 0K, reserved 0K
+  class space    used 0K, capacity 0K, committed 0K, reserved 0K
+
+Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, OA=open archive, CA=closed archive, TAMS=top-at-mark-start (previous, next)
+
+Card table byte_map: [0x000002a264800000,0x000002a265000000] _byte_map_base: 0x000002a260ffa000
+
+Marking Bits (Prev, Next): (CMBitMap*) 0x000002a2510d5610, (CMBitMap*) 0x000002a2510d5650
+ Prev Bits: [0x000002a265800000, 0x000002a2697d0000)
+ Next Bits: [0x000002a2697d0000, 0x000002a26d7a0000)
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (1 events):
+Event: 0.005 Loaded shared library C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\java.dll
+
+
+Dynamic libraries:
+0x00007ff7c98c0000 - 0x00007ff7c98cd000 	C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\javaw.exe
+0x00007ff879dd0000 - 0x00007ff879fc5000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ff8792f0000 - 0x00007ff8793ad000 	C:\Windows\System32\KERNEL32.DLL
+0x00007ff877740000 - 0x00007ff877a08000 	C:\Windows\System32\KERNELBASE.dll
+0x00007ff877c30000 - 0x00007ff877d30000 	C:\Windows\System32\ucrtbase.dll
+0x00007ff864080000 - 0x00007ff864098000 	C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\jli.dll
+0x00007ff869240000 - 0x00007ff869259000 	C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\VCRUNTIME140.dll
+0x00007ff878c10000 - 0x00007ff878db0000 	C:\Windows\System32\USER32.dll
+0x00007ff877ac0000 - 0x00007ff877ae2000 	C:\Windows\System32\win32u.dll
+0x00007ff86b170000 - 0x00007ff86b40a000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1052_none_60b8f8fd71f5e8cb\COMCTL32.dll
+0x00007ff8781b0000 - 0x00007ff8781da000 	C:\Windows\System32\GDI32.dll
+0x00007ff878960000 - 0x00007ff8789fe000 	C:\Windows\System32\msvcrt.dll
+0x00007ff877d30000 - 0x00007ff877e3b000 	C:\Windows\System32\gdi32full.dll
+0x00007ff877510000 - 0x00007ff8775ad000 	C:\Windows\System32\msvcp_win.dll
+0x00007ff8781e0000 - 0x00007ff878210000 	C:\Windows\System32\IMM32.DLL
+0x00007ff86a280000 - 0x00007ff86a28c000 	C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\vcruntime140_1.dll
+0x00007ff846200000 - 0x00007ff846291000 	C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\msvcp140.dll
+0x00007ff825c00000 - 0x00007ff82675e000 	C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\server\jvm.dll
+0x00007ff878a00000 - 0x00007ff878aac000 	C:\Windows\System32\ADVAPI32.dll
+0x00007ff877fe0000 - 0x00007ff87807b000 	C:\Windows\System32\sechost.dll
+0x00007ff878db0000 - 0x00007ff878edb000 	C:\Windows\System32\RPCRT4.dll
+0x00007ff879820000 - 0x00007ff879828000 	C:\Windows\System32\PSAPI.DLL
+0x00007ff872b80000 - 0x00007ff872b89000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ff878ee0000 - 0x00007ff878f4b000 	C:\Windows\System32\WS2_32.dll
+0x00007ff870950000 - 0x00007ff87095a000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ff86cf50000 - 0x00007ff86cf77000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ff875e00000 - 0x00007ff875e12000 	C:\Windows\SYSTEM32\kernel.appcore.dll
+0x00007ff871bc0000 - 0x00007ff871bca000 	C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\jimage.dll
+0x00007ff8751a0000 - 0x00007ff875384000 	C:\Windows\SYSTEM32\DBGHELP.DLL
+0x00007ff861f80000 - 0x00007ff861fac000 	C:\Windows\SYSTEM32\dbgcore.DLL
+0x00007ff877ba0000 - 0x00007ff877c23000 	C:\Windows\System32\bcryptPrimitives.dll
+0x00007ff860990000 - 0x00007ff8609b5000 	C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin;C:\Windows\SYSTEM32;C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1052_none_60b8f8fd71f5e8cb;C:\Users\daria\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin\server
+
+VM Arguments:
+jvm_args: -Djava.library.path=F:\java-programming\org.eclipse.swt -Dfile.encoding=Cp1252 -XX:+ShowCodeDetailsInExceptionMessages 
+java_command: blackjack.Blackjack
+java_class_path (initial): F:\java-programming\Blackjack\bin;F:\java-programming\org.eclipse.swt;F:\java-programming\org.eclipse.swt\swt.jar;F:\java-programming\batik-1.14\batik-swing\target\classes;F:\java-programming\batik-1.14\batik-anim\target\classes;F:\java-programming\batik-1.14\batik-awt-util\target\classes;F:\java-programming\batik-1.14\batik-shared-resources\target\classes;F:\java-programming\batik-1.14\batik-util\target\classes;F:\java-programming\batik-1.14\batik-constants\target\classes;F:\java-programming\batik-1.14\batik-i18n\target\classes;F:\java-programming\batik-1.14\batik-test\target\classes;C:\Users\daria\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\daria\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\daria\.m2\repository\org\apache\xmlgraphics\xmlgraphics-commons\2.6\xmlgraphics-commons-2.6.jar;C:\Users\daria\.m2\repository\commons-io\commons-io\1.3.1\commons-io-1.3.1.jar;C:\Users\daria\.m2\repository\commons-logging\commons-logging\1.0.4\commons-logging-1.0.4.jar;F:\java-programming\batik-1.14\batik-css\target\classes;C:\Users\daria\.m2\repository\xml-apis\xml-apis-ext\1.3.04\xml-apis-ext-1.3.04.jar;F:\java-programming\batik-1.14\batik-dom\target\classes;F:\java-programming\batik-1.14\batik-ext\target\classes;F:\java-programming\batik-1.14\batik-xml\target\classes;C:\Users\daria\.m2\repository\xalan\xalan\2.7.2\xalan-2.7.2.jar;C:\Users\daria\.m2\repository\xalan\serializer\2.7.2\serializer-2.7.2.jar;C:\Users\daria\.m2\repository\xml-apis\xml-apis\1.4.01\xml-apis-1.4.01.jar;F:\java-programming\batik-1.14\batik-parser\target\classes;F:\java-programming\batik-1.14\batik-svg-dom\target\classes;F:\java-programming\batik-1.14\batik-bridge\target\classes;F:\java-programming\batik-1.14\batik-gvt\target\classes;F:\java-programming\batik-1.14\batik-script\target\classes;C:\Users\daria\.m2\repository\org\mozilla\rhino\1.7.7\rhino-1.7.7.jar;C:\Users\daria\.m2\repository\org\python\jython\2.7.0\jython-2.7.0.jar;F:
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 10                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 2097152                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 268435456                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 4282384384                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 2097152                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool ShowCodeDetailsInExceptionMessages       = true                                   {manageable} {command line}
+   size_t SoftMaxHeapSize                          = 4282384384                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=C:/Users/daria/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955/jre/bin/server;C:/Users/daria/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955/jre/bin;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Users\daria\AppData\Local\Microsoft\WindowsApps;E:\Users\Skorpion\AppData\Local\GitHubDesktop\bin;C:\Users\daria\AppData\Local\Programs\Microsoft VS Code\bin;E:\Python39\Scripts;C:\Users\daria\AppData\Local\Programs\Python\Python39\Scripts;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Users\daria\AppData\Local\Microsoft\WindowsApps;E:\Users\Skorpion\AppData\Local\GitHubDesktop\bin;C:\Users\daria\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\daria\AppData\Local\Microsoft\WindowsApps;E:\Users\Skorpion\AppData\Local\GitHubDesktop\bin;C:\Users\dar
+USERNAME=daria
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=AMD64 Family 23 Model 8 Stepping 2, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 10 , 64 bit Build 19041 (10.0.19041.1023)
+OS uptime: 2 days 9:21 hours
+
+CPU: total 12 (initial active 12) (12 cores per cpu, 2 threads per core) family 23 model 8 stepping 2 microcode 0x0, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, vzeroupper, avx, avx2, aes, clmul, 3dnowpref, lzcnt, sse4a, ht, tsc, tscinvbit, tscinv, bmi1, bmi2, adx, sha, fma, clflush, clflushopt
+
+Memory: 4k page, system-wide physical 16333M (4969M free)
+TotalPageFile size 34333M (AvailPageFile size 91M)
+current process WorkingSet (physical memory assigned to process): 10M, peak: 10M
+current process commit charge ("private bytes"): 64M, peak: 320M
+
+vm_info: OpenJDK 64-Bit Server VM (15.0.2+7-27) for windows-amd64 JRE (15.0.2+7-27), built on Dec  7 2020 20:02:38 by "mach5one" with unknown MS VC++:1925
+
+END.

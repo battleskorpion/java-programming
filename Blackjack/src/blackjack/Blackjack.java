@@ -1,121 +1,143 @@
 package blackjack;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Panel;
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Blackjack 
 {
 	// variables
+	public static BlackjackTable window; 
 	public static final String title = "Blackjack";
 	public static final int VALUE_LIMIT = 21; 					// 21 is max in Blackjack, over 21 is a bust. 
 	public static final int INITIAL_CARDS = 2; 					// number of cards to deal initially
 	
 	public static void main(String[] args)
 	{
-		Deck deck = new Deck();
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/ 
+		int runProgramResponse; 
 		
-		Hand playerHand = new Hand();
-		Hand dealerHand = new Hand();
-		ArrayList<Hand> hands = new ArrayList<Hand>(); 			// should be in the dealing order (dealer last)
-		hands.add(playerHand);
-		hands.add(dealerHand); 
-		
+		/****************************/
+		/* USER DESCRIPTION SECTION */
+		/****************************/
 		JOptionPane.showMessageDialog(null, title + "!", title, JOptionPane.PLAIN_MESSAGE);
 		
-		// starting deal
-		initialDeal(deck, hands);
-
-		displayHands(hands);
-
-		// let player hit or stay
-		dealPlayer(deck, hands, 0);
-
-		displayWinner(calculateWinner(hands));
-	}
-	
-	static void initialDeal(Deck deck, ArrayList<Hand> hands) 
-	{
-		for (int i = 0; i < INITIAL_CARDS; i++) 
-		{
-			for (int j = 0; j < hands.size(); j++) 
-			{
-				hands.get(j).add(deck.deal());
-				// testing
-				//System.out.println(j + " Hand length: " + hands[0].length());
-				//System.out.println(deck.deal());
-			}
-		}
-	}
-	
-	static void displayHands(ArrayList<Hand> hands) 
-	{
-		JOptionPane.showMessageDialog(null, "Hand: \n" + hands.get(0).toString() + "\n"
-				+ "Dealer's Hand: \n" + hands.get(hands.size() - 1).toString(),
-				title, JOptionPane.PLAIN_MESSAGE);
-	}
-	
-	static void dealPlayer(Deck deck, ArrayList<Hand> hands, int handIndex) 
-	{
-		String[] options = {"Hit", "Stay"};
-		int choice;
-
+		/******************************************************/
+		/* METHOD TO READ PROGRAM SETTINGS FROM SETTINGS FILE */
+		/******************************************************/
+		//Settings.readSettings(); 
+		
+		/***************************/
+		/* RUN PROGRAM AGAIN LOOP  */
+		/***************************/
+		/* YES: 	runProgram = 0 */
+		/* NO:  	runProgram = 1 */
+		/* CANCEL: 	runProgram = 2 */
+		/***************************/
 		do 
 		{
-			choice = JOptionPane.showOptionDialog(null, "Hit or Stay?", title, 
-					JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
-					null, options, options[1]);
-			if (options[choice].equals("Hit")) {
-				hands.get(handIndex).add(deck.deal());
-				displayHands(hands);
+			/***********************/
+			/* REOPEN PROGRAM LOOP */
+			/***********************/
+			runProgram(); 
+			runProgramResponse = runProgramPrompt(); 	
+			while (runProgramResponse == 2)
+			{
+				/***************************/
+				/* METHOD TO REOPEN WINDOW */
+				/***************************/ 
+				window.open(); 				
+				runProgramResponse = runProgramPrompt(); 
 			}
 		}
-		while (options[choice].equals("Hit"));
-
+		while (runProgramResponse == 0);
+		
+		/****************************************************/
+		/* METHOD TO SAVE PROGRAM SETTINGS TO SETTINGS FILE */
+		/****************************************************/
+		//Settings.saveSettings(); 
 	}
 	
-	static String calculateWinner(ArrayList<Hand> hands) 
-	{
-		int player = 0;
-		int dealer = hands.size() - 1; 		// dealer is last because they deal themselves last 
+	/************************************************************************************************/
+	/*											METHOD SECTION 										*/
+	/************************************************************************************************/
+	
+	static int runProgramPrompt()  
+	/************************************************************************************************/ 
+	/* PRECONDITION:  PROGRAM NEEDS TO PROMPT THE USER, IF THE PROGRAM SHOULD BE RUN AGAIN, OR NOT  */					  
+	/* POSTCONDITION: USER IS ASKED IF THEY WOULD LIKE TO RUN THE PROGRAM AGAIN (YES OR NO);        */
+	/* 				  USER'S INPUT IS RETURNED														*/
+	/************************************************************************************************/	
+	{ 
+		/********************/
+		/* VARIABLE SECTION */
+		/********************/
+		int runProgram; 				// INDICATES WHETHER USER WISHES TO RUN THE PROGRAM AGAIN
 		
-		if (hands.get(dealer).handValue() > VALUE_LIMIT) {
-			return "dealer";
-			// player busted
-		}
-		else if (hands.get(dealer).handValue() == VALUE_LIMIT) {
-			return "dealer";
-			// dealer got 21
-		}
-		else if (hands.get(dealer).handValue() > VALUE_LIMIT) {
-			return "player";
-			// dealer busted, player did not
-		}
-		else if (hands.get(dealer).handValue() > hands.get(player).handValue()) {
-			return "dealer";
-			// dealer exceeded player
-		}
-		else if (hands.get(dealer).handValue() == hands.get(player).handValue()) {
-			return "push";
-			// push
-		}
+		/*****************/
+		/* INPUT SECTION */
+		/*****************/
+		runProgram = JOptionPane.showConfirmDialog(null, "Would you like to run the program again?", 
+				"Run Program Again?", JOptionPane.YES_NO_CANCEL_OPTION); 
+		// USER SELECTS YES: 	runProgram = 0
+		// USER SELECTS NO:  	runProgram = 1
+		// USER SELECTS CANCEL: runProgram = 2
 		
-		else if (hands.get(dealer).handValue() < hands.get(player).handValue()) {
-			return "player";
-			// player exceeded dealer
-		}
-
-		return "idk";
-		// idk
-
-  	}
-
-  	static void displayWinner(String winner) 
-  	{
-		JOptionPane.showMessageDialog(null, winner, title, JOptionPane.PLAIN_MESSAGE); 
+		/******************************************/
+		/* RETURN EITHER TRUE OR FALSE		      */
+		/* DEPENDING ON VALUE OF runProgram	INPUT */
+		/******************************************/
+		return runProgram; 
 	}
+	
+	public static void runProgram()
+	/************************************************************************************************/ 
+	/* PRECONDITION:  PROGRAM NEEDS TO BE RAN  														*/					  
+	/* POSTCONDITION: CREATES NEW PROGRAM MENU AND BEGINS PROGRAM									*/
+	/************************************************************************************************/	
+	{
+		/*****************************************/
+		/* INSTANTIATE NEW MENU (RESETS PROGRAM) */
+		/*****************************************/
+		window = new BlackjackTable();
+			
+		/*************************/
+		/* METHOD TO OPEN WINDOW */
+		/*************************/
+		openWindow(); 
+	}
+	
+	//public static void languageChanged(int index)
+	///************************************************************************************************/ 
+	///* PRECONDITION:  USER HAS SELECTED A LANGUAGE/LOCALE											*/					  
+	///* POSTCONDITION: CHANGES LOCALE TO SELECTED LOCALE AND RESTARTS PROGRAM TO REFLECT CHANGES		*/
+	///************************************************************************************************/
+	//{
+	//	// 0 - en_US
+	//	// 1 - es_ES
+	//	Messages.setLocale(Messages.programLocales().get(index));	
+	//	window.close(); 
+	//	runProgram(); 
+	//}
+	
+	public static void openWindow()
+	/************************************************************************************************/ 
+	/* PRECONDITION:  PROGRAM WINDOW NEEDS TO BE OPENED/REOPENED									*/					  
+	/* POSTCONDITION: TRIES TO OPEN WINDOW, DISPLAYS ERROR IF NOT POSSIBLE 							*/
+	/************************************************************************************************/
+	{
+		/*****************************/
+		/* METHOD TO OPEN GUI WINDOW */
+		/*****************************/
+		try 
+		{
+			window.open();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error occured in main program.");
+		}
+	}
+	
 }

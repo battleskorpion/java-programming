@@ -526,7 +526,6 @@ public class JSVGCanvas extends JSVGComponent {
         } else {
             setSVGDocument(null);
         }
-
         pcs.firePropertyChange("URI", oldValue, uri);
     }
 
