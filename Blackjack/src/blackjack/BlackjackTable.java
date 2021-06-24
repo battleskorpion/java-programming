@@ -31,6 +31,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JRootPane;
+import org.eclipse.swt.layout.FillLayout;
 
 public class BlackjackTable 
 {
@@ -106,6 +107,7 @@ public class BlackjackTable
 	 */
 	protected void createContents() 
 	{
+
 		shlBlackjack = new Shell(display);
 		shlBlackjack.setSize(1280, 720);
 		shlBlackjack.setText("Blackjack");
@@ -118,15 +120,38 @@ public class BlackjackTable
 		
 		//TODO: this works
 		tableComposite = new Composite(shlBlackjack, SWT.EMBEDDED);
+		tableComposite.setLayout(new GridLayout(1, false));
+		GridData gd_tableComposite = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 2);
+		gd_tableComposite.widthHint = 1254;
+		gd_tableComposite.heightHint = 668;
+		tableComposite.setLayoutData(gd_tableComposite);
 		tableComposite.setBounds(10, 55, 1244, 616);
-		tableComposite.setLayout(new GridLayout(2, false));
-		tableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		java.awt.Frame tableDealerFrame = SWT_AWT.new_Frame(tableComposite);
-		tableDealerFrame.add(createSVGPanel());
+		//tableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		java.awt.Frame tablePlayerFrame = SWT_AWT.new_Frame(tableComposite);
-		tablePlayerFrame.add(createSVGPanel());
+		Composite dealerComposite = new Composite(tableComposite, SWT.EMBEDDED);
+		GridData gd_dealerComposite = new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1);
+		gd_dealerComposite.widthHint = 1244;
+		gd_dealerComposite.heightHint = gd_tableComposite.heightHint / 2;
+		dealerComposite.setLayoutData(gd_dealerComposite);
+		java.awt.Frame tableDealerFrame = SWT_AWT.new_Frame(dealerComposite);
+		
+		tableDealerFrame.add(createSVGPanel());		// TODO: breaks windowbuilder :(
+		
+		Composite playerComposite = new Composite(tableComposite, SWT.EMBEDDED);
+		GridData gd_playerComposite = new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1);
+		gd_playerComposite.widthHint = 1244;
+		gd_playerComposite.heightHint = gd_tableComposite.heightHint / 2;
+		playerComposite.setLayoutData(gd_playerComposite);
+		java.awt.Frame tablePlayerFrame = SWT_AWT.new_Frame(playerComposite);
+		//tablePlayerFrame.setBounds(playerComposite.getBounds().x, playerComposite.getBounds().y, playerComposite.getBounds().width, playerComposite.getBounds().height); 
+		
+		JPanel panel = createSVGPanel(); 
+		panel.setSize(1244, gd_tableComposite.heightHint / 2);
+		//panel.setBounds(playerComposite.getBounds().x, playerComposite.getBounds().y, playerComposite.getBounds().width, playerComposite.getBounds().height); 
+		//panel.getComponent(0).setBounds(playerComposite.getBounds().x, playerComposite.getBounds().y, playerComposite.getBounds().width, playerComposite.getBounds().height);
+		tablePlayerFrame.add(panel);		// TODO: breaks windowbuilder :(
+		//tablePlayerFrame.setBounds(playerComposite.getBounds().x, playerComposite.getBounds().y, playerComposite.getBounds().width, playerComposite.getBounds().height);
 		
 		tablePlayerFrame.pack();
 		//TODO: progreks?
@@ -191,7 +216,7 @@ public class BlackjackTable
 		/* composites array */ 
 		composites = new ArrayList<Composite>();
 		composites.add(playerComposite); 
-		composites.add(dealerComposite);		// dealer always last 
+		composites.add(dealerComposite);
 		
 		/* canvases array */
 		//SVGCanvases = new ArrayList<JSVGCanvas>(); 
@@ -203,8 +228,10 @@ public class BlackjackTable
 	private JPanel createSVGPanel()
 	{
 		JSVGCanvas svgCanvas = new JSVGCanvas();
-		final JPanel panel = new JPanel();
-		
+		JPanel panel = new JPanel();
+		svgCanvas.setSize(5, 5);
+		//panel.setSize(1244, 300);
+		//svgCanvas.setDocumentState(JSVGCanvas.ALWAYS_DYNAMIC);
 		panel.add(svgCanvas); 
 		
 		File f = new File("card_deck.svg"); 	//"F:/java-programming/batik-1.14/samples/3D.svg"
@@ -214,7 +241,7 @@ public class BlackjackTable
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return panel; 
 	}
 	
