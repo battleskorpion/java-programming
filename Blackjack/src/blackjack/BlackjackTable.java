@@ -17,6 +17,7 @@ import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
 import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
+import org.apache.batik.swing.svg.SVGDocumentLoader;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -55,6 +56,8 @@ public class BlackjackTable
 	JSVGCanvas playerSVGCanvas; 
 	private JRootPane playerCompositeRootPane;
 	private ArrayList<JSVGCanvas> SVGCanvases; 
+	private ArrayList<JPanel> SVGPanels; 
+	private ArrayList<java.awt.Frame> tableFrames; 
 	
 	public BlackjackTable()
 	{
@@ -73,12 +76,12 @@ public class BlackjackTable
 		
 		System.out.println("test 1"); 
 		// starting deal
-		//initialDeal(deck, hands);			//TODO:
+		initialDeal(deck, hands);			//TODO:
 		System.out.println("test 2"); 
-		//displayHands(hands);
+		////displayHands(hands);			//TODO: 
 		System.out.println("test 3"); 
 		// let player hit or stay
-		//dealPlayer(deck, hands, 0);
+		//dealPlayer(deck, hands, 0);		//TODO: 
 		System.out.println("test 4"); 
 		//displayWinner(calculateWinner(hands));
 	}
@@ -138,8 +141,9 @@ public class BlackjackTable
 		dealerSVGPanel.setLayout(null);				//TODO: yessss
 		dealerSVGPanel.setSize(300, 400);
 		
-		createSVGCanvas(dealerSVGPanel); 
-		tableDealerFrame.add(dealerSVGPanel);		// TODO: breaks windowbuilder :(
+		// TODO: svg canvas
+		//createSVGCanvas(dealerSVGPanel, new File("card_deck.svg")); 
+		//tableDealerFrame.add(dealerSVGPanel);		// TODO: breaks windowbuilder :(
 		
 		/* player composite */ 
 		Composite playerComposite = new Composite(tableComposite, SWT.EMBEDDED);
@@ -152,15 +156,24 @@ public class BlackjackTable
 		// svg panel
 		JPanel playerSVGPanel = new JPanel();
 		playerSVGPanel.setLayout(null);				//TODO: yessss
-		playerSVGPanel.setSize(300, 400);
+		playerSVGPanel.setSize(100, 400);
 
-		createSVGCanvas(playerSVGPanel); 
-		tablePlayerFrame.add(playerSVGPanel);		// TODO: breaks windowbuilder :(
+		// TODO: svg canvas
+		//createSVGCanvas(playerSVGPanel, new File("card_deck.svg")); 
+		//tablePlayerFrame.add(playerSVGPanel);		// TODO: breaks windowbuilder :(
 		
 		/* composites array */ 
 		composites = new ArrayList<Composite>();
 		composites.add(playerComposite); 
 		composites.add(dealerComposite);
+		
+		SVGPanels = new ArrayList<JPanel>(); 
+		SVGPanels.add(playerSVGPanel);
+		SVGPanels.add(dealerSVGPanel); 
+		
+		tableFrames = new ArrayList<java.awt.Frame>(); 
+		tableFrames.add(tablePlayerFrame); 
+		tableFrames.add(tableDealerFrame); 
 		
 				/* canvases array */
 				//SVGCanvases = new ArrayList<JSVGCanvas>(); 
@@ -169,16 +182,17 @@ public class BlackjackTable
 
 	}
 	
-	private JSVGCanvas createSVGCanvas(JPanel panel)
+	private JSVGCanvas createSVGCanvas(JPanel panel, File f)
 	{
 		JSVGCanvas svgCanvas = new JSVGCanvas();
 
 		svgCanvas.setBounds(panel.getBounds());
+		svgCanvas.setSize(210, 297);
 		panel.add(svgCanvas); 
-		//////svgCanvas.setDocumentState(JSVGCanvas.ALWAYS_DYNAMIC);
+		svgCanvas.setDocumentState(JSVGCanvas.ALWAYS_DYNAMIC);	//TODO: idk
 		
 		//TODO: Temp
-		File f = new File("card_deck.svg"); 	//"F:/java-programming/batik-1.14/samples/3D.svg"
+		//File f = new File("card_deck.svg"); 	//"F:/java-programming/batik-1.14/samples/3D.svg"
 		try {
 			svgCanvas.setURI(f.toURI().toURL().toString());
 		} catch (MalformedURLException e) {
@@ -187,6 +201,13 @@ public class BlackjackTable
 		}
 
 		return svgCanvas; 
+	}
+	
+	private JSVGCanvas createSVGCard(JPanel panel, Card card)
+	{
+		//File f = new File("card_deck.svg"); 
+		File f = new File(card.getImageAddress()); 
+		return createSVGCanvas(panel, f); 
 	}
 	
 	/**
@@ -201,14 +222,14 @@ public class BlackjackTable
 		 */
 		
 		//Image cardImage = new Image(Display.getDefault(), card.getImageAddress());
-		File cardDeckFile = new File("card_deck.svg"); 
+		//File cardDeckFile = new File("card_deck.svg"); 
 		
-		System.out.println(cardDeckFile.toURI().toString()); 
+		//System.out.println(cardDeckFile.toURI().toString()); 
 		try 
 		{
-			//SVGCanvases.get(index).loadSVGDocument(cardDeckFile.toURI().toString());
-			//dealerSVGCanvas.setURI(cardDeckFile.toURI().toURL().toString());	//TODO: breaking here 
-			
+			JSVGCanvas svgCanvas = createSVGCard(SVGPanels.get(index), card);; 			//JSVGCanvas svgCanvas = createSVGCard(SVGPanels.get(index), card);
+			//svgCanvas
+			tableFrames.get(index).add(SVGPanels.get(index));							// TODO: breaks windowbuilder :(
 		}
 		catch (Exception exc)
 		{
@@ -230,9 +251,11 @@ public class BlackjackTable
 				// testing
 				//System.out.println(j + " Hand length: " + hands[0].length());
 				//System.out.println(deck.deal());
-				if (i == 0 && handIndex == 0) {
+				//TODO: test
+				//System.out.println("Testtt");
+				//if (i == 0 && handIndex == 0) {
 					addCard(card, handIndex); 
-				}
+				//}
 			}
 		}
 	}

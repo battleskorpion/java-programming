@@ -45,6 +45,6 @@ public class Card
 	// get file location of image 
 	public String getImageAddress()
 	{
-		return value.name() + "_of_" + suit.name() + ".jpg"; 
+		return value.name() + "_of_" + suit.name() + ".svg"; 
 	}
 }
