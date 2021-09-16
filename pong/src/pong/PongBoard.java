@@ -47,7 +47,7 @@ public class PongBoard {
 		/* VARIABLE SECTION */
 		/********************/
 		Display display = Display.getDefault();			// MANAGES THE CONNECTION BETWEEN SWT 
-														// AND THE UNDERLYING OPERATING SYSTEM 
+														// AND THE UNsDERLYING OPERATING SYSTEM 
 		
 		/**********************************************/
 		/* METHOD TO CREATE CONTENTS OF SHELL/DISPLAY */
