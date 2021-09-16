@@ -2,6 +2,12 @@ package pong;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.SWT;
+import swing2swt.layout.BoxLayout;
+import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Label;
 
 public class PongBoard {
 
@@ -82,9 +88,9 @@ public class PongBoard {
 	/****************************************************************/
 	{
 		shell = new Shell();
-		shell.setSize(800, 533);
+		shell.setSize(900, 750);
 		shell.setText("SWT Application");
+		shell.setLayout(null);
 
 	}
-
 }
