@@ -2,16 +2,22 @@ package pong;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.SWT;
-import swing2swt.layout.BoxLayout;
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Label;
 
-public class PongBoard {
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.wb.swt.SWTResourceManager;
+
+public class PongBoard implements KeyListener {	// implements Runnable
 
 	protected Shell shell;
+	private int KEY_MOVE_UP = KeyEvent.VK_UP; 
+	private int KEY_MOVE_DOWN = KeyEvent.VK_DOWN; 
+	private final int WIDTH = 900; 
+	private final int HEIGHT = 750; 
+	//private Thread thread; 
 
 	/**
 	 * Launch the application.
@@ -88,9 +94,57 @@ public class PongBoard {
 	/****************************************************************/
 	{
 		shell = new Shell();
-		shell.setSize(900, 750);
+		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLACK));
+		shell.setSize(WIDTH, HEIGHT);
 		shell.setText("SWT Application");
 		shell.setLayout(null);
+		
+		shell.addKeyListener(this);	// ?? 
 
+	}
+	
+	public void paint(Graphics g) {
+		//g.setColor(Color.black); 
+		//g.fillRect(0, 0, WIDTH, HEIGHT);
+	}
+	
+	public void update(Graphics g) {
+		paint(g); 
+	}
+	
+	public void run() {
+		for(;;) {
+			
+			
+			try {
+				Thread.sleep(10);	// ?? 
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KEY_MOVE_UP) {
+			
+		}
+		else if(e.getKeyCode() == KEY_MOVE_DOWN) {
+			
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
