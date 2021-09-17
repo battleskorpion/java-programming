@@ -4,17 +4,16 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 public class PongBoard implements KeyListener {	// implements Runnable
 
 	protected Shell shell;
-	private int KEY_MOVE_UP = KeyEvent.VK_UP; 
-	private int KEY_MOVE_DOWN = KeyEvent.VK_DOWN; 
+	private int KEY_MOVE_UP = SWT.ARROW_UP; 
+	private int KEY_MOVE_DOWN = SWT.ARROW_DOWN; 
 	private final int WIDTH = 900; 
 	private final int HEIGHT = 750; 
 	//private Thread thread; 
@@ -116,6 +115,8 @@ public class PongBoard implements KeyListener {	// implements Runnable
 		for(;;) {
 			
 			
+			
+			//repaint(); 
 			try {
 				Thread.sleep(10);	// ?? 
 			} catch (InterruptedException e) {
@@ -127,10 +128,10 @@ public class PongBoard implements KeyListener {	// implements Runnable
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KEY_MOVE_UP) {
+		if(e.keyCode == KEY_MOVE_UP) {
 			
 		}
-		else if(e.getKeyCode() == KEY_MOVE_DOWN) {
+		else if(e.keyCode == KEY_MOVE_DOWN) {
 			
 		}
 		
@@ -142,9 +143,9 @@ public class PongBoard implements KeyListener {	// implements Runnable
 		
 	}
 	
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	//@Override
+	//public void keyTyped(KeyEvent e) {
+	//	// TODO Auto-generated method stub
+	//	
+	//}
 }
