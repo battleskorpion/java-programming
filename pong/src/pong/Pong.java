@@ -87,7 +87,7 @@ public class Pong {
 	/****************************************************************/
 	{
 		shell = new Shell(); 
-		shell.setSize(400, 240);
+		shell.setSize(400, 317);
 		shell.setText("Pong");
 		
 		/* START SERVER BUTTON */ 
@@ -123,6 +123,16 @@ public class Pong {
 		});
 		btnEndServer.setBounds(158, 10, 142, 98);
 		btnEndServer.setText("End server");
+		
+		Button btnSoloMatch = new Button(shell, SWT.NONE);
+		btnSoloMatch.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				PongBoardFrame pongBoardFrame = new PongBoardFrame(); 
+				
+			}
+		});
+		btnSoloMatch.setBounds(10, 114, 142, 98);
+		btnSoloMatch.setText("Start solo match");
 	}
-	
 }
