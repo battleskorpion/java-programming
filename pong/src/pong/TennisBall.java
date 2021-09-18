@@ -9,15 +9,15 @@ public class TennisBall extends Rectangle {
 
 	private static final long serialVersionUID = 1L;
 	
-	private final int BOARD_WIDTH;
-	private final int BOARD_HEIGHT; 
-	private final int BALL_DIAMETER = 16; 
+	private final int board_width;
+	private final int board_height; 
+	private final int ball_diameter = 16; 
 	//protected double x; 
 	//protected double y; 
 	protected double xVelocity;
 	protected double yVelocity; 
 	protected double INITIAL_VELOCITY = 2; 
-	protected double INCREMENT_VELOCITY = 0.5; 		// velocity increases by this amount when the ball bounces off of a paddle
+	protected double INCREMENT_VELOCITY = 0.9; 		// velocity increases by this amount when the ball bounces off of a paddle
 	private Random random; 
 	//private final double FRICTION = 0.9; 
 	//private final double ACCELERATION_RATE = 1; 
@@ -25,15 +25,15 @@ public class TennisBall extends Rectangle {
 	
 	public TennisBall(int board_width, int board_height) {
 		/* set up super class (Rectangle) variables */ 
-		super.width = BALL_DIAMETER; 
-		super.height = BALL_DIAMETER; 
+		super.width = ball_diameter; 
+		super.height = ball_diameter; 
 		
-		this.BOARD_WIDTH = board_width; 
-		this.BOARD_HEIGHT = board_height; 
+		this.board_width = board_width; 
+		this.board_height = board_height; 
 		
 		/* set default location of ball */ 
-		x = BOARD_WIDTH / 2 - (BALL_DIAMETER / 2); 
-		y = BOARD_HEIGHT / 2 - (BALL_DIAMETER / 2); 
+		x = board_width / 2 - (ball_diameter / 2); 
+		y = board_height / 2 - (ball_diameter / 2); 
 		
 		/* velocity of ball */ 
 		/* random generator for direction */ 
@@ -68,7 +68,7 @@ public class TennisBall extends Rectangle {
 	
 	public void draw(Graphics g) { 
 		g.setColor(Color.white); 
-		g.fillOval((int)x, (int)y, BALL_DIAMETER, BALL_DIAMETER);
+		g.fillOval((int)x, (int)y, ball_diameter, ball_diameter);
 	}
 	
 	public void checkCollision() {
@@ -76,7 +76,7 @@ public class TennisBall extends Rectangle {
 		if (this.y <= 0) {
 			this.setYVelocity(-this.yVelocity); 
 		}
-		if (this.y >= BOARD_HEIGHT - BALL_DIAMETER) {
+		if (this.y >= board_height - ball_diameter) {
 			this.setYVelocity(-this.yVelocity);
 		}
 	}

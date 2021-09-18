@@ -17,19 +17,21 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 	protected Shell shell;
 	private static int KEY_MOVE_UP = KeyEvent.VK_UP; 
 	private static int KEY_MOVE_DOWN = KeyEvent.VK_DOWN; 
-	final int WIDTH = 900; 
-	final int HEIGHT = 750; 
+	private final int WIDTH = 900; 
+	private final int HEIGHT = 750; 
 	private final Dimension SCREEN_DIMENSIONS = new Dimension(WIDTH, HEIGHT); 
 	private Thread thread; 
 	//protected Graphics g; 
 	private PlayerPaddle paddle1; 
 	private PlayerPaddle paddle2; 
 	private TennisBall ball; 
+	private Score score; 
 
 	public PongBoardPanel() {
 		paddle1 = new PlayerPaddle(1, WIDTH, HEIGHT); 
 		paddle2 = new PlayerPaddle(2, WIDTH, HEIGHT); 
 		ball = new TennisBall(WIDTH, HEIGHT); 
+		score = new Score(WIDTH, HEIGHT); 
 		this.setFocusable(true);
 		this.addKeyListener(this);
 		this.setPreferredSize(SCREEN_DIMENSIONS);
@@ -142,6 +144,7 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 		paddle1.draw(g);
 		paddle2.draw(g);
 		ball.draw(g); 
+		score.draw(g); 
 	}
 	
 	public void update(Graphics g) {
@@ -151,6 +154,7 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 	public void run() {
 		for(;;) {
 			paddle1.move(); 
+			paddle2.move(); 
 			ball.move(); 
 			checkCollision(); 
 			repaint(); 
@@ -181,9 +185,30 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 			else {
 				ball.yVelocity -= ball.INCREMENT_VELOCITY; 		// more negative
 			}
-			//ball.setXVelocity(ball.xVelocity);
+			//ball.setXVelocity(ball.xVelocity); // already set why 
 			//ball.setYVelocity(ball.yVelocity); 
 		}
+		if (ball.intersects(paddle2)) {
+			ball.xVelocity *= -1; 
+			ball.xVelocity -= ball.INCREMENT_VELOCITY; 
+			if (ball.yVelocity > 0) {
+				ball.yVelocity += ball.INCREMENT_VELOCITY; 		// more positive 
+			}
+			else {
+				ball.yVelocity -= ball.INCREMENT_VELOCITY; 		// more negative
+			}
+		}
+		
+		/* if ball does not hit paddles but leaves board add 1 to score of other player */ 
+		/* also reset ball */ 
+		if (ball.x + ball.width < 0) {
+			score.incrementScore(2); 
+			ball = new TennisBall(WIDTH, HEIGHT);
+		}
+		else if (ball.x > WIDTH) {
+			score.incrementScore(1); 
+			ball = new TennisBall(WIDTH, HEIGHT);
+		} 
 	}
 
 	@Override
@@ -193,6 +218,13 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 		}
 		else if(e.getKeyCode()  == KEY_MOVE_DOWN) {
 			paddle1.setDownAcceleration(true);
+		}
+		// temp
+		if(e.getKeyCode() == KeyEvent.VK_W) {
+			paddle2.setUpAcceleration(true);
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_S) {
+			paddle2.setDownAcceleration(true);
 		}
 		
 	}
@@ -204,6 +236,13 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 		}
 		else if(e.getKeyCode()  == KEY_MOVE_DOWN) {
 			paddle1.setDownAcceleration(false);
+		}
+		// temp
+		if(e.getKeyCode() == KeyEvent.VK_W) {
+			paddle2.setUpAcceleration(false);	
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_S) {
+			paddle2.setDownAcceleration(false);
 		}
 		
 	}
