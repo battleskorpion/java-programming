@@ -18,7 +18,7 @@ public abstract class Paddle extends Rectangle {
 	protected boolean downAcceleration; 
 	protected final double FRICTION = 0.9; 
 	protected final double ACCELERATION_RATE = 1; 
-	protected final double VELOCITY_LIMIT = 15; 	
+	protected final double VELOCITY_LIMIT = 7.5; 	
 	protected int player;
 	
 	public Paddle(int board_width, int board_height) {

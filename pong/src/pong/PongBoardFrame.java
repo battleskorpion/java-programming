@@ -1,6 +1,9 @@
 package pong;
 
 import java.awt.Color;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
@@ -11,10 +14,10 @@ public class PongBoardFrame extends JFrame {
 	PongBoardPanel pongPanel; 
 	
 	public PongBoardFrame() {
-		pongPanel = new PongBoardPanel(); 
+		pongPanel = new PongBoardPanel(this); 
 		this.add(pongPanel); 
 		this.setTitle("Pong"); 
-		this.setResizable(false); 
+		this.setResizable(true); 
 		this.setBackground(Color.black);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		this.pack(); 
@@ -22,6 +25,12 @@ public class PongBoardFrame extends JFrame {
 		this.setLocationRelativeTo(null);
 		
 		// temp
-		
 	}
+	
+	public void fullscreen() {
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setUndecorated(true);
+		this.setVisible(true);
+	}
+		
 }

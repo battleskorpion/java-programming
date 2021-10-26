@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
@@ -17,24 +18,29 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 	protected Shell shell;
 	private static int KEY_MOVE_UP = KeyEvent.VK_UP; 
 	private static int KEY_MOVE_DOWN = KeyEvent.VK_DOWN; 
-	private final int WIDTH = 900; 
-	private final int HEIGHT = 750; 
-	private final Dimension SCREEN_DIMENSIONS = new Dimension(WIDTH, HEIGHT); 
+	private int width = 900; 
+	private int height = 750; 
+	private final Dimension SCREEN_DIMENSIONS = new Dimension(width, height); 
 	private Thread thread; 
 	//protected Graphics g; 
 	private PlayerPaddle paddle1; 
 	private PlayerPaddle paddle2; 
 	private TennisBall ball; 
 	private Score score; 
+	private PongBoardFrame pongBoardFrame; 
 
-	public PongBoardPanel() {
-		paddle1 = new PlayerPaddle(1, WIDTH, HEIGHT); 
-		paddle2 = new PlayerPaddle(2, WIDTH, HEIGHT); 
-		ball = new TennisBall(WIDTH, HEIGHT); 
-		score = new Score(WIDTH, HEIGHT); 
+	public PongBoardPanel(PongBoardFrame frame) {
+		pongBoardFrame = frame; 
+		paddle1 = new PlayerPaddle(1, width, height); 
+		paddle2 = new PlayerPaddle(2, width, height); 
+		ball = new TennisBall(width, height); 
+		score = new Score(width, height); 
 		this.setFocusable(true);
 		this.addKeyListener(this);
 		this.setPreferredSize(SCREEN_DIMENSIONS);
+		
+		/* set fullscreen */ 
+		this.setVisible(true);
 		
 		thread = new Thread(this); 
 		thread.start(); 
@@ -140,7 +146,7 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.black); 
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.fillRect(0, 0, width, height);
 		paddle1.draw(g);
 		paddle2.draw(g);
 		ball.draw(g); 
@@ -203,28 +209,35 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 		/* also reset ball */ 
 		if (ball.x + ball.width < 0) {
 			score.incrementScore(2); 
-			ball = new TennisBall(WIDTH, HEIGHT);
+			ball = new TennisBall(width, height);
 		}
-		else if (ball.x > WIDTH) {
+		else if (ball.x > width) {
 			score.incrementScore(1); 
-			ball = new TennisBall(WIDTH, HEIGHT);
+			ball = new TennisBall(width, height);
 		} 
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KEY_MOVE_UP) {
-			paddle1.setUpAcceleration(true);
+			paddle2.setUpAcceleration(true);
 		}
 		else if(e.getKeyCode()  == KEY_MOVE_DOWN) {
-			paddle1.setDownAcceleration(true);
+			paddle2.setDownAcceleration(true);
 		}
 		// temp
 		if(e.getKeyCode() == KeyEvent.VK_W) {
-			paddle2.setUpAcceleration(true);
+			paddle1.setUpAcceleration(true);
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_S) {
-			paddle2.setDownAcceleration(true);
+			paddle1.setDownAcceleration(true);
+		}
+		
+		/* set fullscreen */ 
+		if (e.getKeyCode() == KeyEvent.VK_F11){
+			pongBoardFrame.fullscreen();
+			width = pongBoardFrame.getWidth(); 
+			
 		}
 		
 	}
@@ -232,17 +245,17 @@ public class PongBoardPanel extends JPanel implements Runnable, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode()  == KEY_MOVE_UP) {
-			paddle1.setUpAcceleration(false);
+			paddle2.setUpAcceleration(false);
 		}
 		else if(e.getKeyCode()  == KEY_MOVE_DOWN) {
-			paddle1.setDownAcceleration(false);
+			paddle2.setDownAcceleration(false);
 		}
 		// temp
 		if(e.getKeyCode() == KeyEvent.VK_W) {
-			paddle2.setUpAcceleration(false);	
+			paddle1.setUpAcceleration(false);	
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_S) {
-			paddle2.setDownAcceleration(false);
+			paddle1.setDownAcceleration(false);
 		}
 		
 	}
