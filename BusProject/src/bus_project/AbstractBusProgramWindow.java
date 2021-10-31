@@ -21,10 +21,11 @@ import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 import org.eclipse.swt.widgets.DateTime;				// FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.swt.widgets.Table;					// FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.swt.widgets.Text;					// FOR SWT WINDOWS/WIDGETS		
-import abstractProgramWindow.*; 						// FOR PROGRAM WINDOW SUPERCLASS FUNCTIONS 
 
-public class AbstractBusProgramWindow extends AbstractProgramWindow
-{
+import abstractProgram.abstractProgram.*;
+
+public class AbstractBusProgramWindow extends AbstractProgramWindow {
+	
 	protected void setCustomerDetails(Customer cstmr, Text nmField, Text szField, 
 			int indx, int id, DateTime dtTime) 
 	/************************************************************************************************/
@@ -341,4 +342,5 @@ public class AbstractBusProgramWindow extends AbstractProgramWindow
 		}
 		return true; 
 	}
+	
 }

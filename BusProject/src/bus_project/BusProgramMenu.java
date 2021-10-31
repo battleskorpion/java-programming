@@ -9,10 +9,11 @@
 
 package bus_project;
 
+import abstractProgram.abstractProgram.AbstractProgramWindow;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import fileIO.*; 										// FOR FILE READING/WRITING
+import abstractProgram.fileIO.*; 						// FOR FILE READING/WRITING
 import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 														// INTERFACE
 import javax.swing.JOptionPane;							// JOPTIONPANE WINDOW DIALOGS
@@ -41,7 +42,10 @@ import org.eclipse.swt.widgets.MenuItem;				// SELECTABLE ITEM OF MENU WINDOW.
 import org.eclipse.swt.widgets.ToolBar;					// SUPPORTS THE LAYOUT OF SELECTABLE 
 														// TOOL BAR ITEMS. 
 import org.eclipse.swt.widgets.ToolItem;				// REPRESENTS A SELECTABLE USER INTERFACE 
-														// OBJECT THAT REPRESENTS A BUTTON 
+
+import bus_project.bus_settings.Settings;
+
+// OBJECT THAT REPRESENTS A BUTTON 
 														// IN A TOOL BAR. 
 import org.eclipse.swt.events.SelectionAdapter;			// THIS ADAPTER CLASS PROVIDES DEFAULT 
 														// IMPLEMENTATIONS FOR THE METHODS DESCRIBED
@@ -67,17 +71,20 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 	/********************/
 	private ArrayList<Customer> customers; 				// LIST OF CUSTOMERS
 	protected Shell shell;								// SHELL WHICH REPRESENTS THIS WINDOW
+	BusProgram program; 
 	
 	/***********************/
 	/* CONSTRUCTOR SECTION */
 	/***********************/ 
-	public BusProgramMenu() 
+	public BusProgramMenu(BusProgram program) 
 	{
 		customers = new ArrayList<Customer>(); 	
-		new BusFinances(); 
+		AbstractProgramWindow.messages = program.messages; 				// messages declared in AbstractProgramWindow
+		new BusFinances(messages); 
 		new BusCalculation(); 
+		this.program = program; 
 	}
-
+	
 	/************************************************************************************************/
 	/*											 METHOD SECTION 									*/
 	/************************************************************************************************/
@@ -204,7 +211,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		/*********/
 		shell = new Shell();
 		shell.setSize(700, 540);
-		shell.setText(Messages.getString("title.text")); 								//$NON-NLS-1$
+		shell.setText(messages.getString("title.text")); 								//$NON-NLS-1$
 		GridLayout gl_shell = new GridLayout(4, true);
 		shell.setLayout(gl_shell);
 				
@@ -215,19 +222,19 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		
 		ToolItem tltmLanguage = new ToolItem(toolBar, SWT.DROP_DOWN);
 		
-		tltmLanguage.setText(Messages.getString("BusProgramMenu.Language.text")); 		//$NON-NLS-1$
+		tltmLanguage.setText(messages.getString("BusProgramMenu.Language.text")); 		//$NON-NLS-1$
 		
 		Menu languageMenu = new Menu(toolBar);
 		toolBar.setMenu(languageMenu);
 		
 		MenuItem mntmEnus = new MenuItem(languageMenu, SWT.NONE);
-		mntmEnus.setText(Messages.getString("BusProgramMenu.Language.en_US.text")); 	//$NON-NLS-1$
+		mntmEnus.setText(messages.getString("BusProgramMenu.Language.en_US.text")); 	//$NON-NLS-1$
 		mntmEnus.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				BusProgram.languageChanged(0); 
+				program.languageChanged(0); 
 				shell.close(); 
 			}
 		});
@@ -238,11 +245,11 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				BusProgram.languageChanged(1); 
+				program.languageChanged(1); 
 				shell.close(); 
 			}
 		});
-		mntmEses.setText(Messages.getString("BusProgramMenu.Language.es_ES.text")); 	//$NON-NLS-1$
+		mntmEses.setText(messages.getString("BusProgramMenu.Language.es_ES.text")); 	//$NON-NLS-1$
 		
 		MenuItem mntmPortuguesePortugal = new MenuItem(languageMenu, SWT.NONE);
 		mntmPortuguesePortugal.addSelectionListener(new SelectionAdapter() 
@@ -250,11 +257,11 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				BusProgram.languageChanged(2); 
+				program.languageChanged(2); 
 				shell.close(); 
 			}
 		});
-		mntmPortuguesePortugal.setText(Messages.getString
+		mntmPortuguesePortugal.setText(messages.getString
 				("BusProgramMenu.Language.pt_PT.text"));								//$NON-NLS-1$
 		
 		tltmLanguage.addSelectionListener(new SelectionAdapter() 
@@ -280,7 +287,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		GridData gd_btnModifyCustomer = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_btnModifyCustomer.widthHint = 122;
 		btnModifyCustomer.setLayoutData(gd_btnModifyCustomer);
-		btnModifyCustomer.setText(Messages.getString
+		btnModifyCustomer.setText(messages.getString
 				("BusProgramMenu.ModifyCustomer.text")); 								//$NON-NLS-1$
 		btnModifyCustomer.addSelectionListener(new SelectionAdapter()
 		{
@@ -307,7 +314,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		
 		gd_btnBusesNeededByDate.widthHint = 122;
 		btnBusesNeededByDate.setLayoutData(gd_btnBusesNeededByDate);
-		btnBusesNeededByDate.setText(Messages.getString
+		btnBusesNeededByDate.setText(messages.getString
 				("BusProgramMenu.BusesByDate.text")); 									//$NON-NLS-1$
 		btnBusesNeededByDate.addSelectionListener(new SelectionAdapter() 
 		{
@@ -322,7 +329,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		
 		gd_btnListCustomersByName.widthHint = 140;
 		btnListCustomersByName.setLayoutData(gd_btnListCustomersByName);
-		btnListCustomersByName.setText(Messages.getString
+		btnListCustomersByName.setText(messages.getString
 				("BusProgramMenu.CustomersByName.text")); 								//$NON-NLS-1$
 		btnListCustomersByName.addSelectionListener(new SelectionAdapter() 
 		{
@@ -338,7 +345,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		GridData gd_btnListCustomersBySize = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_btnListCustomersBySize.widthHint = 167;
 		btnListCustomersBySize.setLayoutData(gd_btnListCustomersBySize);
-		btnListCustomersBySize.setText(Messages.getString
+		btnListCustomersBySize.setText(messages.getString
 				("BusProgramMenu.CustomersByGroupSize.text")); 							//$NON-NLS-1$
 		btnListCustomersBySize.addSelectionListener(new SelectionAdapter() 
 		{
@@ -362,7 +369,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 				openSubWindow(profitByDateWindow, shell); 
 			}
 		});
-		btnProfitByDate.setText(Messages.getString
+		btnProfitByDate.setText(messages.getString
 				("BusProgramMenu.ProfitByDate.text")); 									//$NON-NLS-1$
 		
 		Button btnProfitTotal = new Button(shell, SWT.NONE);
@@ -377,7 +384,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 				openSubWindow(totalProfitWindow, shell);
 			}
 		});
-		btnProfitTotal.setText(Messages.getString
+		btnProfitTotal.setText(messages.getString
 				("BusProgramMenu.TotalProfit.text"));
 		new Label(shell, SWT.NONE);
 		
@@ -386,7 +393,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		gd_btnQuit.heightHint = 38;
 		gd_btnQuit.widthHint = 335;
 		btnQuit.setLayoutData(gd_btnQuit);
-		btnQuit.setText(Messages.getString("btnQuit.text")); 							//$NON-NLS-1$
+		btnQuit.setText(messages.getString("btnQuit.text")); 							//$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		
 		/***************/
@@ -439,7 +446,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		
 		gd_btnAddCustomer.widthHint = 122;
 		btnAddCustomer.setLayoutData(gd_btnAddCustomer);
-		btnAddCustomer.setText(Messages.getString
+		btnAddCustomer.setText(messages.getString
 				("BusProgramMenu.AddNewCustomer.text")); 								//$NON-NLS-1$
 		btnAddCustomer.addSelectionListener(new SelectionAdapter() 
 		{
@@ -450,14 +457,14 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		});
 		gd_btnRemoveCustomer.widthHint = 122;
 		btnRemoveCustomer.setLayoutData(gd_btnRemoveCustomer);
-		btnRemoveCustomer.setText(Messages.getString
+		btnRemoveCustomer.setText(messages.getString
 				("BusProgramMenu.RemoveCustomer.text"));
 		
 		Menu menu = new Menu(shell, SWT.BAR);
 		shell.setMenuBar(menu);
 		
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
-		mntmFile.setText(Messages.getString("mntmFile.text")); 							//$NON-NLS-1$
+		mntmFile.setText(messages.getString("mntmFile.text")); 							//$NON-NLS-1$
 		
 		Menu menu_1 = new Menu(mntmFile);
 		mntmFile.setMenu(menu_1);
@@ -536,7 +543,7 @@ public class BusProgramMenu extends AbstractBusProgramWindow
 		mntmSkiVideo.setSelection(Settings.skiVideoEnabled);
 		
 		MenuItem mntmHelp = new MenuItem(menu, SWT.NONE);
-		mntmHelp.setText(Messages.getString("mntmHelp.text")); 							//$NON-NLS-1$
+		mntmHelp.setText(messages.getString("mntmHelp.text")); 							//$NON-NLS-1$
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);

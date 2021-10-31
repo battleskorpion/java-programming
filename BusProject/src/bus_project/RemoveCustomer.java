@@ -33,6 +33,8 @@ import org.eclipse.swt.widgets.Shell;					// FOR SWT WINDOWS/WIDGETS
 import org.eclipse.swt.widgets.Table;					// FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.swt.widgets.TableColumn;				// FOR SWT WINDOWS/WIDGETS	
 
+import bus_project.localization.Messages;
+
 public class RemoveCustomer extends AbstractBusProgramWindow
 {
 	/********************/
@@ -107,41 +109,41 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 	{
 		shlRemoveCustomer = new Shell();
 		shlRemoveCustomer.setSize(1075, 370);
-		shlRemoveCustomer.setText(Messages.getString
+		shlRemoveCustomer.setText(messages.getString
 				("RemoveCustomer.shlRemoveCustomer.text")); 							//$NON-NLS-1$
 		
 		Button btnExit = new Button(shlRemoveCustomer, SWT.NONE);
-		btnExit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
+		btnExit.setText(messages.getString("btnExit.text")); 							//$NON-NLS-1$
 		btnExit.setBounds(973, 295, 75, 25);
 		
 		Label lblCustomers = new Label(shlRemoveCustomer, SWT.CENTER);
-		lblCustomers.setText(Messages.getString("lblCustomers.text")); 					//$NON-NLS-1$
+		lblCustomers.setText(messages.getString("lblCustomers.text")); 					//$NON-NLS-1$
 		lblCustomers.setBounds(10, 10, 516, 15);
 		
 		Label lblRemovedCustomers = new Label(shlRemoveCustomer, SWT.CENTER);
-		lblRemovedCustomers.setText(Messages.getString
+		lblRemovedCustomers.setText(messages.getString
 				("RemoveCustomer.lblRemovedCustomers.text")); 							//$NON-NLS-1$
 		lblRemovedCustomers.setBounds(532, 10, 516, 15);
 		
 		Button btnDelete = new Button(shlRemoveCustomer, SWT.NONE);
 		
 		btnDelete.setBounds(10, 295, 255, 25);
-		btnDelete.setText(Messages.getString("btnDelete.text")); 						//$NON-NLS-1$
+		btnDelete.setText(messages.getString("btnDelete.text")); 						//$NON-NLS-1$
 		
 		Button btnUndoDelete = new Button(shlRemoveCustomer, SWT.NONE);
 		
 		btnUndoDelete.setBounds(532, 295, 255, 25);
-		btnUndoDelete.setText(Messages.getString("btnUndoDelete.text")); 				//$NON-NLS-1$
+		btnUndoDelete.setText(messages.getString("btnUndoDelete.text")); 				//$NON-NLS-1$
 		
 		Button btnDeleteAll = new Button(shlRemoveCustomer, SWT.NONE);
-		btnDeleteAll.setText(Messages.getString("RemoveCustomer.btnDeleteAll.text")); 	//$NON-NLS-1$
+		btnDeleteAll.setText(messages.getString("RemoveCustomer.btnDeleteAll.text")); 	//$NON-NLS-1$
 		btnDeleteAll.setBounds(271, 295, 255, 25);
 		
 		/*******************/
 		/* CUSTOMERS TABLE */
 		/*******************/
 		customersTable = new Table(shlRemoveCustomer, SWT.BORDER | SWT.FULL_SELECTION);
-		customersTable.setToolTipText(Messages.getString
+		customersTable.setToolTipText(messages.getString
 				("RemoveCustomer.customersTable.toolTipText"));							//$NON-NLS-1$
 		customersTable.setLinesVisible(true);
 		customersTable.setHeaderVisible(true);
@@ -173,7 +175,7 @@ public class RemoveCustomer extends AbstractBusProgramWindow
 		/* REMOVED CUSTOMERS TABLE */
 		/***************************/
 		remCustomersTable = new Table(shlRemoveCustomer, SWT.BORDER | SWT.FULL_SELECTION);
-		remCustomersTable.setToolTipText(Messages.getString("RemoveCustomer.remCustomersTable.toolTipText")); //$NON-NLS-1$
+		remCustomersTable.setToolTipText(messages.getString("RemoveCustomer.remCustomersTable.toolTipText")); //$NON-NLS-1$
 		remCustomersTable.setLinesVisible(true);
 		remCustomersTable.setHeaderVisible(true);
 		remCustomersTable.setBounds(532, 31, 516, 252);

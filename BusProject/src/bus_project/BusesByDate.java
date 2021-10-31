@@ -26,6 +26,8 @@ import org.eclipse.swt.events.SelectionAdapter;         // FOR SWT WINDOWS/WIDGE
 import org.eclipse.swt.events.SelectionEvent;           // FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.wb.swt.SWTResourceManager;           // FOR SWT WINDOWS/WIDGETS	
 
+import bus_project.localization.Messages;
+
 public class BusesByDate extends AbstractBusProgramWindow 
 {
 	/********************/
@@ -95,7 +97,7 @@ public class BusesByDate extends AbstractBusProgramWindow
 	{
 		shlBusesByDate = new Shell();
 		shlBusesByDate.setSize(270, 412);
-		shlBusesByDate.setText(Messages.getString
+		shlBusesByDate.setText(messages.getString
 				("BusesByDate.shlBusesByDate.text")); 			//$NON-NLS-1$
 		
 		DateTime dateTime = new DateTime(shlBusesByDate, SWT.BORDER | SWT.CALENDAR);
@@ -108,7 +110,7 @@ public class BusesByDate extends AbstractBusProgramWindow
 		
 		Label lblBuses = new Label(shlBusesByDate, SWT.NONE);
 		lblBuses.setBounds(10, 196, 120, 23);
-		lblBuses.setText(Messages.getString("lblBuses.text")); 							//$NON-NLS-1$
+		lblBuses.setText(messages.getString("lblBuses.text")); 							//$NON-NLS-1$
 		
 		Label lblNumBuses = new Label(shlBusesByDate, SWT.RIGHT);
 		lblNumBuses.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
@@ -116,7 +118,7 @@ public class BusesByDate extends AbstractBusProgramWindow
 		
 		Button btnExit = new Button(shlBusesByDate, SWT.NONE);
 		btnExit.setBounds(168, 338, 75, 25);
-		btnExit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
+		btnExit.setText(messages.getString("btnExit.text")); 							//$NON-NLS-1$
 		
 		Label lblNumEmptySeats = new Label(shlBusesByDate, SWT.NONE);
 		lblNumEmptySeats.setText("Number of seats available on date:");

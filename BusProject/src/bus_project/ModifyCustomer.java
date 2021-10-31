@@ -44,6 +44,9 @@ import org.eclipse.swt.widgets.DateTime;				// FOR SWT WINDOWS/WIDGETS (CALENDAR
 import org.eclipse.swt.widgets.Label;					// FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.swt.widgets.Table;					// FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.swt.widgets.Text;					// FOR SWT WINDOWS/WIDGETS	
+
+import bus_project.localization.Messages;
+
 import org.eclipse.swt.widgets.TableColumn;				// FOR SWT WINDOWS/WIDGETS	
 
 
@@ -121,18 +124,18 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 	{
 		shlModifyCustomers = new Shell();
 		shlModifyCustomers.setSize(800, 340);
-		shlModifyCustomers.setText(Messages.getString("ModifyCustomer.shlModifyCustomers.text")); //$NON-NLS-1$
+		shlModifyCustomers.setText(messages.getString("ModifyCustomer.shlModifyCustomers.text")); //$NON-NLS-1$
 		
 		Button btnExit = new Button(shlModifyCustomers, SWT.NONE);
-		btnExit.setText(Messages.getString("btnExit.text")); //$NON-NLS-1$
+		btnExit.setText(messages.getString("btnExit.text")); //$NON-NLS-1$
 		btnExit.setBounds(699, 271, 75, 25);
 		
 		Label lblCustomers = new Label(shlModifyCustomers, SWT.CENTER);
-		lblCustomers.setText(Messages.getString("lblCustomers.text")); //$NON-NLS-1$
+		lblCustomers.setText(messages.getString("lblCustomers.text")); //$NON-NLS-1$
 		lblCustomers.setBounds(258, 9, 516, 15);
 		
 		Label lblName = new Label(shlModifyCustomers, SWT.NONE);
-		lblName.setText(Messages.getString("lblName.text")); //$NON-NLS-1$
+		lblName.setText(messages.getString("lblName.text")); //$NON-NLS-1$
 		lblName.setBounds(10, 9, 120, 21);
 		
 		nameField = new Text(shlModifyCustomers, SWT.BORDER);
@@ -143,25 +146,25 @@ public class ModifyCustomer extends AbstractBusProgramWindow
 		sizeField.setBounds(143, 36, 100, 24);
 		
 		Label lblSize = new Label(shlModifyCustomers, SWT.NONE);
-		lblSize.setText(Messages.getString("lblSize.text")); //$NON-NLS-1$
+		lblSize.setText(messages.getString("lblSize.text")); //$NON-NLS-1$
 		lblSize.setBounds(10, 39, 120, 21);
 		
 		Label lblID = new Label(shlModifyCustomers, SWT.NONE);
-		lblID.setText(Messages.getString("lblID.text")); //$NON-NLS-1$
+		lblID.setText(messages.getString("lblID.text")); //$NON-NLS-1$
 		lblID.setBounds(10, 67, 106, 23);
 		
 		idField = new Text(shlModifyCustomers, SWT.BORDER);
 		idField.setBounds(143, 66, 100, 24);
 		
 		Label lblTripDate = new Label(shlModifyCustomers, SWT.NONE);
-		lblTripDate.setText(Messages.getString("lblTripDate.text")); //$NON-NLS-1$
+		lblTripDate.setText(messages.getString("lblTripDate.text")); //$NON-NLS-1$
 		lblTripDate.setBounds(10, 96, 100, 15);
 		
 		calendar = new DateTime(shlModifyCustomers, SWT.BORDER | SWT.CALENDAR);
 		calendar.setBounds(10, 117, 233, 151);
 
 		Button btnModify = new Button(shlModifyCustomers, SWT.NONE);
-		btnModify.setText(Messages.getString("btnModify.text")); //$NON-NLS-1$
+		btnModify.setText(messages.getString("btnModify.text")); //$NON-NLS-1$
 		btnModify.setBounds(10, 271, 233, 25);
 		
 		customersTable = new Table(shlModifyCustomers, SWT.BORDER | SWT.FULL_SELECTION);

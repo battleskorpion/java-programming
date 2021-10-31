@@ -12,7 +12,7 @@ package bus_project;
 /******************/
 /* IMPORT SECTION */
 /******************/
-import fileIO.*;										// FOR FILE READING/WRITING
+import abstractProgram.fileIO.*;						// FOR FILE READING/WRITING
 import org.eclipse.swt.widgets.Display;					// FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.swt.widgets.Shell;					// FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.swt.widgets.Menu;					// FOR SWT WINDOWS/WIDGETS	

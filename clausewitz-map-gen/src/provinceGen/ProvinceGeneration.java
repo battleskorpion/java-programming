@@ -12,8 +12,21 @@ import org.spongepowered.noise.module.source.Simplex;
 
 public class ProvinceGeneration 
 {
-	public static int imageHeight = 2048;	// 1024, 512, 256 works	// 2048 - default
-	public static int imageWidth = 5632; 	// 1024, 512, 256 works	// 5632 - default
+	//convert rgb int to r, g, b 
+	/*
+	int r = (int) ((Math.pow(256,3) + rgbs[k]) / 65536);
+	int g = (int) (((Math.pow(256,3) + rgbs[k]) / 256 ) % 256 );
+	int b = (int) ((Math.pow(256,3) + rgbs[k]) % 256); 
+	*/
+	// also works: 
+	/*
+	int red = (rgb >> 16) & 0xFF;
+	int green = (rgb >> 8) & 0xFF;
+	int blue = rgb & 0xFF;
+	*/	
+	
+	public static int imageWidth = 4608; 	// 1024, 512, 256 works	// 5632 - default
+	public static int imageHeight = 2816;	// 1024, 512, 256 works	// 2048 - default
 	
 	public static Color WHITE = new Color(255, 255, 255); 
 	public static int INT_WHITE = ((WHITE.getRed() << 8) + WHITE.getGreen()) << 8 + WHITE.getBlue(); 
@@ -161,7 +174,6 @@ public class ProvinceGeneration
 					seedsLand.get(seedsLand.size() - 1).add(Integer.valueOf(y + yOffset));
 					seedsLand.get(seedsLand.size() - 1).add(rgb); 
 					seedsLand.get(seedsLand.size() - 1).add(0); 	// "false" (not sea) (not great but for now ok)	//TODO: Unnecessary 
-					
 				}
 				
 				//seedsCoords.add(new Point(x + xOffset, y + yOffset)); 
@@ -267,13 +279,13 @@ public class ProvinceGeneration
 		//	}
 		//}
 		
-		//Thread thisThread = Thread.currentThread(); 
-		
 		// ~twice as fast using threads
 		for (int y = 0; y < imageHeight; y++) 
 		{
 			//System.out.println("y = " + y); // ok working
 			final int localY = y; 
+			
+			/* define new runnable */
 			Runnable runnable = new Runnable() 
 			{
 				public void run() 
@@ -301,10 +313,10 @@ public class ProvinceGeneration
 				}
 			}; 
 			
-			Thread thread = new Thread(runnable); 
-			thread.start(); 
+			Thread thread = new Thread(runnable); 	// set new thread to be new thread of defined runnable 
+			thread.start(); 						// start new thread 
 			try {
-				thread.join();
+				thread.join();						// Waits for thread to die 
 			} 
 			catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -471,7 +483,6 @@ public class ProvinceGeneration
 	        {
 	        	nearestColor = seeds.get(s).get(2);		// index 2 is rgb int value of seed
 	        	dist = cdist;
-	        	
 	        }
 		}
 		
@@ -558,24 +569,34 @@ public class ProvinceGeneration
 						{
 							point = above; 	
 						}
-						points.get(y).get(x).set(0, Integer.valueOf(point)); 
-						image.setRGB(x, y, point); 	
+						applyPointColor(x, y, point); 
 					}
 				}
 				else if (left == right)
 				{
 					point = left; 
-					points.get(y).get(x).set(0, Integer.valueOf(point));
-					image.setRGB(x, y, point); 	
+					applyPointColor(x, y, point); 
 				}
 				else if (above == below)
 				{
 					point = above; 
-					points.get(y).get(x).set(0, Integer.valueOf(point));
-					image.setRGB(x, y, point); 		 
+					applyPointColor(x, y, point); 	 
 				}		
 			}
 		}
+	}
+	
+	/**
+     * Sets point color to value of point of point specified by x and y (order y, x) 
+     * in points arraylist and sets color of image to the point color at x and y
+     * @param  x x-coordinate 
+     * @param y y-coordinate
+     * @param color color value to use 
+     */
+	private static void applyPointColor(int x, int y, int color)
+	{
+		points.get(y).get(x).set(0, Integer.valueOf(color)); 
+		image.setRGB(x, y, color); 	
 	}
 	
 	// remove single pixels fully surrounded by another color
@@ -622,17 +643,4 @@ public class ProvinceGeneration
 		}
 		
 	}
-	
-	//convert rgb int to r, g, b 
-	/*
-	int r = (int) ((Math.pow(256,3) + rgbs[k]) / 65536);
-	int g = (int) (((Math.pow(256,3) + rgbs[k]) / 256 ) % 256 );
-	int b = (int) ((Math.pow(256,3) + rgbs[k]) % 256); 
-	*/
-	// also works: 
-	/*
-	int red = (rgb >> 16) & 0xFF;
-	int green = (rgb >> 8) & 0xFF;
-	int blue = rgb & 0xFF;
-	*/	
 }

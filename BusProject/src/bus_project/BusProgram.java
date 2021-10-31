@@ -9,72 +9,54 @@
 /* AND BUSES NEEDED	 								*/
 /****************************************************/
 
-/******************/
-/* IMPORT SECTION */
-/******************/
+/*******************/
+/* PACKAGE SECTION */
+/*******************/
 package bus_project;
 
 /******************/
 /* IMPORT SECTION */
 /******************/
-import javax.swing.JOptionPane;							// FOR JOPTIONPANE DIALOG WINDOWS
+import javax.swing.JOptionPane;							// FOR JOptionPane DIALOG WINDOWS
+import abstractProgram.abstractProgram.*;				// FOR AbstractProgram CLASSES 
 
-public class BusProgram 
+public class BusProgram extends RunProgram
 {
-	public static BusProgramMenu window; 
+	public BusProgramMenu window; 
+	
+	public BusProgram() {
+		super(true, "This program helps schedule customer trips "
+				+ "on selected dates, \nand calculate company profit and buses needed."); 
+	}
 	
 	public static void main(String[] args) 
 	{
-		/********************/
-		/* VARIABLE SECTION */
-		/********************/ 
-		int runProgramResponse; 
-		
-		/****************************/
-		/* USER DESCRIPTION SECTION */
-		/****************************/
-		JOptionPane.showMessageDialog(null, "This program helps schedule customer trips "
-				+ "on selected dates, \nand calculate company profit and buses needed."); 
-		
-		/******************************************************/
-		/* METHOD TO READ PROGRAM SETTINGS FROM SETTINGS FILE */
-		/******************************************************/
-		Settings.readSettings(); 
-		
-		/***************************/
-		/* RUN PROGRAM AGAIN LOOP  */
-		/***************************/
-		/* YES: 	runProgram = 0 */
-		/* NO:  	runProgram = 1 */
-		/* CANCEL: 	runProgram = 2 */
-		/***************************/
-		do 
-		{
-			/***********************/
-			/* REOPEN PROGRAM LOOP */
-			/***********************/
-			runProgram(); 
-			runProgramResponse = runProgramPrompt(); 	
-			while (runProgramResponse == 2)
-			{
-				/***************************/
-				/* METHOD TO REOPEN WINDOW */
-				/***************************/ 
-				window.open(); 				
-				runProgramResponse = runProgramPrompt(); 
-			}
-		}
-		while (runProgramResponse == 0);
-		
-		/****************************************************/
-		/* METHOD TO SAVE PROGRAM SETTINGS TO SETTINGS FILE */
-		/****************************************************/
-		Settings.saveSettings(); 
+		new BusProgram().runProgram();
 	}
 	
 	/************************************************************************************************/
 	/*											METHOD SECTION 										*/
 	/************************************************************************************************/
+	
+	public static void openWindow(BusProgram busProgram)
+	/************************************************************************************************/ 
+	/* PRECONDITION:  PROGRAM WINDOW NEEDS TO BE OPENED/REOPENED									*/					  
+	/* POSTCONDITION: TRIES TO OPEN WINDOW, DISPLAYS ERROR IF NOT POSSIBLE 							*/
+	/************************************************************************************************/
+	{
+		/*****************************/
+		/* METHOD TO OPEN GUI WINDOW */
+		/*****************************/
+		try 
+		{
+			busProgram.window.open();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error occured in main program.");
+		}
+	}
 	
 	static int runProgramPrompt()  
 	/************************************************************************************************/ 
@@ -104,7 +86,8 @@ public class BusProgram
 		return runProgram; 
 	}
 	
-	public static void runProgram()
+	@Override
+	public void startProgram()
 	/************************************************************************************************/ 
 	/* PRECONDITION:  PROGRAM NEEDS TO BE RAN  														*/					  
 	/* POSTCONDITION: CREATES NEW PROGRAM MENU AND BEGINS PROGRAM									*/
@@ -113,45 +96,12 @@ public class BusProgram
 		/*****************************************/
 		/* INSTANTIATE NEW MENU (RESETS PROGRAM) */
 		/*****************************************/
-		window = new BusProgramMenu();
+		this.window = new BusProgramMenu(this);
 			
 		/*************************/
 		/* METHOD TO OPEN WINDOW */
 		/*************************/
-		openWindow(); 
-	}
-	
-	public static void languageChanged(int index)
-	/************************************************************************************************/ 
-	/* PRECONDITION:  USER HAS SELECTED A LANGUAGE/LOCALE											*/					  
-	/* POSTCONDITION: CHANGES LOCALE TO SELECTED LOCALE AND RESTARTS PROGRAM TO REFLECT CHANGES		*/
-	/************************************************************************************************/
-	{
-		// 0 - en_US
-		// 1 - es_ES
-		Messages.setLocale(Messages.programLocales().get(index));	
-		window.close(); 
-		runProgram(); 
-	}
-	
-	public static void openWindow()
-	/************************************************************************************************/ 
-	/* PRECONDITION:  PROGRAM WINDOW NEEDS TO BE OPENED/REOPENED									*/					  
-	/* POSTCONDITION: TRIES TO OPEN WINDOW, DISPLAYS ERROR IF NOT POSSIBLE 							*/
-	/************************************************************************************************/
-	{
-		/*****************************/
-		/* METHOD TO OPEN GUI WINDOW */
-		/*****************************/
-		try 
-		{
-			window.open();
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error occured in main program.");
-		}
+		openWindow(this); 
 	}
 
 }

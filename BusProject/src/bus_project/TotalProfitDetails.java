@@ -22,6 +22,9 @@ import org.eclipse.swt.widgets.Display;					// FOR SWT WINDOWS/WIDGETS
 import org.eclipse.swt.widgets.Label;					// FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.swt.widgets.Shell;					// FOR SWT WINDOWS/WIDGETS	
 import org.eclipse.wb.swt.SWTResourceManager;			// FOR SWT WINDOWS/WIDGETS	
+
+import bus_project.localization.Messages;
+
 import org.eclipse.swt.widgets.DateTime;				// FOR SWT WINDOWS/WIDGETS 
 														// (CALENDAR AND DATE SELECTION)
 
@@ -122,7 +125,7 @@ public class TotalProfitDetails extends AbstractBusProgramWindow
 		{
 			public void widgetSelected(SelectionEvent e) 
 			{
-				lblNewLabel.setText(BusFinances.currency.getSymbol(Messages.getLocale())
+				lblNewLabel.setText(BusFinances.currency.getSymbol(messages.getLocale())
 						+ BusFinances.getProfitToDate(LocalDate.parse(dateTimeToLocalDateStringFormat
 						(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()))));
 			}
