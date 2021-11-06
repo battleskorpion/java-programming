@@ -4,16 +4,13 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Random;
-
-import abstractProgram.abstractProgram.*; 
+import java.util.Random; 
 
 import net.sf.image4j.codec.bmp.*; 
 import org.spongepowered.noise.*;
 import org.spongepowered.noise.module.source.Simplex;
 
-public class ProvinceGeneration 
-{
+public class ProvinceGeneration {
 	//convert rgb int to r, g, b 
 	/*
 	int r = (int) ((Math.pow(256,3) + rgbs[k]) / 65536);
@@ -54,8 +51,7 @@ public class ProvinceGeneration
 	/**
 	 * Constructors
 	 */
-	public ProvinceGeneration()
-	{
+	public ProvinceGeneration() {
 		
 	}
 	
@@ -63,8 +59,7 @@ public class ProvinceGeneration
 		this.parentWindow = parentWindow; 
 	}
 	
-	public void provinceGeneration()
-	{
+	public void provinceGeneration() {
 		// variable section 
 		//ProvinceGenProgressWindow progressWindow = new ProvinceGenProgressWindow(imageHeight); 
 		Color color; 
@@ -84,10 +79,8 @@ public class ProvinceGeneration
 		rgb_white = (rgb_white << 8) + Color.white.getBlue();
 		
 		// white canvas (unnecessary) 
-		for (int y = 0; y < imageHeight; y++) 
-		{
-			for (int x = 0; x < imageWidth; x++) 
-			{			
+		for (int y = 0; y < imageHeight; y++) {
+			for (int x = 0; x < imageWidth; x++) {			
 				// set color at pixel cords
 				image.setRGB(x, y, rgb_white);
 			}
@@ -96,26 +89,25 @@ public class ProvinceGeneration
 		/* seeds */  
 	
 		// (seed generation is very quick) 
-		for (int y = imageHeight / numSeedsY / 2 - 1; y < imageHeight; y+= imageHeight / numSeedsY) 			// int y = numSeedsY / 2 - 1 worked sometimes
-		{
-			for (int x = imageWidth / numSeedsX / 2 - 1; x < imageWidth; x+= imageWidth / numSeedsX) 			// int x = numSeedsX / 2 - 1 worked sometimes
-			{
+		for (int y = imageHeight / numSeedsY / 2 - 1; y < imageHeight; y+= imageHeight / numSeedsY) {			// int y = numSeedsY / 2 - 1 worked sometimes
+			for (int x = imageWidth / numSeedsX / 2 - 1; x < imageWidth; x+= imageWidth / numSeedsX) { 			// int x = numSeedsX / 2 - 1 worked sometimes
 				// set color
 				int xOffset = random.nextInt(imageWidth / numSeedsX - 1) - (imageWidth / numSeedsX / 2 - 1); 	// -3 to 3		// should make variables	// int xOffset = random.nextInt(numSeedsX - 1) - (numSeedsX / 2 - 1); 
 				int yOffset = random.nextInt(imageHeight / numSeedsY - 1) - (imageHeight / numSeedsY / 2 - 1); 	// -3 to 3		// should make variables	// int yOffset = random.nextInt(numSeedsY - 1) - (numSeedsY / 2 - 1);
 				int rgb; 								// rgb color int value
 				
 				// heightmap color stuff
-				int heightmapRGB; 
+				int heightmapHeight; 												// color (gray) value (height value) of heightmap
+				int heightmapOffsetRGB; 
 				int red; 
 
-				heightmapRGB = heightmap.getRGB(x + xOffset, y + yOffset); 
-				red = (heightmapRGB >> 16) & 0xFF;
+				heightmapHeight = (heightmap.getRGB(x, y) >> 16) & 0xFF; 			// heightmap is in grayscale meaning only need to find red value to get height value at point. 
+				heightmapOffsetRGB = heightmap.getRGB(x + xOffset, y + yOffset); 
+				red = (heightmapOffsetRGB >> 16) & 0xFF;
 				//int green = (heightmapRGB >> 8) & 0xFF;		// grayscale, only need one to compare
 				//int blue = heightmapRGB & 0xFF;				// grayscale, only need one to compare
 				
-				if (red < HEIGHTMAP_SEA_LEVEL)
-				{
+				if (red < HEIGHTMAP_SEA_LEVEL) {
 					/* prov color */
 					color = new Color(random.nextInt(64), random.nextInt(64), random.nextInt(64)); 
 					
@@ -125,8 +117,7 @@ public class ProvinceGeneration
 					rgb = (rgb << 8) + color.getBlue();
 		
 				}
-				else 
-				{
+				else {
 					/* prov color */
 					color = new Color(random.nextInt(192) + 64, random.nextInt(192) + 64, random.nextInt(192) + 64); 
 					
@@ -139,9 +130,7 @@ public class ProvinceGeneration
 				
 				/* calculate sea or land prov. */  
 				int type = 0; // 0: land
-				// (heightmapRGB >> 16) & 0xFF to get red value (only value necessary since grayscale) 
-				if (((heightmap.getRGB(x, y) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL)
-				{
+				if (heightmapHeight < HEIGHTMAP_SEA_LEVEL) {
 					type = 1; // 1: sea  	
 				}
 				
@@ -153,26 +142,24 @@ public class ProvinceGeneration
 				.set(1, Integer.valueOf(1)); 	// "true" (for later) // (its a seed) 
 				points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset))
 				.set(2, Integer.valueOf(type)); // type of province (sea or land) 
-				if (type == 1)
-				{
+				//if (type == 1)
+				//{
 					//System.out.println(points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset)).get(points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset)).size() - 1)); 
 					
-				}
+				//}
 				//System.out.println(points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset)).get(2).toString()); 	
 				
 				
 				// add point to seeds array 
 				// x and y needed
-				if (red < HEIGHTMAP_SEA_LEVEL)
-				{
+				if (red < HEIGHTMAP_SEA_LEVEL) {
 					seedsSea.add(new ArrayList<Integer>(3)); 
 					seedsSea.get(seedsSea.size() - 1).add(Integer.valueOf(x + xOffset)); 
 					seedsSea.get(seedsSea.size() - 1).add(Integer.valueOf(y + yOffset));
 					seedsSea.get(seedsSea.size() - 1).add(rgb); 
 					//seedsSea.get(seedsSea.size() - 1).add(1); 	// "true" (is sea) (not great but for now ok)	//TODO: Unnecessary  
 				}
-				else 
-				{
+				else {
 					seedsLand.add(new ArrayList<Integer>(3)); 
 					seedsLand.get(seedsLand.size() - 1).add(Integer.valueOf(x + xOffset)); 
 					seedsLand.get(seedsLand.size() - 1).add(Integer.valueOf(y + yOffset));
@@ -184,12 +171,10 @@ public class ProvinceGeneration
 				//seeds.add(rgb); 
 
 				// set color at pixel cords
-				try
-				{
+				try {
 					image.setRGB(x + xOffset, y + yOffset, rgb);
 				}
-				catch (ArrayIndexOutOfBoundsException exc)
-				{
+				catch (ArrayIndexOutOfBoundsException exc) {
 					exc.printStackTrace();
 					System.out.println("x: " + (x + xOffset)); 
 					System.out.println("y: " + (y + yOffset)); 
@@ -198,67 +183,10 @@ public class ProvinceGeneration
 				}
 				
 			}
-			if (parentWindow != null) {
-				parentWindow.setProgress(y); 
-			} 
+			//if (parentWindow != null) {
+			//	parentWindow.setProgress(y); 
+			//} 
 		}
-		
-		/* bad */ 
-		
-		//int[] availablePoints = new int[4]; 
-		//int numAvailablePoints = 0; 
-		//int ctr = 0; 	// counts until no more actions can be taken
-		//while (ctr < points.size()) {
-		//	for (int i = 0; i < points.size(); i++) {
-		//		if (image.getRGB(points.get(i).get(0) + 1, points.get(i).get(1)) == INT_WHITE) {
-		//			availablePoints[0] = 1; 
-		//			numAvailablePoints++; 
-		//		}
-		//		else {
-		//			availablePoints[0] = 0; 
-		//		}
-		//		if (image.getRGB(points.get(i).get(0), points.get(i).get(1) + 1) == INT_WHITE) {
-		//			availablePoints[1] = 1; 
-		//			numAvailablePoints++; 
-		//		}
-		//		else {
-		//			availablePoints[1] = 0; 
-		//		}
-		//		if (image.getRGB(points.get(i).get(0) - 1, points.get(i).get(1)) == INT_WHITE) {
-		//			availablePoints[2] = 1; 
-		//			numAvailablePoints++; 
-		//		}
-		//		else {
-		//			availablePoints[2] = 0; 
-		//		}
-		//		if (image.getRGB(points.get(i).get(0), points.get(i).get(1) - 1) == INT_WHITE) {
-		//			availablePoints[3] = 1; 
-		//			numAvailablePoints++; 
-		//		}
-		//		else {
-		//			availablePoints[3] = 0; 
-		//		}
-		//		
-		//		switch (numAvailablePoints) {
-		//		case 0: 
-		//			ctr++; 
-		//			break; 
-		//		case 4: 
-		//			switch(random.nextInt(4)) {
-		//			case 0:
-		//				image.setRGB(, image.getRGB(points.get(i).get(0), points.get(i).get(1)));
-		//				break; 
-		//			case 1: 
-		//				break; 
-		//			case 2: 
-		//				break; 
-		//			case 3:
-		//				break; 
-		//			}
-		//			break; 
-		//		}
-		//	}
-		//}
 		
 		// set colors based on nearest seed
 		// y, x inner for loop will scan horizontally 
@@ -286,34 +214,26 @@ public class ProvinceGeneration
 		//}
 		
 		// ~twice as fast using threads
-		for (int y = 0; y < imageHeight; y++) 
-		{
-			//System.out.println("y = " + y); // ok working
+		for (int y = 0; y < imageHeight; y++) {
 			final int localY = y; 
 			
 			/* define new runnable */
-			Runnable runnable = new Runnable() 
-			{
-				public void run() 
-				{
-					for (int x = 0; x < imageWidth; x++) 
-					{
+			Runnable runnable = new Runnable() {
+				@Override
+				public void run() {
+					for (int x = 0; x < imageWidth; x++) {
 						int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
 						int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
 						int rgb;
 						
-						if (((heightmap.getRGB(x, localY) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL)
-						{
+						if (((heightmap.getRGB(x, localY) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
 							rgb = determineColor(x, xOffset, localY, yOffset, seedsSea); 
 						}
-						else 
-						{
+						else {
 							rgb = determineColor(x, xOffset, localY, yOffset, seedsLand); 
 						}
 		
-						//System.out.println(rgb); 
 						points.get(localY).get(x).set(0, Integer.valueOf(rgb)); 	
-						//System.out.println("x: " + x + " y: " + localY); // ok working
 						image.setRGB(x, localY, rgb);
 					}
 				}
@@ -323,6 +243,9 @@ public class ProvinceGeneration
 			thread.start(); 						// start new thread 
 			try {
 				thread.join();						// Waits for thread to die 
+				if (parentWindow != null) {
+					parentWindow.setProgress(localY); 
+				} 
 			} 
 			catch (InterruptedException e) {
 				e.printStackTrace();
@@ -374,13 +297,11 @@ public class ProvinceGeneration
 		//}
 			
 		// write image 
-		try 
-		{
+		try {
 			BMPEncoder.write(image, new File("output.bmp"));
 			
 		}
-		catch (IOException exc) 
-		{
+		catch (IOException exc) {
 			exc.printStackTrace();
 			// error
 		}
@@ -391,20 +312,16 @@ public class ProvinceGeneration
 		System.out.println("end."); 
 	}
 	
-	private static void initializePoints()
-	{
+	private static void initializePoints() {
 		points = new ArrayList<ArrayList<ArrayList<Integer>>>(imageHeight);
 		
-		for (int y = 0; y < imageHeight; y++)
-		{
+		for (int y = 0; y < imageHeight; y++) {
 			points.add(new ArrayList<ArrayList<Integer>>(imageWidth));
-			for (int x = 0; x < imageWidth; x++)
-			{
+			for (int x = 0; x < imageWidth; x++) {
 				points.get(y).add(new ArrayList<Integer>(4)); 
 				
 				// add actual data 
-				for (int i = 0; i < 4; i++)
-				{
+				for (int i = 0; i < 4; i++) {
 					// white color default
 					points.get(y).get(x).add(rgb_white); 			// white color default
 					points.get(y).get(x).add(0); 					// 0 for false
@@ -590,9 +507,9 @@ public class ProvinceGeneration
 	}
 	
 	/**
-     * Sets point color to value of point of point specified by x and y (order y, x) 
-     * in points arraylist and sets color of image to the point color at x and y
-     * @param  x x-coordinate 
+     * Sets point color to value of point of point specified by <code>x</code> and <code>y</code> (order y, x) 
+     * in points arraylist and sets <code>color</code> of image to the point color at <code>x</code> and <code>y</code>. 
+     * @param x x-coordinate 
      * @param y y-coordinate
      * @param color color value to use 
      */
@@ -602,7 +519,9 @@ public class ProvinceGeneration
 		image.setRGB(x, y, color); 	
 	}
 	
-	// remove single pixels fully surrounded by another color
+	/**
+	 * Remove single pixels fully surrounded by another color. 
+	 */
 	private static void removeExclaves()
 	{
 		int left;			// color of left province
@@ -633,6 +552,10 @@ public class ProvinceGeneration
 		}
 	}
 	
+	/**
+	 * Loads a heightmap named <code>heightmap.bmp</code> using {@link BMPDecoder} 
+	 * @see BMPDecoder
+	 */
 	private static void loadHeightmap()
 	{
 		try 

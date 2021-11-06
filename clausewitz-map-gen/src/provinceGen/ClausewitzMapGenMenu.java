@@ -78,12 +78,11 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		}
 	}
 	
-	public void open(Shell shell)
-	/****************************************************************/
-	/* PRECONDITION:  GUI INSTANCE NEEDS TO BE DISPLAYED            */
-	/* POSTCONDITION: CREATES THE GUI DISPLAY AND OPENS THE DISPLAY	*/
-	/****************************************************************/
-	{
+	/**
+	 * Creates the GUI and opens the display. 
+	 * @param shell {@link Shell} (window) to display until closed/disposed. 
+	 */
+	public void open(Shell shell) {
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
@@ -113,11 +112,9 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		/*********************************************************************************/
 		/* WHILE SHELL IS NOT DISPOSED, SLEEP DISPLAY IF THERE IS NOTHING IT NEEDS TO DO */
 		/*********************************************************************************/
-		while (!shell.isDisposed()) 
-		{
-			if (!display.readAndDispatch()) 
-			{
-				display.sleep();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep(); 
 			}
 		}
 	}
@@ -148,24 +145,24 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		btnStart.setText("Start");
 	}
 	
-	public void setMapHeight(int height)
-	{
+	public void setMapHeight(int height) {
 		mapHeight = height; 
 		progressBar.setMaximum(height);
 	}
 	
-	public void increaseProgress()
-	{
+	public void increaseProgress() {
 		progressBar.setSelection(progressBar.getSelection() + 1);
 	}
 	
-	public void increaseProgress(int progress)
-	{
+	public void increaseProgress(int progress) {
 		progressBar.setSelection(progressBar.getSelection() + progress);
 	}
 	
-	public void setProgress(int progress)
-	{
+	public void setProgress(int progress) {
 		progressBar.setSelection(progress);
 	}
+	
+	public void resetProgress() {
+		progressBar.setSelection(0);
+	} 
 }
