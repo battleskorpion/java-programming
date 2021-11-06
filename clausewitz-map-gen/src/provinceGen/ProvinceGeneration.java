@@ -114,8 +114,7 @@ public class ProvinceGeneration {
 					// Color -> int
 					rgb = color.getRed(); 
 					rgb = (rgb << 8) + color.getGreen();
-					rgb = (rgb << 8) + color.getBlue();
-		
+					rgb = (rgb << 8) + color.getBlue();		
 				}
 				else {
 					/* prov color */
@@ -125,7 +124,6 @@ public class ProvinceGeneration {
 					rgb = color.getRed(); 
 					rgb = (rgb << 8) + color.getGreen();
 					rgb = (rgb << 8) + color.getBlue();
-					
 				}
 				
 				/* calculate sea or land prov. */  
