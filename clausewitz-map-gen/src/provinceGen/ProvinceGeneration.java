@@ -6,6 +6,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import abstractProgram.abstractProgram.*; 
+
 import net.sf.image4j.codec.bmp.*; 
 import org.spongepowered.noise.*;
 import org.spongepowered.noise.module.source.Simplex;
@@ -27,30 +29,41 @@ public class ProvinceGeneration
 	
 	public static int imageWidth = 4608; 	// 1024, 512, 256 works	// 5632 - default
 	public static int imageHeight = 2816;	// 1024, 512, 256 works	// 2048 - default
-	
-	public static Color WHITE = new Color(255, 255, 255); 
-	public static int INT_WHITE = ((WHITE.getRed() << 8) + WHITE.getGreen()) << 8 + WHITE.getBlue(); 
-	
-	public static int HEIGHTMAP_SEA_LEVEL = 95; 
-	
+	//public static int INT_WHITE = ((Color.white.getRed() << 8) + Color.white.getGreen()) << 8 + Color.white.getBlue(); 
+	public static final int HEIGHTMAP_SEA_LEVEL = 95; 
 	// SEA LEVEL COLOR/MAX 
 	public static final Color SEA_LEVEL_RGB = new Color(HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL); ;
 	public static final int SEA_LEVEL_INT_RGB = ((SEA_LEVEL_RGB.getRed() << 8) + SEA_LEVEL_RGB.getGreen()) << 8 + SEA_LEVEL_RGB.getBlue(); 
-	
 	public static int numSeedsY = 64; 		// 64 is ok	// 64^2 = 4096
 	public static int numSeedsX = 64; 		// 64 is ok // 64^2 = 4096
-	
 	private static ArrayList<ArrayList<ArrayList<Integer>>> points;  								// stored y, x
 	private static ArrayList<ArrayList<Integer>> seedsLand = new ArrayList<ArrayList<Integer>>(); 	// values of point stored as x, y
 	private static ArrayList<ArrayList<Integer>> seedsSea = new ArrayList<ArrayList<Integer>>(); 	// values of point stored as x, y
 	//private static ArrayList<Integer> seeds = new ArrayList<Integer>(); 		// just stores rgb values 
 	//private static ArrayList<Point> seedsCoords = new ArrayList<Point>(); 
-	
 	private static int rgb_white; 
 	private static BufferedImage image; 
 	private static BufferedImage heightmap; 
+	private ClausewitzMapGenMenu parentWindow; 
 	
-	public static void main (String args[]) 
+	//public static void main (String args[]) 
+	//{
+	//	provinceGeneration(); 
+	//}
+	
+	/**
+	 * Constructors
+	 */
+	public ProvinceGeneration()
+	{
+		
+	}
+	
+	public ProvinceGeneration(ClausewitzMapGenMenu parentWindow) {
+		this.parentWindow = parentWindow; 
+	}
+	
+	public void provinceGeneration()
 	{
 		// variable section 
 		//ProvinceGenProgressWindow progressWindow = new ProvinceGenProgressWindow(imageHeight); 
@@ -74,16 +87,7 @@ public class ProvinceGeneration
 		for (int y = 0; y < imageHeight; y++) 
 		{
 			for (int x = 0; x < imageWidth; x++) 
-			{
-				// set color
-				//switch (random.nextInt(2)) {
-				//case 0: 
-				
-				//	break;
-				//default:  
-				//	color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256)); 
-				//}
-				
+			{			
 				// set color at pixel cords
 				image.setRGB(x, y, rgb_white);
 			}
@@ -161,19 +165,19 @@ public class ProvinceGeneration
 				// x and y needed
 				if (red < HEIGHTMAP_SEA_LEVEL)
 				{
-					seedsSea.add(new ArrayList<Integer>(4)); 
+					seedsSea.add(new ArrayList<Integer>(3)); 
 					seedsSea.get(seedsSea.size() - 1).add(Integer.valueOf(x + xOffset)); 
 					seedsSea.get(seedsSea.size() - 1).add(Integer.valueOf(y + yOffset));
 					seedsSea.get(seedsSea.size() - 1).add(rgb); 
-					seedsSea.get(seedsSea.size() - 1).add(1); 	// "true" (is sea) (not great but for now ok)	//TODO: Unnecessary  
+					//seedsSea.get(seedsSea.size() - 1).add(1); 	// "true" (is sea) (not great but for now ok)	//TODO: Unnecessary  
 				}
 				else 
 				{
-					seedsLand.add(new ArrayList<Integer>(4)); 
+					seedsLand.add(new ArrayList<Integer>(3)); 
 					seedsLand.get(seedsLand.size() - 1).add(Integer.valueOf(x + xOffset)); 
 					seedsLand.get(seedsLand.size() - 1).add(Integer.valueOf(y + yOffset));
 					seedsLand.get(seedsLand.size() - 1).add(rgb); 
-					seedsLand.get(seedsLand.size() - 1).add(0); 	// "false" (not sea) (not great but for now ok)	//TODO: Unnecessary 
+					//seedsLand.get(seedsLand.size() - 1).add(0); 	// "false" (not sea) (not great but for now ok)	//TODO: Unnecessary 
 				}
 				
 				//seedsCoords.add(new Point(x + xOffset, y + yOffset)); 
@@ -194,7 +198,9 @@ public class ProvinceGeneration
 				}
 				
 			}
-			//progressWindow.setProgress(y); 
+			if (parentWindow != null) {
+				parentWindow.setProgress(y); 
+			} 
 		}
 		
 		/* bad */ 
@@ -319,7 +325,6 @@ public class ProvinceGeneration
 				thread.join();						// Waits for thread to die 
 			} 
 			catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return; 
 			} 
@@ -329,7 +334,6 @@ public class ProvinceGeneration
 		//	thisThread.wait();
 		//}
 		//catch (InterruptedException e) {
-		//	// TODO Auto-generated catch block
 		//	e.printStackTrace();
 		//}
 
@@ -478,7 +482,6 @@ public class ProvinceGeneration
 	        int cdist = xdiff*xdiff + ydiff*ydiff;
 	        
 	        // is the current distance smaller than the old distance?
-	        // is it also the right type (sea/land?) 
 	        if (cdist < dist)
 	        {
 	        	nearestColor = seeds.get(s).get(2);		// index 2 is rgb int value of seed
@@ -637,7 +640,6 @@ public class ProvinceGeneration
 			heightmap = BMPDecoder.read(new File("heightmap.bmp"));
 		} 
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return; 
 		}

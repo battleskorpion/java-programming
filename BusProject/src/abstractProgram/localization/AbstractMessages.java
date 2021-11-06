@@ -7,26 +7,25 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public abstract class AbstractMessages {
-	private String BUNDLE_NAME; // = "example.messages"; 			// $NON-NLS-1$		
-	private Locale locale = Locale.getDefault();					// PROGRAM LOCALE
-	private ResourceBundle RESOURCE_BUNDLE; 						// RESOURCE BUNDLE
+	private static String BUNDLE_NAME; // = "example.messages"; 	// $NON-NLS-1$		
+	private static Locale locale = Locale.getDefault();				// PROGRAM LOCALE
+	private static ResourceBundle RESOURCE_BUNDLE; 					// RESOURCE BUNDLE
 																	// (STORES LOCALE-
 																	// SPECIFIC STRINGS)
-
 	/***********************/
 	/* CONSTRUCTOR SECTION */
 	/***********************/
-	public AbstractMessages(String BUNDLE_NAME)
+	protected AbstractMessages(String BUNDLE_NAME)
 	{
-		this.BUNDLE_NAME = BUNDLE_NAME; 
-		this.RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale); 
+		AbstractMessages.BUNDLE_NAME = BUNDLE_NAME; 
+		AbstractMessages.RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale); 
 	}
 	
 	/************************************************************************************************/
 	/*											METHOD SECTION 										*/
 	/************************************************************************************************/
 	
-	public String getString(String key) 
+	public static String getString(String key) 
 	/************************************************************************************************/
 	/* PRECONDITION:  LOCALIZED STRING IS NEEDED WHICH RELATES TO KEY				  				*/
 	/* POSTCONDITION: RETURNS CORRESPONDING STRING OF KEY IN CURRENT LOCALE			  				*/
@@ -42,7 +41,7 @@ public abstract class AbstractMessages {
 		}
 	}
 	
-	public String getCompoundString(String key, Object[] dta)
+	public static String getCompoundString(String key, Object[] dta)
 	/************************************************************************************************/
 	/* PRECONDITION:  LOCALIZED COMPOUND STRING IS NEEDED WHICH RELATES TO KEY				  		*/
 	/* POSTCONDITION: RETURNS CORRESPONDING COMPOUND STRING OF KEY IN CURRENT LOCALE			  	*/
@@ -62,28 +61,26 @@ public abstract class AbstractMessages {
 	/* PRECONDITION:  LIST OF SUPPORTED LOCALES IS NEEDED			  								*/
 	/* POSTCONDITION: RETURNS  LIST OF SUPPORTED LOCALES 											*/
 	/************************************************************************************************/
-	/* note: function can be defined as static
-	 * example implementation 
+	/* example implementation */
+	/*
 	{
 		ArrayList<Locale> locales = new ArrayList<Locale>(); 
 		locales.add(new Locale("en", "US")); 
-		locales.add(new Locale("es", "ES")); 
-		locales.add(new Locale("pt", "PT")); 
 		return locales; 
 	}
 	*/ 
 	
-	public void setLocale(Locale locale)
+	public static void setLocale(Locale locale)
 	/************************************************************************************************/
 	/* PRECONDITION:  LOCALE NEEDS TO BE SET TO SPECIFIED LOCALE		  							*/
 	/* POSTCONDITION: SETS LOCALE TO SPECIFIED LOCALE 												*/
 	/************************************************************************************************/
 	{
-		this.locale = locale; 
+		AbstractMessages.locale = locale; 
 		RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale); 		
 	}
 	
-	public Locale getLocale() 
+	public static Locale getLocale() 
 	/************************************************************************************************/
 	/* PRECONDITION:  CURRENT LOCALE IS NEEDED		  												*/
 	/* POSTCONDITION: RETURNS LOCALE																*/

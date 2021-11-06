@@ -125,7 +125,7 @@ public class TotalProfitDetails extends AbstractBusProgramWindow
 		{
 			public void widgetSelected(SelectionEvent e) 
 			{
-				lblNewLabel.setText(BusFinances.currency.getSymbol(messages.getLocale())
+				lblNewLabel.setText(BusFinances.currency.getSymbol(Messages.getLocale())
 						+ BusFinances.getProfitToDate(LocalDate.parse(dateTimeToLocalDateStringFormat
 						(dateTime.getDay(), dateTime.getMonth(), dateTime.getYear()))));
 			}

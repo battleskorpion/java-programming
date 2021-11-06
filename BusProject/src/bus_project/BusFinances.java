@@ -19,7 +19,7 @@ import java.util.ArrayList;								// RESIZABLE-ARRAY IMPLEMENTATION OF THE LIST
 import java.util.Currency;								// REPRESENTS A CURRENCY
 import java.util.List;									// AN ORDERED COLLECTION (ALSO KNOWN AS A 
 														// SEQUENCE). 
-import abstractProgram.localization.*; 
+import bus_project.localization.*; 
 
 public class BusFinances extends Finances 
 {
@@ -31,9 +31,9 @@ public class BusFinances extends Finances
 	/***********************/ 
 	/* CONSTRUCTOR SECTION */
 	/***********************/ 
-	public BusFinances(AbstractMessages messages) 
+	public BusFinances() 
 	{
-		currency = Currency.getInstance(messages.getLocale());
+		currency = Currency.getInstance(Messages.getLocale());
 		nf.setCurrency(currency);
 		nf.setMinimumFractionDigits(2);
 		nf.setMaximumFractionDigits(2);

@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.TableItem;				// FOR A SELECTABLE USER INTERFACE 
 														// REPRESENTS AN ITEM IN A TABLE. 
 import org.eclipse.swt.widgets.Text;					// FOR SELECTABLE USER INTERFACE OBJECTS THAT
 														// ALLOW THE USER TO ENTER AND MODIFY TEXT.
+import abstractProgram.localization.*; 					// FOR Messages
 
 public abstract class AbstractProgramWindow 
 {
@@ -46,7 +47,7 @@ public abstract class AbstractProgramWindow
 	/* VARIABLE SECTION */
 	/********************/ 
 	protected Shell shell;								// SHELL WHICH REPRESENTS THIS WINDOW
-
+	
 	/************************************************************************************************/
 	/*										METHOD SECTION 			  				  				*/
 	/************************************************************************************************/

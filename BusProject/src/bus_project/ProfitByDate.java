@@ -135,7 +135,7 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		
 		shlProfitByDate = new Shell();
 		shlProfitByDate.setSize(880, 330);
-		shlProfitByDate.setText(messages.getString
+		shlProfitByDate.setText(Messages.getString
 				("ProfitByDate.shlProfitByDate.text")); 								//$NON-NLS-1$
 		
 		DateTime dateTime = new DateTime(shlProfitByDate, SWT.BORDER | SWT.CALENDAR);
@@ -147,11 +147,11 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		Label lblProfit = new Label(shlProfitByDate, SWT.NONE);
 		lblProfit.setFont(SWTResourceManager.getFont("Segoe UI Semibold", 10, SWT.NORMAL));
 		lblProfit.setBounds(10, 206, 91, 25);
-		lblProfit.setText(messages.getString("lblProfit.text")); 						//$NON-NLS-1$
+		lblProfit.setText(Messages.getString("lblProfit.text")); 						//$NON-NLS-1$
 		
 		Label lblAmtProfit = new Label(shlProfitByDate, SWT.RIGHT);
 		lblAmtProfit.setAlignment(SWT.LEFT);
-		lblAmtProfit.setText(messages.getString("ProfitByDate.lblAmtProfit.text")); 	//$NON-NLS-1$
+		lblAmtProfit.setText(Messages.getString("ProfitByDate.lblAmtProfit.text")); 	//$NON-NLS-1$
 		lblAmtProfit.setFont(SWTResourceManager.getFont("Segoe UI Light", 12, SWT.NORMAL));
 		lblAmtProfit.setBounds(107, 203, 136, 25);
 		
@@ -165,12 +165,12 @@ public class ProfitByDate extends AbstractBusProgramWindow
 			}
 		});
 		btnExit.setBounds(10, 258, 75, 25);
-		btnExit.setText(messages.getString("btnExit.text"));
+		btnExit.setText(Messages.getString("btnExit.text"));
 		
 		Label lblNewLabel = new Label(shlProfitByDate, SWT.CENTER);
 		lblNewLabel.setAlignment(SWT.CENTER);
 		lblNewLabel.setBounds(258, 10, 507, 15);
-		lblNewLabel.setText(messages.getString("ProfitByDate.lblTable.text"));			//$NON-NLS-1$
+		lblNewLabel.setText(Messages.getString("ProfitByDate.lblTable.text"));			//$NON-NLS-1$
 		
 		Label label = new Label(shlProfitByDate, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label.setBounds(10, 198, 233, 2);
@@ -203,7 +203,7 @@ public class ProfitByDate extends AbstractBusProgramWindow
 		
 		TableColumn tblclmnProfit = new TableColumn(customersTable, SWT.NONE);
 		tblclmnProfit.setWidth(100);
-		tblclmnProfit.setText(messages.getString("tblclmnProfit.text")); 				//$NON-NLS-1$
+		tblclmnProfit.setText(Messages.getString("tblclmnProfit.text")); 				//$NON-NLS-1$
 		tblclmnProfit.setAlignment(SWT.RIGHT); 
 
 		sortCustomers(); 
@@ -221,7 +221,7 @@ public class ProfitByDate extends AbstractBusProgramWindow
 				LocalDate date = LocalDate.parse(dateTimeToLocalDateStringFormat(dateTime.getDay(), 
 						dateTime.getMonth(), dateTime.getYear()));
 			
-				lblAmtProfit.setText(BusFinances.currency.getSymbol(messages.getLocale())
+				lblAmtProfit.setText(BusFinances.currency.getSymbol(Messages.getLocale())
 						+ BusFinances.getProfitOnDate(date)); 
 			}
 		});
@@ -237,7 +237,7 @@ public class ProfitByDate extends AbstractBusProgramWindow
 				dateTime.setDate(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
 				
 				// update number of buses text
-				lblAmtProfit.setText(BusFinances.currency.getSymbol(messages.getLocale())
+				lblAmtProfit.setText(BusFinances.currency.getSymbol(Messages.getLocale())
 						+ BusFinances.getProfitOnDate(date)); 
 		
 			}

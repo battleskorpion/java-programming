@@ -47,7 +47,6 @@ public abstract class AbstractProgramWindow
 	/* VARIABLE SECTION */
 	/********************/ 
 	protected Shell shell;								// SHELL WHICH REPRESENTS THIS WINDOW
-	protected static AbstractMessages messages;
 	
 	/************************************************************************************************/
 	/*										METHOD SECTION 			  				  				*/

@@ -116,11 +116,11 @@ public class ListCustomers extends AbstractBusProgramWindow
 	{
 		shlListCustomers = new Shell();
 		shlListCustomers.setSize(550, 360);
-		shlListCustomers.setText(messages.getString
+		shlListCustomers.setText(Messages.getString
 				("ListCustomers.shlListCustomers.text")); 								//$NON-NLS-1$
 		
 		Button btnExit = new Button(shlListCustomers, SWT.NONE);
-		btnExit.setText(messages.getString("btnExit.text")); 							//$NON-NLS-1$
+		btnExit.setText(Messages.getString("btnExit.text")); 							//$NON-NLS-1$
 		btnExit.setBounds(10, 289, 516, 25);
 		
 		// update table with sorted list, sort list depending on sort method specified
@@ -128,7 +128,7 @@ public class ListCustomers extends AbstractBusProgramWindow
 		sortCustomers();
 		
 		Label lblCustomers = new Label(shlListCustomers, SWT.CENTER);
-		lblCustomers.setText(messages.getString("lblCustomers.text")); 					//$NON-NLS-1$
+		lblCustomers.setText(Messages.getString("lblCustomers.text")); 					//$NON-NLS-1$
 		lblCustomers.setBounds(10, 10, 516, 15);
 		
 		customersTable = new Table(shlListCustomers, SWT.BORDER | SWT.FULL_SELECTION);

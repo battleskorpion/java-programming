@@ -33,6 +33,7 @@ public class Messages extends AbstractMessages
 		super("bus_project.localization.messages"); 
 	}
 	
+	@Override
 	public ArrayList<Locale> programLocales()
 	/************************************************************************************************/
 	/* PRECONDITION:  LIST OF SUPPORTED LOCALES IS NEEDED			  								*/

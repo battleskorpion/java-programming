@@ -9,36 +9,42 @@
 
 package abstractProgram.abstractProgram;
 
+import abstractProgram.localization.AbstractMessages;
 import javax.swing.JOptionPane;
-
-import bus_project.localization.Messages;
 
 public abstract class RunProgram {
 	
-	public AbstractProgramWindow window; 	// program menu window
-	private boolean askRunProgram;			// whether or not to ask 
-											// whether or not to run the program again 
-	private String userDescription; 		// program description displayed to user
+	public AbstractProgramWindow mainWindow; 	// program menu window
+	private boolean askRunProgram;				// whether or not to ask 
+												// whether or not to run the program again 
+	private String userDescription; 			// program description displayed to user
 	private RunProgram program = this; 
-	public Messages messages; 
-
-	public RunProgram() {
-		this(false, null);  			// default askRunProgram to false, default no user description
+	private AbstractMessages messages; 
+	
+	/************************************************************************************************/
+	/*										CONSTRUCTOR SECTION 									*/
+	/************************************************************************************************/
+	public RunProgram(AbstractMessages messages) {
+		this(messages, false, null);  			// default askRunProgram to false, default no user description
 	}
 	
-	public RunProgram(boolean askRunProgram) {
-		this(askRunProgram, null);  	// default no user description
+	public RunProgram(AbstractMessages messages, boolean askRunProgram) {
+		this(messages, askRunProgram, null);  	// default no user description
 	}
 	
-	public RunProgram(String userDescription) {
-		this(false, userDescription);	// default askRunProgram to false
+	public RunProgram(AbstractMessages messages, String userDescription) {
+		this(messages, false, userDescription);	// default askRunProgram to false
 	}
 
-	public RunProgram(boolean askRunProgram, String userDescription) {
+	public RunProgram(AbstractMessages messages, boolean askRunProgram, String userDescription) {
+		this.messages = messages; 
 		this.askRunProgram = askRunProgram; 
 		this.userDescription = userDescription; 
-		messages = new Messages();
 	}
+	
+	/************************************************************************************************/
+	/*											METHOD SECTION 										*/
+	/************************************************************************************************/
 	
 	public void runProgram() {
 		/********************/
@@ -82,12 +88,12 @@ public abstract class RunProgram {
 					/***************************/
 					/* METHOD TO REOPEN WINDOW */
 					/***************************/ 
-					program.window.open(); 				
+					program.mainWindow.open(); 				
 					runProgramResponse = runProgramPrompt(); 
 				}
 			} 
 			else {
-				runProgramResponse = 0; 
+				runProgramResponse = 1; 
 			}
 		}
 		while (runProgramResponse == 0);
@@ -98,9 +104,25 @@ public abstract class RunProgram {
 		//Settings.saveSettings(); 
 	}
 	
+	public static void openWindow(RunProgram program)
+	/************************************************************************************************/ 
+	/* PRECONDITION:  PROGRAM WINDOW NEEDS TO BE OPENED/REOPENED									*/					  
+	/* POSTCONDITION: TRIES TO OPEN WINDOW, DISPLAYS ERROR IF NOT POSSIBLE 							*/
 	/************************************************************************************************/
-	/*											METHOD SECTION 										*/
-	/************************************************************************************************/
+	{
+		/*****************************/
+		/* METHOD TO OPEN GUI WINDOW */
+		/*****************************/
+		try 
+		{
+			program.mainWindow.open();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error occured in main program.");
+		}
+	}
 	
 	public void languageChanged(int index)
 	/************************************************************************************************/ 
@@ -110,8 +132,8 @@ public abstract class RunProgram {
 	{
 		// 0 - en_US
 		// 1 - es_ES
-		messages.setLocale(messages.programLocales().get(index));	
-		this.window.close(); 
+		AbstractMessages.setLocale(messages.programLocales().get(index));	
+		this.mainWindow.close(); 
 		startProgram(); 
 	}
 	

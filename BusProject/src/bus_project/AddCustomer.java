@@ -140,7 +140,7 @@ public class AddCustomer extends AbstractBusProgramWindow
 		/*********************/ 
 		shlAddCustomer = new Shell();
 		shlAddCustomer.setSize(820, 410);
-		shlAddCustomer.setText(messages.getString
+		shlAddCustomer.setText(Messages.getString
 				("AddCustomer.shlAddCustomer.text")); 			//$NON-NLS-1$
 		
 		/**********/
@@ -148,13 +148,13 @@ public class AddCustomer extends AbstractBusProgramWindow
 		/**********/
 		Label lblName = new Label(shlAddCustomer, SWT.NONE);
 		lblName.setBounds(10, 13, 109, 24);
-		lblName.setText(messages.getString("lblName.text")); 	//$NON-NLS-1$
-		lblName.setToolTipText(messages.getString
+		lblName.setText(Messages.getString("lblName.text")); 	//$NON-NLS-1$
+		lblName.setToolTipText(Messages.getString
 				("lblName.tooltipText")); 						//$NON-NLS-1$
 		
 		Label lblSize = new Label(shlAddCustomer, SWT.NONE);
-		lblSize.setText(messages.getString("lblSize.text")); 	//$NON-NLS-1$
-		lblSize.setToolTipText(messages.getCompoundString
+		lblSize.setText(Messages.getString("lblSize.text")); 	//$NON-NLS-1$
+		lblSize.setToolTipText(Messages.getCompoundString
 				("lblSize.toolTipText", new Object[] 
 				{Integer.valueOf(BusCalculation.MIN_CAPACITY), 
 				Integer.valueOf(BusCalculation.MAX_PAX)})); 	//$NON-NLS-1$
@@ -162,20 +162,20 @@ public class AddCustomer extends AbstractBusProgramWindow
 		
 		Label lblTripDate = new Label(shlAddCustomer, SWT.NONE);
 		lblTripDate.setBounds(10, 103, 109, 15);
-		lblTripDate.setText(messages.getString
+		lblTripDate.setText(Messages.getString
 				("lblTripDate.text")); 							//$NON-NLS-1$
-		lblTripDate.setToolTipText(messages.getString
+		lblTripDate.setToolTipText(Messages.getString
 				("lblTripDate.tooltipText")); 	
 		
 		Label lblID = new Label(shlAddCustomer, SWT.NONE);
 		lblID.setBounds(10, 71, 91, 26);
-		lblID.setText(messages.getString("lblID.text")); 		//$NON-NLS-1$
-		lblID.setToolTipText(messages.getString
+		lblID.setText(Messages.getString("lblID.text")); 		//$NON-NLS-1$
+		lblID.setToolTipText(Messages.getString
 				("lblID.tooltipText")); 						//$NON-NLS-1$
 		
 		Label lblCustomers = new Label(shlAddCustomer, SWT.CENTER);
 		lblCustomers.setBounds(279, 13, 516, 15);
-		lblCustomers.setText(messages.getString
+		lblCustomers.setText(Messages.getString
 				("lblCustomers.text")); 						//$NON-NLS-1$
 		
 		Label lblNameWarningIcon = new Label(shlAddCustomer, SWT.NONE);
@@ -186,7 +186,7 @@ public class AddCustomer extends AbstractBusProgramWindow
 		lblNameWarningIcon.setFont(SWTResourceManager.getFont
 				("Segoe UI", 11, SWT.BOLD));
 		lblNameWarningIcon.setBounds(249, 13, 24, 24);
-		lblNameWarningIcon.setText(messages.getString
+		lblNameWarningIcon.setText(Messages.getString
 				("lblNameWarningIcon.text")); 					//$NON-NLS-1$
 		lblNameWarningIcon.setVisible(false);
 		
@@ -195,11 +195,11 @@ public class AddCustomer extends AbstractBusProgramWindow
 		/***********/
 		Button btnExit = new Button(shlAddCustomer, SWT.NONE);
 		btnExit.setBounds(719, 316, 75, 25);
-		btnExit.setText(messages.getString("btnExit.text")); 	//$NON-NLS-1$
+		btnExit.setText(Messages.getString("btnExit.text")); 	//$NON-NLS-1$
 		
 		Button btnAdd = new Button(shlAddCustomer, SWT.NONE);
 		btnAdd.setBounds(10, 281, 233, 25);
-		btnAdd.setText(messages.getString("btnAdd.text")); 		//$NON-NLS-1$
+		btnAdd.setText(Messages.getString("btnAdd.text")); 		//$NON-NLS-1$
 		
 		/**********/
 		/* FIELDS */
@@ -225,7 +225,7 @@ public class AddCustomer extends AbstractBusProgramWindow
 		/*********/ 
 		customersTable = new Table(shlAddCustomer, 
 				SWT.BORDER | SWT.FULL_SELECTION);
-		customersTable.setToolTipText(messages.getString
+		customersTable.setToolTipText(Messages.getString
 				("AddCustomer.customersTable.toolTipText")); 	//$NON-NLS-1$
 		customersTable.setBounds(279, 43, 516, 263);
 		customersTable.setLinesVisible(true);	
@@ -233,27 +233,27 @@ public class AddCustomer extends AbstractBusProgramWindow
 		
 		TableColumn tblclmnID = new TableColumn(customersTable, SWT.NONE);
 		tblclmnID.setWidth(60);
-		tblclmnID.setText(messages.getString
+		tblclmnID.setText(Messages.getString
 				("AddCustomer.tblclmnID.text")); 				//$NON-NLS-1$
 
 		TableColumn tblclmnName = new TableColumn(customersTable, SWT.NONE);
 		tblclmnName.setWidth(160);
-		tblclmnName.setText(messages.getString
+		tblclmnName.setText(Messages.getString
 				("AddCustomer.tblclmnName.text")); 				//$NON-NLS-1$
 
 		TableColumn tblclmnDate = new TableColumn(customersTable, SWT.NONE);
 		tblclmnDate.setWidth(100);
-		tblclmnDate.setText(messages.getString
+		tblclmnDate.setText(Messages.getString
 				("AddCustomer.tblclmnDate.text")); 				//$NON-NLS-1$
 		
 		TableColumn tblclmnSize = new TableColumn(customersTable, SWT.NONE);
 		tblclmnSize.setWidth(100);
-		tblclmnSize.setText(messages.getString
+		tblclmnSize.setText(Messages.getString
 				("AddCustomer.tblclmnSize.text")); 				//$NON-NLS-1$
 		
 		TableColumn tblclmnRefunds = new TableColumn(customersTable, SWT.NONE);
 		tblclmnRefunds.setWidth(80);
-		tblclmnRefunds.setText(messages.getString
+		tblclmnRefunds.setText(Messages.getString
 				("AddCustomer.tblclmnRefunds.text")); 			//$NON-NLS-1$
 
 		/************/
@@ -264,7 +264,7 @@ public class AddCustomer extends AbstractBusProgramWindow
 		
 		MenuItem mntmHelp = new MenuItem(menu, SWT.NONE);
 		
-		mntmHelp.setText(messages.getString("mntmHelp.text")); //$NON-NLS-1$
+		mntmHelp.setText(Messages.getString("mntmHelp.text")); //$NON-NLS-1$
 		
 		/*****************/
 		/* SET TAB ORDER */
