@@ -8,6 +8,7 @@ import java.util.HashMap;
  * 
  * @author adapted from https://github.com/eliyam32/jump-flooding-voronoi/
  * 
+ * @deprecated slow, plz dont use
  */
 public class JumpFloodingAlgorithm {
 	public int numSeedsY = 32; 				// 64 is ok	// 64^2 = 4096

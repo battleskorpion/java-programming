@@ -84,9 +84,14 @@ public class ProvinceGeneration {
 	 * assumes a ClausewitzMapGenMenu parentWindow 
 	 */
 	public void provinceGeneration() {
-		// variable section 
-		//ProvinceGenProgressWindow progressWindow = new ProvinceGenProgressWindow(imageHeight); 
+		/**
+		 * Random color (light if land and darker if sea)
+		 */
 		Color color; 
+		
+		/**
+		 * Random number generator for generating colors
+		 */
 		Random random = new Random(); 
 		
 		/**
@@ -130,9 +135,7 @@ public class ProvinceGeneration {
 		 * set progress stage of province generation
 		 */
 		parentMenu.setProgressStage("Generating seeds...", numSeedsY);  
-		
-		
-		
+
 		/* seeds */
 		// (seed generation is very quick) 
 		for (int y = imageHeight / numSeedsY / 2 - 1; y < imageHeight; y+= imageHeight / numSeedsY) {			// int y = numSeedsY / 2 - 1 worked sometimes
