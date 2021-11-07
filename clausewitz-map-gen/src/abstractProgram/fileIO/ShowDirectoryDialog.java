@@ -26,7 +26,10 @@ public class ShowDirectoryDialog extends AbstractProgramWindow
 	private String dir; 								// the selected directory or file
 	private int selectionType; 							// directory or file
 	
-	// constructors
+	/**
+	 * Constructor
+	 * @param selectionType 0: Directory selection 1: File selection
+	 */
 	public ShowDirectoryDialog(int selectionType) 
 	{
 		this.selectionType = selectionType; 
