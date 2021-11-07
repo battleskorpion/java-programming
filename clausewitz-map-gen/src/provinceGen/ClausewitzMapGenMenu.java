@@ -7,7 +7,10 @@ import abstractProgram.abstractProgram.AbstractProgramWindow;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent; 
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.widgets.Text; 
 
 public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 
@@ -17,6 +20,7 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 	@SuppressWarnings("unused")			// is fine for now 
 	private ClausewitzMapGenProgram program; 
 	private ProvinceGeneration provinceGen; 
+	Label progressText; 
 	
 	public ClausewitzMapGenMenu(ClausewitzMapGenProgram program)
 	{
@@ -128,6 +132,11 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		shell.setText("SWT Application");
 		ClausewitzMapGenMenu menu = this; 
 		
+		progressText = new Label(shell, SWT.NONE);
+		progressText.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
+		progressText.setBounds(10, 176, 180, 19);
+		progressText.setVisible(true);
+		
 		progressBar = new ProgressBar(shell, SWT.NONE); 
 		progressBar.setMaximum(mapHeight);
 		progressBar.setBounds(10, 232, 414, 19);
@@ -165,4 +174,19 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 	public void resetProgress() {
 		progressBar.setSelection(0);
 	} 
+	
+	public void setProgressMessage(String message) {
+		progressText.setText(message);
+	}
+	
+	public void clearProgressMessage() {
+		progressText.setText("");
+	}
+	
+	public void setProgressStage(String message, int progressMaximum) {
+		resetProgress(); 
+		clearProgressMessage(); 
+		progressBar.setMaximum(progressMaximum);
+		setProgressMessage(message); 
+	}
 }
