@@ -815,8 +815,8 @@ public class ProvinceGeneration {
 			try {
 				for (int y = startY; y < endY; y++) {
 					for (int x = 0; x < imageWidth; x++) {
-						int xOffset = (int) (((widthPerSeed)  * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5)));		
-						int yOffset = (int) (((heightPerSeed) * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5))); 
+						int xOffset = (int) (((widthPerSeed)  * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5)));		// * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5)));	 good values for 32*32 seeds and 4608 * 2816 image 
+						int yOffset = (int) (((heightPerSeed) * ((noise.getValue(x * 0.005, y * 0.005, 1.0) - 1) * 0.5))); 
 						int rgb;
 								
 						if (((heightmap.getRGB(x, y) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
@@ -829,12 +829,9 @@ public class ProvinceGeneration {
 						points.get(y).get(x).set(0, Integer.valueOf(rgb)); 	
 						image.setRGB(x, y, rgb);
 						try { 
-							if (testWidth / 2 + xOffset < testWidth && testWidth / 2 + yOffset < testWidth) {
+							//if (testWidth / 2 + xOffset < testWidth && testWidth / 2 + yOffset < testWidth) {
 								testImage.setRGB(testWidth / 2 + xOffset, testWidth / 2 + yOffset, rgb); 
-							} 
-							if (xOffset > 0 && yOffset > 0) {
-								System.out.println("test"); 
-							}
+							//} 
 						} 
 						catch (Exception exc) { 
 							
