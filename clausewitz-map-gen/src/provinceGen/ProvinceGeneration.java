@@ -10,6 +10,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.RejectedExecutionException;
 
 import net.sf.image4j.codec.bmp.*; 
 import org.spongepowered.noise.*;
@@ -45,17 +49,20 @@ public class ProvinceGeneration {
 	public static int numSeedsY = 32; 		// 64 is ok	// 64^2 = 4096
 	public static int numSeedsX = 32; 		// 64 is ok // 64^2 = 4096
 	private static ArrayList<ArrayList<ArrayList<Integer>>> points;  							// stored y, x
-	private ArrayList<Point> seedsLand = new ArrayList<Point>(numSeedsY * numSeedsX); 	//// values of point stored as x, y
-	private ArrayList<Point> seedsSea = new ArrayList<Point>(numSeedsY * numSeedsX); 	//// values of point stored as x, y
-	private HashMap<Point, Point> closestSeedToPoint; 											// TODO: EXPERIMENTAL WITH JFA
-	private HashMap<Point, Integer> seedsLandRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
-	private HashMap<Point, Integer> seedsSeaRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
+	private static ArrayList<Point> seedsLand = new ArrayList<Point>(numSeedsY * numSeedsX); 	//// values of point stored as x, y
+	private static ArrayList<Point> seedsSea = new ArrayList<Point>(numSeedsY * numSeedsX); 	//// values of point stored as x, y
+	//private HashMap<Point, Point> closestSeedToPoint; 											// TODO: EXPERIMENTAL WITH JFA
+	private static HashMap<Point, Integer> seedsLandRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
+	private static HashMap<Point, Integer> seedsSeaRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
+	private static volatile HashMap<Point, Point> offset = new HashMap<Point, Point>((imageWidth * imageHeight)); 	//TODO: TESTING 
 	//private static ArrayList<Integer> seeds = new ArrayList<Integer>(); 		// just stores rgb values 
 	//private static ArrayList<Point> seedsCoords = new ArrayList<Point>(); 
 	private static int rgb_white; 
 	private static BufferedImage image; 
+	private static BufferedImage testImage;		//TODO: test
+	private static int testWidth = 100; 
 	private static BufferedImage heightmap; 
-	private ClausewitzMapGenMenu parentMenu; 
+	private static ClausewitzMapGenMenu parentMenu; 
 	
 	//public static void main (String args[]) 
 	//{
@@ -70,7 +77,7 @@ public class ProvinceGeneration {
 	}
 	
 	public ProvinceGeneration(ClausewitzMapGenMenu parentWindow) {
-		this.parentMenu = parentWindow; 
+		ProvinceGeneration.parentMenu = parentWindow; 
 	}
 	
 	/**
@@ -98,6 +105,7 @@ public class ProvinceGeneration {
 		parentMenu.increaseProgress(); 
 		
 		image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB); 
+		testImage = new BufferedImage(testWidth, testWidth, BufferedImage.TYPE_INT_RGB); 	//TODO: TEST
 		parentMenu.increaseProgress(); 
 		
 		initializePoints(); 
@@ -138,8 +146,8 @@ public class ProvinceGeneration {
 				
 				/* heightmap color stuff */
 				int heightmapHeight; 												// color (gray) value (height value) of heightmap
-				int heightmapOffsetRGB; 
-				int red; 
+//				int heightmapOffsetRGB; 
+//				int red; 
 				
 				heightmapHeight = (heightmap.getRGB(seedX, seedY) >> 16) & 0xFF; 			// heightmap is in grayscale meaning only need to find red value to get height value at point. 
 				//heightmapOffsetRGB = heightmap.getRGB(x + xOffset, y + yOffset); 
@@ -230,8 +238,8 @@ public class ProvinceGeneration {
 		// y, x inner for loop will scan horizontally 
 		
 		//Simplex simplexNoise = new Simplex(); 
-		Simplex noise = new Simplex(); 
-		noise.setNoiseQuality(NoiseQualitySimplex.SMOOTH); 
+//		Simplex noise = new Simplex(); 
+//		noise.setNoiseQuality(NoiseQualitySimplex.SMOOTH); 
 		
 		// works but slow
 		//for (int y = 0; y < imageHeight; y++) 
@@ -256,8 +264,9 @@ public class ProvinceGeneration {
 		 */
 		//parentWindow.setProgressStage("Determining colors...", imageHeight);  
 		
-		final int widthPerSeed = imageWidth  / numSeedsX; 
-		final int heightPerSeed = imageHeight / numSeedsY; 
+//		final int widthPerSeed = imageWidth  / numSeedsX; 
+//		final int heightPerSeed = imageHeight / numSeedsY; 
+		
 //		JumpFloodingAlgorithm seaJumpFloodingAlgorithm = new JumpFloodingAlgorithm(numSeedsX, numSeedsY, imageWidth, imageHeight, seedsSea, parentMenu);
 //		JumpFloodingAlgorithm landJumpFloodingAlgorithm = new JumpFloodingAlgorithm(numSeedsX, numSeedsY, imageWidth, imageHeight, seedsLand, parentMenu);
 //		
@@ -297,106 +306,67 @@ public class ProvinceGeneration {
 //			}
 //			parentMenu.increaseProgress();
 //		}
-		
-		// TODO: GOOD CODE, JUST TESTING JUMP FLOODING ALGORITHM
-		// ~twice as fast using threads
-		for (int y = 0; y < imageHeight; y++) {
-			final int localY = y; 
-			
-			/* define new runnable */
-			Runnable runnable = new Runnable() {
-				@Override
-				public void run() {
-					for (int x = 0; x < imageWidth; x++) {
-						int xOffset = (int) (((widthPerSeed) * ((noise.getValue(x * 0.032, localY * 0.032, 0.0) - 1) * 0.1)));	// (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
-						int yOffset = (int) (((heightPerSeed) * ((noise.getValue(x * 0.032, localY * 0.032, 0.0) - 1) * 0.1))); // (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
-						int rgb;
-						
-						if (((heightmap.getRGB(x, localY) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
-							rgb = determineColor(x, xOffset, localY, yOffset, seedsSea, seedsSeaRGBValue); 
-						}
-						else {
-							rgb = determineColor(x, xOffset, localY, yOffset, seedsLand, seedsLandRGBValue); 
-						}
-		
-						points.get(localY).get(x).set(0, Integer.valueOf(rgb)); 	
-						image.setRGB(x, localY, rgb);
-					}
-				}
-			}; 
-			
-			Thread thread = new Thread(runnable); 	// set new thread to be new thread of defined runnable 
-			thread.start(); 						// start new thread 
-			try {
-				thread.join();						// Waits for thread to die 
-				if (parentMenu != null) {
-					parentMenu.setProgress(localY); 
-				} 
-			} 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-				return; 
-			} 
-			catch (Exception e) {
-				e.printStackTrace(); 
-				return; 
-			}
+	
+		ForkColorDetermination forkColorDetermination = new ForkColorDetermination(); 
+		ForkJoinPool forkJoinPool = new ForkJoinPool(); 
+		try {
+			forkJoinPool.invoke(forkColorDetermination); 
+		} 
+		catch(NullPointerException exc) {
+			exc.printStackTrace();
 		}
-// TODO: GOOD GOOD CODE END 
+		catch(RejectedExecutionException exc) {
+			exc.printStackTrace();
+		}
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
 		
-//		int availableThreadCount = Runtime.getRuntime().availableProcessors();
-//		for (int y = 0; y < imageHeight; y+= imageHeight/availableThreadCount) {
-//		//for (int y = 0; y < imageHeight; y++) {
-//			final int localYStart = y; 
+		// ~twice as fast using threads
+		
+//		for (int y = 0; y < imageHeight; y++) {
+//			final int localY = y; 
 //			
 //			/* define new runnable */
 //			Runnable runnable = new Runnable() {
 //				@Override
 //				public void run() {
-//					for (int localY = localYStart; localY < localYStart + imageHeight/availableThreadCount; localY++) {
-//						for (int x = 0; x < imageWidth; x++) {
-//							int xOffset = (int) (((widthPerSeed) * ((noise.getValue(x * 0.032, localY * 0.032, 0.0) - 1) * 0.1)));	// (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
-//							int yOffset = (int) (((heightPerSeed) * ((noise.getValue(x * 0.032, localY * 0.032, 0.0) - 1) * 0.1))); // (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
-//							int rgb;
-//							
-//							if (((heightmap.getRGB(x, localY) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
-//								rgb = determineColor(x, xOffset, localY, yOffset, seedsSea, seedsSeaRGBValue); 
-//							}
-//							else {
-//								rgb = determineColor(x, xOffset, localY, yOffset, seedsLand, seedsLandRGBValue); 
-//							}
-//			
-//							points.get(localY).get(x).set(0, Integer.valueOf(rgb)); 	
-//							image.setRGB(x, localY, rgb);
+//					for (int x = 0; x < imageWidth; x++) {
+//						int xOffset = (int) (((widthPerSeed) * ((noise.getValue(x * 0.032, localY * 0.032, 0.0) - 1) * 0.1)));	// (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
+//						int yOffset = (int) (((heightPerSeed) * ((noise.getValue(x * 0.032, localY * 0.032, 0.0) - 1) * 0.1))); // (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
+//						int rgb;
+//						
+//						if (((heightmap.getRGB(x, localY) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
+//							rgb = determineColor(x, xOffset, localY, yOffset, seedsSea, seedsSeaRGBValue); 
 //						}
-//						if (parentMenu != null) {
-//							parentMenu.increaseProgress();
+//						else {
+//							rgb = determineColor(x, xOffset, localY, yOffset, seedsLand, seedsLandRGBValue); 
 //						}
-//					} 
-//					threadsRemaining -= 1; 
+//		
+//						points.get(localY).get(x).set(0, Integer.valueOf(rgb)); 	
+//						image.setRGB(x, localY, rgb);
+//					}
 //				}
 //			}; 
 //			
 //			Thread thread = new Thread(runnable); 	// set new thread to be new thread of defined runnable 
 //			thread.start(); 						// start new thread 
-////			try {
-////				thread.join();						// Waits for thread to die  
-////			} 
-////			catch (InterruptedException e) {
-////				e.printStackTrace();
-////				return; 
-////			} 
-////			catch (Exception e) {
-////				e.printStackTrace(); 
-////				return; 
-////			}
+//			try {
+//				thread.join();						// Waits for thread to die 
+//				if (parentMenu != null) {
+//					parentMenu.setProgress(localY); 
+//				} 
+//			} 
+//			catch (InterruptedException e) {
+//				e.printStackTrace();
+//				return; 
+//			} 
+//			catch (Exception e) {
+//				e.printStackTrace(); 
+//				return; 
+//			}
 //		}
 		
-//		/* catch up */ 
-//		while (threadsRemaining > 0) {
-//			java.lang.Thread.onSpinWait();
-//		}
-// 
 		// TODO: END OF GOOD CODE, JUST TESTING JUMP FLOODING ALGORITHM
 		
 		//try {
@@ -467,6 +437,13 @@ public class ProvinceGeneration {
 		long end = System.nanoTime();
 		double durationInMilliseconds = 1.0 * (end - start) / 1000000;
 		System.out.println("Time: " + durationInMilliseconds + " milliseconds."); 
+		
+		//TODO: testing
+		try {
+			BMPEncoder.write(testImage, new File("test.bmp"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private static void initializePoints() {
@@ -585,8 +562,8 @@ public class ProvinceGeneration {
 			Point point = seeds.get(s); 
 			
 			// calculate the difference in x and y direction
-			int xdiff = point.x - (x + xOffset);			// seeds.get(s).get(0) - (x + xOffset);
-			int ydiff = point.y - (y + yOffset);			// seeds.get(s).get(1) - (y + yOffset);
+			int xdiff = point.x - (x + xOffset);			
+			int ydiff = point.y - (y + yOffset);			
 		
 	        // calculate euclidean distance, sqrt is not needed
 	        // because we only compare and do not need the real value
@@ -760,6 +737,118 @@ public class ProvinceGeneration {
 			e.printStackTrace();
 			return; 
 		}
-		
 	}
+	
+	/**
+	 * Pixel color determination using {@link RecursiveAction} for multithreading efficency. 
+	 * 
+	 * @author Darian Siembab
+	 * @see RecursiveAction
+	 * @see Simplex
+	 */
+	public static class ForkColorDetermination extends RecursiveAction {
+		/**
+		 * Auto-generated serialVersionUID
+		 */
+		private static final long serialVersionUID = 7925866053687723919L;
+		
+		protected static int splitThreshhold = 8;		// split until 1 row each 
+		
+		/**
+		 * y-value to start at
+		 */
+		private int startY;
+		
+		/**
+		 * y-value to go until (do not do work at this y-value, do work up to this y-value)
+		 */
+		private int endY; 
+		
+		/**
+		 * number of y-values to work with
+		 */
+		private int dy; 
+		
+		/**
+		 * simplex noise to offset color determination
+		 */
+		private Simplex noise; 
+		
+		/**
+		 * constructor (y set as 0 to imageHeight). Reccommended constructor for initial initialization. 
+		 */
+		public ForkColorDetermination() {
+			startY = 0;
+			endY = imageHeight; 
+			dy = endY - startY; 
+			noise = new Simplex(); 
+			noise.setNoiseQuality(NoiseQualitySimplex.SMOOTH); 
+		}
+		
+		/**
+		 * constructor 
+		 */ 
+		public ForkColorDetermination(int startY, int endY) {
+			this.startY = startY;
+			this.endY = endY; 
+			dy = endY - startY; 
+			noise = new Simplex(); 
+			noise.setNoiseQuality(NoiseQualitySimplex.SMOOTH); 
+		}
+		
+		@Override
+		protected void compute() {
+			if (dy <= splitThreshhold) {
+				computeDirectly(); 
+				return; 
+			}
+			
+			int split = dy / 2; 
+			
+			invokeAll(new ForkColorDetermination(startY, startY + split), new ForkColorDetermination(startY + split, endY));
+		}
+		
+		protected void computeDirectly() {
+			final int widthPerSeed = imageWidth  / numSeedsX; 
+			final int heightPerSeed = imageHeight / numSeedsY; 
+			
+			try {
+				for (int y = startY; y < endY; y++) {
+					for (int x = 0; x < imageWidth; x++) {
+						int xOffset = (int) (((widthPerSeed)  * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5)));		
+						int yOffset = (int) (((heightPerSeed) * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5))); 
+						int rgb;
+								
+						if (((heightmap.getRGB(x, y) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
+							rgb = determineColor(x, xOffset, y, yOffset, seedsSea, seedsSeaRGBValue); 
+						}
+						else {
+							rgb = determineColor(x, xOffset, y, yOffset, seedsLand, seedsLandRGBValue); 
+						}
+						
+						points.get(y).get(x).set(0, Integer.valueOf(rgb)); 	
+						image.setRGB(x, y, rgb);
+						try { 
+							if (testWidth / 2 + xOffset < testWidth && testWidth / 2 + yOffset < testWidth) {
+								testImage.setRGB(testWidth / 2 + xOffset, testWidth / 2 + yOffset, rgb); 
+							} 
+							if (xOffset > 0 && yOffset > 0) {
+								System.out.println("test"); 
+							}
+						} 
+						catch (Exception exc) { 
+							
+						}
+						//offset.put(new Point(x, y), new Point(xOffset, yOffset)); 
+					} 	
+					//parentMenu.increaseProgress(); 
+				} 
+			} 
+			catch (Exception exc) {
+				exc.printStackTrace();
+			}
+		}
+	}
+	
 }
+
