@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import abstractProgram.fileIO.FileRead; 
 import abstractProgram.fileIO.FileWrite;
-import abstractProgram.fileIO.ShowDirectoryDialog; 
 
 /**
  * Define provinces in definition file (definition.csv) 
@@ -16,11 +15,6 @@ import abstractProgram.fileIO.ShowDirectoryDialog;
  * @see FileWrite
  */
 public class DefineProvinces {
-	
-	/**
-	 * file selection dialog
-	 */
-	private static ShowDirectoryDialog dirDialog = new ShowDirectoryDialog(1);		// select file
 	
 	private static FileWrite fileWrite; 	 
 	

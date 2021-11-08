@@ -190,14 +190,7 @@ public class ProvinceGeneration {
 				points.get(Integer.valueOf(seedY)).get(Integer.valueOf(seedX))
 				.set(1, Integer.valueOf(1)); 	// "true" (for later) // (its a seed) 
 				points.get(Integer.valueOf(seedY)).get(Integer.valueOf(seedX))
-				.set(2, Integer.valueOf(type)); // type of province (sea or land) 
-				//if (type == 1)
-				//{
-					//System.out.println(points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset)).get(points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset)).size() - 1)); 
-					
-				//}
-				//System.out.println(points.get(Integer.valueOf(y + yOffset)).get(Integer.valueOf(x + xOffset)).get(2).toString()); 	
-				
+				.set(2, Integer.valueOf(type)); // type of province (sea or land) 		
 				
 				// add point to seeds array 
 				// x and y needed
@@ -205,24 +198,15 @@ public class ProvinceGeneration {
 					Point point = new Point(seedX, seedY); 
 					seedsSea.add(point); 
 					seedsSeaRGBValue.put(point, rgb); 
-					//seedsSea.get(seedsSea.size() - 1).add(Integer.valueOf(x + xOffset)); 
-					//seedsSea.get(seedsSea.size() - 1).add(Integer.valueOf(y + yOffset));
-					//seedsSea.get(seedsSea.size() - 1).add(rgb); 
-					//seedsSea.get(seedsSea.size() - 1).add(1); 	// "true" (is sea) (not great but for now ok)	//TODO: Unnecessary  
 				}
 				else {
 					Point point = new Point(seedX, seedY); 
 					seedsLand.add(point); 
 					seedsLandRGBValue.put(point, rgb); 
-					//seedsLand.get(seedsLand.size() - 1).add(Integer.valueOf(x + xOffset)); 
-					//seedsLand.get(seedsLand.size() - 1).add(Integer.valueOf(y + yOffset));
-					//seedsLand.get(seedsLand.size() - 1).add(rgb); 
-					//seedsLand.get(seedsLand.size() - 1).add(0); 	// "false" (not sea) (not great but for now ok)	//TODO: Unnecessary 
 				}
 
 				// set color at pixel cords
 				try {
-					//image.setRGB(x + xOffset, y + yOffset, rgb);
 					image.setRGB(seedX, seedY, rgb);  
 				}
 				catch (ArrayIndexOutOfBoundsException exc) {
@@ -236,32 +220,7 @@ public class ProvinceGeneration {
 			}
 			parentMenu.increaseProgress(); 
 		}
-		
-		// set colors based on nearest seed
-		// y, x inner for loop will scan horizontally 
-		
-		//Simplex simplexNoise = new Simplex(); 
-//		Simplex noise = new Simplex(); 
-//		noise.setNoiseQuality(NoiseQualitySimplex.SMOOTH); 
-		
-		// works but slow
-		//for (int y = 0; y < imageHeight; y++) 
-		//{
-		//	for (int x = 0; x < imageWidth; x++) 
-		//	{
-		//		//Noise.gradientCoherentNoise3D(x, y, 0.0, 1, NoiseQuality.STANDARD)
-		//		//Noise.gradientCoherentNoise3D(x, y, 0.0, 1, NoiseQuality.STANDARD) garbage
-		//		int xOffset = (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));	// test idk	// *3 is just a good number
-		//		int yOffset = (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, y * 0.085, 0.0) - 1) * 0.1)));
-		//		//System.out.println(xOffset + ", " + yOffset); 
-		//		int rgb = determineColor(x + xOffset, y + yOffset); 
-		//		
-		//		points.get(y).get(x).set(0, Integer.valueOf(rgb)); 
-		//		System.out.println("x: " + x + " y: " + y); // ok working
-		//		image.setRGB(x, y, rgb);
-		//	}
-		//}
-		
+	
 		/**
 		 * set progress stage of province generation
 		 */
@@ -324,67 +283,13 @@ public class ProvinceGeneration {
 		catch(Exception exc) {
 			exc.printStackTrace();
 		}
-		
-		// ~twice as fast using threads
-		
-//		for (int y = 0; y < imageHeight; y++) {
-//			final int localY = y; 
-//			
-//			/* define new runnable */
-//			Runnable runnable = new Runnable() {
-//				@Override
-//				public void run() {
-//					for (int x = 0; x < imageWidth; x++) {
-//						int xOffset = (int) (((widthPerSeed) * ((noise.getValue(x * 0.032, localY * 0.032, 0.0) - 1) * 0.1)));	// (int) (((numSeedsX - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
-//						int yOffset = (int) (((heightPerSeed) * ((noise.getValue(x * 0.032, localY * 0.032, 0.0) - 1) * 0.1))); // (int) (((numSeedsY - 1) * ((noise.getValue(x * 0.085, localY * 0.085, 0.0) - 1) * 0.1)));
-//						int rgb;
-//						
-//						if (((heightmap.getRGB(x, localY) >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
-//							rgb = determineColor(x, xOffset, localY, yOffset, seedsSea, seedsSeaRGBValue); 
-//						}
-//						else {
-//							rgb = determineColor(x, xOffset, localY, yOffset, seedsLand, seedsLandRGBValue); 
-//						}
-//		
-//						points.get(localY).get(x).set(0, Integer.valueOf(rgb)); 	
-//						image.setRGB(x, localY, rgb);
-//					}
-//				}
-//			}; 
-//			
-//			Thread thread = new Thread(runnable); 	// set new thread to be new thread of defined runnable 
-//			thread.start(); 						// start new thread 
-//			try {
-//				thread.join();						// Waits for thread to die 
-//				if (parentMenu != null) {
-//					parentMenu.setProgress(localY); 
-//				} 
-//			} 
-//			catch (InterruptedException e) {
-//				e.printStackTrace();
-//				return; 
-//			} 
-//			catch (Exception e) {
-//				e.printStackTrace(); 
-//				return; 
-//			}
-//		}
-		
-		// TODO: END OF GOOD CODE, JUST TESTING JUMP FLOODING ALGORITHM
-		
-		//try {
-		//	thisThread.wait();
-		//}
-		//catch (InterruptedException e) {
-		//	e.printStackTrace();
-		//}
-
+	
 		// to output file prior to special changes
 		//try 
 		//{
 		//	BMPEncoder.write(image, new File("outputprev.bmp"));
 		//}
-		//catch (IOException exc) s
+		//catch (IOException exc) 
 		//{
 		//	
 		//}
@@ -404,22 +309,6 @@ public class ProvinceGeneration {
 			removeExclaves(); 		// doesn't seem to slow the program much
 			parentMenu.increaseProgress();
 		//}
-		
-		// special test 
-		//for (int i = 0; i < seeds.size(); i++)
-		//{
-		//	
-		//	int rgb; 								// rgb color int value
-		//		
-		//	color = new Color(0, 0, 0); 
-		//
-		//	// Color -> int
-		//	rgb = color.getRed(); 
-		//	rgb = (rgb << 8) + color.getGreen();
-		//	rgb = (rgb << 8) + color.getBlue();
-		//	
-		//	image.setRGB(seeds.get(i).get(0), seeds.get(i).get(1), rgb);
-		//}
 			
 		// write image 
 		try {
@@ -433,9 +322,6 @@ public class ProvinceGeneration {
 		}
 		
 		parentMenu.setProgressStage("Generation complete.", 0); 
-		//System.out.println(points.toString()); // NO
-		//System.out.println(seedsSea.size());
-		//System.out.println(seedsLand.size());
 		
 		long end = System.nanoTime();
 		double durationInMilliseconds = 1.0 * (end - start) / 1000000;
@@ -447,6 +333,8 @@ public class ProvinceGeneration {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		DefineProvinces.defineProvinces(points); 
 	}
 	
 	private static void initializePoints() {
