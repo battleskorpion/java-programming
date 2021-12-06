@@ -10,7 +10,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.widgets.Text; 
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem; 
 
 public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 
@@ -21,6 +25,10 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 	private ClausewitzMapGenProgram program; 
 	private ProvinceGeneration provinceGen; 
 	Label progressText; 
+	private Button btnNewButton;
+	private MenuItem mntmCreateBlankRiver;
+	private MenuItem mntmGenerateNewRiver;
+	private MenuItem mntmGenerateAdditionalRivers;
 	
 	public ClausewitzMapGenMenu(ClausewitzMapGenProgram program)
 	{
@@ -128,21 +136,15 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(450, 300);
+		shell.setSize(600, 400);
 		shell.setText("SWT Application");
 		ClausewitzMapGenMenu menu = this; 
-		
-		progressText = new Label(shell, SWT.NONE);
-		progressText.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
-		progressText.setBounds(10, 176, 180, 19);
-		progressText.setVisible(true);
-		
-		progressBar = new ProgressBar(shell, SWT.NONE); 
-		progressBar.setMaximum(mapHeight);
-		progressBar.setBounds(10, 232, 414, 19);
-		progressBar.setSelection(0);
+		shell.setLayout(new GridLayout(2, true));
 		
 		Button btnStart = new Button(shell, SWT.NONE);
+		GridData gd_btnStart = new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1);
+		gd_btnStart.widthHint = 576;
+		btnStart.setLayoutData(gd_btnStart);
 		btnStart.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -150,8 +152,44 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 				provinceGen.provinceGeneration();
 			}
 		});
-		btnStart.setBounds(10, 201, 414, 25);
 		btnStart.setText("Start");
+		
+		btnNewButton = new Button(shell, SWT.NONE);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		GridData gd_btnNewButton = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_btnNewButton.widthHint = 229;
+		btnNewButton.setLayoutData(gd_btnNewButton);
+		btnNewButton.setText("River Map");
+		
+		Menu menu_1 = new Menu(btnNewButton);
+		btnNewButton.setMenu(menu_1);
+		
+		mntmCreateBlankRiver = new MenuItem(menu_1, SWT.NONE);
+		mntmCreateBlankRiver.setText("Create Blank River Map");
+		
+		mntmGenerateNewRiver = new MenuItem(menu_1, SWT.NONE);
+		mntmGenerateNewRiver.setText("Generate New River Map");
+		
+		mntmGenerateAdditionalRivers = new MenuItem(menu_1, SWT.NONE);
+		mntmGenerateAdditionalRivers.setText("Generate Additional Rivers");
+		new Label(shell, SWT.NONE);
+		
+		progressText = new Label(shell, SWT.NONE);
+		progressText.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true, 1, 1));
+		progressText.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
+		progressText.setVisible(true);
+		new Label(shell, SWT.NONE);
+		
+		progressBar = new ProgressBar(shell, SWT.NONE); 
+		GridData gd_progressBar = new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1);
+		gd_progressBar.widthHint = 593;
+		progressBar.setLayoutData(gd_progressBar);
+		progressBar.setMaximum(mapHeight);
+		progressBar.setSelection(0);
 	}
 	
 	public void setMapHeight(int height) {

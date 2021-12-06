@@ -1,8 +1,10 @@
 package provinceGen;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import abstractProgram.fileIO.FileRead; 
 import abstractProgram.fileIO.FileWrite;
@@ -17,6 +19,8 @@ import abstractProgram.fileIO.FileWrite;
 public class DefineProvinces {
 	
 	private static FileWrite fileWrite; 	 
+	
+	private static HashMap<Point, Integer> provinceID = new HashMap<Point, Integer>(32 * 32); 
 	
 	public static void defineProvinces(ArrayList<ArrayList<ArrayList<Integer>>> points) {
 		/**

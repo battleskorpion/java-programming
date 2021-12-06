@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.lang.instrument.Instrumentation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,10 +44,9 @@ public class ProvinceGeneration {
 	public static int imageHeight = 2816;	// 1024, 512, 256 works	// 2048 - default
 	//public static int INT_WHITE = ((Color.white.getRed() << 8) + Color.white.getGreen()) << 8 + Color.white.getBlue(); 
 	public static final int HEIGHTMAP_SEA_LEVEL = 95; 
-	// SEA LEVEL COLOR/MAX 
 	public static final Color SEA_LEVEL_RGB = new Color(HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL, HEIGHTMAP_SEA_LEVEL); ;
 	public static final int SEA_LEVEL_INT_RGB = ((SEA_LEVEL_RGB.getRed() << 8) + SEA_LEVEL_RGB.getGreen()) << 8 + SEA_LEVEL_RGB.getBlue(); 
-	public static int numSeedsY = 32; 		// 64 is ok	// 64^2 = 4096
+	public static int numSeedsY = 32; 		// 64 is ok	// 64^2 = 4096 
 	public static int numSeedsX = 32; 		// 64 is ok // 64^2 = 4096
 	private static ArrayList<ArrayList<ArrayList<Integer>>> points;  							// stored y, x; stores rgb, seed (0 or 1), land/sea (0 or 1)
 	private static ArrayList<Point> seedsLand = new ArrayList<Point>(numSeedsY * numSeedsX); 	// values of point stored as x, y
@@ -54,7 +54,7 @@ public class ProvinceGeneration {
 	//private HashMap<Point, Point> closestSeedToPoint; 											// TODO: EXPERIMENTAL WITH JFA
 	private static HashMap<Point, Integer> seedsLandRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
 	private static HashMap<Point, Integer> seedsSeaRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
-	private static volatile HashMap<Point, Point> offset = new HashMap<Point, Point>((imageWidth * imageHeight)); 	//TODO: TESTING 
+	//private static volatile HashMap<Point, Point> offset = new HashMap<Point, Point>((imageWidth * imageHeight)); 	//TODO: TESTING 
 	//private static ArrayList<Integer> seeds = new ArrayList<Integer>(); 		// just stores rgb values 
 	//private static ArrayList<Point> seedsCoords = new ArrayList<Point>(); 
 	private static int rgb_white; 
