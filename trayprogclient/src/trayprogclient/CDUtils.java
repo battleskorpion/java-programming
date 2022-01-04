@@ -14,7 +14,7 @@ public class CDUtils {
 			//File file = new File("C:\\BC5\\Projects\\KATUSHKA\\ctutils.vbs"); 
 			
 			// use 
-			File file = new File("C:\\BC5\\Projects\\cdutil00.exe"); 
+			File file = new File("C:\\BC5\\Projects\\diskDrive\\diskdrive.exe"); 
 			//File file = new File("G:\\KATUSHKA2.0\\cdutil00.exe"); 
 			
 			//file.deleteOnExit();

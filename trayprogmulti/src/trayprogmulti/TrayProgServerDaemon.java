@@ -19,7 +19,7 @@ public class TrayProgServerDaemon extends Thread {
 			try {
 				System.out.println("server daemon starting...");
 				
-				ServerSocket serverSocket = new ServerSocket(6542); 
+				ServerSocket serverSocket = new ServerSocket(6543); 
 				System.out.println("initialized server socket");
 				
 				while (!Thread.interrupted()) {

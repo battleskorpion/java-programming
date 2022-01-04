@@ -12,6 +12,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Label;
 
 public class TrayProgMulti {
 	
@@ -89,10 +91,15 @@ public class TrayProgMulti {
 	protected void createContents() 
 	{
 		shell = new Shell();
-		shell.setSize(400, 240);
+		shell.setSize(700, 500);
 		shell.setText("program"); 
+		shell.setLayout(new GridLayout(2, false));
 		
 		Button btnStartServer = new Button(shell, SWT.NONE);
+		GridData gd_btnStartServer = new GridData(SWT.LEFT, SWT.FILL, true, false, 1, 1);
+		gd_btnStartServer.widthHint = 336;
+		gd_btnStartServer.heightHint = 50;
+		btnStartServer.setLayoutData(gd_btnStartServer);
 		btnStartServer.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -101,10 +108,13 @@ public class TrayProgMulti {
 				serverDaemon = new TrayProgServerDaemon(); 
 			}
 		});
-		btnStartServer.setBounds(10, 10, 142, 98);
 		btnStartServer.setText("Start server");
 		
 		Button btnEndServer = new Button(shell, SWT.NONE);
+		GridData gd_btnEndServer = new GridData(SWT.LEFT, SWT.FILL, false, false, 1, 1);
+		gd_btnEndServer.widthHint = 332;
+		gd_btnEndServer.heightHint = 67;
+		btnEndServer.setLayoutData(gd_btnEndServer);
 		btnEndServer.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -121,7 +131,11 @@ public class TrayProgMulti {
 				System.out.println("process ended."); 
 			}
 		});
-		btnEndServer.setBounds(158, 10, 142, 98);
 		btnEndServer.setText("End server");
+		
+		List list = new List(shell, SWT.BORDER);
+		GridData gd_list = new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1);
+		gd_list.heightHint = 160;
+		list.setLayoutData(gd_list);
 	}
 }

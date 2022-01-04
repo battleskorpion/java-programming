@@ -14,7 +14,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem; 
+import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Composite; 
 
 public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 
@@ -29,6 +32,17 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 	private MenuItem mntmCreateBlankRiver;
 	private MenuItem mntmGenerateNewRiver;
 	private MenuItem mntmGenerateAdditionalRivers;
+	private TabFolder tabFolder;
+	private TabItem tbtmNewItem;
+	private TabItem tbtmNewItem_1;
+	private TabItem tbtmNewItem_2;
+	private TabItem tbtmNewItem_3;
+	private TabItem tbtmNewItem_4;
+	private TabItem tbtmNewItem_5;
+	private TabItem tbtmNewItem_6;
+	private TabItem tbtmNewItem_7;
+	private Composite composite;
+	private Composite composite_1;
 	
 	public ClausewitzMapGenMenu(ClausewitzMapGenProgram program)
 	{
@@ -141,10 +155,20 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		ClausewitzMapGenMenu menu = this; 
 		shell.setLayout(new GridLayout(2, true));
 		
-		Button btnStart = new Button(shell, SWT.NONE);
-		GridData gd_btnStart = new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1);
-		gd_btnStart.widthHint = 576;
-		btnStart.setLayoutData(gd_btnStart);
+		tabFolder = new TabFolder(shell, SWT.NONE);
+		GridData gd_tabFolder = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_tabFolder.heightHint = 275;
+		gd_tabFolder.widthHint = 565;
+		tabFolder.setLayoutData(gd_tabFolder);
+		
+		tbtmNewItem_1 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_1.setText("New Item");
+		
+		composite_1 = new Composite(tabFolder, SWT.NONE);
+		tbtmNewItem_1.setControl(composite_1);
+		
+		Button btnStart = new Button(composite_1, SWT.NONE);
+		btnStart.setBounds(0, 250, 565, 25);
 		btnStart.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -154,15 +178,19 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		});
 		btnStart.setText("Start");
 		
-		btnNewButton = new Button(shell, SWT.NONE);
+		tbtmNewItem = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem.setText("New Item");
+		
+		composite = new Composite(tabFolder, SWT.NONE);
+		tbtmNewItem.setControl(composite);
+		
+		btnNewButton = new Button(composite, SWT.NONE);
+		btnNewButton.setBounds(0, 250, 565, 25);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 			}
 		});
-		GridData gd_btnNewButton = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_btnNewButton.widthHint = 229;
-		btnNewButton.setLayoutData(gd_btnNewButton);
 		btnNewButton.setText("River Map");
 		
 		Menu menu_1 = new Menu(btnNewButton);
@@ -176,6 +204,24 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		
 		mntmGenerateAdditionalRivers = new MenuItem(menu_1, SWT.NONE);
 		mntmGenerateAdditionalRivers.setText("Generate Additional Rivers");
+		
+		tbtmNewItem_2 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_2.setText("New Item");
+		
+		tbtmNewItem_3 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_3.setText("New Item");
+		
+		tbtmNewItem_4 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_4.setText("New Item");
+		
+		tbtmNewItem_5 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_5.setText("New Item");
+		
+		tbtmNewItem_6 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_6.setText("New Item");
+		
+		tbtmNewItem_7 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_7.setText("New Item");
 		new Label(shell, SWT.NONE);
 		
 		progressText = new Label(shell, SWT.NONE);
@@ -185,11 +231,12 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		new Label(shell, SWT.NONE);
 		
 		progressBar = new ProgressBar(shell, SWT.NONE); 
-		GridData gd_progressBar = new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1);
+		GridData gd_progressBar = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
 		gd_progressBar.widthHint = 593;
 		progressBar.setLayoutData(gd_progressBar);
 		progressBar.setMaximum(mapHeight);
 		progressBar.setSelection(0);
+		new Label(shell, SWT.NONE);
 	}
 	
 	public void setMapHeight(int height) {
