@@ -1,5 +1,6 @@
 package trayprogmulti;
 
+import java.net.InetAddress;
 import java.util.*; 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -14,6 +15,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Table;
 
 public class TrayProgMulti {
 	
@@ -21,14 +23,16 @@ public class TrayProgMulti {
 	/* VARIABLE SECTION */
 	/********************/
 	protected Shell shell;
-	TrayProgServerDaemon serverDaemon;
+	private List clientList; 
+	private TrayProgServerDaemon serverDaemon;
+	private static TrayProgMulti window; 
 	
 	public static void main(String[] args) {
 		
 		/********************/
 		/* VARIABLE SECTION */
 		/********************/
-		TrayProgMulti window = new TrayProgMulti();
+		window = new TrayProgMulti();
 		
 		/*****************************/
 		/* METHOD TO OPEN GUI WINDOW */
@@ -96,8 +100,8 @@ public class TrayProgMulti {
 		shell.setLayout(new GridLayout(2, false));
 		
 		Button btnStartServer = new Button(shell, SWT.NONE);
-		GridData gd_btnStartServer = new GridData(SWT.LEFT, SWT.FILL, true, false, 1, 1);
-		gd_btnStartServer.widthHint = 336;
+		GridData gd_btnStartServer = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_btnStartServer.widthHint = 334;
 		gd_btnStartServer.heightHint = 50;
 		btnStartServer.setLayoutData(gd_btnStartServer);
 		btnStartServer.addSelectionListener(new SelectionAdapter() {
@@ -105,14 +109,14 @@ public class TrayProgMulti {
 			public void widgetSelected(SelectionEvent e) {
 				System.out.println("Main program starting server daemon"); 
 				
-				serverDaemon = new TrayProgServerDaemon(); 
+				serverDaemon = new TrayProgServerDaemon(window); 
 			}
 		});
 		btnStartServer.setText("Start server");
 		
 		Button btnEndServer = new Button(shell, SWT.NONE);
-		GridData gd_btnEndServer = new GridData(SWT.LEFT, SWT.FILL, false, false, 1, 1);
-		gd_btnEndServer.widthHint = 332;
+		GridData gd_btnEndServer = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
+		gd_btnEndServer.widthHint = 334;
 		gd_btnEndServer.heightHint = 67;
 		btnEndServer.setLayoutData(gd_btnEndServer);
 		btnEndServer.addSelectionListener(new SelectionAdapter() {
@@ -133,9 +137,32 @@ public class TrayProgMulti {
 		});
 		btnEndServer.setText("End server");
 		
-		List list = new List(shell, SWT.BORDER);
+		clientList = new List(shell, SWT.BORDER);
 		GridData gd_list = new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1);
 		gd_list.heightHint = 160;
-		list.setLayoutData(gd_list);
+		clientList.setLayoutData(gd_list);
+		
+		Button btnExecuteDefaultOperation = new Button(shell, SWT.NONE);
+		btnExecuteDefaultOperation.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		btnExecuteDefaultOperation.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
+		btnExecuteDefaultOperation.setText("Execute Default Operation");
+		
+		Button btnExecuteOpenCommand = new Button(shell, SWT.NONE);
+		GridData gd_btnExecuteOpenCommand = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_btnExecuteOpenCommand.widthHint = 157;
+		btnExecuteOpenCommand.setLayoutData(gd_btnExecuteOpenCommand);
+		btnExecuteOpenCommand.setText("Execute Open Command");
+		
+		Button btnExecuteCloseCommand = new Button(shell, SWT.NONE);
+		btnExecuteCloseCommand.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		btnExecuteCloseCommand.setText("Execute Close Command");
+	}
+
+	public void addClient(InetAddress inetAddress) {
+		clientList.add(inetAddress.toString());
 	}
 }

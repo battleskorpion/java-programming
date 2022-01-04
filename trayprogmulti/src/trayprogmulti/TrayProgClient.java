@@ -10,9 +10,9 @@ public class TrayProgClient {
 	public static void main(String args[]) {
 		
 		try {
-			String ip = "10.10.25.151"; 
+			String ip = "0.0.0.0"; 	// 10.10.25.151 <-
 			
-			Socket socket = new Socket(ip, 5555); 
+			Socket socket = new Socket(ip, 6543); 
 			
 			InputStream is = socket.getInputStream(); 
 			

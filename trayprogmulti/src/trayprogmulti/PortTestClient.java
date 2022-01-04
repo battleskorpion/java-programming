@@ -8,7 +8,7 @@ public class PortTestClient {
 	public static void main(String args[]) {
 		
 		try {
-			Socket socket = new Socket("192.168.0.245", 5555); 
+			Socket socket = new Socket("192.168.0.245", 6543); 
 			
 			InputStream is = socket.getInputStream(); 
 			

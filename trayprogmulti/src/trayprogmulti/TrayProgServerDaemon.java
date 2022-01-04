@@ -4,13 +4,18 @@ package trayprogmulti;
 /* IMPORT SECTION */
 /******************/
 import java.net.*;
+
+import org.eclipse.swt.widgets.Display;
+
 import java.io.*; 
 
 public class TrayProgServerDaemon extends Thread {
 	
 	//public boolean continueProcess; 
+	private TrayProgMulti menu; 
 	
-	public TrayProgServerDaemon() {
+	public TrayProgServerDaemon(TrayProgMulti menu) {
+		this.menu = menu; 
 		start(); 
 	}
 	
@@ -25,6 +30,13 @@ public class TrayProgServerDaemon extends Thread {
 				while (!Thread.interrupted()) {
 					Socket socketToClient = serverSocket.accept(); 
 					
+					/* TEST */ 
+		            Display.getDefault().asyncExec(new Runnable() {
+		                public void run() {
+		                	menu.addClient(socketToClient.getInetAddress()); 
+		                }
+		             });
+					
 					new TrayProgClientHandler(socketToClient); 
 					System.out.println("iteration"); 
 					//socketToClient.close(); 
@@ -34,6 +46,7 @@ public class TrayProgServerDaemon extends Thread {
 			} 
 			catch (Exception exc) {
 				System.out.println("Error: " + exc.toString()); 
+				exc.printStackTrace();
 			}
 		}
 		
