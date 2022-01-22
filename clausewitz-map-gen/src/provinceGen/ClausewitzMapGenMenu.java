@@ -1,9 +1,10 @@
 package provinceGen;
+
+import abstractProgram.abstractProgram.AbstractProgramWindow;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import abstractProgram.abstractProgram.AbstractProgramWindow;
-
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -19,7 +20,7 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Composite; 
 
-public class ClausewitzMapGenMenu extends AbstractProgramWindow{
+public class ClausewitzMapGenMenu extends AbstractProgramWindow {
 
 	protected Shell shell;
 	private int mapHeight = 2048; 		// 2048 is default
@@ -27,7 +28,6 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 	@SuppressWarnings("unused")			// is fine for now 
 	private ClausewitzMapGenProgram program; 
 	private ProvinceGeneration provinceGen; 
-	Label progressText; 
 	private Button btnNewButton;
 	private MenuItem mntmCreateBlankRiver;
 	private MenuItem mntmGenerateNewRiver;
@@ -43,6 +43,7 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 	private TabItem tbtmNewItem_7;
 	private Composite composite;
 	private Composite composite_1;
+	private Label progressText;
 	
 	public ClausewitzMapGenMenu(ClausewitzMapGenProgram program)
 	{
@@ -150,14 +151,14 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(600, 400);
+		shell.setSize(900, 600);
 		shell.setText("SWT Application");
 		ClausewitzMapGenMenu menu = this; 
-		shell.setLayout(new GridLayout(2, true));
+		shell.setLayout(new GridLayout(1, true));
 		
 		tabFolder = new TabFolder(shell, SWT.NONE);
-		GridData gd_tabFolder = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_tabFolder.heightHint = 275;
+		GridData gd_tabFolder = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_tabFolder.heightHint = 475;
 		gd_tabFolder.widthHint = 565;
 		tabFolder.setLayoutData(gd_tabFolder);
 		
@@ -168,7 +169,7 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		tbtmNewItem_1.setControl(composite_1);
 		
 		Button btnStart = new Button(composite_1, SWT.NONE);
-		btnStart.setBounds(0, 250, 565, 25);
+		btnStart.setBounds(10, 464, 846, 25);
 		btnStart.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -178,6 +179,10 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		});
 		btnStart.setText("Start");
 		
+		progressText = new Label(composite_1, SWT.NONE);
+		progressText.setBounds(10, 443, 846, 15);
+		progressText.setText("New Label");
+		
 		tbtmNewItem = new TabItem(tabFolder, SWT.NONE);
 		tbtmNewItem.setText("New Item");
 		
@@ -185,7 +190,7 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		tbtmNewItem.setControl(composite);
 		
 		btnNewButton = new Button(composite, SWT.NONE);
-		btnNewButton.setBounds(0, 250, 565, 25);
+		btnNewButton.setBounds(10, 464, 846, 25);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -222,21 +227,13 @@ public class ClausewitzMapGenMenu extends AbstractProgramWindow{
 		
 		tbtmNewItem_7 = new TabItem(tabFolder, SWT.NONE);
 		tbtmNewItem_7.setText("New Item");
-		new Label(shell, SWT.NONE);
-		
-		progressText = new Label(shell, SWT.NONE);
-		progressText.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true, 1, 1));
-		progressText.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
-		progressText.setVisible(true);
-		new Label(shell, SWT.NONE);
 		
 		progressBar = new ProgressBar(shell, SWT.NONE); 
 		GridData gd_progressBar = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
-		gd_progressBar.widthHint = 593;
+		gd_progressBar.widthHint = 874;
 		progressBar.setLayoutData(gd_progressBar);
 		progressBar.setMaximum(mapHeight);
 		progressBar.setSelection(0);
-		new Label(shell, SWT.NONE);
 	}
 	
 	public void setMapHeight(int height) {

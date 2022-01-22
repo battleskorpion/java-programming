@@ -52,6 +52,7 @@ public class ProvinceGeneration {
 	private static ArrayList<Point> seedsLand = new ArrayList<Point>(numSeedsY * numSeedsX); 	// values of point stored as x, y
 	private static ArrayList<Point> seedsSea = new ArrayList<Point>(numSeedsY * numSeedsX); 	// values of point stored as x, y
 	//private HashMap<Point, Point> closestSeedToPoint; 											// TODO: EXPERIMENTAL WITH JFA
+	private static ArrayList<HashMap<Point, Integer>> seedsRGBValueMaps = new ArrayList<HashMap<Point, Integer>>(2); 
 	private static HashMap<Point, Integer> seedsLandRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
 	private static HashMap<Point, Integer> seedsSeaRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
 	//private static volatile HashMap<Point, Point> offset = new HashMap<Point, Point>((imageWidth * imageHeight)); 	//TODO: TESTING 
@@ -103,6 +104,12 @@ public class ProvinceGeneration {
 		 * set progress stage of province generation
 		 */
 		parentMenu.setProgressStage("Preparing...", 5);  
+		
+		/**
+		 * add seed rgb value hashmaps to list of hashmaps
+		 */
+		seedsRGBValueMaps.add(seedsLandRGBValue);
+		seedsRGBValueMaps.add(seedsSeaRGBValue);
 		
 		loadHeightmap(); 
 		imageWidth = heightmap.getWidth(); 			
@@ -169,12 +176,32 @@ public class ProvinceGeneration {
 				}
 				else {
 					/* prov color */
-					color = new Color(random.nextInt(192) + 64, random.nextInt(192) + 64, random.nextInt(192) + 64); 
+					boolean colorExists = false; 
 					
-					// Color -> int
-					rgb = color.getRed(); 
-					rgb = (rgb << 8) + color.getGreen();
-					rgb = (rgb << 8) + color.getBlue();
+					/**
+					 * generate new color until unique color generated (color does not exist already) 
+					 */
+					do {
+						color = new Color(random.nextInt(192) + 64, random.nextInt(192) + 64, random.nextInt(192) + 64); 
+						
+						// Color -> int
+						rgb = color.getRed(); 
+						rgb = (rgb << 8) + color.getGreen();
+						rgb = (rgb << 8) + color.getBlue();
+						
+						/**
+						 * check if color already exists
+						 */
+						for (HashMap<Point, Integer> seedColorValues: seedsRGBValueMaps) 
+						{
+							if(seedColorValues.containsValue(color)) {
+								colorExists = true; 
+								break; 
+							} 
+						}
+					}
+					while(colorExists); 
+					
 				}
 				
 				/* calculate sea or land prov. */  
@@ -706,7 +733,7 @@ public class ProvinceGeneration {
 			try {
 				for (int y = startY; y < endY; y++) {
 					for (int x = 0; x < imageWidth; x++) {
-						int xOffset = (int) (((widthPerSeed)  * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5)));		// * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5)));	 good values for 32*32 seeds and 4608 * 2816 image 
+						int xOffset = 0;//(int) (((widthPerSeed)  * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5)));		// * ((noise.getValue(x * 0.005, y * 0.005, 0.0) - 1) * 0.5)));	 good values for 32*32 seeds and 4608 * 2816 image 
 						int yOffset = (int) (((heightPerSeed) * ((noise.getValue(x * 0.005, y * 0.005, 1.0) - 1) * 0.5))); 
 						int rgb;
 								
