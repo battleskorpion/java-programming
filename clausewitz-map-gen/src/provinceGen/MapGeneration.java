@@ -28,6 +28,7 @@ public class MapGeneration {
 	protected static ArrayList<ArrayList<Point>> seeds = new ArrayList<ArrayList<Point>>(2); 									
 	protected static ArrayList<HashMap<Integer, HashMap<Point, Integer>>> seedsRGBValueMaps 
 			= new ArrayList<HashMap<Integer, HashMap<Point, Integer>>>(2); 
+	protected static HashMap<Point, Integer> seedsRGBValues; 
 	protected static int rgb_white; 
 	protected static BufferedImage heightmap; 				// elevation data heightmap 
 	protected static BufferedImage stateBorderMap; 	// heightmap of preferred borders 
