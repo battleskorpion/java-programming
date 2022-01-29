@@ -34,6 +34,10 @@ public class TrayProgClientHandler extends Thread
 				while (!clientSocket.isClosed())
 				{
 					System.out.println("BEFORE WAIT");
+					
+					/**
+					 * waits 
+					 */
 					serverDaemon.wait();
 					
 					System.out.println("Client handler sending command"); 		// TODO: debug only

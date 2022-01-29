@@ -312,40 +312,7 @@ public class TrayProgMulti extends AbstractProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				if (serverDaemon == null) {
-					return; 
-				}
-				
-				System.out.println("default command sent");
-				
-				enableButtons(buttons, false);
-				
-				serverDaemon.setDiskCommand("default");
-				serverDaemon.executeDiskCommand();
-				
-				try
-				{
-					new java.util.Timer().schedule(new java.util.TimerTask() 
-					{
-						@Override
-					    public void run() 
-						{
-							shell.getDisplay().syncExec( new Runnable () // very important to run on display thread !!!
-							{
-								@Override
-								public void run () 
-								{
-									enableButtons(buttons, true);
-								}
-							});
-					    }
-					}, 
-					8000);
-				}
-				catch(Exception exc)
-				{
-					exc.printStackTrace(); 
-				}
+				executeCommand("default"); 
 			}
 		});
 		
@@ -354,40 +321,7 @@ public class TrayProgMulti extends AbstractProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				if (serverDaemon == null) {
-					return; 
-				}
-				
-				System.out.println("open command sent");
-				
-				enableButtons(buttons, false);
-				
-				serverDaemon.setDiskCommand("open");
-				serverDaemon.executeDiskCommand();
-				
-				try
-				{
-					new java.util.Timer().schedule(new java.util.TimerTask() 
-					{
-						@Override
-					    public void run() 
-						{
-							shell.getDisplay().syncExec( new Runnable () 
-							{
-								@Override
-								public void run () 
-								{
-									enableButtons(buttons, true);
-								}
-							});
-					    }
-					}, 
-					3500);
-				} 
-				catch(Exception exc)
-				{
-					exc.printStackTrace(); 
-				}
+				executeCommand("open"); 
 			}
 		});
 		
@@ -396,41 +330,7 @@ public class TrayProgMulti extends AbstractProgramWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				
-				if (serverDaemon == null) {
-					return; 
-				}
-				
-				System.out.println("close command sent");
-				
-				enableButtons(buttons, false);
-				
-				serverDaemon.setDiskCommand("close");
-				serverDaemon.executeDiskCommand();
-				
-				try 
-				{
-					new java.util.Timer().schedule(new java.util.TimerTask() 
-					{
-						@Override
-					    public void run() 
-						{
-							shell.getDisplay().syncExec( new Runnable () 
-							{
-								@Override
-								public void run() 
-								{
-									enableButtons(buttons, true);
-								}
-							});
-					    }
-					}, 
-					6000);
-				}
-				catch(Exception exc)
-				{
-					exc.printStackTrace(); 
-				}
+				executeCommand("close"); 
 			}
 		});
 		
@@ -467,7 +367,6 @@ public class TrayProgMulti extends AbstractProgramWindow
 				button.setEnabled(true);
 			}
 		}
-		
 		else
 		{
 			for (Button button: buttons)
@@ -476,4 +375,49 @@ public class TrayProgMulti extends AbstractProgramWindow
 			}
 		}
 	}
+	
+	/**
+	 * Execution of the given command
+	 * @param command
+	 */
+	private void executeCommand(String command)
+	{
+		if (serverDaemon == null) {
+			return; 
+		}
+		
+		System.out.println(command + "command sending.");
+		
+		enableButtons(buttons, false);
+		
+		serverDaemon.setDiskCommand(command);
+		serverDaemon.executeDiskCommand();
+		
+		try 
+		{
+			new java.util.Timer().schedule(new java.util.TimerTask() 
+			{
+				@Override
+			    public void run() 
+				{
+					shell.getDisplay().syncExec(new Runnable() 
+					{
+						@Override
+						public void run() 
+						{
+							enableButtons(buttons, true);
+						}
+					});
+			    }
+			}, 
+			6000);
+		}
+		catch(Exception exc)
+		{
+			exc.printStackTrace(); 
+		}
+		
+		System.out.println(command + "command sent.");
+	}
+	
 }

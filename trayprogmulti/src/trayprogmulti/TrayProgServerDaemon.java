@@ -22,7 +22,8 @@ public class TrayProgServerDaemon extends Thread
 	
 	public TrayProgServerDaemon(TrayProgMulti menu) 
 	{
-		if (menu == null) {
+		if (menu == null) 
+		{
 			System.out.println("Fatal error. Menu is null."); 
 			return; 
 		}
@@ -32,6 +33,11 @@ public class TrayProgServerDaemon extends Thread
 	
 	public void run() 
 	{
+		/**
+		 * VARIABLE SECTION 
+		 */
+		TrayProgClientHandler clientHandler; 
+		
 		if (!Thread.interrupted()) 
 		{
 			try 
@@ -49,18 +55,18 @@ public class TrayProgServerDaemon extends Thread
 		            {
 		                public void run() 
 		                {
-		                	try {
-		                		//System.out.println(menu); 
+		                	try 
+		                	{
 		                		menu.addClient(socketToClient.getInetAddress()); 
 		                	}
-		                	catch(NullPointerException exc) {
+		                	catch(NullPointerException exc) 
+		                	{
 		                		exc.printStackTrace();
 		                	}
 		                }
 		             });
 					
-		            
-					TrayProgClientHandler clientHandler = new TrayProgClientHandler(socketToClient, this); 
+					clientHandler = new TrayProgClientHandler(socketToClient, this); 
 					clientHandlers.add(clientHandler); 
 					System.out.println("iteration"); 
 					//socketToClient.close(); 
@@ -78,10 +84,6 @@ public class TrayProgServerDaemon extends Thread
 		System.out.println("server daemon ending"); 
 	}
 	
-	//public void terminate() {
-	//	continueProcess = false; 
-	//}
-	
 	/**
 	 * 
 	 * @param command disk command to send to client handler 
@@ -89,6 +91,10 @@ public class TrayProgServerDaemon extends Thread
 	public void setDiskCommand(String command) 
 	{
 		this.command = command; 
+		
+		/**
+		 * for loop
+		 */
 		for (TrayProgClientHandler clientHandler: clientHandlers) 
 		{
 			clientHandler.setDiskCommand(command);  
