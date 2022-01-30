@@ -24,15 +24,16 @@ public class MapGeneration {
 	protected static int imageHeight = 2816;	// 1024, 512, 256 works	// 2048 - default
 	protected static int numSeedsY = 32; 		// 64 is ok	// 64^2 = 4096 
 	protected static int numSeedsX = 32; 		// 64 is ok // 64^2 = 4096
+	protected static int numSeeds = numSeedsX * numSeedsY; 
 	protected static ArrayList<ArrayList<ArrayList<Integer>>> points;  							// stored y, x; stores rgb, seed (0 or 1), land/sea (0 or 1)
 	protected static ArrayList<ArrayList<Point>> seeds = new ArrayList<ArrayList<Point>>(2); 									
 	protected static ArrayList<HashMap<Integer, HashMap<Point, Integer>>> seedsRGBValueMaps 
 			= new ArrayList<HashMap<Integer, HashMap<Point, Integer>>>(2); 
-	protected static HashMap<Point, Integer> seedsRGBValues; 
+	protected static HashMap<Point, Integer> seedsRGBValues = new HashMap<Point, Integer>((numSeeds) / 4); 
 	protected static int rgb_white; 
-	protected static BufferedImage heightmap; 				// elevation data heightmap 
-	protected static BufferedImage stateBorderMap; 	// heightmap of preferred borders 
-	private boolean constructorCalled = false; 	 // whether the constructor of this class has been called previously
+	protected static BufferedImage heightmap; 			// elevation data heightmap 
+	protected static BufferedImage stateBorderMap; 		// heightmap of preferred borders 
+	private boolean constructorCalled = false; 			// whether the constructor of this class has been called previously
 	
 	public MapGeneration() {
 		/**

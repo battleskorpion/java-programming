@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
@@ -139,11 +140,11 @@ public class ProvinceGeneration extends MapGeneration {
 					stateBorderMapValues.add(stateMapColor); 
 					if (heightmapHeight < HEIGHTMAP_SEA_LEVEL) {
 						stateBorderMapValuesSea.add(stateMapColor); 
-						seedsRGBValueMaps.get(1).put(stateMapColor, new HashMap<Point, Integer>()); 
+						seedsSeaRGBValueMaps.put(stateMapColor, new HashMap<Point, Integer>()); 
 					}
 					else {
 						stateBorderMapValuesLand.add(stateMapColor); 
-						seedsRGBValueMaps.get(0).put(stateMapColor, new HashMap<Point, Integer>()); 
+						seedsLandRGBValueMaps.put(stateMapColor, new HashMap<Point, Integer>()); 
 					} 
 					
 				}
@@ -235,7 +236,6 @@ public class ProvinceGeneration extends MapGeneration {
 				else {
 					seedsLand.add(point); 
 					seedsLandRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
-					
 					//seedsLandRGBValue.put(point, rgb); 
 				}
 				seedsRGBValues.put(point, rgbInteger); 
@@ -456,21 +456,28 @@ public class ProvinceGeneration extends MapGeneration {
 //		return seedsKeyHashMap.get(nearest); 
 //	}
 	
+	static boolean j = false; 
 	// function is faster
 	//
-	private static int determineColor(int x, int xOffset, int y, int yOffset, ArrayList<Point> seeds, final HashMap<Point, Integer> seedsRGBValue) 
+	private static int determineColor(int x, int xOffset, int y, int yOffset, final HashMap<Point, Integer> seedsRGBValue)  // ArrayList<Point> seeds
 	{
 		int nearestColor = rgb_white; 			// color of nearest seed (int value) 
 			           							// (default white)
 		int dist = Integer.MAX_VALUE; 			// select a big number
+		
+		if (!j) {
+			System.out.println(seedsRGBValue.keySet().size()); //TODO: Test
+			j = true; 
+		} 
 		
 		//Point point = new Point(x + xOffset, y + yOffset); 
 		
 		//determineClosestPoint(point, seedsRGBValue); 
 		
 		// iterate through each seed
-		for (int s = 0; s < seeds.size(); s++) {
-			Point point = seeds.get(s); 
+		//for (int s = 0; s < seeds.size(); s++) {
+		for (Iterator<Point> pointIterator = seedsRGBValue.keySet().iterator(); pointIterator.hasNext();) {
+			Point point = pointIterator.next(); 
 			
 			// calculate the difference in x and y direction
 			int xdiff = point.x - (x + xOffset);			
@@ -722,18 +729,27 @@ public class ProvinceGeneration extends MapGeneration {
 						
 						if (((heightmapValue >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
 							if (stateBorderMapValuesSea.contains(stateBorderValue)) {
-								rgb = determineColor(x, xOffset, y, yOffset, seedsSea, seedsSeaRGBValueMaps.get(stateBorderValue)); 
+								rgb = determineColor(x, xOffset, y, yOffset, seedsSeaRGBValueMaps.get(stateBorderValue)); 
 							}
-							else {
-								rgb = determineColor(x, xOffset, y, yOffset, seedsSea, seedsLandRGBValueMaps.get(stateBorderValue)); 
+							else if (seedsLandRGBValueMaps.get(stateBorderValue) != null){
+								rgb = determineColor(x, xOffset, y, yOffset, seedsLandRGBValueMaps.get(stateBorderValue)); 
+							}
+							else 
+							{
+								rgb = determineColor(x, xOffset, y, yOffset, seedsRGBValues); 
 							}
 						}
 						else {
 							if (stateBorderMapValuesLand.contains(stateBorderValue)) {
-								rgb = determineColor(x, xOffset, y, yOffset, seedsLand, seedsLandRGBValueMaps.get(stateBorderValue)); 
+								rgb = determineColor(x, xOffset, y, yOffset, seedsLandRGBValueMaps.get(stateBorderValue)); 
+								//System.out.println(seedsLandRGBValueMaps.get(stateBorderValue)); //TODO: TEST
 							}
-							else {
-								rgb = determineColor(x, xOffset, y, yOffset, seedsSea, seedsSeaRGBValueMaps.get(stateBorderValue)); 
+							else if (seedsSeaRGBValueMaps.get(stateBorderValue) != null){
+								rgb = determineColor(x, xOffset, y, yOffset, seedsSeaRGBValueMaps.get(stateBorderValue)); 
+							}
+							else
+							{
+								rgb = determineColor(x, xOffset, y, yOffset, seedsRGBValues); 
 							}
 						}
 						
