@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
@@ -43,7 +44,7 @@ public class ProvinceGeneration extends MapGeneration {
 	
 	//public static int INT_WHITE = ((Color.white.getRed() << 8) + Color.white.getGreen()) << 8 + Color.white.getBlue(); 						// stored y, x; stores rgb, seed (0 or 1), land/sea (0 or 1)
 	private static ArrayList<Point> seedsLand = new ArrayList<Point>(numSeedsY * numSeedsX); 	// values of point stored as x, y
-	private static ArrayList<Point> seedsSea = new ArrayList<Point>(numSeedsY * numSeedsX); 	// values of point stored as x, y
+	private static ArrayList<Point> seedsSea  = new ArrayList<Point>(numSeedsY * numSeedsX); 	// values of point stored as x, y
 	//private HashMap<Point, Point> closestSeedToPoint; 											
 	// TODO: private static HashMap<Point, Integer> seedsLandRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
 	// TODO: private static HashMap<Point, Integer> seedsSeaRGBValue = new HashMap<Point, Integer>((numSeedsY * numSeedsX) / 4); 
@@ -56,9 +57,9 @@ public class ProvinceGeneration extends MapGeneration {
 	private static ClausewitzMapGenMenu parentMenu; 
 	private static HashMap<Integer, HashMap<Point, Integer>> seedsLandRGBValueMaps = new HashMap<Integer, HashMap<Point, Integer>>(); 
 	private static HashMap<Integer, HashMap<Point, Integer>> seedsSeaRGBValueMaps  = new HashMap<Integer, HashMap<Point, Integer>>(); 
-	private static ArrayList<Integer> stateBorderMapValues = new ArrayList<Integer>(); 
+	private static ArrayList<Integer> stateBorderMapValues     = new ArrayList<Integer>(); 
 	private static ArrayList<Integer> stateBorderMapValuesLand = new ArrayList<Integer>(); 
-	private static ArrayList<Integer> stateBorderMapValuesSea = new ArrayList<Integer>(); 
+	private static ArrayList<Integer> stateBorderMapValuesSea  = new ArrayList<Integer>(); 
 	//public static void main (String args[]) 
 	//{
 	//	provinceGeneration(); 
@@ -135,7 +136,7 @@ public class ProvinceGeneration extends MapGeneration {
 				
 				heightmapHeight = (heightmap.getRGB(seedX, seedY) >> 16) & 0xFF; 			// heightmap is in grayscale meaning only need to find red value to get height value at point. 
 				stateMapColor = stateBorderMap.getRGB(seedX, seedY); 
-				if (!stateBorderMapValues.contains(stateMapColor)); 
+				if (!stateBorderMapValues.contains(stateMapColor)) 
 				{	
 					stateBorderMapValues.add(stateMapColor); 
 					if (heightmapHeight < HEIGHTMAP_SEA_LEVEL) {
@@ -148,6 +149,10 @@ public class ProvinceGeneration extends MapGeneration {
 					} 
 					
 				}
+				//else 
+				//{
+				//	
+				//}
 				
 				//boolean colorExists; 
 				aa: 
@@ -230,16 +235,20 @@ public class ProvinceGeneration extends MapGeneration {
 				Point point = new Point(seedX, seedY); 
 				if (heightmapHeight < HEIGHTMAP_SEA_LEVEL) {
 					seedsSea.add(point); 
-					seedsSeaRGBValueMaps.get(stateMapColor).put(point, rgbInteger);
 					//seedsSeaRGBValue.put(point, rgb); 
 				}
 				else {
 					seedsLand.add(point); 
-					seedsLandRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
 					//seedsLandRGBValue.put(point, rgb); 
 				}
 				seedsRGBValues.put(point, rgbInteger); 
-
+				if (seedsSeaRGBValueMaps.containsKey(stateMapColor)) {
+					seedsSeaRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
+				} 
+				else if (seedsLandRGBValueMaps.containsKey(stateMapColor)) {
+					seedsLandRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
+				}
+				
 				// set color at pixel cords
 				try {
 					image.setRGB(seedX, seedY, rgb);  
@@ -456,7 +465,6 @@ public class ProvinceGeneration extends MapGeneration {
 //		return seedsKeyHashMap.get(nearest); 
 //	}
 	
-	static boolean j = false; 
 	// function is faster
 	//
 	private static int determineColor(int x, int xOffset, int y, int yOffset, final HashMap<Point, Integer> seedsRGBValue)  // ArrayList<Point> seeds
@@ -464,11 +472,6 @@ public class ProvinceGeneration extends MapGeneration {
 		int nearestColor = rgb_white; 			// color of nearest seed (int value) 
 			           							// (default white)
 		int dist = Integer.MAX_VALUE; 			// select a big number
-		
-		if (!j) {
-			System.out.println(seedsRGBValue.keySet().size()); //TODO: Test
-			j = true; 
-		} 
 		
 		//Point point = new Point(x + xOffset, y + yOffset); 
 		
@@ -677,15 +680,16 @@ public class ProvinceGeneration extends MapGeneration {
 		 */
 		private Simplex noise; 
 		
+		private Iterator<Entry<Integer, HashMap<Point, Integer>>> seedsSeaRGBValueMapsIterator; 
+		private Iterator<Entry<Integer, HashMap<Point, Integer>>> seedsLandRGBValueMapsIterator; 
+		private HashMap<Point, Integer> seedsLandRGBValues; 
+		private HashMap<Point, Integer> seedsSeaRGBValues; 
+		
 		/**
 		 * constructor (y set as 0 to imageHeight). Reccommended constructor for initial initialization. 
 		 */
 		public ForkColorDetermination() {
-			startY = 0;
-			endY = imageHeight; 
-			dy = endY - startY; 
-			noise = new Simplex(); 
-			noise.setNoiseQuality(NoiseQualitySimplex.SMOOTH); 
+			this(0, imageHeight); 
 		}
 		
 		/**
@@ -697,6 +701,20 @@ public class ProvinceGeneration extends MapGeneration {
 			dy = endY - startY; 
 			noise = new Simplex(); 
 			noise.setNoiseQuality(NoiseQualitySimplex.SMOOTH); 
+			
+			seedsSeaRGBValueMapsIterator  = seedsSeaRGBValueMaps.entrySet().iterator(); 
+			seedsLandRGBValueMapsIterator = seedsLandRGBValueMaps.entrySet().iterator(); 
+			seedsLandRGBValues = new HashMap<Point, Integer>();
+			seedsSeaRGBValues  = new HashMap<Point, Integer>(); 
+			
+			while(seedsSeaRGBValueMapsIterator.hasNext())
+			{
+				seedsSeaRGBValues.putAll(seedsSeaRGBValueMapsIterator.next().getValue());
+			}
+			while(seedsLandRGBValueMapsIterator.hasNext())
+			{
+				seedsLandRGBValues.putAll(seedsLandRGBValueMapsIterator.next().getValue());
+			}
 		}
 		
 		@Override
@@ -729,14 +747,15 @@ public class ProvinceGeneration extends MapGeneration {
 						
 						if (((heightmapValue >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
 							if (stateBorderMapValuesSea.contains(stateBorderValue)) {
+								System.out.println(seedsSeaRGBValueMaps.get(stateBorderValue)); 
 								rgb = determineColor(x, xOffset, y, yOffset, seedsSeaRGBValueMaps.get(stateBorderValue)); 
 							}
-							else if (seedsLandRGBValueMaps.get(stateBorderValue) != null){
-								rgb = determineColor(x, xOffset, y, yOffset, seedsLandRGBValueMaps.get(stateBorderValue)); 
-							}
+							// if (seedsLandRGBValueMaps.get(stateBorderValue) != null){
+							//	rgb = determineColor(x, xOffset, y, yOffset, seedsLandRGBValueMaps.get(stateBorderValue)); 
+							//}
 							else 
 							{
-								rgb = determineColor(x, xOffset, y, yOffset, seedsRGBValues); 
+								rgb = determineColor(x, xOffset, y, yOffset, seedsSeaRGBValues); 
 							}
 						}
 						else {
@@ -744,12 +763,12 @@ public class ProvinceGeneration extends MapGeneration {
 								rgb = determineColor(x, xOffset, y, yOffset, seedsLandRGBValueMaps.get(stateBorderValue)); 
 								//System.out.println(seedsLandRGBValueMaps.get(stateBorderValue)); //TODO: TEST
 							}
-							else if (seedsSeaRGBValueMaps.get(stateBorderValue) != null){
-								rgb = determineColor(x, xOffset, y, yOffset, seedsSeaRGBValueMaps.get(stateBorderValue)); 
-							}
+							//else if (seedsSeaRGBValueMaps.get(stateBorderValue) != null){
+							//	rgb = determineColor(x, xOffset, y, yOffset, seedsSeaRGBValueMaps.get(stateBorderValue)); 
+							//}
 							else
 							{
-								rgb = determineColor(x, xOffset, y, yOffset, seedsRGBValues); 
+								rgb = determineColor(x, xOffset, y, yOffset, seedsLandRGBValues); 
 							}
 						}
 						
@@ -772,6 +791,7 @@ public class ProvinceGeneration extends MapGeneration {
 				exc.printStackTrace();
 			}
 		}
+		
 	}
 	
 }
