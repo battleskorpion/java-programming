@@ -22,8 +22,8 @@ public class MapGeneration {
 	public static final int SEA_LEVEL_INT_RGB = ((SEA_LEVEL_RGB.getRed() << 8) + SEA_LEVEL_RGB.getGreen()) << 8 + SEA_LEVEL_RGB.getBlue(); 
 	protected static int imageWidth = 4608; 	// 1024, 512, 256 works	// 5632 - default
 	protected static int imageHeight = 2816;	// 1024, 512, 256 works	// 2048 - default
-	protected static int numSeedsY = 32; 		// 64 is ok	// 64^2 = 4096 
-	protected static int numSeedsX = 32; 		// 64 is ok // 64^2 = 4096
+	protected static int numSeedsY = 64; 		// 64 is ok	// 64^2 = 4096 
+	protected static int numSeedsX = 64; 		// 64 is ok // 64^2 = 4096
 	protected static int numSeeds = numSeedsX * numSeedsY; 
 	protected static ArrayList<ArrayList<ArrayList<Integer>>> points;  							// stored y, x; stores rgb, seed (0 or 1), land/sea (0 or 1)
 	protected static ArrayList<ArrayList<Point>> seeds = new ArrayList<ArrayList<Point>>(2); 									

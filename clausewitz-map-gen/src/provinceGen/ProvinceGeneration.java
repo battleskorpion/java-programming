@@ -42,7 +42,7 @@ public class ProvinceGeneration extends MapGeneration {
 	int blue = rgb & 0xFF;
 	*/	
 	
-	//public static int INT_WHITE = ((Color.white.getRed() << 8) + Color.white.getGreen()) << 8 + Color.white.getBlue(); 						// stored y, x; stores rgb, seed (0 or 1), land/sea (0 or 1)
+	//public static int INT_WHITE = ((Color.white.getRed() << 8) + Color.white.getGreen()) << 8 + Color.white.getBlue(); 				// stored y, x; stores rgb, seed (0 or 1), land/sea (0 or 1)
 	private static ArrayList<Point> seedsLand = new ArrayList<Point>(numSeedsY * numSeedsX); 	// values of point stored as x, y
 	private static ArrayList<Point> seedsSea  = new ArrayList<Point>(numSeedsY * numSeedsX); 	// values of point stored as x, y
 	//private HashMap<Point, Point> closestSeedToPoint; 											
@@ -138,17 +138,22 @@ public class ProvinceGeneration extends MapGeneration {
 				stateMapColor = stateBorderMap.getRGB(seedX, seedY); 
 				if (!stateBorderMapValues.contains(stateMapColor)) 
 				{	
-					stateBorderMapValues.add(stateMapColor); 
-					if (heightmapHeight < HEIGHTMAP_SEA_LEVEL) {
-						stateBorderMapValuesSea.add(stateMapColor); 
-						seedsSeaRGBValueMaps.put(stateMapColor, new HashMap<Point, Integer>()); 
-					}
-					else {
-						stateBorderMapValuesLand.add(stateMapColor); 
-						seedsLandRGBValueMaps.put(stateMapColor, new HashMap<Point, Integer>()); 
-					} 
-					
+					stateBorderMapValues.add(stateMapColor);
 				}
+				if (heightmapHeight < HEIGHTMAP_SEA_LEVEL) {
+					if(!stateBorderMapValuesSea.contains(stateMapColor))
+					{
+						stateBorderMapValuesSea.add(stateMapColor); 
+					} 
+					seedsSeaRGBValueMaps.putIfAbsent(stateMapColor, new HashMap<Point, Integer>()); 
+				}
+				else {
+					if(!stateBorderMapValuesLand.contains(stateMapColor))
+					{
+						stateBorderMapValuesLand.add(stateMapColor); 
+					} 
+					seedsLandRGBValueMaps.putIfAbsent(stateMapColor, new HashMap<Point, Integer>()); 
+				} 
 				//else 
 				//{
 				//	
@@ -235,19 +240,21 @@ public class ProvinceGeneration extends MapGeneration {
 				Point point = new Point(seedX, seedY); 
 				if (heightmapHeight < HEIGHTMAP_SEA_LEVEL) {
 					seedsSea.add(point); 
+					seedsSeaRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
 					//seedsSeaRGBValue.put(point, rgb); 
 				}
 				else {
 					seedsLand.add(point); 
+					seedsLandRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
 					//seedsLandRGBValue.put(point, rgb); 
 				}
 				seedsRGBValues.put(point, rgbInteger); 
-				if (seedsSeaRGBValueMaps.containsKey(stateMapColor)) {
-					seedsSeaRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
-				} 
-				else if (seedsLandRGBValueMaps.containsKey(stateMapColor)) {
-					seedsLandRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
-				}
+//				if (seedsSeaRGBValueMaps.containsKey(stateMapColor)) {
+//					seedsSeaRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
+//				} 
+//				else if (seedsLandRGBValueMaps.containsKey(stateMapColor)) {
+//					seedsLandRGBValueMaps.get(stateMapColor).put(point, rgbInteger); 
+//				}
 				
 				// set color at pixel cords
 				try {
@@ -372,6 +379,7 @@ public class ProvinceGeneration extends MapGeneration {
 		double durationInMilliseconds = 1.0 * (end - start) / 1000000;
 		System.out.println("Time: " + durationInMilliseconds + " milliseconds."); 
 		
+		System.out.println(seedsSeaRGBValueMaps); 
 		// testing
 		//
 //		try {
@@ -380,7 +388,7 @@ public class ProvinceGeneration extends MapGeneration {
 //			e.printStackTrace();
 //		}
 		
-		DefineProvinces.defineProvinces(points); 
+//		DefineProvinces.defineProvinces(points); TODO: FIXME
 	}
 	
 	//// function takes forever
@@ -747,7 +755,6 @@ public class ProvinceGeneration extends MapGeneration {
 						
 						if (((heightmapValue >> 16) & 0xFF) < HEIGHTMAP_SEA_LEVEL) {
 							if (stateBorderMapValuesSea.contains(stateBorderValue)) {
-								System.out.println(seedsSeaRGBValueMaps.get(stateBorderValue)); 
 								rgb = determineColor(x, xOffset, y, yOffset, seedsSeaRGBValueMaps.get(stateBorderValue)); 
 							}
 							// if (seedsLandRGBValueMaps.get(stateBorderValue) != null){
