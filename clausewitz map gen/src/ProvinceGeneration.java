@@ -1,5 +1,3 @@
-package provinceGen;
-
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -18,7 +16,7 @@ import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RejectedExecutionException;
 
-import net.sf.image4j.codec.bmp.*; 
+import net.sf.image4j.codec.bmp.*;
 import org.spongepowered.noise.*;
 import org.spongepowered.noise.module.source.Simplex;
 
@@ -54,7 +52,7 @@ public class ProvinceGeneration extends MapGeneration {
 	private static BufferedImage image; 
 	//private static BufferedImage testImage;		
 	//private static int testWidth = 100; 
-	private static ClausewitzMapGenMenu parentMenu; 
+	//private static ClausewitzMapGenMenu parentMenu;
 	private static HashMap<Integer, HashMap<Point, Integer>> seedsLandRGBValueMaps = new HashMap<Integer, HashMap<Point, Integer>>(); 
 	private static HashMap<Integer, HashMap<Point, Integer>> seedsSeaRGBValueMaps  = new HashMap<Integer, HashMap<Point, Integer>>(); 
 	private static ArrayList<Integer> stateBorderMapValues     = new ArrayList<Integer>(); 
@@ -68,13 +66,13 @@ public class ProvinceGeneration extends MapGeneration {
 	/**
 	 * Constructors
 	 */
-	public ProvinceGeneration() {
-		this(null); 
-	}
-	
-	public ProvinceGeneration(ClausewitzMapGenMenu parentWindow) {
-		ProvinceGeneration.parentMenu = parentWindow; 
-	}
+//	public ProvinceGeneration() {
+//		this(null);
+//	}
+//
+//	public ProvinceGeneration(ClausewitzMapGenMenu parentWindow) {
+//		ProvinceGeneration.parentMenu = parentWindow;
+//	}
 	
 	/**
 	 * assumes a ClausewitzMapGenMenu parentWindow 
@@ -88,7 +86,7 @@ public class ProvinceGeneration extends MapGeneration {
 		/**
 		 * set progress stage of province generation
 		 */
-		parentMenu.setProgressStage("Preparing...", 5);  
+//		parentMenu.setProgressStage("Preparing...", 5);
 		
 		/**
 		 * add seed rgb value hashmaps to list of hashmaps
@@ -96,13 +94,13 @@ public class ProvinceGeneration extends MapGeneration {
 		seedsRGBValueMaps.add(seedsLandRGBValueMaps);
 		seedsRGBValueMaps.add(seedsSeaRGBValueMaps);
 		
-		parentMenu.increaseProgress(); 
+//		parentMenu.increaseProgress();
 		
 		image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB); 
 		//testImage = new BufferedImage(testWidth, testWidth, BufferedImage.TYPE_INT_RGB); 	
-		parentMenu.increaseProgress(); 
-		
-		parentMenu.increaseProgress(); 
+//		parentMenu.increaseProgress();
+//
+//		parentMenu.increaseProgress();
 		
 		// white canvas (unnecessary)
 		for (int y = 0; y < imageHeight; y++) {
@@ -111,12 +109,12 @@ public class ProvinceGeneration extends MapGeneration {
 				image.setRGB(x, y, rgb_white);
 			}
 		}
-		parentMenu.increaseProgress(); 
+//		parentMenu.increaseProgress();
 		
 		/**
 		 * set progress stage of province generation
 		 */
-		parentMenu.setProgressStage("Generating seeds...", numSeedsY);  
+//		parentMenu.setProgressStage("Generating seeds...", numSeedsY);
 		
 		/* seeds */
 		// (seed generation is very quick) 
@@ -269,7 +267,7 @@ public class ProvinceGeneration extends MapGeneration {
 				}
 				
 			}
-			parentMenu.increaseProgress(); 
+//			parentMenu.increaseProgress();
 		}
 	
 		/**
@@ -293,7 +291,7 @@ public class ProvinceGeneration extends MapGeneration {
 		/**
 		 * set progress stage of province generation
 		 */
-		parentMenu.setProgressStage("Determining colors...", imageHeight); 
+//		parentMenu.setProgressStage("Determining colors...", imageHeight);
 		
 //		// EXPERIMENTAL JFA - SLOW :(
 		//
@@ -351,7 +349,7 @@ public class ProvinceGeneration extends MapGeneration {
 		/**
 		 * set progress stage of province generation
 		 */
-		parentMenu.setProgressStage("Modifying province borders...", 1); 
+//		parentMenu.setProgressStage("Modifying province borders...", 1);
 		
 		// smooth province borders
 		//for (int i = 0; i < 5; i++) 
@@ -359,21 +357,21 @@ public class ProvinceGeneration extends MapGeneration {
 			//provinceSmooth(); 	// will make setting to use smoothing instead? 
 									// (also removes exclaves in process) 
 			removeExclaves(); 		// doesn't seem to slow the program much
-			parentMenu.increaseProgress();
+//			parentMenu.increaseProgress();
 		//}
 			
 		// write image 
 		try {
-			parentMenu.setProgressStage("Writing image...", 1);
+//			parentMenu.setProgressStage("Writing image...", 1);
 			BMPEncoder.write(image, new File("output.bmp"));
-			parentMenu.increaseProgress();
+//			parentMenu.increaseProgress();
 		}
 		catch (IOException exc) {
 			exc.printStackTrace();
 			// error
 		}
 		
-		parentMenu.setProgressStage("Generation complete.", 0); 
+//		parentMenu.setProgressStage("Generation complete.", 0);
 		
 		long end = System.nanoTime();
 		double durationInMilliseconds = 1.0 * (end - start) / 1000000;

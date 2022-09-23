@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="spongepowerednoise">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../SpongePowered_noise-master/src/main/java" />
+    </SOURCES>
+  </library>
+</component>
